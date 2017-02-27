@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding:utf8
 
-from numpy import random
+from numpy import random, mat, eye
 
 '''
 # NumPy 矩阵和数字的区别
@@ -16,6 +16,19 @@ NumPy存在2中不同的数据类型:
 '''
 
 # 生成一个 4*4 的随机数组
-print random.rand(4, 4)
+randArray = random.rand(4, 4)
 
+# 转化关系， 数组转化为矩阵
+randMat = mat(randArray)
+# .I表示对矩阵求逆
+invRandMat = randMat.I
+# 输出结果
+print randArray, '\n', randMat, '\n', invRandMat
+# 矩阵和逆矩阵 进行求积 (单位矩阵，对角线都为1嘛，理论上4*4的矩阵其他的都为0)
+myEye = randMat*invRandMat
+# 误差
+print myEye - eye(4)
 
+'''
+如果上面的代码运行没有问题，说明numpy安装没有问题
+'''
