@@ -9,6 +9,7 @@ Decision Tree Source Code for Machine Learning in Action Ch. 3
 '''
 from math import log
 import operator
+import DecisionTreePlot as dtPlot
 
 
 def createDataSet():
@@ -26,13 +27,18 @@ def createDataSet():
                [1, 0, 'no'],
                [0, 1, 'no'],
                [0, 1, 'no']]
+    # dataSet = [['yes'],
+    #         ['yes'],
+    #         ['no'],
+    #         ['no'],
+    #         ['no']]
     labels = ['no surfacing', 'flippers']
     # change to discrete values
     return dataSet, labels
 
 
 def calcShannonEnt(dataSet):
-    """calcShannonEnt(calculate Shannon entropy 计算香农熵)
+    """calcShannonEnt(calculate Shannon entropy 计算label分类标签的香农熵)
 
     Args:
         dataSet 数据集
@@ -61,83 +67,136 @@ def calcShannonEnt(dataSet):
         prob = float(labelCounts[key])/numEntries
         # log base 2
         shannonEnt -= prob * log(prob, 2)
-        print '---', prob, prob * log(prob, 2), shannonEnt
+        # print '---', prob, prob * log(prob, 2), shannonEnt
     return shannonEnt
 
 
 def splitDataSet(dataSet, axis, value):
+    """splitDataSet(通过遍历dataSet数据集，求出axis对应的colnum列的值为value的行)
+
+    Args:
+        dataSet 数据集
+        axis 表示每一行的axis列
+        value 表示axis列对应的value值
+    Returns:
+        axis列为value的数据集【该数据集需要排除axis列】
+    Raises:
+
+    """
     retDataSet = []
     for featVec in dataSet:
+        # axis列为value的数据集【该数据集需要排除axis列】
         if featVec[axis] == value:
             # chop out axis used for splitting
             reducedFeatVec = featVec[:axis]
+            '''
+            请百度查询一下： extend和append的区别
+            '''
             reducedFeatVec.extend(featVec[axis+1:])
+            # 收集结果值 axis列为value的行【该行需要排除axis列】
             retDataSet.append(reducedFeatVec)
     return retDataSet
 
 
 def chooseBestFeatureToSplit(dataSet):
-    # the last column is used for the labels
+    """chooseBestFeatureToSplit(选择最好的特征)
+
+    Args:
+        dataSet 数据集
+    Returns:
+        bestFeature 最优的特征列
+    Raises:
+
+    """
+    # 求第一行有多少列的 Feature
     numFeatures = len(dataSet[0]) - 1
+    # label的信息熵
     baseEntropy = calcShannonEnt(dataSet)
-    bestInfoGain = 0.0
-    bestFeature = -1
+    # 最优的信息增益值, 和最优的Featurn编号
+    bestInfoGain, bestFeature = 0.0, -1
     # iterate over all the features
     for i in range(numFeatures):
         # create a list of all the examples of this feature
+        # 获取每一个feature的list集合
         featList = [example[i] for example in dataSet]
         # get a set of unique values
-        uniqueVals = set(featList)      
+        # 获取剔重后的集合
+        uniqueVals = set(featList)
+        # 创建一个临时的信息熵
         newEntropy = 0.0
+        # 遍历某一列的value集合，计算该列的信息熵
         for value in uniqueVals:
             subDataSet = splitDataSet(dataSet, i, value)
             prob = len(subDataSet)/float(len(dataSet))
-            newEntropy += prob * calcShannonEnt(subDataSet)     
-        infoGain = baseEntropy - newEntropy     #calculate the info gain; ie reduction in entropy
-        if (infoGain > bestInfoGain):       #compare this to the best gain so far
-            bestInfoGain = infoGain         #if better than current best, set to best
+            newEntropy += prob * calcShannonEnt(subDataSet)
+        # 计算label的信息熵和每个特征的信息熵 的增益值，如果增益值大于最大值，那么效果越好
+        infoGain = baseEntropy - newEntropy
+        if (infoGain > bestInfoGain):
+            bestInfoGain = infoGain
             bestFeature = i
-    return bestFeature                      #returns an integer
+    return bestFeature
 
 
 def majorityCnt(classList):
+    """majorityCnt(选择出线次数最多的一个结果)
+
+    Args:
+        classList label列的集合
+    Returns:
+        bestFeature 最优的特征列
+    Raises:
+
+    """
     classCount = {}
     for vote in classList:
         if vote not in classCount.keys():
             classCount[vote] = 0
         classCount[vote] += 1
+    # 倒叙排列classCount得到一个字典集合，然后取出第一个就是结果（yes/no）
     sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
+    # print 'sortedClassCount:', sortedClassCount
     return sortedClassCount[0][0]
 
 
 def createTree(dataSet, labels):
     classList = [example[-1] for example in dataSet]
+    # 如果数据集的最后一列的第一个值出现的次数=整个集合的数量，也就说只有一个类别，就只直接返回结果就行
     if classList.count(classList[0]) == len(classList):
-        return classList[0]#stop splitting when all of the classes are equal
-    if len(dataSet[0]) == 1: #stop splitting when there are no more features in dataSet
+        return classList[0]
+    # 如果数据集只有1列，那么最初出现label次数最多的一类，作为结果
+    if len(dataSet[0]) == 1:
         return majorityCnt(classList)
+
+    # 选择最优的列，得到最有列对应的label含义
     bestFeat = chooseBestFeatureToSplit(dataSet)
     bestFeatLabel = labels[bestFeat]
-    myTree = {bestFeatLabel:{}}
+    # 初始化myTree
+    myTree = {bestFeatLabel: {}}
     # 注：labels列表是可变对象，在PYTHON函数中作为参数时传址引用，能够被全局修改
     # 所以这行代码导致函数外的同名变量被删除了元素，造成例句无法执行，提示'no surfacing' is not in list
     del(labels[bestFeat])
+    # 取出最优列，然后它的branch做分类
     featValues = [example[bestFeat] for example in dataSet]
     uniqueVals = set(featValues)
     for value in uniqueVals:
-        subLabels = labels[:]       #copy all of labels, so trees don't mess up existing labels
-        myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value),subLabels)
+        # 求出剩余的标签label
+        subLabels = labels[:]
+        myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value), subLabels)
+        # print 'myTree', value, myTree
     return myTree
 
 
 def classify(inputTree, featLabels, testVec):
-    # 获取tree的第一个节点值
-    print '1111', inputTree.keys()
+    # 获取tree的第一个节点对应的key值
     firstStr = inputTree.keys()[0]
+    # 获取第一个节点对应的value值
     secondDict = inputTree[firstStr]
+    # 判断根节点的索引值，然后根据testVec来获取对应的树分枝位置
     featIndex = featLabels.index(firstStr)
     key = testVec[featIndex]
     valueOfFeat = secondDict[key]
+    print '+++', firstStr, 'xxx', secondDict, '---', key, '>>>', valueOfFeat
+    # 判断分枝是否结束
     if isinstance(valueOfFeat, dict):
         classLabel = classify(valueOfFeat, featLabels, testVec)
     else:
@@ -145,7 +204,7 @@ def classify(inputTree, featLabels, testVec):
     return classLabel
 
 
-def storeTree(inputTree,filename):
+def storeTree(inputTree, filename):
     import pickle
     fw = open(filename, 'w')
     pickle.dump(inputTree, fw)
@@ -162,11 +221,23 @@ if __name__ == "__main__":
 
     # 1.创建数据和结果标签
     myDat, labels = createDataSet()
-    print myDat, labels
+    # print myDat, labels
 
-    calcShannonEnt(myDat)
+    # # 计算label分类标签的香农熵
+    # calcShannonEnt(myDat)
 
-    # import copy
-    # myTree = createTree(myDat, copy.deepcopy(labels))
-    # print myTree
+    # # 求第0列 为 1/0的列的数据集【排除第0列】
+    # print '1---', splitDataSet(myDat, 0, 1)
+    # print '0---', splitDataSet(myDat, 0, 0)
+
+    # # 计算最好的信息增益的列
+    # print chooseBestFeatureToSplit(myDat)
+
+    import copy
+    myTree = createTree(myDat, copy.deepcopy(labels))
+    print myTree
+    # [1, 1]表示要取的分支上的节点位置，对应的结果值
     # print classify(myTree, labels, [1, 1])
+
+    # 画图可视化展现
+    dtPlot.createPlot(myTree)
