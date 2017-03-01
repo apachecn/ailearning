@@ -129,7 +129,7 @@ def chooseBestFeatureToSplit(dataSet):
             subDataSet = splitDataSet(dataSet, i, value)
             prob = len(subDataSet)/float(len(dataSet))
             newEntropy += prob * calcShannonEnt(subDataSet)
-        # 计算label的信息熵和每个特征的信息熵 的增益值，如果增益值大于最大值，那么效果越好
+        # gain[信息增益] 值越大，意味着该分类提供的信息量越大，该特征对分类的不确定程度越小
         infoGain = baseEntropy - newEntropy
         if (infoGain > bestInfoGain):
             bestInfoGain = infoGain
