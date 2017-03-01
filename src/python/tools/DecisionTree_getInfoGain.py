@@ -120,5 +120,5 @@ if __name__ == '__main__':
     infoGain1 = getFeatureShannonEnt(dataSet1, labels)
     infoGain2 = getFeatureShannonEnt(dataSet2, labels)
     infoGain3 = getFeatureShannonEnt(dataSet3, labels)
-    print '香农熵: \n\t%s, \n\t%s, \n\t%s' % (infoGain1, infoGain2, infoGain3)
+    print '信息增益: \n\t%s, \n\t%s, \n\t%s' % (infoGain1, infoGain2, infoGain3)
 
