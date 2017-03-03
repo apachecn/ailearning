@@ -12,6 +12,7 @@
     * [决策树](./docs/3.决策树.md)
 * 4) 基于概率论的分类方法：朴素贝叶斯
 * 5) Logistic回归
+    * [Logistic回归](./docs/5.Logistic回归.md)
 * 6) 支持向量机
 * 7) 利用AdaBoost元算法提高分类
 
