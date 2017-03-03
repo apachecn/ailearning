@@ -1,6 +1,6 @@
 # MachineLearning
 
-**Mahchine Leaning in Action (python) | [ApacheCN(apache中文网)](http://www.apache.wiki)**
+**Mahchine Leaning in Action (python) | [ApacheCN(apache中文网)](http://www.apache.wiki/display/ML)**
 
 ## 第一部分  分类
 
@@ -42,4 +42,4 @@
 * 附录D 资源
 * 索引
 * 版权声明
-* [ApacheCN(apache中文网) 维护更新](http://www.apache.wiki)  
+* [ApacheCN(apache中文网) 维护更新](http://www.apache.wiki/display/ML)
