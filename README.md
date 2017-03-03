@@ -1,6 +1,6 @@
 # MachineLearning
 
-**Mahchine Leaning in Action (python)**
+**Mahchine Leaning in Action (python) | ApacheCN(apache中文网)**
 
 ## 第一部分  分类
 
@@ -19,6 +19,7 @@
 
 * 8) 预测数值型数据：回归
 * 9) 数回归
+    * [树回归](./docs/9.树回归.md)
 
 ## 第三部分  无监督学习
 
@@ -41,3 +42,4 @@
 * 附录D 资源
 * 索引
 * 版权声明
+* [ApacheCN(apache中文网) 更新](wwww.apache.wiki)  
