@@ -6,6 +6,12 @@ from sklearn import tree
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import classification_report
 from sklearn.cross_validation import train_test_split
+"""
+需要安装依赖模块：
+pip install scikit_learn-0.18-cp27-cp27m-win_amd64.whl
+非常完整的网址：
+http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy
+"""
 
 
 def createDataSet():

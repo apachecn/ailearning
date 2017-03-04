@@ -3,7 +3,13 @@
 from numpy import *
 import matplotlib.pyplot as plt
 import time
+'''
+1、需要安装模块：pip install matplotlib-1.5.0-cp27-none-win_amd64.whl
+由于直接安装会出现问题，所以建议下载whl包进行安装，下载网址：
+https://pypi.python.org/pypi/matplotlib/1.5.0
 
+2、可以看见画出的图像
+'''
 
 """
 @version: 
@@ -14,7 +20,7 @@ import time
 @software: PyCharm
 @file: logRegression01.py
 @time: 2017/3/3 22:03
-@test result:not pass
+@test result: ok
 """
 
 # sigmoid函数
