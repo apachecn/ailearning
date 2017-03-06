@@ -77,9 +77,9 @@ def plotTree(myTree, parentPt, nodeTxt):
     plotTree.yOff = plotTree.yOff - 1.0/plotTree.totalD
     for key in secondDict.keys():
         # 判断该节点是否是Node节点
-        if type(secondDict[key]).__name__=='dict':
+        if type(secondDict[key]).__name__ == 'dict':
             # 如果是就递归调用[recursion]
-            plotTree(secondDict[key],cntrPt,str(key))
+            plotTree(secondDict[key], cntrPt, str(key))
         else:
             # 如果不是，就在原来节点一半的地方找到节点的坐标
             plotTree.xOff = plotTree.xOff + 1.0/plotTree.totalW
@@ -121,7 +121,7 @@ def createPlot(inTree):
 
 # 测试数据集
 def retrieveTree(i):
-    listOfTrees =[
+    listOfTrees = [
         {'no surfacing': {0: 'no', 1: {'flippers': {0: 'no', 1: 'yes'}}}},
         {'no surfacing': {0: 'no', 1: {'flippers': {0: {'head': {0: 'no', 1: 'yes'}}, 1: 'no'}}}}
     ]

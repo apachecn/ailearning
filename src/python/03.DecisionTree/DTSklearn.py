@@ -98,6 +98,7 @@ def show_pdf(clf):
     # from IPython.display import Image
     # Image(graph.create_png())
 
+
 if __name__ == '__main__':
     x, y = createDataSet()
 
