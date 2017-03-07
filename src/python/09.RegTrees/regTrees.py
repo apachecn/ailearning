@@ -38,9 +38,12 @@ def binSplitDataSet(dataSet, feature, value):
     """binSplitDataSet(将数据集，按照feature列的value进行 二元切分)
 
     Args:
-        fileName 文件名
+        dataMat 数据集
+        feature 特征列
+        value 特征列要比较的值
     Returns:
-        dataMat 每一行的数据集array类型
+        mat0 小于的数据集在左边
+        mat1 大于的数据集在右边
     Raises:
     """
     # # 测试案例
@@ -50,8 +53,8 @@ def binSplitDataSet(dataSet, feature, value):
 
     # dataSet[:, feature] 取去每一行中，第1列的值(从0开始算)
     # nonzero(dataSet[:, feature] > value)  返回结果为true行的index下标
-    mat0 = dataSet[nonzero(dataSet[:, feature] > value)[0], :]
-    mat1 = dataSet[nonzero(dataSet[:, feature] <= value)[0], :]
+    mat0 = dataSet[nonzero(dataSet[:, feature] <= value)[0], :]
+    mat1 = dataSet[nonzero(dataSet[:, feature] > value)[0], :]
     return mat0, mat1
 
 
@@ -92,7 +95,6 @@ def chooseBestSplit(dataSet, leafType=regLeaf, errType=regErr, ops=(1, 4)):
         return None, leafType(dataSet)
     # 计算行列值
     m, n = shape(dataSet)
-    print m, n
     # 无分类误差的总方差和
     # the choice of the best feature is driven by Reduction in RSS error from mean
     S = errType(dataSet)
@@ -134,89 +136,136 @@ def createTree(dataSet, leafType=regLeaf, errType=regErr, ops=(1, 4)):
     retTree = {}
     retTree['spInd'] = feat
     retTree['spVal'] = val
+    # 大于在右边，小于在左边
     lSet, rSet = binSplitDataSet(dataSet, feat, val)
-    retTree['right'] = createTree(lSet, leafType, errType, ops)
-    retTree['left'] = createTree(rSet, leafType, errType, ops)
+    # 递归的进行调用
+    retTree['left'] = createTree(lSet, leafType, errType, ops)
+    retTree['right'] = createTree(rSet, leafType, errType, ops)
     return retTree
 
 
-def linearSolve(dataSet):   #helper function used in two places
-    m,n = shape(dataSet)
-    X = mat(ones((m,n))); Y = mat(ones((m,1)))#create a copy of data with 1 in 0th postion
-    X[:,1:n] = dataSet[:,0:n-1]; Y = dataSet[:,-1]#and strip out Y
-    xTx = X.T*X
-    if linalg.det(xTx) == 0.0:
-        raise NameError('This matrix is singular, cannot do inverse,\n\
-        try increasing the second value of ops')
-    ws = xTx.I * (X.T * Y)
-    return ws,X,Y
-
-def modelLeaf(dataSet):#create linear model and return coeficients
-    ws,X,Y = linearSolve(dataSet)
-    return ws
-
-def modelErr(dataSet):
-    ws,X,Y = linearSolve(dataSet)
-    yHat = X * ws
-    return sum(power(Y - yHat,2))
-
-
-
+# 判断节点是否是一个字典
 def isTree(obj):
-    return (type(obj).__name__=='dict')
+    return (type(obj).__name__ == 'dict')
 
+
+# 计算左右枝丫的均值
 def getMean(tree):
-    if isTree(tree['right']): tree['right'] = getMean(tree['right'])
-    if isTree(tree['left']): tree['left'] = getMean(tree['left'])
+    if isTree(tree['right']):
+        tree['right'] = getMean(tree['right'])
+    if isTree(tree['left']):
+        tree['left'] = getMean(tree['left'])
     return (tree['left']+tree['right'])/2.0
-    
+
+
+# 检查是否适合合并分枝
 def prune(tree, testData):
-    if shape(testData)[0] == 0: return getMean(tree) #if we have no test data collapse the tree
-    if (isTree(tree['right']) or isTree(tree['left'])):#if the branches are not trees try to prune them
+    # 判断是否测试数据集没有数据
+    if shape(testData)[0] == 0:
+        return getMean(tree)
+    # 对测试进行分支，看属于哪只分支，然后返回tree结果的均值
+    if (isTree(tree['right']) or isTree(tree['left'])):
         lSet, rSet = binSplitDataSet(testData, tree['spInd'], tree['spVal'])
-    if isTree(tree['left']): tree['left'] = prune(tree['left'], lSet)
-    if isTree(tree['right']): tree['right'] =  prune(tree['right'], rSet)
-    #if they are now both leafs, see if we can merge them
+    if isTree(tree['left']):
+        tree['left'] = prune(tree['left'], lSet)
+    if isTree(tree['right']):
+        tree['right'] = prune(tree['right'], rSet)
+
+    # 如果左右两边无子分支，那么计算一下总方差 和 该结果集的本身不分枝的总方差比较
+    # 1.如果测试数据集足够大，将tree进行分支到最后
+    # 2.如果测试数据集不够大，那么就无法进行合并
+    # 注意返回的结果： 是合并后对原来为字典tree进行赋值，相当于进行了合并
     if not isTree(tree['left']) and not isTree(tree['right']):
         lSet, rSet = binSplitDataSet(testData, tree['spInd'], tree['spVal'])
-        errorNoMerge = sum(power(lSet[:,-1] - tree['left'],2)) +\
-            sum(power(rSet[:,-1] - tree['right'],2))
-        treeMean = (tree['left']+tree['right'])/2.0
-        errorMerge = sum(power(testData[:,-1] - treeMean,2))
-        if errorMerge < errorNoMerge: 
+        # power(x, y)表示x的y次方
+        errorNoMerge = sum(power(lSet[:, -1] - tree['left'], 2)) + sum(power(rSet[:, -1] - tree['right'], 2))
+        treeMean = (tree['left'] + tree['right'])/2.0
+        errorMerge = sum(power(testData[:, -1] - treeMean, 2))
+        # 如果 合并的总方差 < 不合并的总方差，那么就进行合并
+        if errorMerge < errorNoMerge:
             print "merging"
             return treeMean
-        else: return tree
-    else: return tree
-    
+        else:
+            return tree
+    else:
+        return tree
+
+
+# 得到模型的ws系数：f(x) = x0 + x1*featrue1+ x3*featrue2 ...
+# create linear model and return coeficients
+def modelLeaf(dataSet):
+    ws, X, Y = linearSolve(dataSet)
+    return ws
+
+
+# 计算线性模型的误差值
+def modelErr(dataSet):
+    ws, X, Y = linearSolve(dataSet)
+    yHat = X * ws
+    # print corrcoef(yHat, Y, rowvar=0)
+    return sum(power(Y - yHat, 2))
+
+
+ # helper function used in two places
+def linearSolve(dataSet):
+    m, n = shape(dataSet)
+    # 产生一个关于1的矩阵
+    X = mat(ones((m, n)))
+    Y = mat(ones((m, 1)))
+    # X的0列为1，常数项，用于计算平衡误差
+    X[:, 1: n] = dataSet[:, 0: n-1]
+    Y = dataSet[:, -1]
+
+    # 转置矩阵*矩阵
+    xTx = X.T * X
+    # 如果矩阵的逆不存在，会造成程序异常
+    if linalg.det(xTx) == 0.0:
+        raise NameError('This matrix is singular, cannot do inverse,\ntry increasing the second value of ops')
+    # 最小二乘法求最优解
+    ws = xTx.I * (X.T * Y)
+    return ws, X, Y
+
+
+# 回归树测试案例
 def regTreeEval(model, inDat):
     return float(model)
 
+
+# 模型树测试案例
 def modelTreeEval(model, inDat):
     n = shape(inDat)[1]
-    X = mat(ones((1,n+1)))
-    X[:,1:n+1]=inDat
-    return float(X*model)
+    X = mat(ones((1, n+1)))
+    X[:, 1: n+1] = inDat
+    # print X, model
+    return float(X * model)
 
+
+# 计算预测的结果
 def treeForeCast(tree, inData, modelEval=regTreeEval):
-    if not isTree(tree): return modelEval(tree, inData)
-    if inData[tree['spInd']] > tree['spVal']:
-        if isTree(tree['left']): return treeForeCast(tree['left'], inData, modelEval)
-        else: return modelEval(tree['left'], inData)
+    if not isTree(tree):
+        return modelEval(tree, inData)
+    if inData[tree['spInd']] <= tree['spVal']:
+        if isTree(tree['left']):
+            return treeForeCast(tree['left'], inData, modelEval)
+        else:
+            return modelEval(tree['left'], inData)
     else:
-        if isTree(tree['right']): return treeForeCast(tree['right'], inData, modelEval)
-        else: return modelEval(tree['right'], inData)
-        
+        if isTree(tree['right']):
+            return treeForeCast(tree['right'], inData, modelEval)
+        else:
+            return modelEval(tree['right'], inData)
+
+
+# 预测结果
 def createForeCast(tree, testData, modelEval=regTreeEval):
-    m=len(testData)
-    yHat = mat(zeros((m,1)))
+    m = len(testData)
+    yHat = mat(zeros((m, 1)))
     for i in range(m):
-        yHat[i,0] = treeForeCast(tree, mat(testData[i]), modelEval)
+        yHat[i, 0] = treeForeCast(tree, mat(testData[i]), modelEval)
     return yHat
 
+
 if __name__ == "__main__":
-
-
     # # 测试数据集
     # testMat = mat(eye(4))
     # print testMat
@@ -224,9 +273,52 @@ if __name__ == "__main__":
     # mat0, mat1 = binSplitDataSet(testMat, 1, 0.5)
     # print mat0, '\n-----------\n', mat1
 
-    # 获取数据集
+    # 回归树
     # myDat = loadDataSet('testData/RT_data1.txt')
-    myDat = loadDataSet('testData/RT_data2.txt')
-    myMat = mat(myDat)
-    myTree = createTree(myMat)
-    print myTree
+    # myDat = loadDataSet('testData/RT_data2.txt')
+    # myMat = mat(myDat)
+    # myTree = createTree(myMat)
+
+    # 1. 预剪枝就是，提起设置最大误差数和最少元素数
+    # myDat = loadDataSet('testData/RT_data3.txt')
+    # myMat = mat(myDat)
+    # myTree = createTree(myMat, ops=(0, 1))
+    # print myTree
+
+    # 2.后剪枝
+    # myDatTest = loadDataSet('testData/RT_data3test.txt')
+    # myMat2Test = mat(myDatTest)
+    # myFinalTree = prune(myTree, myMat2Test)
+    # print '\n\n\n-------------------'
+    # print myFinalTree
+
+    # --------
+    # 模型树求解
+    # myDat = loadDataSet('testData/RT_data4.txt')
+    # myMat = mat(myDat)
+    # myTree = createTree(myMat, modelLeaf, modelErr)
+    # print myTree
+
+    # 回归树 VS 模型树 VS 线性回归
+    trainMat = mat(loadDataSet('testData/RT_bikeSpeedVsIq_train.txt'))
+    testMat = mat(loadDataSet('testData/RT_bikeSpeedVsIq_test.txt'))
+    # 回归树
+    myTree1 = createTree(trainMat, ops=(1, 20))
+    print myTree1
+    yHat1 = createForeCast(myTree1, testMat[:, 0])
+    print "回归树:", corrcoef(yHat1, testMat[:, 1],rowvar=0)[0, 1]
+
+    # 模型树
+    myTree2 = createTree(trainMat, modelLeaf, modelErr, ops=(1, 20))
+    yHat2 = createForeCast(myTree2, testMat[:, 0], modelTreeEval)
+    print myTree2
+    print "模型树:", corrcoef(yHat2, testMat[:, 1],rowvar=0)[0, 1]
+
+    # 线性回归
+    ws, X, Y = linearSolve(trainMat)
+    print ws
+    m = len(testMat[:, 0])
+    yHat3 = mat(zeros((m, 1)))
+    for i in range(shape(testMat)[0]):
+        yHat3[i] = testMat[i, 0]*ws[1, 0] + ws[0, 0]
+    print "线性回归:", corrcoef(yHat3, testMat[:, 1],rowvar=0)[0, 1]
