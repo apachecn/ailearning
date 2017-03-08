@@ -1,6 +1,6 @@
 # MachineLearning
 
-**Mahchine Leaning in Action (python)**
+**Mahchine Leaning in Action (python) | [ApacheCN(apache中文网)](http://www.apache.wiki/display/ML)**
 
 ## 第一部分  分类
 
@@ -20,6 +20,7 @@
 
 * 8) 预测数值型数据：回归
 * 9) 数回归
+    * [树回归](./docs/9.树回归.md)
 
 ## 第三部分  无监督学习
 
@@ -32,7 +33,7 @@
 ## 第四部分  其他工具
 
 * 13) 使用PCA来简化数据
-     *[利用PCA来简化数据](./docs/13.利用PCA来简化数据.md)
+    * [利用PCA来简化数据](./docs/13.利用PCA来简化数据.md)
 * 14) 使用SVD简化数据
 * 15) 大数据与MapReduce
 
@@ -44,3 +45,4 @@
 * 附录D 资源
 * 索引
 * 版权声明
+* [ApacheCN(apache中文网) 维护更新](http://www.apache.wiki/display/ML)
