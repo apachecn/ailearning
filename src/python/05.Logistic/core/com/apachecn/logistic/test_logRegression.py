@@ -6,6 +6,8 @@ sys.path.append("C:\Python27")
 
 from numpy import *
 
+
+
 import matplotlib.pyplot as plt
 
 from  logRegression import *
