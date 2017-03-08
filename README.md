@@ -15,6 +15,7 @@
 * 5) Logistic回归
     * [Logistic回归](./docs/5.Logistic回归.md)
 * 6) 支持向量机
+    * [支持向量机](./docs/6.支持向量机.md)
 * 7) 利用AdaBoost元算法提高分类
 
 ## 第二部分  利用回归预测数值型数据
