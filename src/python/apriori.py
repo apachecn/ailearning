@@ -73,7 +73,7 @@ def apriori(dataSet, minSupport = 0.5):
 def main():
     # project_dir = os.path.dirname(os.path.dirname(os.getcwd()))
     # 1.收集并准备数据
-    # dataMat, labelMat = loadDataSet("%s/resources/Logistic_testdata.txt" % project_dir)
+    # dataMat, labelMat = loadDataSet("%s/resources/Apriori_testdata.txt" % project_dir)
 
 
     # 1. 加载数据
