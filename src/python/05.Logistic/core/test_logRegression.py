@@ -3,14 +3,9 @@
 import os
 import sys
 sys.path.append("C:\Python27")
-
 from numpy import *
 
-
-
-import matplotlib.pyplot as plt
-
-from  logRegression import *
+from  logRegression01 import *
 """
 @version: 
 @author: yangjf
@@ -31,7 +26,7 @@ def loadData():
     # 截取字符串至项目名：Test\
     project_dir = project_dir[:project_dir.find("MachineLearning\\") + 15]
     print project_dir
-    fileIn = open("%s/testData/testSet.txt" % project_dir)
+    fileIn = open("%s/testData/Logistic_testdata.txt" % project_dir)
     for line in fileIn.readlines():
         lineArr = line.strip().split()
         train_x.append([1.0, float(lineArr[0]), float(lineArr[1])])
