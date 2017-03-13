@@ -28,7 +28,7 @@ randMat = mat(randArray)
 # .T表示对矩阵转置(行列颠倒)
 invRandMat = randMat.I
 # 输出结果
-print randArray, '\n---\n', randMat, '\n+++\n', invRandMat
+print(randArray, '\n---\n', randMat, '\n+++\n', invRandMat)
 # 矩阵和逆矩阵 进行求积 (单位矩阵，对角线都为1嘛，理论上4*4的矩阵其他的都为0)
 myEye = randMat*invRandMat
 # 误差
