@@ -51,7 +51,7 @@ def predict_train(x_train, y_train):
     return y_pre, clf
 
 
-def show_precision_recall(x, clf,  y_train, y_pre):
+def show_precision_recall(x, y, clf,  y_train, y_pre):
     '''
     准确率与召回率
     参考链接： http://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_curve.html#sklearn.metrics.precision_recall_curve
@@ -110,7 +110,7 @@ if __name__ == '__main__':
     y_pre, clf = predict_train(x_train, y_train)
 
     # 展现 准确率与召回率
-    show_precision_recall(x, clf, y_train, y_pre)
+    show_precision_recall(x, y, clf, y_train, y_pre)
 
     # 可视化输出
     show_pdf(clf)

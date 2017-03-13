@@ -7,14 +7,14 @@ Update on 2017-03-08
 Tree-Based Regression Methods Source Code for Machine Learning in Action Ch. 9
 @author: jiangzhonglian
 '''
+import regTrees
 from Tkinter import *
 from numpy import *
-import regTrees
 
 import matplotlib
-matplotlib.use('TkAgg')
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+matplotlib.use('TkAgg')
 
 
 def test_widget_text(root):
