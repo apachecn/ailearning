@@ -7,9 +7,9 @@ Update on 2017-02-27
 Decision Tree Source Code for Machine Learning in Action Ch. 3
 @author: Peter Harrington/jiangzhonglian
 '''
-from math import log
 import operator
-import DecisionTreePlot as dtPlot
+from math import log
+import decisionTreePlot as dtPlot
 
 
 def createDataSet():
@@ -130,7 +130,9 @@ def chooseBestFeatureToSplit(dataSet):
             prob = len(subDataSet)/float(len(dataSet))
             newEntropy += prob * calcShannonEnt(subDataSet)
         # gain[信息增益] 值越大，意味着该分类提供的信息量越大，该特征对分类的不确定程度越小
+        # 也就说： 列进行group分组后，对应的类别越多，信息量越大，那么香农熵越小，那么信息增益就越大，所以gain越大
         infoGain = baseEntropy - newEntropy
+        # print 'infoGain=', infoGain, 'bestFeature=', i
         if (infoGain > bestInfoGain):
             bestInfoGain = infoGain
             bestFeature = i
