@@ -143,7 +143,7 @@ def adaBoostTrainDS(dataArr, labelArr, numIt=40):
         # 结果为：错误的样本标签集合，因为是 !=,那么结果就是0 正, 1 负
         aggErrors = multiply(sign(aggClassEst) != mat(labelArr).T, ones((m, 1)))
         errorRate = aggErrors.sum()/m
-        print "total error=%s " % (errorRate)
+        # print "total error=%s " % (errorRate)
         if errorRate == 0.0:
             break
     return weakClassArr, aggClassEst
@@ -165,18 +165,32 @@ def adaClassify(datToClass, classifierArr):
 
 
 def plotROC(predStrengths, classLabels):
+    """plotROC(打印ROC曲线，并计算AUC的面积大小)
+
+    Args:
+        predStrengths  最终预测结果的权重值
+        classLabels 原始数据的分类结果集
+    """
     import matplotlib.pyplot as plt
-    # cursor
-    cur = (1.0, 1.0)
     # variable to calculate AUC
     ySum = 0.0
+    # 对正样本的进行求和
     numPosClas = sum(array(classLabels)==1.0)
-    yStep = 1/float(numPosClas); xStep = 1/float(len(classLabels)-numPosClas)
-    sortedIndicies = predStrengths.argsort()#get sorted index, it's reverse
+    # 正样本的概率
+    yStep = 1/float(numPosClas)
+    # 负样本的概率
+    xStep = 1/float(len(classLabels)-numPosClas)
+    # argsort函数返回的是数组值从小到大的索引值
+    # get sorted index, it's reverse
+    sortedIndicies = predStrengths.argsort()
+
+    # 开始创建模版对象
     fig = plt.figure()
     fig.clf()
     ax = plt.subplot(111)
-    #loop through all the values, drawing a line segment at each point
+    # cursor光标值
+    cur = (1.0, 1.0)
+    # loop through all the values, drawing a line segment at each point
     for index in sortedIndicies.tolist()[0]:
         if classLabels[index] == 1.0:
             delX = 0
@@ -185,15 +199,26 @@ def plotROC(predStrengths, classLabels):
             delX = xStep
             delY = 0
             ySum += cur[1]
-        #draw line from cur to (cur[0]-delX,cur[1]-delY)
-        ax.plot([cur[0],cur[0]-delX],[cur[1],cur[1]-delY], c='b')
-        cur = (cur[0]-delX,cur[1]-delY)
-    ax.plot([0,1],[0,1],'b--')
-    plt.xlabel('False positive rate'); plt.ylabel('True positive rate')
+        # draw line from cur to (cur[0]-delX, cur[1]-delY)
+        # 画点连线 (x1, x2, y1, y2)
+        print cur[0], cur[0]-delX, cur[1], cur[1]-delY
+        ax.plot([cur[0], cur[0]-delX], [cur[1], cur[1]-delY], c='b')
+        cur = (cur[0]-delX, cur[1]-delY)
+    # 画对角的虚线线
+    ax.plot([0, 1], [0, 1], 'b--')
+    plt.xlabel('False positive rate')
+    plt.ylabel('True positive rate')
     plt.title('ROC curve for AdaBoost horse colic detection system')
-    ax.axis([0,1,0,1])
+    # 设置画图的范围区间 (x1, x2, y1, y2)
+    ax.axis([0, 1, 0, 1])
     plt.show()
-    print "the Area Under the Curve is: ",ySum*xStep
+    '''
+    参考说明：http://blog.csdn.net/wenyusuran/article/details/39056013
+    为了计算AUC，我们需要对多个小矩形的面积进行累加。这些小矩形的宽度是xStep，因此
+    可以先对所有矩形的高度进行累加，最后再乘以xStep得到其总面积。所有高度的和(ySum)随
+    着x轴的每次移动而渐次增加。
+    '''
+    print "the Area Under the Curve is: ", ySum*xStep
 
 
 if __name__ == "__main__":
@@ -220,14 +245,13 @@ if __name__ == "__main__":
     # 训练集合
     dataArr, labelArr = loadDataSet("testData/AB_horseColicTraining2.txt")
     weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 50)
+    # 计算ROC下面的AUC的面积大小
+    plotROC(aggClassEst.T, labelArr)
 
-    # 测试集合
-    dataArrTest, labelArrTest = loadDataSet("testData/AB_horseColicTest2.txt")
-    m = shape(dataArrTest)[0]
-    predicting10 = adaClassify(dataArrTest, weakClassArr)
-    errArr = mat(ones((m, 1)))
-    # 测试：计算总样本数，错误样本数，错误率
-    print m, errArr[predicting10 != mat(labelArrTest).T].sum(), errArr[predicting10 != mat(labelArrTest).T].sum()/m
-
-
-
+    # # 测试集合
+    # dataArrTest, labelArrTest = loadDataSet("testData/AB_horseColicTest2.txt")
+    # m = shape(dataArrTest)[0]
+    # predicting10 = adaClassify(dataArrTest, weakClassArr)
+    # errArr = mat(ones((m, 1)))
+    # # 测试：计算总样本数，错误样本数，错误率
+    # print m, errArr[predicting10 != mat(labelArrTest).T].sum(), errArr[predicting10 != mat(labelArrTest).T].sum()/m
