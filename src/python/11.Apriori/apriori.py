@@ -87,12 +87,13 @@ def aprioriGen(Lk, k):
             # if first k-2 elements are equal
             if L1 == L2:
                 # set union
+                print 'union=', Lk[i] | Lk[j], Lk[i], Lk[j]
                 retList.append(Lk[i] | Lk[j])
     return retList
 
 
 def apriori(dataSet, minSupport=0.5):
-    """aprioriGen(循环数据集，然后进行两两合并)
+    """apriori
 
     Args:
         dataSet 原始数据集
@@ -107,7 +108,7 @@ def apriori(dataSet, minSupport=0.5):
 
     # 计算支持support， L1表示满足support的key, supportData表示全集的集合
     L1, supportData = scanD(D, C1, minSupport)
-    # print "L1=", L1, "\n", "outcome: ", supportData
+    print "L1=", L1, "\n", "outcome: ", supportData
 
     L = [L1]
     k = 2
@@ -117,6 +118,7 @@ def apriori(dataSet, minSupport=0.5):
         # print '-----------', D, Ck
         # 计算合并后的数据集的支持度
         # Lk满足支持度的key的list， supK表示key全集
+        # print 'Ck', Ck
         Lk, supK = scanD(D, Ck, minSupport)
         # 如果字典没有，就追加元素，如果有，就更新元素
         supportData.update(supK)
@@ -129,6 +131,83 @@ def apriori(dataSet, minSupport=0.5):
     return L, supportData
 
 
+def calcConf(freqSet, H, supportData, brl, minConf=0.7):
+    """calcConf
+
+    Args:
+        freqSet 每一组的各个元素
+        H 将元素变成set集合
+        supportData 所有元素的支持度全集
+        brl bigRuleList的空数组
+        minConf 置信度的阈值
+    Returns:
+        prunedH 记录 可信度大于阈值的集合
+    """
+    # 记录 可信度大于阈值的集合
+    prunedH = []
+    for conseq in H:
+        # 计算自信度的值，例如元素 H=set(1, 2)， 分别求：supportData[1] 和 supportData[2]
+        # print 'confidence=', freqSet, conseq, freqSet-conseq
+        conf = supportData[freqSet]/supportData[freqSet-conseq]
+        if conf >= minConf:
+            print freqSet-conseq, '-->', conseq, 'conf:', conf
+            brl.append((freqSet-conseq, conseq, conf))
+            prunedH.append(conseq)
+    return prunedH
+
+
+def rulesFromConseq(freqSet, H, supportData, brl, minConf=0.7):
+    """rulesFromConseq
+
+    Args:
+        freqSet 每一组的各个元素
+        H 将元素变成set集合
+        supportData 所有元素的支持度全集
+        brl bigRuleList的空数组
+        minConf 置信度的阈值
+    Returns:
+        prunedH 记录 可信度大于阈值的集合
+    """
+    # 去除list列表中第一个出现的冻结的set集合
+    m = len(H[0])
+    # 判断，freqSet的长度是否>组合的长度+1
+    if (len(freqSet) > (m + 1)):
+        # 合并相邻的集合，组合为2/3/..n的集合
+        Hmp1 = aprioriGen(H, m+1)
+        Hmp1 = calcConf(freqSet, Hmp1, supportData, brl, minConf)
+        # 如果有2个结果都可以，直接返回结果就行，下面这个判断是多余，我个人觉得
+        print 'Hmp1=', Hmp1
+        if (len(Hmp1) > 1):
+            # print '-------'
+            # print len(freqSet),  len(Hmp1[0]) + 1
+            rulesFromConseq(freqSet, Hmp1, supportData, brl, minConf)
+
+
+def generateRules(L, supportData, minConf=0.7):
+    """generateRules
+
+    Args:
+        L 频繁项集的全集
+        supportData 所有元素的支持度全集
+        minConf 可信度的阈值
+    Returns:
+        bigRuleList 关于 (A->B+置信度) 3个字段的组合
+    """
+    bigRuleList = []
+    # 循环L频繁项集，所有的统一大小组合（2/../n个的组合，从第2组开始）
+    for i in range(1, len(L)):
+        # 获取频繁项集中每个组合的所有元素
+        for freqSet in L[i]:
+            # 组合总的元素并遍历子元素，并转化为冻结的set集合，再存放到list列表中
+            H1 = [frozenset([item]) for item in freqSet]
+            # 2个的组合，走else, 2个以上的组合，走if
+            if (i > 1):
+                rulesFromConseq(freqSet, H1, supportData, bigRuleList, minConf)
+            else:
+                calcConf(freqSet, H1, supportData, bigRuleList, minConf)
+    return bigRuleList
+
+
 def main():
     # project_dir = os.path.dirname(os.path.dirname(os.getcwd()))
     # 1.收集并准备数据
@@ -139,8 +218,10 @@ def main():
     print(dataSet)
     # 调用 apriori 做购物篮分析
     # 支持度满足阈值的key集合L，和所有key的全集suppoerData
-    L, supportData = apriori(dataSet, minSupport=0.7)
-    print L, supportData
+    L, supportData = apriori(dataSet, minSupport=0.5)
+    # print L, supportData
+    print '\ngenerateRules\n'
+    generateRules(L, supportData, minConf=0.05)
 
 
 if __name__ == "__main__":
@@ -171,39 +252,6 @@ if __name__ == "__main__":
 
 
 
-
-
-
-
-def generateRules(L, supportData, minConf=0.7):  #supportData is a dict coming from scanD
-    bigRuleList = []
-    for i in range(1, len(L)):#only get the sets with two or more items
-        for freqSet in L[i]:
-            H1 = [frozenset([item]) for item in freqSet]
-            if (i > 1):
-                rulesFromConseq(freqSet, H1, supportData, bigRuleList, minConf)
-            else:
-                calcConf(freqSet, H1, supportData, bigRuleList, minConf)
-    return bigRuleList         
-
-def calcConf(freqSet, H, supportData, brl, minConf=0.7):
-    prunedH = [] #create new list to return
-    for conseq in H:
-        conf = supportData[freqSet]/supportData[freqSet-conseq] #calc confidence
-        if conf >= minConf: 
-            print freqSet-conseq,'-->',conseq,'conf:',conf
-            brl.append((freqSet-conseq, conseq, conf))
-            prunedH.append(conseq)
-    return prunedH
-
-def rulesFromConseq(freqSet, H, supportData, brl, minConf=0.7):
-    m = len(H[0])
-    if (len(freqSet) > (m + 1)): #try further merging
-        Hmp1 = aprioriGen(H, m+1)#create Hm+1 new candidates
-        Hmp1 = calcConf(freqSet, Hmp1, supportData, brl, minConf)
-        if (len(Hmp1) > 1):    #need at least two sets to merge
-            rulesFromConseq(freqSet, Hmp1, supportData, brl, minConf)
-            
 def pntRules(ruleList, itemMeaning):
     for ruleTup in ruleList:
         for item in ruleTup[0]:
