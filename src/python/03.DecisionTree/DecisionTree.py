@@ -5,8 +5,9 @@
 Created on Oct 12, 2010
 Update on 2017-02-27
 Decision Tree Source Code for Machine Learning in Action Ch. 3
-@author: Peter Harrington/jiangzhonglian
+@author: Peter Harrington/片刻
 '''
+print(__doc__)
 import operator
 from math import log
 import decisionTreePlot as dtPlot

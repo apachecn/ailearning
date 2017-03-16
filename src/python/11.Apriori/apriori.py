@@ -3,86 +3,125 @@
 
 '''
 Created on Mar 24, 2011
+Update on 2017-03-16
 Ch 11 code
-@author: Peter
+@author: Peter/片刻
 '''
+print(__doc__)
 from numpy import *
+
 
 def loadDataSet():
     return [[1, 3, 4], [2, 3, 5], [1, 2, 3, 5], [2, 5]]
+
 
 def createC1(dataSet):
     C1 = []
     for transaction in dataSet:
         for item in transaction:
             if not [item] in C1:
+                # 遍历所有的元素，然后append到C1中
                 C1.append([item])
-                
+    # 对数组进行 从小到大 的排序
     C1.sort()
-    return map(frozenset, C1) # use frozen set so we
-                              # can use it as a key in a dict
+    # frozenset表示冻结的set集合，元素无可改变；可以把它当字典的key来使用
+    return map(frozenset, C1)
+
 
 def scanD(D, Ck, minSupport):
+    # 临时存放，查看Ck每个元素 并 计算元素出现的次数 生成相应的字典
+    # D用来判断，CK中的元素，是否存在于原数据D中
     ssCnt = {}
     for tid in D:
         for can in Ck:
             # s.issubset(t)  测试是否 s 中的每一个元素都在 t 中
             if can.issubset(tid):
-                if not ssCnt.has_key(can): ssCnt[can]=1
-                else: ssCnt[can] += 1
+                if not ssCnt.has_key(can):
+                    ssCnt[can] = 1
+                else:
+                    ssCnt[can] += 1
+    # 元素有多少行
     numItems = float(len(D))
     retList = []
     supportData = {}
     for key in ssCnt:
+        # 计算支持度
         support = ssCnt[key]/numItems
         if support >= minSupport:
+            # 在retList的首位插入元素，只存储支持度满足频繁项集的值
             retList.insert(0, key)
+        # 存储所有的key和对应的support值
         supportData[key] = support
     return retList, supportData
 
-def aprioriGen(Lk, k): #creates Ck
+
+# creates Ck
+def aprioriGen(Lk, k):
+    """aprioriGen(循环数据集，然后进行两两合并)
+
+    Args:
+        Lk 频繁项集
+        k 元素的前k-2相同，就进行合并
+    Returns:
+        retList 元素两两合并的数据集
+    """
     retList = []
     lenLk = len(Lk)
+    # 循环Lk这个数组
     for i in range(lenLk):
         for j in range(i+1, lenLk):
-            L1 = list(Lk[i])[:k-2]; L2 = list(Lk[j])[:k-2]
-            L1.sort(); L2.sort()
-            if L1==L2: #if first k-2 elements are equal
-                retList.append(Lk[i] | Lk[j]) #set union
+            L1 = list(Lk[i])[: k-2]
+            L2 = list(Lk[j])[: k-2]
+            # print '-----', Lk, Lk[i], L1
+            L1.sort()
+            L2.sort()
+            # 第一次L1,L2为空，元素直接进行合并，返回元素两两合并的数据集
+            # if first k-2 elements are equal
+            if L1 == L2:
+                # set union
+                retList.append(Lk[i] | Lk[j])
     return retList
 
-def apriori(dataSet, minSupport = 0.5):
+
+def apriori(dataSet, minSupport=0.5):
     # 冻结每一行数据
     C1 = createC1(dataSet)
     D = map(set, dataSet)
 
-    # 计算支持support
+    # 计算支持support， L1表示满足support的key, supportData表示全集的集合
     L1, supportData = scanD(D, C1, minSupport)
-    print("outcome: ", supportData)
+    # print "L1=", L1, "\n", "outcome: ", supportData
 
     L = [L1]
     k = 2
     while (len(L[k-2]) > 0):
+        # print 'L[k-2]=', L[k-2], k
         Ck = aprioriGen(L[k-2], k)
-        Lk, supK = scanD(D, Ck, minSupport)#scan DB to get Lk
+        # print 'Ck=', Ck
+        # can DB to get Lk
+        Lk, supK = scanD(D, Ck, minSupport)
         supportData.update(supK)
+        # L元素在增加
         L.append(Lk)
         k += 1
+        # print 'k=', k, len(L[k-2])
     return L, supportData
+
 
 def main():
     # project_dir = os.path.dirname(os.path.dirname(os.getcwd()))
     # 1.收集并准备数据
     # dataMat, labelMat = loadDataSet("%s/resources/Apriori_testdata.txt" % project_dir)
 
-
     # 1. 加载数据
     dataSet = loadDataSet()
     print(dataSet)
     # 调用 apriori 做购物篮分析
-    apriori(dataSet, minSupport = 0.7)
+    L, supportData = apriori(dataSet, minSupport=0.7)
+    print L, supportData
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     main()
 
 
