@@ -29,8 +29,16 @@ def createC1(dataSet):
 
 
 def scanD(D, Ck, minSupport):
-    # 临时存放，查看Ck每个元素 并 计算元素出现的次数 生成相应的字典
-    # D用来判断，CK中的元素，是否存在于原数据D中
+    """scanD
+
+    Args:
+        D 原始数据集, D用来判断，CK中的元素，是否存在于原数据D中
+        Ck 合并后的数据集
+    Returns:
+        retList 支持度大于阈值的集合
+        supportData 全量key的字典集合
+    """
+    # ssCnt 临时存放Ck的元素集合，查看Ck每个元素 并 计算元素出现的次数 生成相应的字典
     ssCnt = {}
     for tid in D:
         for can in Ck:
@@ -84,6 +92,15 @@ def aprioriGen(Lk, k):
 
 
 def apriori(dataSet, minSupport=0.5):
+    """aprioriGen(循环数据集，然后进行两两合并)
+
+    Args:
+        dataSet 原始数据集
+        minSupport 支持度的阈值
+    Returns:
+        L 频繁项集的全集
+        supportData 所有元素的支持度全集
+    """
     # 冻结每一行数据
     C1 = createC1(dataSet)
     D = map(set, dataSet)
@@ -95,13 +112,17 @@ def apriori(dataSet, minSupport=0.5):
     L = [L1]
     k = 2
     while (len(L[k-2]) > 0):
-        # print 'L[k-2]=', L[k-2], k
+        # 合并k-2相同的数据集
         Ck = aprioriGen(L[k-2], k)
-        # print 'Ck=', Ck
-        # can DB to get Lk
+        # print '-----------', D, Ck
+        # 计算合并后的数据集的支持度
+        # Lk满足支持度的key的list， supK表示key全集
         Lk, supK = scanD(D, Ck, minSupport)
+        # 如果字典没有，就追加元素，如果有，就更新元素
         supportData.update(supK)
-        # L元素在增加
+        if len(Lk) == 0:
+            break
+        # Lk表示满足频繁子项的集合，L元素在增加
         L.append(Lk)
         k += 1
         # print 'k=', k, len(L[k-2])
@@ -117,6 +138,7 @@ def main():
     dataSet = loadDataSet()
     print(dataSet)
     # 调用 apriori 做购物篮分析
+    # 支持度满足阈值的key集合L，和所有key的全集suppoerData
     L, supportData = apriori(dataSet, minSupport=0.7)
     print L, supportData
 
