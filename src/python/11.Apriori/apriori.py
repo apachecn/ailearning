@@ -87,7 +87,7 @@ def aprioriGen(Lk, k):
             # if first k-2 elements are equal
             if L1 == L2:
                 # set union
-                print 'union=', Lk[i] | Lk[j], Lk[i], Lk[j]
+                # print 'union=', Lk[i] | Lk[j], Lk[i], Lk[j]
                 retList.append(Lk[i] | Lk[j])
     return retList
 
@@ -108,7 +108,7 @@ def apriori(dataSet, minSupport=0.5):
 
     # 计算支持support， L1表示满足support的key, supportData表示全集的集合
     L1, supportData = scanD(D, C1, minSupport)
-    print "L1=", L1, "\n", "outcome: ", supportData
+    # print "L1=", L1, "\n", "outcome: ", supportData
 
     L = [L1]
     k = 2
@@ -176,7 +176,7 @@ def rulesFromConseq(freqSet, H, supportData, brl, minConf=0.7):
         Hmp1 = aprioriGen(H, m+1)
         Hmp1 = calcConf(freqSet, Hmp1, supportData, brl, minConf)
         # 如果有2个结果都可以，直接返回结果就行，下面这个判断是多余，我个人觉得
-        print 'Hmp1=', Hmp1
+        # print 'Hmp1=', Hmp1
         if (len(Hmp1) > 1):
             # print '-------'
             # print len(freqSet),  len(Hmp1[0]) + 1
@@ -208,108 +208,117 @@ def generateRules(L, supportData, minConf=0.7):
     return bigRuleList
 
 
+def getActionIds():
+    from time import sleep
+    from votesmart import votesmart
+    # votesmart.apikey = 'get your api key first'
+    votesmart.apikey = 'a7fa40adec6f4a77178799fae4441030'
+    actionIdList = []
+    billTitleList = []
+    fr = open('testData/Apriori_recent20bills.txt')
+    for line in fr.readlines():
+        billNum = int(line.split('\t')[0])
+        try:
+            billDetail = votesmart.votes.getBill(billNum) # api call
+            for action in billDetail.actions:
+                if action.level == 'House' and (action.stage == 'Passage' or action.stage == 'Amendment Vote'):
+                    actionId = int(action.actionId)
+                    print 'bill: %d has actionId: %d' % (billNum, actionId)
+                    actionIdList.append(actionId)
+                    billTitleList.append(line.strip().split('\t')[1])
+        except:
+            print "problem getting bill %d" % billNum
+        sleep(1)                                      # delay to be polite
+    return actionIdList, billTitleList
+
+
+def getTransList(actionIdList, billTitleList): #this will return a list of lists containing ints
+    itemMeaning = ['Republican', 'Democratic']#list of what each item stands for
+    for billTitle in billTitleList:#fill up itemMeaning list
+        itemMeaning.append('%s -- Nay' % billTitle)
+        itemMeaning.append('%s -- Yea' % billTitle)
+    transDict = {}#list of items in each transaction (politician)
+    voteCount = 2
+    for actionId in actionIdList:
+        sleep(3)
+        print 'getting votes for actionId: %d' % actionId
+        try:
+            voteList = votesmart.votes.getBillActionVotes(actionId)
+            for vote in voteList:
+                if not transDict.has_key(vote.candidateName):
+                    transDict[vote.candidateName] = []
+                    if vote.officeParties == 'Democratic':
+                        transDict[vote.candidateName].append(1)
+                    elif vote.officeParties == 'Republican':
+                        transDict[vote.candidateName].append(0)
+                if vote.action == 'Nay':
+                    transDict[vote.candidateName].append(voteCount)
+                elif vote.action == 'Yea':
+                    transDict[vote.candidateName].append(voteCount + 1)
+        except:
+            print "problem getting actionId: %d" % actionId
+        voteCount += 2
+    return transDict, itemMeaning
+
+
+# 暂时没用上
+# def pntRules(ruleList, itemMeaning):
+#     for ruleTup in ruleList:
+#         for item in ruleTup[0]:
+#             print itemMeaning[item]
+#         print "           -------->"
+#         for item in ruleTup[1]:
+#             print itemMeaning[item]
+#         print "confidence: %f" % ruleTup[2]
+#         print       #print a blank line
+
+
 def main():
+    # 以前的测试
     # project_dir = os.path.dirname(os.path.dirname(os.getcwd()))
-    # 1.收集并准备数据
+    # 收集并准备数据
     # dataMat, labelMat = loadDataSet("%s/resources/Apriori_testdata.txt" % project_dir)
 
-    # 1. 加载数据
-    dataSet = loadDataSet()
-    print(dataSet)
-    # 调用 apriori 做购物篮分析
-    # 支持度满足阈值的key集合L，和所有key的全集suppoerData
-    L, supportData = apriori(dataSet, minSupport=0.5)
-    # print L, supportData
-    print '\ngenerateRules\n'
-    generateRules(L, supportData, minConf=0.05)
+    # 现在的的测试
+    # # 1. 加载数据
+    # dataSet = loadDataSet()
+    # print(dataSet)
+    # # 调用 apriori 做购物篮分析
+    # # 支持度满足阈值的key集合L，和所有key的全集suppoerData
+    # L, supportData = apriori(dataSet, minSupport=0.5)
+    # # print L, supportData
+    # print '\ngenerateRules\n'
+    # rules = generateRules(L, supportData, minConf=0.05)
+    # print rules
+
+    # 项目实战
+    # 构建美国国会投票记录的事务数据集
+    # actionIdList, billTitleList = getActionIds()
+    # # 测试前2个
+    # # transDict, itemMeaning = getTransList(actionIdList[: 2], billTitleList[: 2])
+    # # transDict 表示 action_id的集合，transDict[key]这个就是action_id对应的选项，例如 [1, 2, 3]
+    # transDict, itemMeaning = getTransList(actionIdList, billTitleList)
+    # # 得到全集的数据
+    # dataSet = [transDict[key] for key in transDict.keys()]
+    # L, supportData = apriori(dataSet, minSupport=0.3)
+    # rules = generateRules(L, supportData, minConf=0.95)
+    # print rules
+
+    # 项目实战
+    # 发现毒蘑菇的相似特性
+    # 得到全集的数据
+    dataSet = [line.split() for line in open("testData/Apriori_mushroom.dat").readlines()]
+    L, supportData = apriori(dataSet, minSupport=0.3)
+    # 2表示毒蘑菇，1表示可食用的蘑菇
+    # 找出关于2的频繁子项出来，就知道如果是毒蘑菇，那么出现频繁的也可能是毒蘑菇
+    for item in L[1]:
+        if item.intersection('2'):
+            print item
+
+    for item in L[2]:
+        if item.intersection('2'):
+            print item
 
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def pntRules(ruleList, itemMeaning):
-    for ruleTup in ruleList:
-        for item in ruleTup[0]:
-            print itemMeaning[item]
-        print "           -------->"
-        for item in ruleTup[1]:
-            print itemMeaning[item]
-        print "confidence: %f" % ruleTup[2]
-        print       #print a blank line
-        
-            
-# from time import sleep
-# from votesmart import votesmart
-# votesmart.apikey = 'a7fa40adec6f4a77178799fae4441030'
-# #votesmart.apikey = 'get your api key first'
-# def getActionIds():
-#     actionIdList = []; billTitleList = []
-#     fr = open('recent20bills.txt')
-#     for line in fr.readlines():
-#         billNum = int(line.split('\t')[0])
-#         try:
-#             billDetail = votesmart.votes.getBill(billNum) #api call
-#             for action in billDetail.actions:
-#                 if action.level == 'House' and \
-#                 (action.stage == 'Passage' or action.stage == 'Amendment Vote'):
-#                     actionId = int(action.actionId)
-#                     print 'bill: %d has actionId: %d' % (billNum, actionId)
-#                     actionIdList.append(actionId)
-#                     billTitleList.append(line.strip().split('\t')[1])
-#         except:
-#             print "problem getting bill %d" % billNum
-#         sleep(1)                                      #delay to be polite
-#     return actionIdList, billTitleList
-#
-# def getTransList(actionIdList, billTitleList): #this will return a list of lists containing ints
-#     itemMeaning = ['Republican', 'Democratic']#list of what each item stands for
-#     for billTitle in billTitleList:#fill up itemMeaning list
-#         itemMeaning.append('%s -- Nay' % billTitle)
-#         itemMeaning.append('%s -- Yea' % billTitle)
-#     transDict = {}#list of items in each transaction (politician)
-#     voteCount = 2
-#     for actionId in actionIdList:
-#         sleep(3)
-#         print 'getting votes for actionId: %d' % actionId
-#         try:
-#             voteList = votesmart.votes.getBillActionVotes(actionId)
-#             for vote in voteList:
-#                 if not transDict.has_key(vote.candidateName):
-#                     transDict[vote.candidateName] = []
-#                     if vote.officeParties == 'Democratic':
-#                         transDict[vote.candidateName].append(1)
-#                     elif vote.officeParties == 'Republican':
-#                         transDict[vote.candidateName].append(0)
-#                 if vote.action == 'Nay':
-#                     transDict[vote.candidateName].append(voteCount)
-#                 elif vote.action == 'Yea':
-#                     transDict[vote.candidateName].append(voteCount + 1)
-#         except:
-#             print "problem getting actionId: %d" % actionId
-#         voteCount += 2
-#     return transDict, itemMeaning
