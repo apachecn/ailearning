@@ -223,7 +223,7 @@ def crossValidation(xArr,yArr,numVal=10):
 
 
     #test for xianxinghuigui
-    def regression1():
+def regression1():
     xArr, yArr = loadDataSet("ex0.txt")
     xMat = mat(xArr)
     yMat = mat(yArr)
@@ -242,7 +242,7 @@ if __name__ == "__main__":
 
 
     #test for jiaquanhuigui
-    def regression1():
+def regression1():
     xArr, yArr = loadDataSet("ex0.txt")
     yHat = lwlrTest(xArr, xArr, yArr, 0.003)
     xMat = mat(xArr)
