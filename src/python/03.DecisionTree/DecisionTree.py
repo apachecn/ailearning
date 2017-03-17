@@ -20,8 +20,6 @@ def createDataSet():
         无需传入参数
     Returns:
         返回数据集和对应的label标签
-    Raises:
-
     """
     dataSet = [[1, 1, 'yes'],
                [1, 1, 'yes'],
@@ -44,9 +42,7 @@ def calcShannonEnt(dataSet):
     Args:
         dataSet 数据集
     Returns:
-        返回香农熵的计算值
-    Raises:
-
+        返回 每一组feature下的某个分类下，香农熵的信息期望
     """
     # 求list的长度，表示计算参与训练的数据量
     numEntries = len(dataSet)
@@ -81,8 +77,6 @@ def splitDataSet(dataSet, axis, value):
         value 表示axis列对应的value值
     Returns:
         axis列为value的数据集【该数据集需要排除axis列】
-    Raises:
-
     """
     retDataSet = []
     for featVec in dataSet:
@@ -106,10 +100,8 @@ def chooseBestFeatureToSplit(dataSet):
         dataSet 数据集
     Returns:
         bestFeature 最优的特征列
-    Raises:
-
     """
-    # 求第一行有多少列的 Feature
+    # 求第一行有多少列的 Feature, 最后一列是label列嘛
     numFeatures = len(dataSet[0]) - 1
     # label的信息熵
     baseEntropy = calcShannonEnt(dataSet)
@@ -147,8 +139,6 @@ def majorityCnt(classList):
         classList label列的集合
     Returns:
         bestFeature 最优的特征列
-    Raises:
-
     """
     classCount = {}
     for vote in classList:
@@ -172,6 +162,7 @@ def createTree(dataSet, labels):
 
     # 选择最优的列，得到最有列对应的label含义
     bestFeat = chooseBestFeatureToSplit(dataSet)
+    # 获取label的名称
     bestFeatLabel = labels[bestFeat]
     # 初始化myTree
     myTree = {bestFeatLabel: {}}
@@ -190,16 +181,26 @@ def createTree(dataSet, labels):
 
 
 def classify(inputTree, featLabels, testVec):
-    # 获取tree的第一个节点对应的key值
+    """classify(给输入的节点，进行分类)
+
+    Args:
+        inputTree  决策树模型
+        featLabels label标签对应的名称
+        testVec    测试输入的数据
+    Returns:
+        classLabel 分类的结果值，需要映射label才能知道名称
+    """
+    # 获取tree的根节点对于的key值
     firstStr = inputTree.keys()[0]
-    # 获取第一个节点对应的value值
+    # 通过key得到根节点对应的value
     secondDict = inputTree[firstStr]
-    # 判断根节点的索引值，然后根据testVec来获取对应的树分枝位置
+    # 判断根节点名称获取根节点在label中的先后顺序，这样就知道输入的testVec怎么开始对照树来做分类
     featIndex = featLabels.index(firstStr)
+    # 测试数据，找到根节点对应的label位置，也就知道从输入的数据的第几位来开始分类
     key = testVec[featIndex]
     valueOfFeat = secondDict[key]
     print '+++', firstStr, 'xxx', secondDict, '---', key, '>>>', valueOfFeat
-    # 判断分枝是否结束
+    # 判断分枝是否结束: 判断valueOfFeat是否是dict类型
     if isinstance(valueOfFeat, dict):
         classLabel = classify(valueOfFeat, featLabels, testVec)
     else:
@@ -240,7 +241,7 @@ if __name__ == "__main__":
     myTree = createTree(myDat, copy.deepcopy(labels))
     print myTree
     # [1, 1]表示要取的分支上的节点位置，对应的结果值
-    # print classify(myTree, labels, [1, 1])
+    print classify(myTree, labels, [1, 1])
 
     # 画图可视化展现
     dtPlot.createPlot(myTree)

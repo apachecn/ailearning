@@ -128,5 +128,5 @@ def retrieveTree(i):
     return listOfTrees[i]
 
 
-myTree = retrieveTree(1)
-createPlot(myTree)
+# myTree = retrieveTree(1)
+# createPlot(myTree)
