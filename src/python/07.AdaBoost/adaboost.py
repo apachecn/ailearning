@@ -201,7 +201,7 @@ def plotROC(predStrengths, classLabels):
             ySum += cur[1]
         # draw line from cur to (cur[0]-delX, cur[1]-delY)
         # 画点连线 (x1, x2, y1, y2)
-        print cur[0], cur[0]-delX, cur[1], cur[1]-delY
+        # print cur[0], cur[0]-delX, cur[1], cur[1]-delY
         ax.plot([cur[0], cur[0]-delX], [cur[1], cur[1]-delY], c='b')
         cur = (cur[0]-delX, cur[1]-delY)
     # 画对角的虚线线
