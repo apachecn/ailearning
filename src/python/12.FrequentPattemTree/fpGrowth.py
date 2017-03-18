@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# coding:utf8
+
 '''
 Created on Jun 14, 2011
 FP-Growth FP means frequent pattern
@@ -22,15 +25,41 @@ class treeNode:
         self.children = {}
 
     def inc(self, numOccur):
+        """inc(对count变量增加给定值)
+
+        """
         self.count += numOccur
 
     def disp(self, ind=1):
+        """disp(用于将树以文本形式显示)
+
+        """
         print '  '*ind, self.name, ' ', self.count
         for child in self.children.values():
             child.disp(ind+1)
 
 
+def loadSimpDat():
+    simpDat = [['r', 'z', 'h', 'j', 'p'],
+               ['z', 'y', 'x', 'w', 'v', 'u', 't', 's'],
+               ['z'],
+               ['r', 'x', 'n', 'o', 's'],
+               ['y', 'r', 'x', 'z', 'q', 't', 'p'],
+               ['y', 'z', 'x', 'e', 'q', 's', 't', 'm']]
+    return simpDat
+
+
+def createInitSet(dataSet):
+    retDict = {}
+    for trans in dataSet:
+        retDict[frozenset(trans)] = 1
+    return retDict
+
+
 def createTree(dataSet, minSup=1): #create FP-tree from dataset but don't mine
+    """
+
+    """
     headerTable = {}
     #go over dataSet twice
     for trans in dataSet:#first pass counts frequency of occurance
@@ -76,6 +105,21 @@ def updateHeader(nodeToTest, targetNode):   #this version does not use recursion
     nodeToTest.nodeLink = targetNode
 
 
+if __name__ == "__main__":
+    rootNode = treeNode('pyramid', 9, None)
+    rootNode.children['eye'] = treeNode('eye', 13, None)
+    rootNode.children['phoenix'] = treeNode('phoenix', 3, None)
+    # 将树以文本形式显示
+    # print rootNode.disp()
+
+    # load样本数据
+    simpDat = loadSimpDat()
+    print simpDat
+    # 重新装载 frozen set 格式化样本数据，用dist存储数据和对应的次数
+    initSet = createInitSet(simpDat)
+    print initSet
+
+
 def ascendTree(leafNode, prefixPath): #ascends from leaf node to root
     if leafNode.parent != None:
         prefixPath.append(leafNode.name)
@@ -111,21 +155,6 @@ def mineTree(inTree, headerTable, minSup, preFix, freqItemList):
             mineTree(myCondTree, myHead, minSup, newFreqSet, freqItemList)
 
 
-def loadSimpDat():
-    simpDat = [['r', 'z', 'h', 'j', 'p'],
-               ['z', 'y', 'x', 'w', 'v', 'u', 't', 's'],
-               ['z'],
-               ['r', 'x', 'n', 'o', 's'],
-               ['y', 'r', 'x', 'z', 'q', 't', 'p'],
-               ['y', 'z', 'x', 'e', 'q', 's', 't', 'm']]
-    return simpDat
-
-
-def createInitSet(dataSet):
-    retDict = {}
-    for trans in dataSet:
-        retDict[frozenset(trans)] = 1
-    return retDict
 
 
 import twitter

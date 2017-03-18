@@ -31,6 +31,7 @@ def createDataSet():
     #         ['no'],
     #         ['no'],
     #         ['no']]
+    # labels  露出水面   脚蹼
     labels = ['no surfacing', 'flippers']
     # change to discrete values
     return dataSet, labels
@@ -122,10 +123,9 @@ def chooseBestFeatureToSplit(dataSet):
             subDataSet = splitDataSet(dataSet, i, value)
             prob = len(subDataSet)/float(len(dataSet))
             newEntropy += prob * calcShannonEnt(subDataSet)
-        # gain[信息增益] 值越大，意味着该分类提供的信息量越大，该特征对分类的不确定程度越小
-        # 也就说： 列进行group分组后，对应的类别越多，信息量越大，那么香农熵越小，那么信息增益就越大，所以gain越大
+        # gain[信息增益]: 划分数据集前后的信息变化， 获取信息熵最大的值
         infoGain = baseEntropy - newEntropy
-        # print 'infoGain=', infoGain, 'bestFeature=', i
+        print 'infoGain=', infoGain, 'bestFeature=', i, baseEntropy, newEntropy
         if (infoGain > bestInfoGain):
             bestInfoGain = infoGain
             bestFeature = i
@@ -133,7 +133,7 @@ def chooseBestFeatureToSplit(dataSet):
 
 
 def majorityCnt(classList):
-    """majorityCnt(选择出线次数最多的一个结果)
+    """majorityCnt(选择出现次数最多的一个结果)
 
     Args:
         classList label列的集合
