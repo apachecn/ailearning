@@ -23,6 +23,8 @@ def createDataSet():
 
 def classify0(inX, dataSet, labels, k):
     """
+    inx[1,2,3]
+    DS=[[1,2,3],[1,2,0]]
     inX: 用于分类的输入向量
     dataSet: 输入的训练样本集
     labels: 标签向量
@@ -36,6 +38,10 @@ def classify0(inX, dataSet, labels, k):
     dataSetSize = dataSet.shape[0]
     # tile生成和训练样本对应的矩阵，并与训练样本求差
     diffMat = tile(inX, (dataSetSize, 1)) - dataSet
+    """
+    [[1,2,3],[1,2,3]]-[[1,2,3],[1,2,0]]
+    (A1-A2)^2+(B1-B2)^2+(c1-c2)^2
+    """
     # 取平方
     sqDiffMat = diffMat ** 2
     # 将矩阵的每一行相加
@@ -64,7 +70,7 @@ def test1():
     group, labels = createDataSet()
     print str(group)
     print str(labels)
-    print classify0([0, 0], group, labels, 3)
+    print classify0([0.1, 0.1], group, labels, 3)
 
 
 # ----------------------------------------------------------------------------------------
@@ -119,7 +125,7 @@ def datingClassTest():
     """
     hoRatio = 0.9  # 测试范围,一部分测试一部分作为样本
     # 从文件中加载数据
-    datingDataMat, datingLabels = file2matrix('../../../testData/datingTestSet2.txt')  # load data setfrom file
+    datingDataMat, datingLabels = file2matrix('testData/datingTestSet2.txt')  # load data setfrom file
     # 归一化数据
     normMat, ranges, minVals = autoNorm(datingDataMat)
     m = normMat.shape[0]
@@ -153,7 +159,7 @@ def img2vector(filename):
 def handwritingClassTest():
     # 1. 导入数据
     hwLabels = []
-    trainingFileList = listdir('../../../testData/trainingDigits')  # load the training set
+    trainingFileList = listdir('testData/trainingDigits')  # load the training set
     m = len(trainingFileList)
     trainingMat = zeros((m, 1024))
     for i in range(m):
@@ -161,17 +167,17 @@ def handwritingClassTest():
         fileStr = fileNameStr.split('.')[0]  # take off .txt
         classNumStr = int(fileStr.split('_')[0])
         hwLabels.append(classNumStr)
-        trainingMat[i, :] = img2vector('../../../testData/trainingDigits/%s' % fileNameStr)
+        trainingMat[i, :] = img2vector('testData/trainingDigits/%s' % fileNameStr)
 
     # 2. 导入测试数据
-    testFileList = listdir('../../../testData/testDigits')  # iterate through the test set
+    testFileList = listdir('testData/testDigits')  # iterate through the test set
     errorCount = 0.0
     mTest = len(testFileList)
     for i in range(mTest):
         fileNameStr = testFileList[i]
         fileStr = fileNameStr.split('.')[0]  # take off .txt
         classNumStr = int(fileStr.split('_')[0])
-        vectorUnderTest = img2vector('../../../testData/testDigits/%s' % fileNameStr)
+        vectorUnderTest = img2vector('testData/testDigits/%s' % fileNameStr)
         classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)
         print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, classNumStr)
         if (classifierResult != classNumStr): errorCount += 1.0
