@@ -185,7 +185,7 @@ def classify(inputTree, featLabels, testVec):
 
     Args:
         inputTree  决策树模型
-        featLabels label标签对应的名称
+        featLabels Feature标签对应的名称
         testVec    测试输入的数据
     Returns:
         classLabel 分类的结果值，需要映射label才能知道名称
@@ -241,7 +241,7 @@ if __name__ == "__main__":
     myTree = createTree(myDat, copy.deepcopy(labels))
     print myTree
     # [1, 1]表示要取的分支上的节点位置，对应的结果值
-    print classify(myTree, labels, [1, 1])
+    # print classify(myTree, labels, [1, 1])
 
     # 画图可视化展现
     dtPlot.createPlot(myTree)
