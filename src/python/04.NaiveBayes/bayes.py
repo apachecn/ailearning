@@ -64,8 +64,8 @@ def _trainNB0(trainMatrix, trainCategory):
     # 侮辱性文件的出现概率
     pAbusive = sum(trainCategory) / float(numTrainDocs)
     # 构造单词出现次数列表
-    p0Num = zeros(numWords)[0,0,0,.....]
-    p1Num = zeros(numWords)[0,0,0,.....]
+    p0Num = zeros(numWords) # [0,0,0,.....]
+    p1Num = zeros(numWords) # [0,0,0,.....]
 
     # 整个数据集单词出现总数
     p0Denom = 0.0
@@ -91,22 +91,28 @@ def trainNB0(trainMatrix, trainCategory):
     :param trainCategory: 文件对应的类别
     :return:
     """
-    # 文件数
+    # 总文件数
     numTrainDocs = len(trainMatrix)
-    # 单词数
+    # 总单词数
     numWords = len(trainMatrix[0])
     # 侮辱性文件的出现概率
     pAbusive = sum(trainCategory) / float(numTrainDocs)
     # 构造单词出现次数列表
+    # p0Num 正常的统计
+    # p1Num 侮辱的统计
     p0Num = ones(numWords)#[0,0......]->[1,1,1,1,1.....]
     p1Num = ones(numWords)
 
-    # 整个数据集单词出现总数，2.0根据样本/实际调查结果调整分母的值
+    # 整个数据集单词出现总数，2.0根据样本/实际调查结果调整分母的值（2主要是避免分母为0，当然值可以调整）
+    # p0Denom 正常的统计
+    # p1Denom 侮辱的统计
     p0Denom = 2.0
     p1Denom = 2.0
     for i in range(numTrainDocs):
         if trainCategory[i] == 1:
+            # 累加辱骂词的频次
             p1Num += trainMatrix[i]
+            # 对每篇文章的辱骂的频次 进行统计汇总
             p1Denom += sum(trainMatrix[i])
         else:
             p0Num += trainMatrix[i]
@@ -120,7 +126,10 @@ def trainNB0(trainMatrix, trainCategory):
 
 def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):
     """
-    使用算法
+    使用算法：
+        # 将乘法转坏为加法
+        乘法：P(C|F1F2...Fn) = P(F1F2...Fn|C)P(C)/P(F1F2...Fn)
+        加法：P(F1|C)*P(F2|C)....P(Fn|C)P(C) -> log(P(F1|C))+log(P(F2|C))+....+log(P(Fn|C))+log(P(C))
     :param vec2Classify: 待测数据[0,1,1,1,1...]
     :param p0Vec: 类别1，即侮辱性文档的[log(P(F1|C1)),log(P(F2|C1)),log(P(F3|C1)),log(P(F4|C1)),log(P(F5|C1))....]列表
     :param p1Vec: 类别0，即正常文档的[log(P(F1|C0)),log(P(F2|C0)),log(P(F3|C0)),log(P(F4|C0)),log(P(F5|C0))....]列表
@@ -155,6 +164,7 @@ def testingNB():
     # 3. 计算单词是否出现并创建数据矩阵
     trainMat = []
     for postinDoc in listOPosts:
+        # 返回m*len(myVocabList)的矩阵， 记录的都是0，1信息
         trainMat.append(setOfWords2Vec(myVocabList, postinDoc))
     # 4. 训练数据
     p0V, p1V, pAb = trainNB0(array(trainMat), array(listClasses))
@@ -167,4 +177,5 @@ def testingNB():
     print testEntry, 'classified as: ', classifyNB(thisDoc, p0V, p1V, pAb)
 
 
-testingNB()
+if __name__ == "__main__":
+    testingNB()
