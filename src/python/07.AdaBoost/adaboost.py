@@ -9,14 +9,31 @@ Adaboost is short for Adaptive Boosting
 from numpy import *
 
 
-def loadSimpData():
-    """ 测试数据
-    Returns:
-        dataArr   feature对应的数据集
-        labelArr  feature对应的分类标签
-    """
-    dataArr = array([[1., 2.1], [2., 1.1], [1.3, 1.], [1., 1.], [2., 1.]])
-    labelArr = [1.0, 1.0, -1.0, -1.0, 1.0]
+# def loadSimpData():
+#     """ 测试数据
+#     Returns:
+#         dataArr   feature对应的数据集
+#         labelArr  feature对应的分类标签
+#     """
+#     dataArr = array([[1., 2.1], [2., 1.1], [1.3, 1.], [1., 1.], [2., 1.]])
+#     labelArr = [1.0, 1.0, -1.0, -1.0, 1.0]
+#     return dataArr, labelArr
+
+
+# general function to parse tab -delimited floats
+def loadDataSet(fileName):
+    # get number of fields
+    numFeat = len(open(fileName).readline().split('\t'))
+    dataArr = []
+    labelArr = []
+    fr = open(fileName)
+    for line in fr.readlines():
+        lineArr = []
+        curLine = line.strip().split('\t')
+        for i in range(numFeat-1):
+            lineArr.append(float(curLine[i]))
+        dataArr.append(lineArr)
+        labelArr.append(float(curLine[-1]))
     return dataArr, labelArr
 
 
@@ -117,88 +134,124 @@ def adaBoostTrainDS(dataArr, labelArr, numIt=40):
         # 结果发现： 正确的alpha的权重值变小了，错误的变大了。也就说D里面分类的权重值变了。（可以举例验证，假设：alpha=0.6，什么的）
         D = multiply(D, exp(expon))
         D = D/D.sum()
-        print "D: ", D.T
+        # print "D: ", D.T
         # 计算分类结果的值，在上一轮结果的基础上，进行加和操作
         # calc training error of all classifiers, if this is 0 quit for loop early (use break)
         aggClassEst += alpha*classEst
-        print "aggClassEst: ", aggClassEst.T
+        # print "aggClassEst: ", aggClassEst.T
         # sign 判断正为1， 0为0， 负为-1，通过最终加和的权重值，判断符号。
         # 结果为：错误的样本标签集合，因为是 !=,那么结果就是0 正, 1 负
         aggErrors = multiply(sign(aggClassEst) != mat(labelArr).T, ones((m, 1)))
         errorRate = aggErrors.sum()/m
-        print "total error=%s " % (errorRate)
+        # print "total error=%s " % (errorRate)
         if errorRate == 0.0:
             break
     return weakClassArr, aggClassEst
 
 
-if __name__ == "__main__":
-    dataArr, labelArr = loadSimpData()
-    print '-----\n', dataArr, '\n', labelArr
+def adaClassify(datToClass, classifierArr):
+    # do stuff similar to last aggClassEst in adaBoostTrainDS
+    dataMat = mat(datToClass)
+    m = shape(dataMat)[0]
+    aggClassEst = mat(zeros((m, 1)))
 
-    # D表示最初，对1进行均分为5份，平均每一个初始的概率都为0.2
-    D = mat(ones((5, 1))/5)
-    # print '-----', D
-
-    # print buildStump(dataArr, labelArr, D)
-    weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 9)
-    print weakClassArr
-
-
-
-
-def loadDataSet(fileName):      #general function to parse tab -delimited floats
-    numFeat = len(open(fileName).readline().split('\t')) #get number of fields 
-    dataArr = []
-    labelArr = []
-    fr = open(fileName)
-    for line in fr.readlines():
-        lineArr = []
-        curLine = line.strip().split('\t')
-        for i in range(numFeat-1):
-            lineArr.append(float(curLine[i]))
-        dataArr.append(lineArr)
-        labelArr.append(float(curLine[-1]))
-    return dataArr, labelArr
-
-
-
-
-def adaClassify(datToClass,classifierArr):
-    dataMatrix = mat(datToClass)#do stuff similar to last aggClassEst in adaBoostTrainDS
-    m = shape(dataMatrix)[0]
-    aggClassEst = mat(zeros((m,1)))
+    # 循环 多个分类器
     for i in range(len(classifierArr)):
-        classEst = stumpClassify(dataMatrix,classifierArr[i]['dim'],\
-                                 classifierArr[i]['thresh'],\
-                                 classifierArr[i]['ineq'])#call stump classify
+        # 通过分类器来核算每一次的分类结果，然后通过alpha*每一次的结果 得到最后的权重加和的值。
+        classEst = stumpClassify(dataMat, classifierArr[i]['dim'], classifierArr[i]['thresh'], classifierArr[i]['ineq'])
         aggClassEst += classifierArr[i]['alpha']*classEst
-        print aggClassEst
+        # print aggClassEst
     return sign(aggClassEst)
 
+
 def plotROC(predStrengths, classLabels):
+    """plotROC(打印ROC曲线，并计算AUC的面积大小)
+
+    Args:
+        predStrengths  最终预测结果的权重值
+        classLabels 原始数据的分类结果集
+    """
     import matplotlib.pyplot as plt
-    cur = (1.0,1.0) #cursor
-    ySum = 0.0 #variable to calculate AUC
+    # variable to calculate AUC
+    ySum = 0.0
+    # 对正样本的进行求和
     numPosClas = sum(array(classLabels)==1.0)
-    yStep = 1/float(numPosClas); xStep = 1/float(len(classLabels)-numPosClas)
-    sortedIndicies = predStrengths.argsort()#get sorted index, it's reverse
+    # 正样本的概率
+    yStep = 1/float(numPosClas)
+    # 负样本的概率
+    xStep = 1/float(len(classLabels)-numPosClas)
+    # argsort函数返回的是数组值从小到大的索引值
+    # get sorted index, it's reverse
+    sortedIndicies = predStrengths.argsort()
+
+    # 开始创建模版对象
     fig = plt.figure()
     fig.clf()
     ax = plt.subplot(111)
-    #loop through all the values, drawing a line segment at each point
+    # cursor光标值
+    cur = (1.0, 1.0)
+    # loop through all the values, drawing a line segment at each point
     for index in sortedIndicies.tolist()[0]:
         if classLabels[index] == 1.0:
-            delX = 0; delY = yStep;
+            delX = 0
+            delY = yStep
         else:
-            delX = xStep; delY = 0;
+            delX = xStep
+            delY = 0
             ySum += cur[1]
-        #draw line from cur to (cur[0]-delX,cur[1]-delY)
-        ax.plot([cur[0],cur[0]-delX],[cur[1],cur[1]-delY], c='b')
-        cur = (cur[0]-delX,cur[1]-delY)
-    ax.plot([0,1],[0,1],'b--')
-    plt.xlabel('False positive rate'); plt.ylabel('True positive rate')
+        # draw line from cur to (cur[0]-delX, cur[1]-delY)
+        # 画点连线 (x1, x2, y1, y2)
+        print cur[0], cur[0]-delX, cur[1], cur[1]-delY
+        ax.plot([cur[0], cur[0]-delX], [cur[1], cur[1]-delY], c='b')
+        cur = (cur[0]-delX, cur[1]-delY)
+    # 画对角的虚线线
+    ax.plot([0, 1], [0, 1], 'b--')
+    plt.xlabel('False positive rate')
+    plt.ylabel('True positive rate')
     plt.title('ROC curve for AdaBoost horse colic detection system')
-    ax.axis([0,1,0,1])
+    # 设置画图的范围区间 (x1, x2, y1, y2)
+    ax.axis([0, 1, 0, 1])
     plt.show()
-    print "the Area Under the Curve is: ",ySum*xStep
+    '''
+    参考说明：http://blog.csdn.net/wenyusuran/article/details/39056013
+    为了计算AUC，我们需要对多个小矩形的面积进行累加。这些小矩形的宽度是xStep，因此
+    可以先对所有矩形的高度进行累加，最后再乘以xStep得到其总面积。所有高度的和(ySum)随
+    着x轴的每次移动而渐次增加。
+    '''
+    print "the Area Under the Curve is: ", ySum*xStep
+
+
+if __name__ == "__main__":
+    # dataArr, labelArr = loadSimpData()
+    # print '-----\n', dataArr, '\n', labelArr
+
+    # # D表示最初，对1进行均分为5份，平均每一个初始的概率都为0.2
+    # D = mat(ones((5, 1))/5)
+    # # print '-----', D
+
+    # # print buildStump(dataArr, labelArr, D)
+
+    # # 分类器：weakClassArr
+    # # 历史累计的分类结果集
+    # weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 9)
+    # print weakClassArr, '\n-----\n', aggClassEst.T
+
+    # # 测试数据的分类结果
+    # print adaClassify([0, 0], weakClassArr)
+    # print adaClassify([[5, 5], [0, 0]], weakClassArr)
+
+
+    # 马疝病数据集
+    # 训练集合
+    dataArr, labelArr = loadDataSet("testData/AB_horseColicTraining2.txt")
+    weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 50)
+    # 计算ROC下面的AUC的面积大小
+    plotROC(aggClassEst.T, labelArr)
+
+    # # 测试集合
+    # dataArrTest, labelArrTest = loadDataSet("testData/AB_horseColicTest2.txt")
+    # m = shape(dataArrTest)[0]
+    # predicting10 = adaClassify(dataArrTest, weakClassArr)
+    # errArr = mat(ones((m, 1)))
+    # # 测试：计算总样本数，错误样本数，错误率
+    # print m, errArr[predicting10 != mat(labelArrTest).T].sum(), errArr[predicting10 != mat(labelArrTest).T].sum()/m
