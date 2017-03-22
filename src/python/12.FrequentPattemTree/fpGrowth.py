@@ -7,9 +7,7 @@ FP-Growth FP means frequent pattern
 the FP-Growth algorithm needs:
 1. FP-tree (class treeNode)
 2. header table (use dict)
-
 This finds frequent itemsets similar to apriori but does not find association rules.
-
 @author: Peter/片刻
 '''
 print(__doc__)
@@ -56,53 +54,120 @@ def createInitSet(dataSet):
     return retDict
 
 
-def createTree(dataSet, minSup=1): #create FP-tree from dataset but don't mine
-    """
+# this version does not use recursion
+def updateHeader(nodeToTest, targetNode):
+    """updateHeader(更新头指针，添加targetNode到nodeToTest的nodeLink上面)
 
+    从头指针的nodeLink开始，一直沿着nodeLink直到到达链表末尾。这就是链表。
+    性能：如果链表很长可能会遇到迭代调用的次数限制。
+
+    Args:
+        nodeToTest  头节点
+        targetNode  目标节点
     """
-    headerTable = {}
-    #go over dataSet twice
-    for trans in dataSet:#first pass counts frequency of occurance
-        for item in trans:
-            headerTable[item] = headerTable.get(item, 0) + dataSet[trans]
-    for k in headerTable.keys():  #remove items not meeting minSup
-        if headerTable[k] < minSup: 
-            del(headerTable[k])
-    freqItemSet = set(headerTable.keys())
-    #print 'freqItemSet: ',freqItemSet
-    if len(freqItemSet) == 0: return None, None  #if no items meet min support -->get out
-    for k in headerTable:
-        headerTable[k] = [headerTable[k], None] #reformat headerTable to use Node link 
-    #print 'headerTable: ',headerTable
-    retTree = treeNode('Null Set', 1, None) #create tree
-    for tranSet, count in dataSet.items():  #go through dataset 2nd time
-        localD = {}
-        for item in tranSet:  #put transaction items in order
-            if item in freqItemSet:
-                localD[item] = headerTable[item][0]
-        if len(localD) > 0:
-            orderedItems = [v[0] for v in sorted(localD.items(), key=lambda p: p[1], reverse=True)]
-            updateTree(orderedItems, retTree, headerTable, count)#populate tree with ordered freq itemset
-    return retTree, headerTable #return tree and header table
+    # Do not use recursion to traverse a linked list!
+    while (nodeToTest.nodeLink is not None):
+        nodeToTest = nodeToTest.nodeLink
+    nodeToTest.nodeLink = targetNode
 
 
 def updateTree(items, inTree, headerTable, count):
-    if items[0] in inTree.children:#check if orderedItems[0] in retTree.children
-        inTree.children[items[0]].inc(count) #incrament count
-    else:   #add items[0] to inTree.children
+    """updateTree(更新FP-tree，第二次遍历)
+
+    Args:
+        items      满足minSup 排序后的元素数组（大到小的排序）
+        inTree     空的Tree对象
+        headerTable   满足minSup {所有的元素+(value, treeNode)}
+        count      原数据集中每一组Kay出现的次数
+    """
+    # 判断满足minSup排序后的第一个元素，是否是inTree的子节点
+    if items[0] in inTree.children:
+        # 如果是，那么这个子节点的key元素添加count次
+        inTree.children[items[0]].inc(count)
+    else:
+        # 如果不存在子节点，我们为该inTree添加子节点
         inTree.children[items[0]] = treeNode(items[0], count, inTree)
-        if headerTable[items[0]][1] == None: #update header table 
+        # 如果满足minSup的dist字典的value值第二位为null， 我们就设置该元素为 本节点对应的tree节点
+        # 如果元素第二位不为null，我们就更新header节点
+        if headerTable[items[0]][1] is None:
             headerTable[items[0]][1] = inTree.children[items[0]]
         else:
             updateHeader(headerTable[items[0]][1], inTree.children[items[0]])
-    if len(items) > 1:#call updateTree() with remaining ordered items
+    if len(items) > 1:
+        # print 'items[1::]=', items[1::]
         updateTree(items[1::], inTree.children[items[0]], headerTable, count)
 
 
-def updateHeader(nodeToTest, targetNode):   #this version does not use recursion
-    while (nodeToTest.nodeLink != None):    #Do not use recursion to traverse a linked list!
-        nodeToTest = nodeToTest.nodeLink
-    nodeToTest.nodeLink = targetNode
+def createTree(dataSet, minSup=1):
+    """createTree(生成FP-tree，第一次遍历)
+
+    Args:
+        dataSet  dist字典对象
+        minSup   最小的支持度
+    Returns:
+        retTree  FP-tree
+        headerTable 满足minSup {所有的元素+(value, treeNode)}
+    """
+    # 创建一个满足支持度>=minSup的dist字典
+    headerTable = {}
+    # 循环得到dist字典所有的key
+    for trans in dataSet:
+        # 对所有的key进行循环，得到key里面的所有元素
+        for item in trans:
+            # 存储每个元素和它对应的次数： 本身+dataSet该元素出现的次数
+            headerTable[item] = headerTable.get(item, 0) + dataSet[trans]
+    # 循环所有元素出现的次数，然后remove到小于minSup的元素
+    for k in headerTable.keys():
+        if headerTable[k] < minSup:
+            del(headerTable[k])
+
+    # 求出满足minSup元素的集合
+    freqItemSet = set(headerTable.keys())
+    # 如果不存在满足minSup的元素就直接返回None
+    if len(freqItemSet) == 0:
+        return None, None
+    for k in headerTable:
+        # reformat headerTable to use Node link
+        # value值为一个元组
+        headerTable[k] = [headerTable[k], None]
+
+    # create tree
+    retTree = treeNode('Null Set', 1, None)
+    for tranSet, count in dataSet.items():
+        localD = {}
+        for item in tranSet:
+            # 判断是否在满足minSup的集合中
+            if item in freqItemSet:
+                # print 'headerTable[item][0]=', headerTable[item][0], headerTable[item]
+                localD[item] = headerTable[item][0]
+        if len(localD) > 0:
+            # p=key,value; 所以是通过value值的大小，进行从大到小进行排序
+            # orderedItems表示取出元组的key值，也就是字母本身，但是字母本身是存在顺序的
+            orderedItems = [v[0] for v in sorted(localD.items(), key=lambda p: p[1], reverse=True)]
+            # print 'sorted(localD.items(), key=lambda p: p[1], reverse=True)]=', sorted(localD.items(), key=lambda p: p[1], reverse=True)
+            # print 'orderedItems=', orderedItems
+
+            # 使用有序freq项集来填充树
+            updateTree(orderedItems, retTree, headerTable, count)
+
+    return retTree, headerTable
+
+
+def ascendTree(leafNode, prefixPath): #ascends from leaf node to root
+    if leafNode.parent is not None:
+        prefixPath.append(leafNode.name)
+        ascendTree(leafNode.parent, prefixPath)
+
+
+def findPrefixPath(basePat, treeNode): #treeNode comes from header table
+    condPats = {}
+    while treeNode is not None:
+        prefixPath = []
+        ascendTree(treeNode, prefixPath)
+        if len(prefixPath) > 1: 
+            condPats[frozenset(prefixPath[1:])] = treeNode.count
+        treeNode = treeNode.nodeLink
+    return condPats
 
 
 if __name__ == "__main__":
@@ -114,27 +179,18 @@ if __name__ == "__main__":
 
     # load样本数据
     simpDat = loadSimpDat()
-    print simpDat
+    # print simpDat, '\n'
     # 重新装载 frozen set 格式化样本数据，用dist存储数据和对应的次数
     initSet = createInitSet(simpDat)
-    print initSet
+    # print initSet
+
+    # 创建FP树
+    myFPtree, myHeaderTab = createTree(initSet, 3)
+    myFPtree.disp()
+    # print myHeaderTab
 
 
-def ascendTree(leafNode, prefixPath): #ascends from leaf node to root
-    if leafNode.parent != None:
-        prefixPath.append(leafNode.name)
-        ascendTree(leafNode.parent, prefixPath)
 
-
-def findPrefixPath(basePat, treeNode): #treeNode comes from header table
-    condPats = {}
-    while treeNode != None:
-        prefixPath = []
-        ascendTree(treeNode, prefixPath)
-        if len(prefixPath) > 1: 
-            condPats[frozenset(prefixPath[1:])] = treeNode.count
-        treeNode = treeNode.nodeLink
-    return condPats
 
 
 def mineTree(inTree, headerTable, minSup, preFix, freqItemList):
