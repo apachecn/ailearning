@@ -1,45 +1,46 @@
 '''
-Create by ApacheCN-xy
+Create by ApacheCN-小瑶
 Date from 2017-02-27
 '''
 
 
 from numpy import *
+import matplotlib.pylab as plt
 
-def loadDataSet(fileName):      #解析以tab键分隔的文件中的浮点数
-    numFeat = len(open(fileName).readline().split('\t')) - 1 #获得一行有几个字段 
+def loadDataSet(fileName):                 #解析以tab键分隔的文件中的浮点数
+    numFeat = len(open(fileName).readline().split('\t')) - 1 #获得每一行的输入数据，最后一个代表真实值 
     dataMat = []; labelMat = []
     fr = open(fileName)
-    for line in fr.readlines(): #读取每一行
+    for line in fr.readlines():            #读取每一行
         lineArr =[]
-        curLine = line.strip().split('\t') #删除每一行的开头和结尾的tab
-        for i in range(numFeat):#从0到3，不包含3
-            lineArr.append(float(curLine[i]))#将数据添加到lineArr List中
-        dataMat.append(lineArr)
-        labelMat.append(float(curLine[-1]))
+        curLine = line.strip().split('\t') #删除一行中以tab分隔的数据前后的空白符号
+        for i in range(numFeat):           #从0到2，不包括2
+            lineArr.append(float(curLine[i]))#将数据添加到lineArr List中，每一行数据测试数据组成一个行向量
+        dataMat.append(lineArr)            #将测试数据的输入数据部分存储到dataMat矩阵中
+        labelMat.append(float(curLine[-1]))#将每一行的最后一个数据，即真实的目标变量存储到labelMat矩阵中
     return dataMat,labelMat
 
-def standRegres(xArr,yArr):    #线性回归
-    xMat = mat(xArr); yMat = mat(yArr).T
-    xTx = xMat.T*xMat
-    if linalg.det(xTx) == 0.0:
+def standRegres(xArr,yArr):               #线性回归
+    xMat = mat(xArr); yMat = mat(yArr).T  #mat()函数将xArr，yArr转换为矩阵
+    xTx = xMat.T*xMat                     #矩阵乘法的条件是左矩阵的列数等于右矩阵的行数
+    if linalg.det(xTx) == 0.0:            #因为要用到xTx的逆矩阵，所以事先需要确定计算得到的xTx是否可逆，条件是矩阵的行列式不为0
         print ("This matrix is singular, cannot do inverse")
         return
-    ws = xTx.I * (xMat.T*yMat)
+    ws = xTx.I * (xMat.T*yMat)            #书中的公式，求得w的最优解
     return ws
 
-def lwlr(testPoint,xArr,yArr,k=1.0):
+def lwlr(testPoint,xArr,yArr,k=1.0):      #局部加权线性回归
     xMat = mat(xArr); yMat = mat(yArr).T
-    m = shape(xMat)[0]
-    weights = mat(eye((m)))
+    m = shape(xMat)[0]                    #获得xMat矩阵的行数
+    weights = mat(eye((m)))               #eye()返回一个对角线元素为1，其他元素为0的二维数组，创建权重矩阵
     for j in range(m):                      #下面两行创建权重矩阵
-        diffMat = testPoint - xMat[j,:]     #
-        weights[j,j] = exp(diffMat*diffMat.T/(-2.0*k**2))
+        diffMat = testPoint - xMat[j,:]     #遍历数据集，计算每个样本点对应的权重值
+        weights[j,j] = exp(diffMat*diffMat.T/(-2.0*k**2))#k控制衰减的速度
     xTx = xMat.T * (weights * xMat)
     if linalg.det(xTx) == 0.0:
         print ("This matrix is singular, cannot do inverse")
         return
-    ws = xTx.I * (xMat.T * (weights * yMat))
+    ws = xTx.I * (xMat.T * (weights * yMat)) #计算出回归系数的一个估计
     return testPoint * ws
 
 def lwlrTest(testArr,xArr,yArr,k=1.0):  #循环所有的数据点，并将lwlr运用于所有的数据点
@@ -64,7 +65,7 @@ def ridgeRegres(xMat,yMat,lam=0.2):  #岭回归
     xTx = xMat.T*xMat
     denom = xTx + eye(shape(xMat)[1])*lam
     if linalg.det(denom) == 0.0:
-        print "This matrix is singular, cannot do inverse"
+        print ("This matrix is singular, cannot do inverse")
         return
     ws = denom.I * (xMat.T*yMat)
     return ws
@@ -100,7 +101,7 @@ def stageWise(xArr,yArr,eps=0.01,numIt=100):
     #returnMat = zeros((numIt,n)) #测试代码删除
     ws = zeros((n,1)); wsTest = ws.copy(); wsMax = ws.copy()
     for i in range(numIt):
-        print ws.T
+        print (ws.T)
         lowestError = inf; 
         for j in range(n):
             for sign in [-1,1]:
@@ -143,7 +144,8 @@ def stageWise(xArr,yArr,eps=0.01,numIt=100):
 #        i += 1
 #        currentRow = soup.findAll('table', r="%d" % i)
 #    fw.close()
-    
+ 
+'''   
 from time import sleep
 import json
 import urllib2
@@ -163,10 +165,10 @@ def searchForSet(retX, retY, setNum, yr, numPce, origPrc):
             for item in listOfInv:
                 sellingPrice = item['price']
                 if  sellingPrice > origPrc * 0.5:
-                    print "%d\t%d\t%d\t%f\t%f" % (yr,numPce,newFlag,origPrc, sellingPrice)
+                    print ("%d\t%d\t%d\t%f\t%f" % (yr,numPce,newFlag,origPrc, sellingPrice))
                     retX.append([yr, numPce, newFlag, origPrc])
                     retY.append(sellingPrice)
-        except: print 'problem with item %d' % i
+        except: print ('problem with item %d' % i)
     
 def setDataCollect(retX, retY):
     searchForSet(retX, retY, 8288, 2006, 800, 49.99)
@@ -210,8 +212,9 @@ def crossValidation(xArr,yArr,numVal=10):
     xMat = mat(xArr); yMat=mat(yArr).T
     meanX = mean(xMat,0); varX = var(xMat,0)
     unReg = bestWeights/varX
-    print "the best model from Ridge Regression is:\n",unReg
-    print "with constant term: ",-1*sum(multiply(meanX,unReg)) + mean(yMat)
+    print ("the best model from Ridge Regression is:\n",unReg)
+    print ("with constant term: ",-1*sum(multiply(meanX,unReg)) + mean(yMat))
+'''
 
 
 
@@ -221,32 +224,29 @@ def crossValidation(xArr,yArr,numVal=10):
 
 
 
-
-    #test for xianxinghuigui
-    def regression1():
-    xArr, yArr = loadDataSet("ex0.txt")
+    #test for standRegression
+def regression1():
+    xArr, yArr = loadDataSet("../../../testData/Regression_data.txt")
     xMat = mat(xArr)
     yMat = mat(yArr)
     ws = standRegres(xArr, yArr)
     fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.scatter(xMat[:, 1].flatten(), yMat.T[:, 0].flatten().A[0])
+    ax = fig.add_subplot(111)               #add_subplot(349)函数的参数的意思是，将画布分成3行4列图像画在从左到右从上到下第9块
+    ax.scatter(xMat[:, 1].flatten(), yMat.T[:, 0].flatten().A[0]) #scatter 的x是xMat中的第二列，y是yMat的第一列
     xCopy = xMat.copy() 
     xCopy.sort(0)
     yHat = xCopy * ws
     ax.plot(xCopy[:, 1], yHat)
     plt.show()
-
-if __name__ == "__main__":
-    regression1()
+    
 
 
-    #test for jiaquanhuigui
-    def regression1():
-    xArr, yArr = loadDataSet("ex0.txt")
+    #test for LWLR
+def regression2():
+    xArr, yArr = loadDataSet("../../../testData/Regression_data.txt")
     yHat = lwlrTest(xArr, xArr, yArr, 0.003)
     xMat = mat(xArr)
-    srtInd = xMat[:,1].argsort(0)
+    srtInd = xMat[:,1].argsort(0)           #argsort()函数是将x中的元素从小到大排列，提取其对应的index(索引)，然后输出
     xSort=xMat[srtInd][:,0,:]
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -255,4 +255,5 @@ if __name__ == "__main__":
     plt.show()
 
 if __name__ == "__main__":
-    regression1()
+    #regression1()
+    #regression2()
