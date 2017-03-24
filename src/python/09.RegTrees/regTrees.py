@@ -5,8 +5,9 @@
 Created on Feb 4, 2011
 Update on 2017-03-02
 Tree-Based Regression Methods Source Code for Machine Learning in Action Ch. 9
-@author: Peter Harrington/jiangzhonglian
+@author: Peter Harrington/片刻
 '''
+print(__doc__)
 from numpy import *
 
 

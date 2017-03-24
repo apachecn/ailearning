@@ -224,6 +224,7 @@ def crossValidation(xArr,yArr,numVal=10):
 
 
 
+
     #test for standRegression
 def regression1():
     xArr, yArr = loadDataSet("../../../testData/Regression_data.txt")
@@ -239,6 +240,7 @@ def regression1():
     ax.plot(xCopy[:, 1], yHat)
     plt.show()
     
+
 
 
     #test for LWLR
