@@ -258,7 +258,7 @@ def plotROC(predStrengths, classLabels):
 
 
 if __name__ == "__main__":
-    # 我们要讲5个点进行分类
+    # 我们要将5个点进行分类
     dataArr, labelArr = loadSimpData()
     print 'dataArr', dataArr, 'labelArr', labelArr
 
