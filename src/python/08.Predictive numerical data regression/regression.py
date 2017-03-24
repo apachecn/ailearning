@@ -63,8 +63,8 @@ def rssError(yArr,yHatArr): #yArr 和 yHatArr 两者都需要是数组
 
 def ridgeRegres(xMat,yMat,lam=0.2):  #岭回归
     xTx = xMat.T*xMat
-    denom = xTx + eye(shape(xMat)[1])*lam
-    if linalg.det(denom) == 0.0:
+    denom = xTx + eye(shape(xMat)[1])*lam   #按照书上的公式计算计算回归系数
+    if linalg.det(denom) == 0.0:            #检查行列式是否为零，即矩阵是否可逆
         print ("This matrix is singular, cannot do inverse")
         return
     ws = denom.I * (xMat.T*yMat)
@@ -72,16 +72,16 @@ def ridgeRegres(xMat,yMat,lam=0.2):  #岭回归
     
 def ridgeTest(xArr,yArr):
     xMat = mat(xArr); yMat=mat(yArr).T
-    yMean = mean(yMat,0)
-    yMat = yMat - yMean     #Y取平均值以消除X0
-    #regularize X's（正则化 X的）？？？
-    xMeans = mean(xMat,0)   #计算平均值然后减去它
-    xVar = var(xMat,0)      #然后计算除以 Xi的方差
+    yMean = mean(yMat,0)    #计算Y均值
+    yMat = yMat - yMean     #Y的所有的特征减去均值
+                            #标准化 x
+    xMeans = mean(xMat,0)   #X计算平均值
+    xVar = var(xMat,0)      #然后计算 X的方差
     xMat = (xMat - xMeans)/xVar
     numTestPts = 30
-    wMat = zeros((numTestPts,shape(xMat)[1]))
+    wMat = zeros((numTestPts,shape(xMat)[1]))#创建30 * m 的全部数据为0 的矩阵
     for i in range(numTestPts):
-        ws = ridgeRegres(xMat,yMat,exp(i-10))
+        ws = ridgeRegres(xMat,yMat,exp(i-10))#exp返回e^x
         wMat[i,:]=ws.T
     return wMat
 
@@ -256,6 +256,31 @@ def regression2():
     ax.scatter(xMat[:,1].flatten().A[0], mat(yArr).T.flatten().A[0] , s=2, c='red')
     plt.show()
 
+
+#test for ridgeRegression
+def regression3():
+    abX,abY = loadDataSet("../../../testData/Regression_abalone.txt")
+    ridgeWeights = ridgeTest(abX, abY)
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.plot(ridgeWeights)
+    plt.show()
+
+
+#test for stageWise
+def regression4():
+    xArr,yArr=loadDataSet("../../../testData/Regression_abalone.txt")
+    stageWise(xArr,yArr,0.01,200)
+    xMat = mat(xArr)
+    yMat = mat(yArr).T
+    xMat = regularize(xMat)
+    yM = mean(yMat,0)
+    yMat = yMat - yM
+    weights = standRegres(xMat, yMat.T)
+    print (weights.T)
+
 if __name__ == "__main__":
     #regression1()
     #regression2()
+    #regression3()
+    regression4()
