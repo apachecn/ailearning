@@ -10,7 +10,7 @@ Decision Tree Source Code for Machine Learning in Action Ch. 3
 print(__doc__)
 import operator
 from math import log
-import DecisionTreePlot as dtPlot
+import decisionTreePlot as dtPlot
 
 
 def createDataSet():
@@ -116,24 +116,14 @@ def chooseBestFeatureToSplit(dataSet):
         # get a set of unique values
         # 获取剔重后的集合
         uniqueVals = set(featList)
-        print('uniqueVals:'+str(uniqueVals))
         # 创建一个临时的信息熵
         newEntropy = 0.0
         # 遍历某一列的value集合，计算该列的信息熵
         for value in uniqueVals:
             subDataSet = splitDataSet(dataSet, i, value)
-            print (subDataSet)
             prob = len(subDataSet)/float(len(dataSet))
-<<<<<<< Updated upstream
             newEntropy += prob * calcShannonEnt(subDataSet)
         # gain[信息增益]: 划分数据集前后的信息变化， 获取信息熵最大的值
-=======
-            text = calcShannonEnt(subDataSet)
-            print('----------'+str(text))
-            newEntropy += prob * text
-        # gain[信息增益] 值越大，意味着该分类提供的信息量越大，该特征对分类的不确定程度越小
-        # 也就说： 列进行group分组后，对应的类别越多，信息量越大，那么香农熵越小，那么信息增益就越大，所以gain越大
->>>>>>> Stashed changes
         infoGain = baseEntropy - newEntropy
         print 'infoGain=', infoGain, 'bestFeature=', i, baseEntropy, newEntropy
         if (infoGain > bestInfoGain):
