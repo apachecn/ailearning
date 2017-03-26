@@ -267,10 +267,10 @@ if __name__ == "__main__":
     D = mat(ones((5, 1))/5)
     print 'D=', D.T
 
-    bestStump, minError, bestClasEst = buildStump(dataArr, labelArr, D)
-    print 'bestStump=', bestStump
-    print 'minError=', minError
-    print 'bestClasEst=', bestClasEst.T
+    # bestStump, minError, bestClasEst = buildStump(dataArr, labelArr, D)
+    # print 'bestStump=', bestStump
+    # print 'minError=', minError
+    # print 'bestClasEst=', bestClasEst.T
 
 
     # 分类器：weakClassArr
@@ -288,14 +288,14 @@ if __name__ == "__main__":
     print adaClassify([0, 0], weakClassArr).T
     print adaClassify([[5, 5], [0, 0]], weakClassArr).T
 
-    # 马疝病数据集
-    # 训练集合
+    # # 马疝病数据集
+    # # 训练集合
     # dataArr, labelArr = loadDataSet("testData/AB_horseColicTraining2.txt")
     # weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 40)
     # print weakClassArr, '\n-----\n', aggClassEst.T
-    # 计算ROC下面的AUC的面积大小
+    # # 计算ROC下面的AUC的面积大小
     # plotROC(aggClassEst.T, labelArr)
-    # 测试集合
+    # # 测试集合
     # dataArrTest, labelArrTest = loadDataSet("testData/AB_horseColicTest2.txt")
     # m = shape(dataArrTest)[0]
     # predicting10 = adaClassify(dataArrTest, weakClassArr)

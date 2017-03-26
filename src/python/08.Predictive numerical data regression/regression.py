@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# coding:utf8
+
 '''
 Create by ApacheCN-小瑶
 Date from 2017-02-27
@@ -26,6 +29,8 @@ def standRegres(xArr,yArr):               #线性回归
     if linalg.det(xTx) == 0.0:            #因为要用到xTx的逆矩阵，所以事先需要确定计算得到的xTx是否可逆，条件是矩阵的行列式不为0
         print ("This matrix is singular, cannot do inverse")
         return
+    # 最小二乘法
+    # http://www.apache.wiki/pages/viewpage.action?pageId=5505133
     ws = xTx.I * (xMat.T*yMat)            #书中的公式，求得w的最优解
     return ws
 
@@ -69,7 +74,7 @@ def ridgeRegres(xMat,yMat,lam=0.2):  #岭回归
         return
     ws = denom.I * (xMat.T*yMat)
     return ws
-    
+
 def ridgeTest(xArr,yArr):
     xMat = mat(xArr); yMat=mat(yArr).T
     yMean = mean(yMat,0)    #计算Y均值
@@ -84,6 +89,7 @@ def ridgeTest(xArr,yArr):
         ws = ridgeRegres(xMat,yMat,exp(i-10))#exp返回e^x
         wMat[i,:]=ws.T
     return wMat
+
 
 def regularize(xMat):#按列进行规范化
     inMat = xMat.copy()
@@ -227,7 +233,7 @@ def crossValidation(xArr,yArr,numVal=10):
 
     #test for standRegression
 def regression1():
-    xArr, yArr = loadDataSet("../../../testData/Regression_data.txt")
+    xArr, yArr = loadDataSet("testData/Regression_data.txt")
     xMat = mat(xArr)
     yMat = mat(yArr)
     ws = standRegres(xArr, yArr)
@@ -245,7 +251,7 @@ def regression1():
 
     #test for LWLR
 def regression2():
-    xArr, yArr = loadDataSet("../../../testData/Regression_data.txt")
+    xArr, yArr = loadDataSet("testData/Regression_data.txt")
     yHat = lwlrTest(xArr, xArr, yArr, 0.003)
     xMat = mat(xArr)
     srtInd = xMat[:,1].argsort(0)           #argsort()函数是将x中的元素从小到大排列，提取其对应的index(索引)，然后输出
@@ -259,7 +265,7 @@ def regression2():
 
 #test for ridgeRegression
 def regression3():
-    abX,abY = loadDataSet("../../../testData/Regression_abalone.txt")
+    abX,abY = loadDataSet("testData/Regression_abalone.txt")
     ridgeWeights = ridgeTest(abX, abY)
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -269,7 +275,7 @@ def regression3():
 
 #test for stageWise
 def regression4():
-    xArr,yArr=loadDataSet("../../../testData/Regression_abalone.txt")
+    xArr,yArr=loadDataSet("testData/Regression_abalone.txt")
     stageWise(xArr,yArr,0.01,200)
     xMat = mat(xArr)
     yMat = mat(yArr).T
@@ -280,7 +286,7 @@ def regression4():
     print (weights.T)
 
 if __name__ == "__main__":
-    #regression1()
-    #regression2()
-    #regression3()
-    regression4()
+    # regression1()
+    regression2()
+    # regression3()
+    # regression4()
