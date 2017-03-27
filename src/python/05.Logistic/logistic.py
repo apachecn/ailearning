@@ -6,10 +6,10 @@ Created on Oct 27, 2010
 Logistic Regression Working Module
 @author: Peter
 '''
-
-import os
 from numpy import *
 import matplotlib.pyplot as plt
+
+
 # 解析数据
 def loadDataSet(file_name):
     # dataMat为原始数据， labelMat为原始数据的标签
@@ -25,17 +25,24 @@ def loadDataSet(file_name):
 def sigmoid(inX):
     return 1.0/(1+exp(-inX))
 
+
 # 正常的处理方案
 def gradAscent(dataMatIn, classLabels):
+    # 转化为矩阵[[1,1,2],[1,1,2]....]
     dataMatrix = mat(dataMatIn)             #convert to NumPy matrix
+    # 转化为矩阵[[0,1,0,1,0,1.....]]，并转制[[0],[1],[0].....]
     # transpose() 行列转制函数
     # 将行矩阵转化为列矩阵    =>  矩阵的转置
     labelMat = mat(classLabels).transpose() #convert to NumPy matrix
+    # m->数据量 n->特征数
     m,n = shape(dataMatrix)
     # print m, n, '__'*10, shape(dataMatrix.transpose()), '__'*100
+    # 步长
     alpha = 0.001
+    # 迭代次数
     maxCycles = 500
-    # 权重
+    # 生成一个长度和特征数相同的矩阵，此处n为3 -> [[1],[1],[1]]
+    # 回归系数
     weights = ones((n,1))
     for k in range(maxCycles):              #heavy on matrix operations
         # m*3的矩阵 * 3*1的单位矩阵 ＝ m*1的矩阵
@@ -49,7 +56,10 @@ def gradAscent(dataMatIn, classLabels):
         weights = weights + alpha * dataMatrix.transpose() * error #matrix mult
     return array(weights)
 
-# 梯度上升算法
+
+# 随机梯度上升
+# 梯度上升优化算法在每次更新数据集时都需要遍历整个数据集，计算复杂都较高
+# 随机梯度上升一次只用一个样本点来更新回归系数
 def stocGradAscent0(dataMatrix, classLabels):
     m,n = shape(dataMatrix)
     alpha = 0.01
@@ -64,6 +74,7 @@ def stocGradAscent0(dataMatrix, classLabels):
         print weights, "*"*10 , dataMatrix[i], "*"*10 , error
         weights = weights + alpha * error * dataMatrix[i]
     return weights
+
 
 # 随机梯度上升算法（随机化）
 def stocGradAscent1(dataMatrix, classLabels, numIter=150):
@@ -85,6 +96,7 @@ def stocGradAscent1(dataMatrix, classLabels, numIter=150):
             weights = weights + alpha * error * dataMatrix[randIndex]
             del(dataIndex[randIndex])
     return weights
+
 
 # 可视化展示
 def plotBestFit(dataArr, labelMat, weights):
@@ -114,10 +126,12 @@ def plotBestFit(dataArr, labelMat, weights):
     plt.xlabel('X'); plt.ylabel('Y')
     plt.show()
 
+
 def main():
-    project_dir = os.path.dirname(os.path.dirname(os.getcwd()))
+    # project_dir = os.path.dirname(os.path.dirname(os.getcwd()))
     # 1.收集并准备数据
-    dataMat, labelMat = loadDataSet("%s/testData/Logistic_testdata.txt" % project_dir)
+    # dataMat, labelMat = loadDataSet("%s/testData/Logistic_testdata.txt" % project_dir)
+    dataMat, labelMat = loadDataSet("testData/Logistic_testdata.txt")
 
     # print dataMat, '---\n', labelMat
     # 2.训练模型，  f(x)=a1*x1+b2*x2+..+nn*xn中 (a1,b2, .., nn).T的矩阵值
@@ -132,5 +146,6 @@ def main():
     # 数据可视化
     plotBestFit(dataArr, labelMat, weights)
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     main()
