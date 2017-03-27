@@ -80,14 +80,14 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
     dataMatrix = mat(dataMatIn); labelMat = mat(classLabels).transpose()
     b = 0; m,n = shape(dataMatrix)
     alphas = mat(zeros((m,1)))
-    iter = 0
+    iter = 0 # 没有任何alpha改变的情况下遍历数据的次数
     while (iter < maxIter):
-        alphaPairsChanged = 0
+        alphaPairsChanged = 0 #记录alpha是否已经进行优化，每次循环时设为0，然后再对整个集合顺序遍历
         for i in range(m):
-            fXi = float(multiply(alphas,labelMat).T*(dataMatrix*dataMatrix[i,:].T)) + b
-            Ei = fXi - float(labelMat[i])#if checks if an example violates KKT conditions
+            fXi = float(multiply(alphas,labelMat).T*(dataMatrix*dataMatrix[i,:].T)) + b # 我们预测的类别
+            Ei = fXi - float(labelMat[i])#if checks if an example violates KKT conditions 误差
             if ((labelMat[i]*Ei < -toler) and (alphas[i] < C)) or ((labelMat[i]*Ei > toler) and (alphas[i] > 0)):
-                j = selectJrand(i,m)
+                j = selectJrand(i,m) # 误差很大时进行优化
                 fXj = float(multiply(alphas,labelMat).T*(dataMatrix*dataMatrix[j,:].T)) + b
                 Ej = fXj - float(labelMat[j])
                 alphaIold = alphas[i].copy(); alphaJold = alphas[j].copy()
@@ -195,18 +195,15 @@ def innerL(i, oS):
         else:
             L = max(0, oS.alphas[j] + oS.alphas[i] - oS.C)
             H = min(oS.C, oS.alphas[j] + oS.alphas[i])
-        if L == H: print
-        "L==H";
+        if L == H: print("L==H")
         return 0
         eta = 2.0 * oS.K[i, j] - oS.K[i, i] - oS.K[j, j]  # changed for kernel
-        if eta >= 0: print
-        "eta>=0";
+        if eta >= 0: print("eta>=0")
         return 0
         oS.alphas[j] -= oS.labelMat[j] * (Ei - Ej) / eta
         oS.alphas[j] = clipAlpha(oS.alphas[j], H, L)
         updateEk(oS, j)  # added this for the Ecache
-        if (abs(oS.alphas[j] - alphaJold) < 0.00001): print
-        "j not moving enough";
+        if (abs(oS.alphas[j] - alphaJold) < 0.00001): print("j not moving enough")
         return 0
         oS.alphas[i] += oS.labelMat[j] * oS.labelMat[i] * (alphaJold - oS.alphas[j])  # update i by the same amount as j
         updateEk(oS, i)  # added this for the Ecache                    #the update is in the oppostie direction
@@ -235,22 +232,19 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):  # full Pl
         if entireSet:  # go over all
             for i in range(oS.m):
                 alphaPairsChanged += innerL(i, oS)
-                print
-                "fullSet, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged)
+                print("fullSet, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
             iter += 1
         else:  # go over non-bound (railed) alphas
             nonBoundIs = nonzero((oS.alphas.A > 0) * (oS.alphas.A < C))[0]
             for i in nonBoundIs:
                 alphaPairsChanged += innerL(i, oS)
-                print
-                "non-bound, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged)
+                print("non-bound, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
             iter += 1
         if entireSet:
             entireSet = False  # toggle entire set loop
         elif (alphaPairsChanged == 0):
             entireSet = True
-        print
-        "iteration number: %d" % iter
+        print("iteration number: %d" % iter)
     return oS.b, oS.alphas
 
 
@@ -272,16 +266,14 @@ def testRbf(k1=1.3):
     svInd = nonzero(alphas.A > 0)[0]
     sVs = datMat[svInd]  # get matrix of only support vectors
     labelSV = labelMat[svInd];
-    print
-    "there are %d Support Vectors" % shape(sVs)[0]
+    print("there are %d Support Vectors" % shape(sVs)[0])
     m, n = shape(datMat)
     errorCount = 0
     for i in range(m):
         kernelEval = kernelTrans(sVs, datMat[i, :], ('rbf', k1))
         predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
         if sign(predict) != sign(labelArr[i]): errorCount += 1
-    print
-    "the training error rate is: %f" % (float(errorCount) / m)
+    print("the training error rate is: %f" % (float(errorCount) / m))
     dataArr, labelArr = loadDataSet('testSetRBF2.txt')
     errorCount = 0
     datMat = mat(dataArr);
@@ -291,8 +283,7 @@ def testRbf(k1=1.3):
         kernelEval = kernelTrans(sVs, datMat[i, :], ('rbf', k1))
         predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
         if sign(predict) != sign(labelArr[i]): errorCount += 1
-    print
-    "the test error rate is: %f" % (float(errorCount) / m)
+    print("the test error rate is: %f" % (float(errorCount) / m))
 
 
 def img2vector(filename):
@@ -338,8 +329,7 @@ def testDigits(kTup=('rbf', 10)):
         kernelEval = kernelTrans(sVs, datMat[i, :], kTup)
         predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
         if sign(predict) != sign(labelArr[i]): errorCount += 1
-    print
-    "the training error rate is: %f" % (float(errorCount) / m)
+    print("the training error rate is: %f" % (float(errorCount) / m))
     dataArr, labelArr = loadImages('testDigits')
     errorCount = 0
     datMat = mat(dataArr);
@@ -349,8 +339,7 @@ def testDigits(kTup=('rbf', 10)):
         kernelEval = kernelTrans(sVs, datMat[i, :], kTup)
         predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
         if sign(predict) != sign(labelArr[i]): errorCount += 1
-    print
-    "the test error rate is: %f" % (float(errorCount) / m)
+    print("the test error rate is: %f" % (float(errorCount) / m))
 
 
 '''#######********************************
@@ -416,18 +405,15 @@ def innerLK(i, oS):
         else:
             L = max(0, oS.alphas[j] + oS.alphas[i] - oS.C)
             H = min(oS.C, oS.alphas[j] + oS.alphas[i])
-        if L == H: print
-        "L==H";
+        if L == H: print("L==H")
         return 0
         eta = 2.0 * oS.X[i, :] * oS.X[j, :].T - oS.X[i, :] * oS.X[i, :].T - oS.X[j, :] * oS.X[j, :].T
-        if eta >= 0: print
-        "eta>=0";
+        if eta >= 0: print("eta>=0")
         return 0
         oS.alphas[j] -= oS.labelMat[j] * (Ei - Ej) / eta
         oS.alphas[j] = clipAlpha(oS.alphas[j], H, L)
         updateEk(oS, j)  # added this for the Ecache
-        if (abs(oS.alphas[j] - alphaJold) < 0.00001): print
-        "j not moving enough";
+        if (abs(oS.alphas[j] - alphaJold) < 0.00001): print("j not moving enough")
         return 0
         oS.alphas[i] += oS.labelMat[j] * oS.labelMat[i] * (alphaJold - oS.alphas[j])  # update i by the same amount as j
         updateEk(oS, i)  # added this for the Ecache                    #the update is in the oppostie direction
