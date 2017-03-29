@@ -5,7 +5,7 @@
 Created on 2017-03-08
 Update on 2017-03-08
 Tree-Based Regression Methods Source Code for Machine Learning in Action Ch. 9
-@author: jiangzhonglian
+@author: Peter/片刻
 '''
 import regTrees
 from Tkinter import *
