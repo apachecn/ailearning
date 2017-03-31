@@ -16,6 +16,13 @@ def loadDataSet():
 
 
 def createC1(dataSet):
+    """createC1(创建一个数据集)
+
+    Args:
+        dataSet   加载的原始数据集
+    Returns:
+        frozenset 返回一个元素为frozenset格式的list
+    """
     C1 = []
     for transaction in dataSet:
         for item in transaction:
@@ -23,20 +30,23 @@ def createC1(dataSet):
                 # 遍历所有的元素，然后append到C1中
                 C1.append([item])
     # 对数组进行 从小到大 的排序
+    print 'sort前=', C1
     C1.sort()
-    # frozenset表示冻结的set集合，元素无可改变；可以把它当字典的key来使用
+    # frozenset表示冻结的set集合，元素无改变；可以把它当字典的key来使用
+    print 'sort后=', C1
+    print 'frozenset=', map(frozenset, C1)
     return map(frozenset, C1)
 
 
 def scanD(D, Ck, minSupport):
-    """scanD
+    """scanD(计算支持support， retList表示满足support的key, supportData表示全集的集合)
 
     Args:
-        D 原始数据集, D用来判断，CK中的元素，是否存在于原数据D中
-        Ck 合并后的数据集
+        D    原始数据集, D用来判断，CK中的元素，是否存在于原数据D中
+        Ck   合并后的数据集
     Returns:
-        retList 支持度大于阈值的集合
-        supportData 全量key的字典集合
+        retList      支持度大于阈值的集合
+        supportData  全量key的字典集合
     """
     # ssCnt 临时存放Ck的元素集合，查看Ck每个元素 并 计算元素出现的次数 生成相应的字典
     ssCnt = {}
@@ -68,8 +78,8 @@ def aprioriGen(Lk, k):
     """aprioriGen(循环数据集，然后进行两两合并)
 
     Args:
-        Lk 频繁项集
-        k 元素的前k-2相同，就进行合并
+        Lk 频繁项集的list
+        k  元素的前k-2相同，就进行合并
     Returns:
         retList 元素两两合并的数据集
     """
@@ -80,7 +90,8 @@ def aprioriGen(Lk, k):
         for j in range(i+1, lenLk):
             L1 = list(Lk[i])[: k-2]
             L2 = list(Lk[j])[: k-2]
-            # print '-----', Lk, Lk[i], L1
+            # print '-----i=', i, k-2, Lk, Lk[i], list(Lk[i])[: k-2]
+            # print '-----j=', j, k-2, Lk, Lk[j], list(Lk[j])[: k-2]
             L1.sort()
             L2.sort()
             # 第一次L1,L2为空，元素直接进行合并，返回元素两两合并的数据集
@@ -100,25 +111,30 @@ def apriori(dataSet, minSupport=0.5):
         minSupport 支持度的阈值
     Returns:
         L 频繁项集的全集
-        supportData 所有元素的支持度全集
+        supportData 所有元素和支持度的全集
     """
-    # 冻结每一行数据
+    # C1表示让元素转化为frozenset，并按照顺序存放到list中
     C1 = createC1(dataSet)
+    # 对每一行进行set转换，然后存放到集合中
     D = map(set, dataSet)
-
-    # 计算支持support， L1表示满足support的key, supportData表示全集的集合
+    print 'D=', D
+    # 计算支持support， 计算在数据集D中，C1集合中元素是否满足minSupport
+    # L1表示满足support的key, supportData表示全集的集合
     L1, supportData = scanD(D, C1, minSupport)
     # print "L1=", L1, "\n", "outcome: ", supportData
 
+    # L加了一层list, L一共2曾list
     L = [L1]
     k = 2
+    # 判断L的第一层list是否有元素，就说说：L1是否有元素
     while (len(L[k-2]) > 0):
-        # 合并k-2相同的数据集
+        # 如果L的每个元素子项和后面任意一个元素项，进行对比， 就对前后2个频繁项集的合并，得到CK
+        print 'k=', k, L, L[k-2]
         Ck = aprioriGen(L[k-2], k)
-        # print '-----------', D, Ck
+        print 'Ck', Ck
+
         # 计算合并后的数据集的支持度
         # Lk满足支持度的key的list， supK表示key全集
-        # print 'Ck', Ck
         Lk, supK = scanD(D, Ck, minSupport)
         # 如果字典没有，就追加元素，如果有，就更新元素
         supportData.update(supK)
@@ -132,7 +148,7 @@ def apriori(dataSet, minSupport=0.5):
 
 
 def calcConf(freqSet, H, supportData, brl, minConf=0.7):
-    """calcConf
+    """calcConf(对2元素的频繁项，计算置信度，例如： {1,2}/{1} 或者{1,2}/{2} 看是否满足条件)
 
     Args:
         freqSet 每一组的各个元素
@@ -147,9 +163,11 @@ def calcConf(freqSet, H, supportData, brl, minConf=0.7):
     prunedH = []
     for conseq in H:
         # 计算自信度的值，例如元素 H=set(1, 2)， 分别求：supportData[1] 和 supportData[2]
+        # 例如： confidence= frozenset([2, 3, 5]) frozenset([2, 3]) frozenset([5])
         # print 'confidence=', freqSet, conseq, freqSet-conseq
         conf = supportData[freqSet]/supportData[freqSet-conseq]
         if conf >= minConf:
+            # 意思是说： 只要买了freqSet-conseq集合，一定会买 conseq集合【freqSet-conseq集合 和 conseq集合 是全集】
             print freqSet-conseq, '-->', conseq, 'conf:', conf
             brl.append((freqSet-conseq, conseq, conf))
             prunedH.append(conseq)
@@ -168,17 +186,19 @@ def rulesFromConseq(freqSet, H, supportData, brl, minConf=0.7):
     Returns:
         prunedH 记录 可信度大于阈值的集合
     """
-    # 去除list列表中第一个出现的冻结的set集合
+    # H[0]是freqSet的元素组合的第一个元素
     m = len(H[0])
-    # 判断，freqSet的长度是否>组合的长度+1
+    # 判断，freqSet的长度是否>组合的长度+1, 避免过度匹配 例如：计算过一边{1,2,3} 和 {1, 2} {1, 3}，就没必要再计算了 {1,2,3}和{1,2,3}的组合关系
     if (len(freqSet) > (m + 1)):
-        # 合并相邻的集合，组合为2/3/..n的集合
+        print 'freqSet******************', len(freqSet), m + 1, freqSet, H, H[0]
+        # 合并数据集集合，组合为2/3/..n的集合
         Hmp1 = aprioriGen(H, m+1)
+        # 返回记录 可信度大于阈值的集合
         Hmp1 = calcConf(freqSet, Hmp1, supportData, brl, minConf)
         # 如果有2个结果都可以，直接返回结果就行，下面这个判断是多余，我个人觉得
-        # print 'Hmp1=', Hmp1
+        print 'Hmp1=', Hmp1
         if (len(Hmp1) > 1):
-            # print '-------'
+            print '----------------------', Hmp1
             # print len(freqSet),  len(Hmp1[0]) + 1
             rulesFromConseq(freqSet, Hmp1, supportData, brl, minConf)
 
@@ -188,7 +208,7 @@ def generateRules(L, supportData, minConf=0.7):
 
     Args:
         L 频繁项集的全集
-        supportData 所有元素的支持度全集
+        supportData 所有元素和支持度的全集
         minConf 可信度的阈值
     Returns:
         bigRuleList 关于 (A->B+置信度) 3个字段的组合
@@ -274,25 +294,25 @@ def getTransList(actionIdList, billTitleList): #this will return a list of lists
 
 
 def main():
-    # 以前的测试
+    # # 以前的测试
     # project_dir = os.path.dirname(os.path.dirname(os.getcwd()))
-    # 收集并准备数据
+    # # 收集并准备数据
     # dataMat, labelMat = loadDataSet("%s/resources/Apriori_testdata.txt" % project_dir)
 
     # 现在的的测试
-    # # 1. 加载数据
-    # dataSet = loadDataSet()
-    # print(dataSet)
-    # # 调用 apriori 做购物篮分析
-    # # 支持度满足阈值的key集合L，和所有key的全集suppoerData
-    # L, supportData = apriori(dataSet, minSupport=0.5)
-    # # print L, supportData
-    # print '\ngenerateRules\n'
-    # rules = generateRules(L, supportData, minConf=0.05)
-    # print rules
+    # 1. 加载数据
+    dataSet = loadDataSet()
+    print(dataSet)
+    # 调用 apriori 做购物篮分析
+    # 支持度满足阈值的key集合L，和所有元素和支持度的全集suppoerData
+    L, supportData = apriori(dataSet, minSupport=0.5)
+    print L, '\n', supportData
+    print '\ngenerateRules\n'
+    rules = generateRules(L, supportData, minConf=0.25)
+    print rules
 
-    # 项目实战
-    # 构建美国国会投票记录的事务数据集
+    # # 项目实战
+    # # 构建美国国会投票记录的事务数据集
     # actionIdList, billTitleList = getActionIds()
     # # 测试前2个
     # # transDict, itemMeaning = getTransList(actionIdList[: 2], billTitleList[: 2])
@@ -304,20 +324,20 @@ def main():
     # rules = generateRules(L, supportData, minConf=0.95)
     # print rules
 
-    # 项目实战
-    # 发现毒蘑菇的相似特性
-    # 得到全集的数据
-    dataSet = [line.split() for line in open("testData/Apriori_mushroom.dat").readlines()]
-    L, supportData = apriori(dataSet, minSupport=0.3)
-    # 2表示毒蘑菇，1表示可食用的蘑菇
-    # 找出关于2的频繁子项出来，就知道如果是毒蘑菇，那么出现频繁的也可能是毒蘑菇
-    for item in L[1]:
-        if item.intersection('2'):
-            print item
+    # # 项目实战
+    # # 发现毒蘑菇的相似特性
+    # # 得到全集的数据
+    # dataSet = [line.split() for line in open("testData/Apriori_mushroom.dat").readlines()]
+    # L, supportData = apriori(dataSet, minSupport=0.3)
+    # # 2表示毒蘑菇，1表示可食用的蘑菇
+    # # 找出关于2的频繁子项出来，就知道如果是毒蘑菇，那么出现频繁的也可能是毒蘑菇
+    # for item in L[1]:
+    #     if item.intersection('2'):
+    #         print item
 
-    for item in L[2]:
-        if item.intersection('2'):
-            print item
+    # for item in L[2]:
+    #     if item.intersection('2'):
+    #         print item
 
 
 if __name__ == "__main__":
