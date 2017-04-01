@@ -75,7 +75,9 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
     Args:
         dataMatIn: 数据集
         classLabels: 类别标签
-        C: 常数C
+        C: 松弛变量，允许有些数据点可以处于分隔面的错误一侧。
+            控制最大化间隔和保证大部分的函数间隔小于1.0这两个目标的权重。
+            可以通过调节该参数达到不同的结果。
         toler: 容错率
         maxIter: 退出前最大的循环次数
 
@@ -131,6 +133,16 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
 
 
 def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher dimensional space
+    """
+    核转换函数
+    Args:
+        X:
+        A:
+        kTup: 核函数的信息
+
+    Returns:
+
+    """
     m, n = shape(X)
     K = mat(zeros((m, 1)))
     if kTup[0] == 'lin':
@@ -151,14 +163,23 @@ class optStruct:
     建立的数据结构来保存所有的重要值
     """
     def __init__(self, dataMatIn, classLabels, C, toler, kTup):  # Initialize the structure with the parameters
+        """
+
+        Args:
+            dataMatIn:
+            classLabels:
+            C:
+            toler:
+            kTup: 包含核函数信息的元组
+        """
         self.X = dataMatIn
         self.labelMat = classLabels
         self.C = C
         self.tol = toler
-        self.m = shape(dataMatIn)[0]
+        self.m = shape(dataMatIn)[0] # 数据的行数
         self.alphas = mat(zeros((self.m, 1)))
         self.b = 0
-        self.eCache = mat(zeros((self.m, 2)))  # 第一列给出的是eCache是否有效的标志位，第二列给出的是实际的E值。
+        self.eCache = mat(zeros((self.m, 2)))  # 误差缓存，第一列给出的是eCache是否有效的标志位，第二列给出的是实际的E值。
         self.K = mat(zeros((self.m, self.m)))
         for i in range(self.m):
             self.K[:, i] = kernelTrans(self.X, self.X[i, :], kTup)
@@ -182,6 +203,7 @@ def calcEk(oS, k):
 
 def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
     """
+    内循环的启发式方法。
     选择第二个(内循环)alpha的alpha值
     这里的目标是选择合适的第二个alpha值以保证每次优化中采用最大步长。
     该函数的误差与第一个alpha值Ei和下标i有关。
@@ -204,8 +226,9 @@ def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
             Ek = calcEk(oS, k)
             deltaE = abs(Ei - Ek)
             if (deltaE > maxDeltaE):
-                maxK = k;
-                maxDeltaE = deltaE;
+                # 选择具有最大步长的j
+                maxK = k
+                maxDeltaE = deltaE
                 Ej = Ek
         return maxK, Ej
     else:  # 如果是第一次循环，则随机选择一个alpha值
@@ -230,30 +253,42 @@ def updateEk(oS, k):  # after any alpha has changed update the new value in the 
 
 
 def innerL(i, oS):
+    """
+    内循环代码
+    Args:
+        i:
+        oS:
+
+    Returns:
+
+    """
     Ei = calcEk(oS, i)
     if ((oS.labelMat[i] * Ei < -oS.tol) and (oS.alphas[i] < oS.C)) or (
         (oS.labelMat[i] * Ei > oS.tol) and (oS.alphas[i] > 0)):
         j, Ej = selectJ(i, oS, Ei)  # this has been changed from selectJrand
-        alphaIold = oS.alphas[i].copy();
-        alphaJold = oS.alphas[j].copy();
+        alphaIold = oS.alphas[i].copy()
+        alphaJold = oS.alphas[j].copy()
         if (oS.labelMat[i] != oS.labelMat[j]):
             L = max(0, oS.alphas[j] - oS.alphas[i])
             H = min(oS.C, oS.C + oS.alphas[j] - oS.alphas[i])
         else:
             L = max(0, oS.alphas[j] + oS.alphas[i] - oS.C)
             H = min(oS.C, oS.alphas[j] + oS.alphas[i])
-        if L == H: print("L==H")
-        return 0
+        if L == H:
+            print("L==H")
+            return 0
         eta = 2.0 * oS.K[i, j] - oS.K[i, i] - oS.K[j, j]  # changed for kernel
-        if eta >= 0: print("eta>=0")
-        return 0
+        if eta >= 0:
+            print("eta>=0")
+            return 0
         oS.alphas[j] -= oS.labelMat[j] * (Ei - Ej) / eta
         oS.alphas[j] = clipAlpha(oS.alphas[j], H, L)
-        updateEk(oS, j)  # added this for the Ecache
-        if (abs(oS.alphas[j] - alphaJold) < 0.00001): print("j not moving enough")
-        return 0
+        updateEk(oS, j)  # 更新误差缓存
+        if (abs(oS.alphas[j] - alphaJold) < 0.00001):
+            print("j not moving enough")
+            return 0
         oS.alphas[i] += oS.labelMat[j] * oS.labelMat[i] * (alphaJold - oS.alphas[j])  # update i by the same amount as j
-        updateEk(oS, i)  # added this for the Ecache                    #the update is in the oppostie direction
+        updateEk(oS, i)  # 更新误差缓存                    #the update is in the oppostie direction
         b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, i] - oS.labelMat[j] * (
         oS.alphas[j] - alphaJold) * oS.K[i, j]
         b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, j] - oS.labelMat[j] * (
@@ -269,19 +304,32 @@ def innerL(i, oS):
         return 0
 
 
-def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):  # full Platt SMO
+def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
+    """
+    完整SMO算法外循环，与smoSimple有些类似，但这里的循环退出条件更多一些
+    Args:
+        dataMatIn:
+        classLabels:
+        C:
+        toler:
+        maxIter:
+        kTup:
+
+    Returns:
+
+    """
     oS = optStruct(mat(dataMatIn), mat(classLabels).transpose(), C, toler, kTup)
     iter = 0
-    entireSet = True;
+    entireSet = True
     alphaPairsChanged = 0
     while (iter < maxIter) and ((alphaPairsChanged > 0) or (entireSet)):
         alphaPairsChanged = 0
-        if entireSet:  # go over all
+        if entireSet:  # 在数据集上遍历所有可能的alpha
             for i in range(oS.m):
                 alphaPairsChanged += innerL(i, oS)
                 print("fullSet, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
             iter += 1
-        else:  # go over non-bound (railed) alphas
+        else:  # 遍历所有的非边界alpha值，也就是不在边界0或C上的值。
             nonBoundIs = nonzero((oS.alphas.A > 0) * (oS.alphas.A < C))[0]
             for i in nonBoundIs:
                 alphaPairsChanged += innerL(i, oS)
@@ -296,7 +344,17 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):  # full Pl
 
 
 def calcWs(alphas, dataArr, classLabels):
-    X = mat(dataArr);
+    """
+    基于alpha计算w值
+    Args:
+        alphas:
+        dataArr:
+        classLabels:
+
+    Returns:
+
+    """
+    X = mat(dataArr)
     labelMat = mat(classLabels).transpose()
     m, n = shape(X)
     w = zeros((n, 1))
@@ -308,11 +366,11 @@ def calcWs(alphas, dataArr, classLabels):
 def testRbf(k1=1.3):
     dataArr, labelArr = loadDataSet('testSetRBF.txt')
     b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, ('rbf', k1))  # C=200 important
-    datMat = mat(dataArr);
+    datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
     svInd = nonzero(alphas.A > 0)[0]
     sVs = datMat[svInd]  # get matrix of only support vectors
-    labelSV = labelMat[svInd];
+    labelSV = labelMat[svInd]
     print("there are %d Support Vectors" % shape(sVs)[0])
     m, n = shape(datMat)
     errorCount = 0
@@ -323,7 +381,7 @@ def testRbf(k1=1.3):
     print("the training error rate is: %f" % (float(errorCount) / m))
     dataArr, labelArr = loadDataSet('testSetRBF2.txt')
     errorCount = 0
-    datMat = mat(dataArr);
+    datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
     m, n = shape(datMat)
     for i in range(m):
@@ -346,6 +404,7 @@ def img2vector(filename):
 def loadImages(dirName):
     from os import listdir
     hwLabels = []
+    print(dirName)
     trainingFileList = listdir(dirName)  # load the training set
     m = len(trainingFileList)
     trainingMat = zeros((m, 1024))
@@ -364,11 +423,11 @@ def loadImages(dirName):
 def testDigits(kTup=('rbf', 10)):
     dataArr, labelArr = loadImages('trainingDigits')
     b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, kTup)
-    datMat = mat(dataArr);
+    datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
     svInd = nonzero(alphas.A > 0)[0]
     sVs = datMat[svInd]
-    labelSV = labelMat[svInd];
+    labelSV = labelMat[svInd]
     print("there are %d Support Vectors" % shape(sVs)[0])
     m, n = shape(datMat)
     errorCount = 0
@@ -379,7 +438,7 @@ def testDigits(kTup=('rbf', 10)):
     print("the training error rate is: %f" % (float(errorCount) / m))
     dataArr, labelArr = loadImages('testDigits')
     errorCount = 0
-    datMat = mat(dataArr);
+    datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
     m, n = shape(datMat)
     for i in range(m):
@@ -424,8 +483,8 @@ def selectJK(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
             Ek = calcEk(oS, k)
             deltaE = abs(Ei - Ek)
             if (deltaE > maxDeltaE):
-                maxK = k;
-                maxDeltaE = deltaE;
+                maxK = k
+                maxDeltaE = deltaE
                 Ej = Ek
         return maxK, Ej
     else:  # in this case (first time around) we don't have any valid eCache values
@@ -444,24 +503,27 @@ def innerLK(i, oS):
     if ((oS.labelMat[i] * Ei < -oS.tol) and (oS.alphas[i] < oS.C)) or (
         (oS.labelMat[i] * Ei > oS.tol) and (oS.alphas[i] > 0)):
         j, Ej = selectJ(i, oS, Ei)  # this has been changed from selectJrand
-        alphaIold = oS.alphas[i].copy();
-        alphaJold = oS.alphas[j].copy();
+        alphaIold = oS.alphas[i].copy()
+        alphaJold = oS.alphas[j].copy()
         if (oS.labelMat[i] != oS.labelMat[j]):
             L = max(0, oS.alphas[j] - oS.alphas[i])
             H = min(oS.C, oS.C + oS.alphas[j] - oS.alphas[i])
         else:
             L = max(0, oS.alphas[j] + oS.alphas[i] - oS.C)
             H = min(oS.C, oS.alphas[j] + oS.alphas[i])
-        if L == H: print("L==H")
-        return 0
+        if L == H:
+            print("L==H")
+            return 0
         eta = 2.0 * oS.X[i, :] * oS.X[j, :].T - oS.X[i, :] * oS.X[i, :].T - oS.X[j, :] * oS.X[j, :].T
-        if eta >= 0: print("eta>=0")
-        return 0
+        if eta >= 0:
+            print("eta>=0")
+            return 0
         oS.alphas[j] -= oS.labelMat[j] * (Ei - Ej) / eta
         oS.alphas[j] = clipAlpha(oS.alphas[j], H, L)
         updateEk(oS, j)  # added this for the Ecache
-        if (abs(oS.alphas[j] - alphaJold) < 0.00001): print("j not moving enough")
-        return 0
+        if (abs(oS.alphas[j] - alphaJold) < 0.00001):
+            print("j not moving enough")
+            return 0
         oS.alphas[i] += oS.labelMat[j] * oS.labelMat[i] * (alphaJold - oS.alphas[j])  # update i by the same amount as j
         updateEk(oS, i)  # added this for the Ecache                    #the update is in the oppostie direction
         b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.X[i, :] * oS.X[i, :].T - oS.labelMat[j] * (
@@ -482,7 +544,7 @@ def innerLK(i, oS):
 def smoPK(dataMatIn, classLabels, C, toler, maxIter):  # full Platt SMO
     oS = optStruct(mat(dataMatIn), mat(classLabels).transpose(), C, toler)
     iter = 0
-    entireSet = True;
+    entireSet = True
     alphaPairsChanged = 0
     while (iter < maxIter) and ((alphaPairsChanged > 0) or (entireSet)):
         alphaPairsChanged = 0
