@@ -303,17 +303,17 @@ def main():
     # # 收集并准备数据
     # dataMat, labelMat = loadDataSet("%s/resources/Apriori_testdata.txt" % project_dir)
 
-    # # 现在的的测试
-    # # 1. 加载数据
-    # dataSet = loadDataSet()
-    # print(dataSet)
-    # # 调用 apriori 做购物篮分析
-    # # 支持度满足阈值的key集合L，和所有元素和支持度的全集suppoerData
-    # L, supportData = apriori(dataSet, minSupport=0.5)
-    # print L, '\n', supportData
-    # print '\ngenerateRules\n'
-    # rules = generateRules(L, supportData, minConf=0.25)
-    # print rules
+    # 现在的的测试
+    # 1. 加载数据
+    dataSet = loadDataSet()
+    print(dataSet)
+    # 调用 apriori 做购物篮分析
+    # 支持度满足阈值的key集合L，和所有元素和支持度的全集suppoerData
+    L, supportData = apriori(dataSet, minSupport=0.5)
+    print L, '\n', supportData
+    print '\ngenerateRules\n'
+    rules = generateRules(L, supportData, minConf=0.25)
+    print rules
 
     # # 项目实战
     # # 构建美国国会投票记录的事务数据集
@@ -328,20 +328,20 @@ def main():
     # rules = generateRules(L, supportData, minConf=0.95)
     # print rules
 
-    # 项目实战
-    # 发现毒蘑菇的相似特性
-    # 得到全集的数据
-    dataSet = [line.split() for line in open("testData/Apriori_mushroom.dat").readlines()]
-    L, supportData = apriori(dataSet, minSupport=0.3)
-    # 2表示毒蘑菇，1表示可食用的蘑菇
-    # 找出关于2的频繁子项出来，就知道如果是毒蘑菇，那么出现频繁的也可能是毒蘑菇
-    for item in L[1]:
-        if item.intersection('2'):
-            print item
+    # # 项目实战
+    # # 发现毒蘑菇的相似特性
+    # # 得到全集的数据
+    # dataSet = [line.split() for line in open("testData/Apriori_mushroom.dat").readlines()]
+    # L, supportData = apriori(dataSet, minSupport=0.3)
+    # # 2表示毒蘑菇，1表示可食用的蘑菇
+    # # 找出关于2的频繁子项出来，就知道如果是毒蘑菇，那么出现频繁的也可能是毒蘑菇
+    # for item in L[1]:
+    #     if item.intersection('2'):
+    #         print item
 
-    for item in L[2]:
-        if item.intersection('2'):
-            print item
+    # for item in L[2]:
+    #     if item.intersection('2'):
+    #         print item
 
 
 if __name__ == "__main__":
