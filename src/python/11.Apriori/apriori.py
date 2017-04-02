@@ -43,7 +43,7 @@ def scanD(D, Ck, minSupport):
 
     Args:
         D    原始数据集, D用来判断，CK中的元素，是否存在于原数据D中
-        Ck   合并后的数据集
+        Ck   所有key的元素集合
     Returns:
         retList      支持度大于阈值的集合
         supportData  全量key的字典集合
@@ -141,6 +141,8 @@ def apriori(dataSet, minSupport=0.5):
         if len(Lk) == 0:
             break
         # Lk表示满足频繁子项的集合，L元素在增加
+        # l=[[set(1), set(2), set(3)]]
+        # l=[[set(1), set(2), set(3)]  [set(1, 2), set(2, 3)]]
         L.append(Lk)
         k += 1
         # print 'k=', k, len(L[k-2])
@@ -157,7 +159,7 @@ def calcConf(freqSet, H, supportData, brl, minConf=0.7):
         brl bigRuleList的空数组
         minConf 置信度的阈值
     Returns:
-        prunedH 记录 可信度大于阈值的集合
+        prunedH 记录 置信度大于阈值的集合
     """
     # 记录 可信度大于阈值的集合
     prunedH = []
@@ -209,7 +211,7 @@ def generateRules(L, supportData, minConf=0.7):
     Args:
         L 频繁项集的全集
         supportData 所有元素和支持度的全集
-        minConf 可信度的阈值
+        minConf 置信度的阈值
     Returns:
         bigRuleList 关于 (A->B+置信度) 3个字段的组合
     """
@@ -217,7 +219,9 @@ def generateRules(L, supportData, minConf=0.7):
     # 循环L频繁项集，所有的统一大小组合（2/../n个的组合，从第2组开始）
     for i in range(1, len(L)):
         # 获取频繁项集中每个组合的所有元素
+        # [[frozenset([1]), frozenset([3]), frozenset([2]), frozenset([5])], [frozenset([1, 3]), frozenset([2, 5]), frozenset([2, 3]), frozenset([3, 5])], [frozenset([2, 3, 5])]]
         for freqSet in L[i]:
+            # 假设：freqSet=frozenset([1, 3])  H1=[1, 3]
             # 组合总的元素并遍历子元素，并转化为冻结的set集合，再存放到list列表中
             H1 = [frozenset([item]) for item in freqSet]
             # 2个的组合，走else, 2个以上的组合，走if
@@ -299,17 +303,17 @@ def main():
     # # 收集并准备数据
     # dataMat, labelMat = loadDataSet("%s/resources/Apriori_testdata.txt" % project_dir)
 
-    # 现在的的测试
-    # 1. 加载数据
-    dataSet = loadDataSet()
-    print(dataSet)
-    # 调用 apriori 做购物篮分析
-    # 支持度满足阈值的key集合L，和所有元素和支持度的全集suppoerData
-    L, supportData = apriori(dataSet, minSupport=0.5)
-    print L, '\n', supportData
-    print '\ngenerateRules\n'
-    rules = generateRules(L, supportData, minConf=0.25)
-    print rules
+    # # 现在的的测试
+    # # 1. 加载数据
+    # dataSet = loadDataSet()
+    # print(dataSet)
+    # # 调用 apriori 做购物篮分析
+    # # 支持度满足阈值的key集合L，和所有元素和支持度的全集suppoerData
+    # L, supportData = apriori(dataSet, minSupport=0.5)
+    # print L, '\n', supportData
+    # print '\ngenerateRules\n'
+    # rules = generateRules(L, supportData, minConf=0.25)
+    # print rules
 
     # # 项目实战
     # # 构建美国国会投票记录的事务数据集
@@ -324,20 +328,20 @@ def main():
     # rules = generateRules(L, supportData, minConf=0.95)
     # print rules
 
-    # # 项目实战
-    # # 发现毒蘑菇的相似特性
-    # # 得到全集的数据
-    # dataSet = [line.split() for line in open("testData/Apriori_mushroom.dat").readlines()]
-    # L, supportData = apriori(dataSet, minSupport=0.3)
-    # # 2表示毒蘑菇，1表示可食用的蘑菇
-    # # 找出关于2的频繁子项出来，就知道如果是毒蘑菇，那么出现频繁的也可能是毒蘑菇
-    # for item in L[1]:
-    #     if item.intersection('2'):
-    #         print item
+    # 项目实战
+    # 发现毒蘑菇的相似特性
+    # 得到全集的数据
+    dataSet = [line.split() for line in open("testData/Apriori_mushroom.dat").readlines()]
+    L, supportData = apriori(dataSet, minSupport=0.3)
+    # 2表示毒蘑菇，1表示可食用的蘑菇
+    # 找出关于2的频繁子项出来，就知道如果是毒蘑菇，那么出现频繁的也可能是毒蘑菇
+    for item in L[1]:
+        if item.intersection('2'):
+            print item
 
-    # for item in L[2]:
-    #     if item.intersection('2'):
-    #         print item
+    for item in L[2]:
+        if item.intersection('2'):
+            print item
 
 
 if __name__ == "__main__":
