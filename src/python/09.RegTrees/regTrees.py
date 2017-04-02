@@ -103,6 +103,7 @@ def chooseBestSplit(dataSet, leafType=regLeaf, errType=regErr, ops=(1, 4)):
     bestS, bestIndex, bestValue = inf, 0, 0
     # 循环处理每一列对应的feature值
     for featIndex in range(n-1):
+        # [0]表示这一列的[所有行]，不要[0]就是一个array[[所有行]]
         for splitVal in set(dataSet[:, featIndex].T.tolist()[0]):
             # 对该列进行分组，然后组内的成员的val值进行 二元切分
             mat0, mat1 = binSplitDataSet(dataSet, featIndex, splitVal)
@@ -236,7 +237,7 @@ def linearSolve(dataSet):
     # 如果矩阵的逆不存在，会造成程序异常
     if linalg.det(xTx) == 0.0:
         raise NameError('This matrix is singular, cannot do inverse,\ntry increasing the second value of ops')
-    # 最小二乘法求最优解
+    # 最小二乘法求最优解:  w0*1+w1*x1=y
     ws = xTx.I * (X.T * Y)
     return ws, X, Y
 
@@ -291,7 +292,9 @@ if __name__ == "__main__":
     # # 回归树
     # myDat = loadDataSet('testData/RT_data1.txt')
     # # myDat = loadDataSet('testData/RT_data2.txt')
+    # # print 'myDat=', myDat
     # myMat = mat(myDat)
+    # # print 'myMat=',  myMat
     # myTree = createTree(myMat)
     # print myTree
 
@@ -301,7 +304,7 @@ if __name__ == "__main__":
     # myTree = createTree(myMat, ops=(0, 1))
     # print myTree
 
-    # # 2.后剪枝就是：通过测试数据，对预测模型进行合并判断
+    # # 2. 后剪枝就是：通过测试数据，对预测模型进行合并判断
     # myDatTest = loadDataSet('testData/RT_data3test.txt')
     # myMat2Test = mat(myDatTest)
     # myFinalTree = prune(myTree, myMat2Test)
@@ -330,11 +333,11 @@ if __name__ == "__main__":
     print myTree2
     print "模型树:", corrcoef(yHat2, testMat[:, 1],rowvar=0)[0, 1]
 
-    # # 线性回归
-    # ws, X, Y = linearSolve(trainMat)
-    # print ws
-    # m = len(testMat[:, 0])
-    # yHat3 = mat(zeros((m, 1)))
-    # for i in range(shape(testMat)[0]):
-    #     yHat3[i] = testMat[i, 0]*ws[1, 0] + ws[0, 0]
-    # print "线性回归:", corrcoef(yHat3, testMat[:, 1],rowvar=0)[0, 1]
+    # 线性回归
+    ws, X, Y = linearSolve(trainMat)
+    print ws
+    m = len(testMat[:, 0])
+    yHat3 = mat(zeros((m, 1)))
+    for i in range(shape(testMat)[0]):
+        yHat3[i] = testMat[i, 0]*ws[1, 0] + ws[0, 0]
+    print "线性回归:", corrcoef(yHat3, testMat[:, 1],rowvar=0)[0, 1]

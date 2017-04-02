@@ -100,7 +100,6 @@ def main(root):
     # 退出按钮
     Button(root, text="退出", fg="black", command=quit).grid(row=1, column=2)
 
-
     # 创建一个画板 canvas
     reDraw.f = Figure(figsize=(5, 4), dpi=100)
     reDraw.canvas = FigureCanvasTkAgg(reDraw.f, master=root)
