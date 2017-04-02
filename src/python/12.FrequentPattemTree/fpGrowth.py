@@ -41,6 +41,7 @@ def loadSimpDat():
                ['z', 'y', 'x', 'w', 'v', 'u', 't', 's'],
                ['z'],
                ['r', 'x', 'n', 'o', 's'],
+            #    ['r', 'x', 'n', 'o', 's'],
                ['y', 'r', 'x', 'z', 'q', 't', 'p'],
                ['y', 'z', 'x', 'e', 'q', 's', 't', 'm']]
     return simpDat
@@ -49,7 +50,10 @@ def loadSimpDat():
 def createInitSet(dataSet):
     retDict = {}
     for trans in dataSet:
-        retDict[frozenset(trans)] = 1
+        if not retDict.has_key(frozenset(trans)):
+            retDict[frozenset(trans)] = 1
+        else:
+            retDict[frozenset(trans)] += 1
     return retDict
 
 
@@ -193,7 +197,7 @@ def findPrefixPath(basePat, treeNode):
             # prefixPath[1:] 变frozenset后，字母就变无序了
             # condPats[frozenset(prefixPath)] = treeNode.count
             condPats[frozenset(prefixPath[1:])] = treeNode.count
-        # 递归，寻找改节点的上一个 相同值的链接节点
+        # 递归，寻找改节点的下一个 相同值的链接节点
         treeNode = treeNode.nodeLink
         # print treeNode
     return condPats
