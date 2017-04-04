@@ -42,6 +42,7 @@
 * 14) 使用SVD简化数据
     * [使用SVD简化数据](./docs/14.使用SVD简化数据.md)
 * 15) 大数据与MapReduce
+    * [大数据与MapReduce](./docs/15.大数据与MapReduce.md)
 
 * * *
 
