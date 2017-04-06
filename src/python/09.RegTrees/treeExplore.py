@@ -5,7 +5,7 @@
 Created on 2017-03-08
 Update on 2017-03-08
 Tree-Based Regression Methods Source Code for Machine Learning in Action Ch. 9
-@author: jiangzhonglian
+@author: Peter/片刻
 '''
 import regTrees
 from Tkinter import *
@@ -99,7 +99,6 @@ def main(root):
 
     # 退出按钮
     Button(root, text="退出", fg="black", command=quit).grid(row=1, column=2)
-
 
     # 创建一个画板 canvas
     reDraw.f = Figure(figsize=(5, 4), dpi=100)
