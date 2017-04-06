@@ -6,8 +6,7 @@ from numpy import linalg as la
 from numpy import *
 
 
-def loadExData():
-    """
+def loadExData3():
     # 利用SVD提高推荐效果，菜肴矩阵
     return[[2, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0],
            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5],
@@ -21,6 +20,23 @@ def loadExData():
            [0, 0, 0, 3, 0, 0, 0, 0, 4, 5, 0],
            [1, 1, 2, 1, 1, 2, 1, 0, 4, 5, 0]]
 
+
+def loadExData2():
+    # 书上代码给的示例矩阵
+    return[[0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 5],
+           [0, 0, 0, 3, 0, 4, 0, 0, 0, 0, 3],
+           [0, 0, 0, 0, 4, 0, 0, 1, 0, 4, 0],
+           [3, 3, 4, 0, 0, 0, 0, 2, 2, 0, 0],
+           [5, 4, 5, 0, 0, 0, 0, 5, 5, 0, 0],
+           [0, 0, 0, 0, 5, 0, 1, 0, 0, 5, 0],
+           [4, 3, 4, 0, 0, 0, 0, 5, 5, 0, 1],
+           [0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 4],
+           [0, 0, 0, 2, 0, 2, 5, 0, 0, 1, 2],
+           [0, 0, 0, 0, 5, 0, 0, 0, 0, 4, 0],
+           [1, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0]]
+
+
+def loadExData():
     # 推荐引擎示例矩阵
     return[[4, 4, 0, 2, 2],
            [4, 0, 0, 3, 3],
@@ -38,6 +54,7 @@ def loadExData():
            [1, 1, 0, 2, 2],
            [0, 0, 0, 3, 3],
            [0, 0, 0, 1, 1]]
+    """
 
 
 # 相似度计算，假定inA和inB 都是列向量
@@ -139,14 +156,14 @@ def svdEst(dataMat, user, simMeas, item):
         userRating = dataMat[user, j]
         if userRating == 0 or j == item:
             continue
-    # 相似度的计算方法也会作为一个参数传递给该函数
-    similarity = simMeas(xformedItems[item, :].T,xformedItems[j, :].T)
-    # for 循环中加入了一条print语句，以便了解相似度计算的进展情况。如果觉得累赘，可以去掉
-    print 'the %d and %d similarity is: %f' % (item, j, similarity)
-    # 对相似度不断累加求和
-    simTotal += similarity
-    # 对相似度及对应评分值的乘积求和
-    ratSimTotal += similarity * userRating
+        # 相似度的计算方法也会作为一个参数传递给该函数
+        similarity = simMeas(xformedItems[item, :].T,xformedItems[j, :].T)
+        # for 循环中加入了一条print语句，以便了解相似度计算的进展情况。如果觉得累赘，可以去掉
+        print 'the %d and %d similarity is: %f' % (item, j, similarity)
+        # 对相似度不断累加求和
+        simTotal += similarity
+        # 对相似度及对应评分值的乘积求和
+        ratSimTotal += similarity * userRating
     if simTotal == 0:
         return 0
     else:
@@ -195,7 +212,7 @@ def imgCompress(numSV=3, thresh=0.8):
 
 if __name__ == "__main__":
     """
-    # 对矩阵进行SVD分解
+    # 对矩阵进行SVD分解(用python实现SVD)
     Data = loadExData()
     U, Sigma, VT = linalg.svd(Data)
     # 打印Sigma的结果，因为前3个数值比其他的值大了很多，为9.72140007e+00，5.29397912e+00，6.84226362e-01
@@ -224,20 +241,33 @@ if __name__ == "__main__":
 
     """
 
+    # 计算相似度的方法
+    myMat = mat(loadExData2())
+    # print myMat
+    # 计算相似度的第一种方式
+    print recommend(myMat, 1, estMethod=svdEst)
+    # 计算相似度的第二种方式
+    print recommend(myMat, 1, estMethod=svdEst, simMeas=pearsSim)
+
     """
-    # 默认推荐
+    # 默认推荐（菜馆菜肴推荐示例）
     print recommend(myMat, 2)
     """
 
     """
-    # 计算相似度的方法
-    # 计算相似度的第一种方式
-    # print recommend(myMat, 1, estMethod=svdEst)
-    # 计算相似度的第二种方式
-    print recommend(myMat, 1, estMethod = svdEst, simMeas=pearsSim)
-    """
+    # 利用SVD提高推荐效果
+    U, Sigma, VT = la.svd(mat(loadExData2()))
+    print Sigma                 # 计算矩阵的SVD来了解其需要多少维的特征
+    Sig2 = Sigma**2             # 计算需要多少个奇异值能达到总能量的90%
+    print sum(Sig2)             # 计算总能量
+    print sum(Sig2) * 0.9       # 计算总能量的90%
+    print sum(Sig2[: 2])        # 计算前两个元素所包含的能量
+    print sum(Sig2[: 3])        # 两个元素的能量值小于总能量的90%，于是计算前三个元素所包含的能量
+    # 该值高于总能量的90%，这就可以了
 
     """
+
     # 压缩图片
     # imgCompress(2)
-    """
+
+
