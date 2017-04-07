@@ -129,7 +129,7 @@ def plotBestFit(dataArr, labelMat, weights):
 
 def main():
     # 1.收集并准备数据
-    dataMat, labelMat = loadDataSet("input/05.Logistic/TestSet.txt")
+    dataMat, labelMat = loadDataSet("input/5.Logistic/TestSet.txt")
 
     # print dataMat, '---\n', labelMat
     # 2.训练模型，  f(x)=a1*x1+b2*x2+..+nn*xn中 (a1,b2, .., nn).T的矩阵值
