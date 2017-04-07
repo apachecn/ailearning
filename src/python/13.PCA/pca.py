@@ -105,9 +105,6 @@ def show_picture(dataMat, reconMat):
     plt.show()
 
 
-# def pca_semiconductor():
-
-
 if __name__ == "__main__":
     # # 加载数据，并转化数据类型为float
     # dataMat = loadDataSet('input/13.PCA/testSet.txt')
