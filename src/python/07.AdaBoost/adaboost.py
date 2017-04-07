@@ -258,47 +258,47 @@ def plotROC(predStrengths, classLabels):
 
 
 if __name__ == "__main__":
-    # 我们要将5个点进行分类
-    dataArr, labelArr = loadSimpData()
-    print 'dataArr', dataArr, 'labelArr', labelArr
+    # # 我们要将5个点进行分类
+    # dataArr, labelArr = loadSimpData()
+    # print 'dataArr', dataArr, 'labelArr', labelArr
 
-    # D表示最初值，对1进行均分为5份，平均每一个初始的概率都为0.2
-    # D的目的是为了计算错误概率： weightedError = D.T*errArr
-    D = mat(ones((5, 1))/5)
-    print 'D=', D.T
+    # # D表示最初值，对1进行均分为5份，平均每一个初始的概率都为0.2
+    # # D的目的是为了计算错误概率： weightedError = D.T*errArr
+    # D = mat(ones((5, 1))/5)
+    # print 'D=', D.T
 
-    # bestStump, minError, bestClasEst = buildStump(dataArr, labelArr, D)
-    # print 'bestStump=', bestStump
-    # print 'minError=', minError
-    # print 'bestClasEst=', bestClasEst.T
+    # # bestStump, minError, bestClasEst = buildStump(dataArr, labelArr, D)
+    # # print 'bestStump=', bestStump
+    # # print 'minError=', minError
+    # # print 'bestClasEst=', bestClasEst.T
 
 
-    # 分类器：weakClassArr
-    # 历史累计的分类结果集
-    weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 9)
-    print '\nweakClassArr=', weakClassArr, '\naggClassEst=', aggClassEst.T
+    # # 分类器：weakClassArr
+    # # 历史累计的分类结果集
+    # weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 9)
+    # print '\nweakClassArr=', weakClassArr, '\naggClassEst=', aggClassEst.T
 
-    """
-    发现:
-    分类的权重值：最大的值，为alpha的加和，最小值为-最大值
-    特征的权重值：如果一个值误判的几率越小，那么D的特征权重越少
-    """
+    # """
+    # 发现:
+    # 分类的权重值：最大的值，为alpha的加和，最小值为-最大值
+    # 特征的权重值：如果一个值误判的几率越小，那么D的特征权重越少
+    # """
 
-    # 测试数据的分类结果, 观测：aggClassEst分类的最终权重
-    print adaClassify([0, 0], weakClassArr).T
-    print adaClassify([[5, 5], [0, 0]], weakClassArr).T
+    # # 测试数据的分类结果, 观测：aggClassEst分类的最终权重
+    # print adaClassify([0, 0], weakClassArr).T
+    # print adaClassify([[5, 5], [0, 0]], weakClassArr).T
 
-    # # 马疝病数据集
-    # # 训练集合
-    # dataArr, labelArr = loadDataSet("testData/AB_horseColicTraining2.txt")
-    # weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 40)
-    # print weakClassArr, '\n-----\n', aggClassEst.T
-    # # 计算ROC下面的AUC的面积大小
-    # plotROC(aggClassEst.T, labelArr)
-    # # 测试集合
-    # dataArrTest, labelArrTest = loadDataSet("testData/AB_horseColicTest2.txt")
-    # m = shape(dataArrTest)[0]
-    # predicting10 = adaClassify(dataArrTest, weakClassArr)
-    # errArr = mat(ones((m, 1)))
-    # # 测试：计算总样本数，错误样本数，错误率
-    # print m, errArr[predicting10 != mat(labelArrTest).T].sum(), errArr[predicting10 != mat(labelArrTest).T].sum()/m
+    # 马疝病数据集
+    # 训练集合
+    dataArr, labelArr = loadDataSet("input/07.AdaBoost/horseColicTraining2.txt")
+    weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 40)
+    print weakClassArr, '\n-----\n', aggClassEst.T
+    # 计算ROC下面的AUC的面积大小
+    plotROC(aggClassEst.T, labelArr)
+    # 测试集合
+    dataArrTest, labelArrTest = loadDataSet("input/07.AdaBoost/horseColicTest2.txt")
+    m = shape(dataArrTest)[0]
+    predicting10 = adaClassify(dataArrTest, weakClassArr)
+    errArr = mat(ones((m, 1)))
+    # 测试：计算总样本数，错误样本数，错误率
+    print m, errArr[predicting10 != mat(labelArrTest).T].sum(), errArr[predicting10 != mat(labelArrTest).T].sum()/m
