@@ -151,7 +151,7 @@ def datingClassTest():
     # 设置测试数据的的一个比例（训练数据集比例=1-hoRatio）
     hoRatio = 0.1  # 测试范围,一部分测试一部分作为样本
     # 从文件中加载数据
-    datingDataMat, datingLabels = file2matrix('testData/datingTestSet2.txt')  # load data setfrom file
+    datingDataMat, datingLabels = file2matrix('input/02.KNN/datingTestSet2.txt')  # load data setfrom file
     # 归一化数据
     normMat, ranges, minVals = autoNorm(datingDataMat)
     m = normMat.shape[0]
@@ -186,7 +186,7 @@ def img2vector(filename):
 def handwritingClassTest():
     # 1. 导入数据
     hwLabels = []
-    trainingFileList = listdir('testData/trainingDigits')  # load the training set
+    trainingFileList = listdir('input/02.KNN/trainingDigits')  # load the training set
     m = len(trainingFileList)
     trainingMat = zeros((m, 1024))
     # hwLabels存储0～9对应的index位置， trainingMat存放的每个位置对应的图片向量
@@ -195,17 +195,17 @@ def handwritingClassTest():
         fileStr = fileNameStr.split('.')[0]  # take off .txt
         classNumStr = int(fileStr.split('_')[0])
         hwLabels.append(classNumStr)
-        trainingMat[i, :] = img2vector('testData/trainingDigits/%s' % fileNameStr)
+        trainingMat[i, :] = img2vector('input/02.KNN/trainingDigits/%s' % fileNameStr)
 
     # 2. 导入测试数据
-    testFileList = listdir('testData/testDigits')  # iterate through the test set
+    testFileList = listdir('input/02.KNN/testDigits')  # iterate through the test set
     errorCount = 0.0
     mTest = len(testFileList)
     for i in range(mTest):
         fileNameStr = testFileList[i]
         fileStr = fileNameStr.split('.')[0]  # take off .txt
         classNumStr = int(fileStr.split('_')[0])
-        vectorUnderTest = img2vector('testData/testDigits/%s' % fileNameStr)
+        vectorUnderTest = img2vector('input/02.KNN/testDigits/%s' % fileNameStr)
         classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)
         print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, classNumStr)
         if (classifierResult != classNumStr): errorCount += 1.0
