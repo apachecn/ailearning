@@ -40,6 +40,6 @@ def replaceNanWithMean():
 
 
 if __name__ == "__main__":
-    dataMat = loadDataSet('data/13.PCA/testSet.txt')
+    dataMat = loadDataSet('input/13.PCA/testSet.txt')
     lowDmat, reconMat = pca(dataMat, 1)
     print shape(lowDmat)

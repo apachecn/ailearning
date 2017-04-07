@@ -93,7 +93,7 @@ def show_pdf(clf):
     dot_data = StringIO()
     tree.export_graphviz(clf, out_file=dot_data)
     graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
-    graph.write_pdf("testResult/tree.pdf")
+    graph.write_pdf("output/03.DecisionTree/tree.pdf")
 
     # from IPython.display import Image
     # Image(graph.create_png())
