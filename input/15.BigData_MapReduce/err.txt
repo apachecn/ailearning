@@ -1,0 +1,40 @@
+No handlers could be found for logger "mrjob.job"
+using configs in c:/Users/Peter\.mrjob.conf
+creating tmp directory /scratch/$USER\mrSVM.Peter.20111230.181815.061000
+reading from STDIN
+> 'c:\Python27\python.exe' mrSVM.py --step-num=0 --mapper '/scratch/$USER\mrSVM.Peter.20111230.181815.061000\input_part-00000'
+writing to /scratch/$USER\mrSVM.Peter.20111230.181815.061000\step-0-mapper_part-00000
+> 'c:\Python27\python.exe' mrSVM.py --step-num=0 --mapper '/scratch/$USER\mrSVM.Peter.20111230.181815.061000\input_part-00001'
+writing to /scratch/$USER\mrSVM.Peter.20111230.181815.061000\step-0-mapper_part-00001
+STDERR: No handlers could be found for logger "mrjob.job"
+STDERR: No handlers could be found for logger "mrjob.job"
+Counters from step 1:
+  (no counters found)
+writing to /scratch/$USER\mrSVM.Peter.20111230.181815.061000\step-0-mapper-sorted
+> sort '/scratch/$USER\mrSVM.Peter.20111230.181815.061000\step-0-mapper_part-00000' '/scratch/$USER\mrSVM.Peter.20111230.181815.061000\step-0-mapper_part-00001'
+Piping files into sort for Windows compatibility
+> sort
+> 'c:\Python27\python.exe' mrSVM.py --step-num=0 --reducer '/scratch/$USER\mrSVM.Peter.20111230.181815.061000\input_part-00000'
+writing to /scratch/$USER\mrSVM.Peter.20111230.181815.061000\step-0-reducer_part-00000
+STDERR: No handlers could be found for logger "mrjob.job"
+Counters from step 1:
+  (no counters found)
+> 'c:\Python27\python.exe' mrSVM.py --step-num=1 --mapper '/scratch/$USER\mrSVM.Peter.20111230.181815.061000\input_part-00000'
+writing to /scratch/$USER\mrSVM.Peter.20111230.181815.061000\step-1-mapper_part-00000
+> 'c:\Python27\python.exe' mrSVM.py --step-num=1 --mapper '/scratch/$USER\mrSVM.Peter.20111230.181815.061000\input_part-00001'
+writing to /scratch/$USER\mrSVM.Peter.20111230.181815.061000\step-1-mapper_part-00001
+STDERR: No handlers could be found for logger "mrjob.job"
+STDERR: No handlers could be found for logger "mrjob.job"
+Counters from step 2:
+  (no counters found)
+writing to /scratch/$USER\mrSVM.Peter.20111230.181815.061000\step-1-mapper-sorted
+Piping files into sort for Windows compatibility
+> sort
+> 'c:\Python27\python.exe' mrSVM.py --step-num=1 --reducer '/scratch/$USER\mrSVM.Peter.20111230.181815.061000\input_part-00000'
+writing to /scratch/$USER\mrSVM.Peter.20111230.181815.061000\step-1-reducer_part-00000
+STDERR: No handlers could be found for logger "mrjob.job"
+Counters from step 2:
+  (no counters found)
+Moving /scratch/$USER\mrSVM.Peter.20111230.181815.061000\step-1-reducer_part-00000 -> /scratch/$USER\mrSVM.Peter.20111230.181815.061000\output\part-00000
+Streaming final output from /scratch/$USER\mrSVM.Peter.20111230.181815.061000\output
+removing tmp directory /scratch/$USER\mrSVM.Peter.20111230.181815.061000

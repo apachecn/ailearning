@@ -1,0 +1,303 @@
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 79]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 115]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 107]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 109]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 109]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 88]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 56]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 94]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 50]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 86]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 75]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 30]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 20]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 157]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 15]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 19]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 63]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 124]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 132]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 3]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 140]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 139]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 127]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 98]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 30]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 16]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 4]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 2]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 75]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 123]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 42]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 16]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 94]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 163]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 159]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 23]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 16]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 160]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 5]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 42]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 53]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 83]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 46]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 121]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 73]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 123]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 93]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 99]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 106]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 173]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 192]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 132]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 57]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 47]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 164]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 157]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 199]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 62]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 175]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 154]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 110]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 0]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 116]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 49]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 76]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 121]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 178]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 75]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 167]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 41]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 105]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 71]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 5]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 135]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 80]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 116]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 198]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 164]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 105]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 98]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 156]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 72]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 54]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 62]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 57]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 87]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 68]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 163]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 140]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 40]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 70]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 120]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 172]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 71]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 82]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 168]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 42]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 144]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 27]
+shape(self.w):  (2,)
+shape(X[index,:]) (1, 2)
+1	["u", 36]
+in the map_fin
+1	["w", [0.001, 0.001]]
+1	["t", 1]
