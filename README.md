@@ -44,6 +44,16 @@
 * 15) 大数据与MapReduce
     * [大数据与MapReduce](./docs/15.大数据与MapReduce.md)
 
+## 第五部分  项目实战(非课本内容 来之ApacheCN Team)
+
+* 16) 推荐系统
+    * [推荐系统](/docs/16.推荐系统.md)
+    * [后续 翻译完Spark ML继续跟进该项目, 欢迎有兴趣的朋友参与开源公益的活动]
+
+## 阶段性总结
+
+* [2017-04-08_第一期的总结](/report/2017-04-08_第一期的总结.md)
+
 * * *
 
 * 附录A Python入门
@@ -53,3 +63,5 @@
 * 索引
 * 版权声明
 * [ApacheCN(apache中文网) 维护更新](http://www.apache.wiki/display/ML)
+    * [关于我们](http://www.apache.wiki/pages/viewpage.action?pageId=2887240)
+    * [加入我们](http://www.apache.wiki/pages/viewpage.action?pageId=2887239)
