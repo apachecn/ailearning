@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# coding:utf8
+
 '''
 Created on 2017-04-06
 Machine Learning in Action Chapter 18
@@ -7,9 +10,9 @@ Map Reduce Job for Hadoop Streaming
 
 
 '''
-	mapper 接受原始的输入并产生中间值传递给 reducer。
-	很多的mapper是并行执行的，所以需要将这些mapper的输出合并成一个值。
-	即：将中间的 key/value 对进行组合。
+    mapper 接受原始的输入并产生中间值传递给 reducer。
+    很多的mapper是并行执行的，所以需要将这些mapper的输出合并成一个值。
+    即：将中间的 key/value 对进行组合。
 '''
 import sys
 from numpy import mat, mean, power
@@ -40,4 +43,4 @@ meanSq = cumSumSq/cumN
 
 #输出 数据总量，均值，平方的均值（方差）
 print ("%d\t%f\t%f" % (cumN, mean, meanSq))
-print ("report: still alive", file=sys.stderr) 
+print >> sys.stderr, "report: still alive"

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# coding:utf8
 '''
 Created on 2017-04-06
 Machine Learning in Action Chapter 18
@@ -30,4 +32,4 @@ sqInput = power(input,2)				# 将矩阵的数据分别求 平方，即 2次方
 
 # 输出 数据的个数，n个数据的均值，n个数据平方之后的均值
 print ("%d\t%f\t%f" % (numInputs, mean(input), mean(sqInput))) #计算均值
-print ("report: still alive", file=sys.stderr)
+print >> sys.stderr, "report: still alive"
