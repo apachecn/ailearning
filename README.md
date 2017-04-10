@@ -65,3 +65,7 @@
 * [ApacheCN(apache中文网) 维护更新](http://www.apache.wiki)
     * [关于我们](http://www.apache.wiki/pages/viewpage.action?pageId=2887240)
     * [加入我们](http://www.apache.wiki/pages/viewpage.action?pageId=2887239)
+* [ApacheCN-ML视频-优酷地址](http://i.youku.com/apachecn)
+* ![](/images/MainPage/apachecn_youku.png)
+* [ApacheCN-ML视频-百度云地址](https://pan.baidu.com/s/1eS44hCu)
+* ![](/images/MainPage/apachecn_baiduyun.png)
