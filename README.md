@@ -1,6 +1,6 @@
 # MachineLearning
 
-**Mahchine Learning in Action (python) | [ApacheCN(apache中文网)](http://www.apache.wiki)**
+**Machine Learning in Action (python) | [ApacheCN(apache中文网)](http://www.apache.wiki)**
 
 ## 第一部分  分类
 
