@@ -1,48 +1,49 @@
+#!/usr/bin/python
+# coding:utf8
+
 """
 Created on Nov 4, 2010
 Update on 2017-03-21
 Chapter 5 source file for Machine Learing in Action
-@author: Peter/geekidentity
+@author: Peter/geekidentity/片刻
 """
 from numpy import *
 import pylab
 from time import sleep
 
-def main():
-    dataArr, labelArr = loadDataSet('testSet.txt')
-    smoSimple(dataArr, labelArr, 0.6, 0.001, 40)
 
 def loadDataSet(fileName):
     """
     对文件进行逐行解析，从而得到第行的类标签和整个数据矩阵
     Args:
-        fileName: testSet.txt
-
+        fileName 文件名
     Returns:
-        数据矩阵, 类标签
+        dataMat  数据矩阵
+        labelMat 类标签
     """
-    dataMat = []; labelMat = []
+    dataMat = []
+    labelMat = []
     fr = open(fileName)
     for line in fr.readlines():
         lineArr = line.strip().split('\t')
         dataMat.append([float(lineArr[0]), float(lineArr[1])])
         labelMat.append(float(lineArr[2]))
-    return dataMat,labelMat
+    return dataMat, labelMat
 
-def selectJrand(i,m):
+
+def selectJrand(i, m):
     """
     随机选择一个整数
     Args:
         i: 第一个alpha的下标
         m: 所有alpha的数目
-
     Returns:
-
     """
     j=i #we want to select any J not equal to i
     while (j==i):
         j = int(random.uniform(0,m))
     return j
+
 
 def clipAlpha(aj,H,L):
     """
@@ -51,7 +52,6 @@ def clipAlpha(aj,H,L):
         aj:
         H:
         L:
-
     Returns:
 
     """
@@ -61,17 +61,10 @@ def clipAlpha(aj,H,L):
         aj = L
     return aj
 
+
 def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
-    """
-    SVM SMO算法的简单实现:
-        创建一个alpha向量并将其初始化为0向量
-        当迭代次数据小于最大迭代次数时(外循环)
-            对数据集中的每个数据向量(内循环):
-                如果该数据向量可以被优化:
-                    随机选择另外一个数据向量
-                    同时优化这两个向量
-                    如果两个向量都不能被优化，退出内循环
-            如果所有向量都没有被优化，增加迭代数目，继续下一次循环
+    """smoSimple
+
     Args:
         dataMatIn: 数据集
         classLabels: 类别标签
@@ -80,7 +73,6 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
             可以通过调节该参数达到不同的结果。
         toler: 容错率
         maxIter: 退出前最大的循环次数
-
     Returns:
 
     """
@@ -130,6 +122,13 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
         else:iter = 0
         print("iteration number: %d" % iter)
     return b,alphas
+
+
+if __name__ == "__main__":
+    # 获取特征和目标变量
+    dataArr, labelArr = loadDataSet('input/6.SVM/testSet.txt')
+    # print labelArr
+    # smoSimple(dataArr, labelArr, 0.6, 0.001, 40)
 
 
 def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher dimensional space
@@ -566,5 +565,3 @@ def smoPK(dataMatIn, classLabels, C, toler, maxIter):  # full Platt SMO
         print("iteration number: %d" % iter)
     return oS.b, oS.alphas
 
-if __name__ == "__main__":
-    main()
