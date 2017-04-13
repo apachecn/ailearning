@@ -35,25 +35,25 @@ def selectJrand(i, m):
     """
     随机选择一个整数
     Args:
-        i: 第一个alpha的下标
-        m: 所有alpha的数目
+        i  第一个alpha的下标
+        m  所有alpha的数目
     Returns:
+        j  返回一个不为i的随机数，在0~m之间的整数值
     """
-    j=i #we want to select any J not equal to i
-    while (j==i):
-        j = int(random.uniform(0,m))
+    j = i
+    while j == i:
+        j = int(random.uniform(0, m))
     return j
 
 
-def clipAlpha(aj,H,L):
-    """
-    用于调整大于H或小于L的alpha值
+def clipAlpha(aj, H, L):
+    """clipAlpha(调整aj的值，使aj处于 L<=aj<=H)
     Args:
-        aj:
-        H:
-        L:
+        aj  目标值
+        H   最大值
+        L   最小值
     Returns:
-
+        aj  目标值
     """
     if aj > H:
         aj = H
@@ -66,69 +66,110 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
     """smoSimple
 
     Args:
-        dataMatIn: 数据集
-        classLabels: 类别标签
-        C: 松弛变量，允许有些数据点可以处于分隔面的错误一侧。
+        dataMatIn    数据集
+        classLabels  类别标签
+        C   松弛变量(常量值)，允许有些数据点可以处于分隔面的错误一侧。
             控制最大化间隔和保证大部分的函数间隔小于1.0这两个目标的权重。
             可以通过调节该参数达到不同的结果。
-        toler: 容错率
-        maxIter: 退出前最大的循环次数
+        toler    容错率
+        maxIter  退出前最大的循环次数
     Returns:
-
+        b       模型的常量值
+        alphas  拉格朗日乘子
     """
-    dataMatrix = mat(dataMatIn); labelMat = mat(classLabels).transpose()
-    b = 0; m,n = shape(dataMatrix)
-    alphas = mat(zeros((m,1)))
-    iter = 0 # 没有任何alpha改变的情况下遍历数据的次数
+    dataMatrix = mat(dataMatIn)
+    # 矩阵转制 和 .T 一样的功能
+    labelMat = mat(classLabels).transpose()
+    m, n = shape(dataMatrix)
+
+    # 初始化 b和alphas(alpha有点类似权重值。)
+    b = 0
+    alphas = mat(zeros((m, 1)))
+
+    # 没有任何alpha改变的情况下遍历数据的次数
+    iter = 0
     while (iter < maxIter):
-        w = calcWs(alphas, dataMatIn, classLabels)
-        print("w:", w)
-        alphaPairsChanged = 0 #记录alpha是否已经进行优化，每次循环时设为0，然后再对整个集合顺序遍历
+        # w = calcWs(alphas, dataMatIn, classLabels)
+        # print("w:", w)
+
+        # 记录alpha是否已经进行优化，每次循环时设为0，然后再对整个集合顺序遍历
+        alphaPairsChanged = 0
         for i in range(m):
-            fXi = float(multiply(alphas,labelMat).T*(dataMatrix*dataMatrix[i,:].T)) + b # 我们预测的类别
-            Ei = fXi - float(labelMat[i])#检查是否违反KKT条件 误差：基于这个实例的预测结果和真实结果的比对，计算误差Ei 参考：http://blog.csdn.net/puqutogether/article/details/44587653
-            if ((labelMat[i]*Ei < -toler) and (alphas[i] < C)) or ((labelMat[i]*Ei > toler) and (alphas[i] > 0)): #不管是正负间隔都会测试，同时检查alpha值，保证其不能等于0或C
-                j = selectJrand(i,m) # 误差很大时进行优化
-                fXj = float(multiply(alphas,labelMat).T*(dataMatrix*dataMatrix[j,:].T)) + b
+            print 'alphas=', alphas
+            print 'labelMat=', labelMat
+            print 'multiply(alphas, labelMat)=', multiply(alphas, labelMat)
+            # 我们预测的类别 y = w^Tx[i]+b; 其中因为 w = Σ(1~n) a[n]lable[n]x[n]
+            fXi = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[i, :].T)) + b
+            # 预测结果与真实结果比对，计算误差Ei
+            Ei = fXi - float(labelMat[i])
+
+            # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值。)
+            # 0<=alphas[i]<=C，但由于0和C是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。
+            # 表示发生错误的概率：labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。
+            if ((labelMat[i]*Ei < -toler) and (alphas[i] < C)) or ((labelMat[i]*Ei > toler) and (alphas[i] > 0)):
+
+                # 如果满足优化的条件，我们就随机选取非i的一个点，进行优化比较
+                j = selectJrand(i, m)
+                # 预测j的结果
+                fXj = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[j, :].T)) + b
                 Ej = fXj - float(labelMat[j])
                 alphaIold = alphas[i].copy()
                 alphaJold = alphas[j].copy()
-                if (labelMat[i] != labelMat[j]): # 将alpha调整到0-C之间
+
+                # L和H用于将alphas[j]调整到0-C之间。如果L==H，就不做任何改变，直接执行continue语句
+                if (labelMat[i] != labelMat[j]):
                     L = max(0, alphas[j] - alphas[i])
                     H = min(C, C + alphas[j] - alphas[i])
                 else:
                     L = max(0, alphas[j] + alphas[i] - C)
                     H = min(C, alphas[j] + alphas[i])
-                if L==H: print("L==H"); continue
-                eta = 2.0 * dataMatrix[i,:]*dataMatrix[j,:].T - dataMatrix[i,:]*dataMatrix[i,:].T - dataMatrix[j,:]*dataMatrix[j,:].T #最优修改量
-                if eta >= 0: print("eta>=0"); continue # 如果ETA为0，那么计算新的alphas[j]就比较麻烦了
+                if L == H:
+                    print("L==H")
+                    continue
+
+                # eta是alphas[j]的最优修改量，如果eta==0，需要退出for循环的当前迭代过程
+                # 如果ETA为0，那么计算新的alphas[j]就比较麻烦了, 为什么呢？ 因为2个值一样。
+                # 2ab <= a^2 + b^2
+                eta = 2.0 * dataMatrix[i, :]*dataMatrix[j, :].T - dataMatrix[i, :]*dataMatrix[i,:].T - dataMatrix[j, :]*dataMatrix[j, :].T
+                if eta >= 0:
+                    print("eta>=0")
+                    continue
+
+                # 计算出一个新的alphas[j]值
                 alphas[j] -= labelMat[j]*(Ei - Ej)/eta
-                alphas[j] = clipAlpha(alphas[j],H,L)
+                # 并使用辅助函数，以及L和H对其进行调整
+                alphas[j] = clipAlpha(alphas[j], H, L)
                 # 检查alpha[j]是否有轻微的改变，如果是的话，就退出for循环。
-                if (abs(alphas[j] - alphaJold) < 0.00001): print("j not moving enough"); continue
-                # 对alpha[i], alpha[j]同样进行改变，改变方向一样
-                alphas[i] += labelMat[j]*labelMat[i]*(alphaJold - alphas[j])#update i by the same amount as j
-                                                                        #the update is in the oppostie direction
+                if (abs(alphas[j] - alphaJold) < 0.00001):
+                    print("j not moving enough")
+                    continue
+                # 然后alphas[i]和alphas[j]同样进行改变，虽然改变的大小一样，但是改变的方向正好相反
+                alphas[i] += labelMat[j]*labelMat[i]*(alphaJold - alphas[j])
                 # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
                 b1 = b - Ei- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i,:]*dataMatrix[i,:].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[i,:]*dataMatrix[j,:].T
                 b2 = b - Ej- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i,:]*dataMatrix[j,:].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[j,:]*dataMatrix[j,:].T
-                if (0 < alphas[i]) and (C > alphas[i]): b = b1
-                elif (0 < alphas[j]) and (C > alphas[j]): b = b2
-                else: b = (b1 + b2)/2.0
+                if (0 < alphas[i]) and (C > alphas[i]):
+                    b = b1
+                elif (0 < alphas[j]) and (C > alphas[j]):
+                    b = b2
+                else:
+                    b = (b1 + b2)/2.0
                 alphaPairsChanged += 1
-                print("iter: %d i:%d, pairs changed %d" % (iter,i,alphaPairsChanged))
+                print("iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
         # 在for循环外，检查alpha值是否做了更新，如果在更新则将iter设为0后继续运行程序
-        if (alphaPairsChanged == 0): iter += 1
-        else:iter = 0
+        if (alphaPairsChanged == 0):
+            iter += 1
+        else:
+            iter = 0
         print("iteration number: %d" % iter)
-    return b,alphas
+    return b, alphas
 
 
 if __name__ == "__main__":
     # 获取特征和目标变量
     dataArr, labelArr = loadDataSet('input/6.SVM/testSet.txt')
     # print labelArr
-    # smoSimple(dataArr, labelArr, 0.6, 0.001, 40)
+    smoSimple(dataArr, labelArr, 0.6, 0.001, 40)
 
 
 def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher dimensional space
