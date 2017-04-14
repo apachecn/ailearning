@@ -8,8 +8,7 @@ Chapter 5 source file for Machine Learing in Action
 @author: Peter/geekidentity/片刻
 """
 from numpy import *
-import pylab
-from time import sleep
+import matplotlib.pyplot as plt
 
 
 def loadDataSet(fileName):
@@ -95,9 +94,9 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
         # 记录alpha是否已经进行优化，每次循环时设为0，然后再对整个集合顺序遍历
         alphaPairsChanged = 0
         for i in range(m):
-            print 'alphas=', alphas
-            print 'labelMat=', labelMat
-            print 'multiply(alphas, labelMat)=', multiply(alphas, labelMat)
+            # print 'alphas=', alphas
+            # print 'labelMat=', labelMat
+            # print 'multiply(alphas, labelMat)=', multiply(alphas, labelMat)
             # 我们预测的类别 y = w^Tx[i]+b; 其中因为 w = Σ(1~n) a[n]lable[n]x[n]
             fXi = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[i, :].T)) + b
             # 预测结果与真实结果比对，计算误差Ei
@@ -139,7 +138,7 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
                 alphas[j] -= labelMat[j]*(Ei - Ej)/eta
                 # 并使用辅助函数，以及L和H对其进行调整
                 alphas[j] = clipAlpha(alphas[j], H, L)
-                # 检查alpha[j]是否有轻微的改变，如果是的话，就退出for循环。
+                # 检查alpha[j]是否只是轻微的改变，如果是的话，就退出for循环。
                 if (abs(alphas[j] - alphaJold) < 0.00001):
                     print("j not moving enough")
                     continue
@@ -165,11 +164,82 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
     return b, alphas
 
 
+def calcWs(alphas, dataArr, classLabels):
+    """
+    基于alpha计算w值
+    Args:
+        alphas        拉格朗日乘子
+        dataArr       feature数据集
+        classLabels   目标变量数据集
+
+    Returns:
+        wc  回归系数
+    """
+    X = mat(dataArr)
+    labelMat = mat(classLabels).transpose()
+    m, n = shape(X)
+    w = zeros((n, 1))
+    for i in range(m):
+        w += multiply(alphas[i] * labelMat[i], X[i, :].T)
+    return w
+
+
+def plotfig_SVM(xMat, yMat, ws, b, alphas):
+    """
+    参考地址：
+       http://blog.csdn.net/maoersong/article/details/24315633
+       http://www.cnblogs.com/JustForCS/p/5283489.html
+       http://blog.csdn.net/kkxgx/article/details/6951959
+    """
+
+    xMat = mat(xMat)
+    yMat = mat(yMat)
+
+    # b原来是矩阵，先转为数组类型后其数组大小为（1,1），所以后面加[0]，变为(1,)
+    b = array(b)[0]
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+
+    # 注意flatten的用法
+    ax.scatter(xMat[:, 0].flatten().A[0], xMat[:, 1].flatten().A[0])
+
+    # x最大值，最小值根据原数据集dataArr[:, 0]的大小而定
+    x = arange(-1.0, 10.0, 0.1)
+
+    # 根据x.w + b = 0 得到，其式子展开为w0.x1 + w1.x2 + b = 0, x2就是y值
+    y = (-b-ws[0, 0]*x)/ws[1, 0]
+    ax.plot(x, y)
+    for i in range(len(yMat)):
+        if yMat[i, 0] > 0:
+            ax.plot(xMat[i, 0], xMat[i, 1], 'cx')
+        else:
+            ax.plot(xMat[i, 0], xMat[i, 1], 'kp')
+
+    # 找到支持向量，并在图中标红
+    for i in range(100):
+        if alphas[i] > 0.0:
+            ax.plot(xMat[i, 0], xMat[i, 1], 'ro')
+    plt.show()
+
+
 if __name__ == "__main__":
     # 获取特征和目标变量
     dataArr, labelArr = loadDataSet('input/6.SVM/testSet.txt')
     # print labelArr
-    smoSimple(dataArr, labelArr, 0.6, 0.001, 40)
+
+    # b是常量值， alphas是拉格朗日乘子
+    b, alphas = smoSimple(dataArr, labelArr, 0.6, 0.001, 40)
+    print '/n/n/n'
+    print 'b=', b
+    print 'alphas[alphas>0]=', alphas[alphas > 0]
+    print 'shape(alphas[alphas > 0])=', shape(alphas[alphas > 0])
+    for i in range(100):
+        if alphas[i] > 0:
+            print dataArr[i], labelArr[i]
+    # 画图
+    ws = calcWs(alphas, dataArr, labelArr)
+    plotfig_SVM(dataArr, labelArr, ws, b, alphas)
+
 
 
 def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher dimensional space
@@ -381,26 +451,6 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
             entireSet = True
         print("iteration number: %d" % iter)
     return oS.b, oS.alphas
-
-
-def calcWs(alphas, dataArr, classLabels):
-    """
-    基于alpha计算w值
-    Args:
-        alphas:
-        dataArr:
-        classLabels:
-
-    Returns:
-
-    """
-    X = mat(dataArr)
-    labelMat = mat(classLabels).transpose()
-    m, n = shape(X)
-    w = zeros((n, 1))
-    for i in range(m):
-        w += multiply(alphas[i] * labelMat[i], X[i, :].T)
-    return w
 
 
 def testRbf(k1=1.3):
