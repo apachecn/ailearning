@@ -11,6 +11,39 @@ from numpy import *
 import matplotlib.pyplot as plt
 
 
+class optStruct:
+    """
+    建立的数据结构来保存所有的重要值
+    """
+    def __init__(self, dataMatIn, classLabels, C, toler, kTup):
+        """
+        Args:
+            dataMatIn    数据集
+            classLabels  类别标签
+            C   松弛变量(常量值)，允许有些数据点可以处于分隔面的错误一侧。
+                控制最大化间隔和保证大部分的函数间隔小于1.0这两个目标的权重。
+                可以通过调节该参数达到不同的结果。
+            toler   容错率
+            kTup    包含核函数信息的元组
+        """
+
+        self.X = dataMatIn
+        self.labelMat = classLabels
+        self.C = C
+        self.tol = toler
+
+        # 数据的行数
+        self.m = shape(dataMatIn)[0]
+        self.alphas = mat(zeros((self.m, 1)))
+        self.b = 0
+
+        # 误差缓存，第一列给出的是eCache是否有效的标志位，第二列给出的是实际的E值。
+        self.eCache = mat(zeros((self.m, 2)))
+        self.K = mat(zeros((self.m, self.m)))
+        for i in range(self.m):
+            self.K[:, i] = kernelTrans(self.X, self.X[i, :], kTup)
+
+
 def loadDataSet(fileName):
     """
     对文件进行逐行解析，从而得到第行的类标签和整个数据矩阵
@@ -30,138 +63,45 @@ def loadDataSet(fileName):
     return dataMat, labelMat
 
 
-def selectJrand(i, m):
+def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
     """
-    随机选择一个整数
-    Args:
-        i  第一个alpha的下标
-        m  所有alpha的数目
-    Returns:
-        j  返回一个不为i的随机数，在0~m之间的整数值
-    """
-    j = i
-    while j == i:
-        j = int(random.uniform(0, m))
-    return j
-
-
-def clipAlpha(aj, H, L):
-    """clipAlpha(调整aj的值，使aj处于 L<=aj<=H)
-    Args:
-        aj  目标值
-        H   最大值
-        L   最小值
-    Returns:
-        aj  目标值
-    """
-    if aj > H:
-        aj = H
-    if L > aj:
-        aj = L
-    return aj
-
-
-def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
-    """smoSimple
-
+    完整SMO算法外循环，与smoSimple有些类似，但这里的循环退出条件更多一些
     Args:
         dataMatIn    数据集
         classLabels  类别标签
         C   松弛变量(常量值)，允许有些数据点可以处于分隔面的错误一侧。
             控制最大化间隔和保证大部分的函数间隔小于1.0这两个目标的权重。
             可以通过调节该参数达到不同的结果。
-        toler    容错率
-        maxIter  退出前最大的循环次数
+        toler   容错率
+        maxIter 退出前最大的循环次数
+        kTup    包含核函数信息的元组
     Returns:
         b       模型的常量值
         alphas  拉格朗日乘子
     """
-    dataMatrix = mat(dataMatIn)
-    # 矩阵转制 和 .T 一样的功能
-    labelMat = mat(classLabels).transpose()
-    m, n = shape(dataMatrix)
-
-    # 初始化 b和alphas(alpha有点类似权重值。)
-    b = 0
-    alphas = mat(zeros((m, 1)))
-
-    # 没有任何alpha改变的情况下遍历数据的次数
+    oS = optStruct(mat(dataMatIn), mat(classLabels).transpose(), C, toler, kTup)
     iter = 0
-    while (iter < maxIter):
-        # w = calcWs(alphas, dataMatIn, classLabels)
-        # print("w:", w)
-
-        # 记录alpha是否已经进行优化，每次循环时设为0，然后再对整个集合顺序遍历
+    entireSet = True
+    alphaPairsChanged = 0
+    while (iter < maxIter) and ((alphaPairsChanged > 0) or (entireSet)):
         alphaPairsChanged = 0
-        for i in range(m):
-            # print 'alphas=', alphas
-            # print 'labelMat=', labelMat
-            # print 'multiply(alphas, labelMat)=', multiply(alphas, labelMat)
-            # 我们预测的类别 y = w^Tx[i]+b; 其中因为 w = Σ(1~n) a[n]lable[n]x[n]
-            fXi = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[i, :].T)) + b
-            # 预测结果与真实结果比对，计算误差Ei
-            Ei = fXi - float(labelMat[i])
-
-            # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值。)
-            # 0<=alphas[i]<=C，但由于0和C是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。
-            # 表示发生错误的概率：labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。
-            if ((labelMat[i]*Ei < -toler) and (alphas[i] < C)) or ((labelMat[i]*Ei > toler) and (alphas[i] > 0)):
-
-                # 如果满足优化的条件，我们就随机选取非i的一个点，进行优化比较
-                j = selectJrand(i, m)
-                # 预测j的结果
-                fXj = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[j, :].T)) + b
-                Ej = fXj - float(labelMat[j])
-                alphaIold = alphas[i].copy()
-                alphaJold = alphas[j].copy()
-
-                # L和H用于将alphas[j]调整到0-C之间。如果L==H，就不做任何改变，直接执行continue语句
-                if (labelMat[i] != labelMat[j]):
-                    L = max(0, alphas[j] - alphas[i])
-                    H = min(C, C + alphas[j] - alphas[i])
-                else:
-                    L = max(0, alphas[j] + alphas[i] - C)
-                    H = min(C, alphas[j] + alphas[i])
-                if L == H:
-                    print("L==H")
-                    continue
-
-                # eta是alphas[j]的最优修改量，如果eta==0，需要退出for循环的当前迭代过程
-                # 如果ETA为0，那么计算新的alphas[j]就比较麻烦了, 为什么呢？ 因为2个值一样。
-                # 2ab <= a^2 + b^2
-                eta = 2.0 * dataMatrix[i, :]*dataMatrix[j, :].T - dataMatrix[i, :]*dataMatrix[i,:].T - dataMatrix[j, :]*dataMatrix[j, :].T
-                if eta >= 0:
-                    print("eta>=0")
-                    continue
-
-                # 计算出一个新的alphas[j]值
-                alphas[j] -= labelMat[j]*(Ei - Ej)/eta
-                # 并使用辅助函数，以及L和H对其进行调整
-                alphas[j] = clipAlpha(alphas[j], H, L)
-                # 检查alpha[j]是否只是轻微的改变，如果是的话，就退出for循环。
-                if (abs(alphas[j] - alphaJold) < 0.00001):
-                    print("j not moving enough")
-                    continue
-                # 然后alphas[i]和alphas[j]同样进行改变，虽然改变的大小一样，但是改变的方向正好相反
-                alphas[i] += labelMat[j]*labelMat[i]*(alphaJold - alphas[j])
-                # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
-                b1 = b - Ei- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i,:]*dataMatrix[i,:].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[i,:]*dataMatrix[j,:].T
-                b2 = b - Ej- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i,:]*dataMatrix[j,:].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[j,:]*dataMatrix[j,:].T
-                if (0 < alphas[i]) and (C > alphas[i]):
-                    b = b1
-                elif (0 < alphas[j]) and (C > alphas[j]):
-                    b = b2
-                else:
-                    b = (b1 + b2)/2.0
-                alphaPairsChanged += 1
-                print("iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
-        # 在for循环外，检查alpha值是否做了更新，如果在更新则将iter设为0后继续运行程序
-        if (alphaPairsChanged == 0):
+        if entireSet:  # 在数据集上遍历所有可能的alpha
+            for i in range(oS.m):
+                alphaPairsChanged += innerL(i, oS)
+                print("fullSet, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
             iter += 1
-        else:
-            iter = 0
+        else:  # 遍历所有的非边界alpha值，也就是不在边界0或C上的值。
+            nonBoundIs = nonzero((oS.alphas.A > 0) * (oS.alphas.A < C))[0]
+            for i in nonBoundIs:
+                alphaPairsChanged += innerL(i, oS)
+                print("non-bound, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
+            iter += 1
+        if entireSet:
+            entireSet = False  # toggle entire set loop
+        elif (alphaPairsChanged == 0):
+            entireSet = True
         print("iteration number: %d" % iter)
-    return b, alphas
+    return oS.b, oS.alphas
 
 
 def calcWs(alphas, dataArr, classLabels):
@@ -228,7 +168,7 @@ if __name__ == "__main__":
     # print labelArr
 
     # b是常量值， alphas是拉格朗日乘子
-    b, alphas = smoSimple(dataArr, labelArr, 0.6, 0.001, 40)
+    b, alphas = smop(dataArr, labelArr, 0.6, 0.001, 40)
     print '/n/n/n'
     print 'b=', b
     print 'alphas[alphas>0]=', alphas[alphas > 0]
@@ -266,33 +206,6 @@ def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher di
         raise NameError('Houston We Have a Problem -- \
     That Kernel is not recognized')
     return K
-
-
-class optStruct:
-    """
-    建立的数据结构来保存所有的重要值
-    """
-    def __init__(self, dataMatIn, classLabels, C, toler, kTup):  # Initialize the structure with the parameters
-        """
-
-        Args:
-            dataMatIn:
-            classLabels:
-            C:
-            toler:
-            kTup: 包含核函数信息的元组
-        """
-        self.X = dataMatIn
-        self.labelMat = classLabels
-        self.C = C
-        self.tol = toler
-        self.m = shape(dataMatIn)[0] # 数据的行数
-        self.alphas = mat(zeros((self.m, 1)))
-        self.b = 0
-        self.eCache = mat(zeros((self.m, 2)))  # 误差缓存，第一列给出的是eCache是否有效的标志位，第二列给出的是实际的E值。
-        self.K = mat(zeros((self.m, self.m)))
-        for i in range(self.m):
-            self.K[:, i] = kernelTrans(self.X, self.X[i, :], kTup)
 
 
 def calcEk(oS, k):
@@ -412,45 +325,6 @@ def innerL(i, oS):
         return 1
     else:
         return 0
-
-
-def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
-    """
-    完整SMO算法外循环，与smoSimple有些类似，但这里的循环退出条件更多一些
-    Args:
-        dataMatIn:
-        classLabels:
-        C:
-        toler:
-        maxIter:
-        kTup:
-
-    Returns:
-
-    """
-    oS = optStruct(mat(dataMatIn), mat(classLabels).transpose(), C, toler, kTup)
-    iter = 0
-    entireSet = True
-    alphaPairsChanged = 0
-    while (iter < maxIter) and ((alphaPairsChanged > 0) or (entireSet)):
-        alphaPairsChanged = 0
-        if entireSet:  # 在数据集上遍历所有可能的alpha
-            for i in range(oS.m):
-                alphaPairsChanged += innerL(i, oS)
-                print("fullSet, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
-            iter += 1
-        else:  # 遍历所有的非边界alpha值，也就是不在边界0或C上的值。
-            nonBoundIs = nonzero((oS.alphas.A > 0) * (oS.alphas.A < C))[0]
-            for i in nonBoundIs:
-                alphaPairsChanged += innerL(i, oS)
-                print("non-bound, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
-            iter += 1
-        if entireSet:
-            entireSet = False  # toggle entire set loop
-        elif (alphaPairsChanged == 0):
-            entireSet = True
-        print("iteration number: %d" % iter)
-    return oS.b, oS.alphas
 
 
 def testRbf(k1=1.3):

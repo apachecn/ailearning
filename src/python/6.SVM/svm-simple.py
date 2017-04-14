@@ -70,8 +70,8 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
         C   松弛变量(常量值)，允许有些数据点可以处于分隔面的错误一侧。
             控制最大化间隔和保证大部分的函数间隔小于1.0这两个目标的权重。
             可以通过调节该参数达到不同的结果。
-        toler    容错率
-        maxIter  退出前最大的循环次数
+        toler   容错率
+        maxIter 退出前最大的循环次数
     Returns:
         b       模型的常量值
         alphas  拉格朗日乘子
