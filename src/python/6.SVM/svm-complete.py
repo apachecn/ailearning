@@ -60,7 +60,7 @@ def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher di
     m, n = shape(X)
     K = mat(zeros((m, 1)))
     if kTup[0] == 'lin':
-        # linear kernel:   m*n * n*1 = m*1
+        # linear kernel:   m*n * n*1 = m*1, 求y值
         K = X * A.T
     elif kTup[0] == 'rbf':
         for j in range(m):
@@ -68,8 +68,7 @@ def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher di
             K[j] = deltaRow * deltaRow.T
         K = exp(K / (-1 * kTup[1] ** 2))  # divide in NumPy is element-wise not matrix like Matlab
     else:
-        raise NameError('Houston We Have a Problem -- \
-    That Kernel is not recognized')
+        raise NameError('Houston We Have a Problem -- That Kernel is not recognized')
     return K
 
 
@@ -93,7 +92,7 @@ def loadDataSet(fileName):
 
 
 def calcEk(oS, k):
-    """calcEk（计算误差E值并返回）
+    """calcEk（求 Ek误差：预测值-真实值的差）
 
     该过程在完整版的SMO算法中陪出现次数较多，因此将其单独作为一个方法
     Args:
@@ -163,6 +162,8 @@ def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
         for k in validEcacheList:  # 在所有的值上进行循环，并选择其中使得改变最大的那个值
             if k == i:
                 continue  # don't calc for i, waste of time
+
+            # 求 Ek误差：预测值-真实值的差
             Ek = calcEk(oS, k)
             deltaE = abs(Ei - Ek)
             if (deltaE > maxDeltaE):
@@ -173,21 +174,25 @@ def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
         return maxK, Ej
     else:  # 如果是第一次循环，则随机选择一个alpha值
         j = selectJrand(i, oS.m)
+
+        # 求 Ek误差：预测值-真实值的差
         Ej = calcEk(oS, j)
     return j, Ej
 
 
 def updateEk(oS, k):
-    """
-    计算误差值并存入缓存中。
+    """updateEk（计算误差值并存入缓存中。）
+
     在对alpha值进行优化之后会用到这个值。
     Args:
         oS  optStruct对象
-        k:
+        k   某一列的行号
 
     Returns:
 
     """
+
+    # 求 误差：预测值-真实值的差
     Ek = calcEk(oS, k)
     oS.eCache[k] = [1, Ek]
 
@@ -219,7 +224,7 @@ def innerL(i, oS):
 
     """
 
-    # 预测结果与真实结果比对，计算误差Ei
+    # 求 Ek误差：预测值-真实值的差
     Ei = calcEk(oS, i)
 
     # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值。)
@@ -249,18 +254,29 @@ def innerL(i, oS):
         if eta >= 0:
             print("eta>=0")
             return 0
+
+        # 计算出一个新的alphas[j]值
         oS.alphas[j] -= oS.labelMat[j] * (Ei - Ej) / eta
+        # 并使用辅助函数，以及L和H对其进行调整
         oS.alphas[j] = clipAlpha(oS.alphas[j], H, L)
-        updateEk(oS, j)  # 更新误差缓存
+        # 更新误差缓存
+        updateEk(oS, j)
+
+        # 检查alpha[j]是否只是轻微的改变，如果是的话，就退出for循环。
         if (abs(oS.alphas[j] - alphaJold) < 0.00001):
             print("j not moving enough")
             return 0
-        oS.alphas[i] += oS.labelMat[j] * oS.labelMat[i] * (alphaJold - oS.alphas[j])  # update i by the same amount as j
-        updateEk(oS, i)  # 更新误差缓存                    #the update is in the oppostie direction
-        b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, i] - oS.labelMat[j] * (
-        oS.alphas[j] - alphaJold) * oS.K[i, j]
-        b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, j] - oS.labelMat[j] * (
-        oS.alphas[j] - alphaJold) * oS.K[j, j]
+
+        # 然后alphas[i]和alphas[j]同样进行改变，虽然改变的大小一样，但是改变的方向正好相反
+        oS.alphas[i] += oS.labelMat[j] * oS.labelMat[i] * (alphaJold - oS.alphas[j])
+        # 更新误差缓存
+        updateEk(oS, i)
+
+        # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
+        # w= Σ[1~n] ai*yi*xi => b = yi- Σ[1~n] ai*yi(xi*xj)
+        # 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
+        b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, i] - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.K[i, j]
+        b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, j] - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.K[j, j]
         if (0 < oS.alphas[i]) and (oS.C > oS.alphas[i]):
             oS.b = b1
         elif (0 < oS.alphas[j]) and (oS.C > oS.alphas[j]):

@@ -145,6 +145,8 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
                 # 然后alphas[i]和alphas[j]同样进行改变，虽然改变的大小一样，但是改变的方向正好相反
                 alphas[i] += labelMat[j]*labelMat[i]*(alphaJold - alphas[j])
                 # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
+                # w= Σ[1~n] ai*yi*xi => b = yi- Σ[1~n] ai*yi(xi*xj)
+                # 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
                 b1 = b - Ei- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i,:]*dataMatrix[i,:].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[i,:]*dataMatrix[j,:].T
                 b2 = b - Ej- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i,:]*dataMatrix[j,:].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[j,:]*dataMatrix[j,:].T
                 if (0 < alphas[i]) and (C > alphas[i]):
