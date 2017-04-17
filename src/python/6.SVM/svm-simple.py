@@ -209,8 +209,9 @@ def plotfig_SVM(xMat, yMat, ws, b, alphas):
     # 根据x.w + b = 0 得到，其式子展开为w0.x1 + w1.x2 + b = 0, x2就是y值
     y = (-b-ws[0, 0]*x)/ws[1, 0]
     ax.plot(x, y)
-    for i in range(len(yMat)):
-        if yMat[i, 0] > 0:
+
+    for i in range(shape(yMat[0, :])[1]):
+        if yMat[0, i] > 0:
             ax.plot(xMat[i, 0], xMat[i, 1], 'cx')
         else:
             ax.plot(xMat[i, 0], xMat[i, 1], 'kp')

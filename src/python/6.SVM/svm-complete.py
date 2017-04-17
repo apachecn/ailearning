@@ -39,14 +39,43 @@ class optStruct:
 
         # 误差缓存，第一列给出的是eCache是否有效的标志位，第二列给出的是实际的E值。
         self.eCache = mat(zeros((self.m, 2)))
+
+        # m行m列的矩阵
         self.K = mat(zeros((self.m, self.m)))
         for i in range(self.m):
             self.K[:, i] = kernelTrans(self.X, self.X[i, :], kTup)
 
 
-def loadDataSet(fileName):
+def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher dimensional space
     """
-    对文件进行逐行解析，从而得到第行的类标签和整个数据矩阵
+    核转换函数
+    Args:
+        X     dataMatIn数据集
+        A     dataMatIn数据集的第i行的数据
+        kTup  核函数的信息
+
+    Returns:
+
+    """
+    m, n = shape(X)
+    K = mat(zeros((m, 1)))
+    if kTup[0] == 'lin':
+        # linear kernel:   m*n * n*1 = m*1
+        K = X * A.T
+    elif kTup[0] == 'rbf':
+        for j in range(m):
+            deltaRow = X[j, :] - A
+            K[j] = deltaRow * deltaRow.T
+        K = exp(K / (-1 * kTup[1] ** 2))  # divide in NumPy is element-wise not matrix like Matlab
+    else:
+        raise NameError('Houston We Have a Problem -- \
+    That Kernel is not recognized')
+    return K
+
+
+def loadDataSet(fileName):
+    """loadDataSet（对文件进行逐行解析，从而得到第行的类标签和整个数据矩阵）
+
     Args:
         fileName 文件名
     Returns:
@@ -61,6 +90,186 @@ def loadDataSet(fileName):
         dataMat.append([float(lineArr[0]), float(lineArr[1])])
         labelMat.append(float(lineArr[2]))
     return dataMat, labelMat
+
+
+def calcEk(oS, k):
+    """calcEk（计算误差E值并返回）
+
+    该过程在完整版的SMO算法中陪出现次数较多，因此将其单独作为一个方法
+    Args:
+        oS  optStruct对象
+        k   具体的某一行
+
+    Returns:
+
+    """
+    fXk = float(multiply(oS.alphas, oS.labelMat).T * oS.K[:, k] + oS.b)
+    Ek = fXk - float(oS.labelMat[k])
+    return Ek
+
+
+def selectJrand(i, m):
+    """
+    随机选择一个整数
+    Args:
+        i  第一个alpha的下标
+        m  所有alpha的数目
+    Returns:
+        j  返回一个不为i的随机数，在0~m之间的整数值
+    """
+    j = i
+    while j == i:
+        j = int(random.uniform(0, m))
+    return j
+
+
+def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
+    """selectJ（）
+
+    内循环的启发式方法。
+    选择第二个(内循环)alpha的alpha值
+    这里的目标是选择合适的第二个alpha值以保证每次优化中采用最大步长。
+    该函数的误差与第一个alpha值Ei和下标i有关。
+    Args:
+        i   具体的第i一行
+        oS  optStruct对象
+        Ei  预测结果与真实结果比对，计算误差Ei
+
+    Returns:
+        j  随机选出的第j一行
+        Ej 预测结果与真实结果比对，计算误差Ej
+    """
+    maxK = -1
+    maxDeltaE = 0
+    Ej = 0
+    # # 首先将输入值Ei在缓存中设置成为有效的。这里的有效意味着它已经计算好了。
+    oS.eCache[i] = [1, Ei]
+
+    # print 'oS.eCache[%s]=%s' % (i, oS.eCache[i])
+    # print 'oS.eCache[:, 0].A=%s' % oS.eCache[:, 0].A.T
+    # """
+    # # 返回非0的：行列值
+    # nonzero(oS.eCache[:, 0].A)= (
+    #     行： array([ 0,  2,  4,  5,  8, 10, 17, 18, 20, 21, 23, 25, 26, 29, 30, 39, 46,52, 54, 55, 62, 69, 70, 76, 79, 82, 94, 97]), 
+    #     列： array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0])
+    # )
+    # """
+    # print 'nonzero(oS.eCache[:, 0].A)=', nonzero(oS.eCache[:, 0].A)
+    # # 取行的list
+    # print 'nonzero(oS.eCache[:, 0].A)[0]=', nonzero(oS.eCache[:, 0].A)[0]
+    # 非零E值的行的list列表，所对应的alpha值
+    validEcacheList = nonzero(oS.eCache[:, 0].A)[0]
+    if (len(validEcacheList)) > 1:
+        for k in validEcacheList:  # 在所有的值上进行循环，并选择其中使得改变最大的那个值
+            if k == i:
+                continue  # don't calc for i, waste of time
+            Ek = calcEk(oS, k)
+            deltaE = abs(Ei - Ek)
+            if (deltaE > maxDeltaE):
+                # 选择具有最大步长的j
+                maxK = k
+                maxDeltaE = deltaE
+                Ej = Ek
+        return maxK, Ej
+    else:  # 如果是第一次循环，则随机选择一个alpha值
+        j = selectJrand(i, oS.m)
+        Ej = calcEk(oS, j)
+    return j, Ej
+
+
+def updateEk(oS, k):
+    """
+    计算误差值并存入缓存中。
+    在对alpha值进行优化之后会用到这个值。
+    Args:
+        oS  optStruct对象
+        k:
+
+    Returns:
+
+    """
+    Ek = calcEk(oS, k)
+    oS.eCache[k] = [1, Ek]
+
+
+def clipAlpha(aj, H, L):
+    """clipAlpha(调整aj的值，使aj处于 L<=aj<=H)
+    Args:
+        aj  目标值
+        H   最大值
+        L   最小值
+    Returns:
+        aj  目标值
+    """
+    if aj > H:
+        aj = H
+    if L > aj:
+        aj = L
+    return aj
+
+
+def innerL(i, oS):
+    """
+    内循环代码
+    Args:
+        i   具体的某一行
+        oS  optStruct对象
+
+    Returns:
+
+    """
+
+    # 预测结果与真实结果比对，计算误差Ei
+    Ei = calcEk(oS, i)
+
+    # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值。)
+    # 0<=alphas[i]<=C，但由于0和C是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。
+    # 表示发生错误的概率：labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。
+    if ((oS.labelMat[i] * Ei < -oS.tol) and (oS.alphas[i] < oS.C)) or ((oS.labelMat[i] * Ei > oS.tol) and (oS.alphas[i] > 0)):
+        # 选择最大的误差对应的j进行优化。效果更明显
+        j, Ej = selectJ(i, oS, Ei)
+        alphaIold = oS.alphas[i].copy()
+        alphaJold = oS.alphas[j].copy()
+
+        # L和H用于将alphas[j]调整到0-C之间。如果L==H，就不做任何改变，直接return 0
+        if (oS.labelMat[i] != oS.labelMat[j]):
+            L = max(0, oS.alphas[j] - oS.alphas[i])
+            H = min(oS.C, oS.C + oS.alphas[j] - oS.alphas[i])
+        else:
+            L = max(0, oS.alphas[j] + oS.alphas[i] - oS.C)
+            H = min(oS.C, oS.alphas[j] + oS.alphas[i])
+        if L == H:
+            print("L==H")
+            return 0
+
+        # eta是alphas[j]的最优修改量，如果eta==0，需要退出for循环的当前迭代过程
+        # 如果ETA为0，那么计算新的alphas[j]就比较麻烦了, 为什么呢？ 因为2个值一样。
+        # 2ab <= a^2 + b^2
+        eta = 2.0 * oS.K[i, j] - oS.K[i, i] - oS.K[j, j]  # changed for kernel
+        if eta >= 0:
+            print("eta>=0")
+            return 0
+        oS.alphas[j] -= oS.labelMat[j] * (Ei - Ej) / eta
+        oS.alphas[j] = clipAlpha(oS.alphas[j], H, L)
+        updateEk(oS, j)  # 更新误差缓存
+        if (abs(oS.alphas[j] - alphaJold) < 0.00001):
+            print("j not moving enough")
+            return 0
+        oS.alphas[i] += oS.labelMat[j] * oS.labelMat[i] * (alphaJold - oS.alphas[j])  # update i by the same amount as j
+        updateEk(oS, i)  # 更新误差缓存                    #the update is in the oppostie direction
+        b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, i] - oS.labelMat[j] * (
+        oS.alphas[j] - alphaJold) * oS.K[i, j]
+        b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, j] - oS.labelMat[j] * (
+        oS.alphas[j] - alphaJold) * oS.K[j, j]
+        if (0 < oS.alphas[i]) and (oS.C > oS.alphas[i]):
+            oS.b = b1
+        elif (0 < oS.alphas[j]) and (oS.C > oS.alphas[j]):
+            oS.b = b2
+        else:
+            oS.b = (b1 + b2) / 2.0
+        return 1
+    else:
+        return 0
 
 
 def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
@@ -79,10 +288,14 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
         b       模型的常量值
         alphas  拉格朗日乘子
     """
+
+    # 创建一个 optStruct 对象
     oS = optStruct(mat(dataMatIn), mat(classLabels).transpose(), C, toler, kTup)
     iter = 0
     entireSet = True
     alphaPairsChanged = 0
+
+    # 循环遍历：
     while (iter < maxIter) and ((alphaPairsChanged > 0) or (entireSet)):
         alphaPairsChanged = 0
         if entireSet:  # 在数据集上遍历所有可能的alpha
@@ -124,7 +337,7 @@ def calcWs(alphas, dataArr, classLabels):
     return w
 
 
-def plotfig_SVM(xMat, yMat, ws, b, alphas):
+def plotfig_SVM(xArr, yArr, ws, b, alphas):
     """
     参考地址：
        http://blog.csdn.net/maoersong/article/details/24315633
@@ -132,8 +345,8 @@ def plotfig_SVM(xMat, yMat, ws, b, alphas):
        http://blog.csdn.net/kkxgx/article/details/6951959
     """
 
-    xMat = mat(xMat)
-    yMat = mat(yMat)
+    xMat = mat(xArr)
+    yMat = mat(yArr)
 
     # b原来是矩阵，先转为数组类型后其数组大小为（1,1），所以后面加[0]，变为(1,)
     b = array(b)[0]
@@ -149,8 +362,9 @@ def plotfig_SVM(xMat, yMat, ws, b, alphas):
     # 根据x.w + b = 0 得到，其式子展开为w0.x1 + w1.x2 + b = 0, x2就是y值
     y = (-b-ws[0, 0]*x)/ws[1, 0]
     ax.plot(x, y)
-    for i in range(len(yMat)):
-        if yMat[i, 0] > 0:
+
+    for i in range(shape(yMat[0, :])[1]):
+        if yMat[0, i] > 0:
             ax.plot(xMat[i, 0], xMat[i, 1], 'cx')
         else:
             ax.plot(xMat[i, 0], xMat[i, 1], 'kp')
@@ -168,7 +382,7 @@ if __name__ == "__main__":
     # print labelArr
 
     # b是常量值， alphas是拉格朗日乘子
-    b, alphas = smop(dataArr, labelArr, 0.6, 0.001, 40)
+    b, alphas = smoP(dataArr, labelArr, 0.6, 0.001, 40)
     print '/n/n/n'
     print 'b=', b
     print 'alphas[alphas>0]=', alphas[alphas > 0]
@@ -182,149 +396,32 @@ if __name__ == "__main__":
 
 
 
-def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher dimensional space
-    """
-    核转换函数
-    Args:
-        X:
-        A:
-        kTup: 核函数的信息
-
-    Returns:
-
-    """
-    m, n = shape(X)
-    K = mat(zeros((m, 1)))
-    if kTup[0] == 'lin':
-        K = X * A.T  # linear kernel
-    elif kTup[0] == 'rbf':
-        for j in range(m):
-            deltaRow = X[j, :] - A
-            K[j] = deltaRow * deltaRow.T
-        K = exp(K / (-1 * kTup[1] ** 2))  # divide in NumPy is element-wise not matrix like Matlab
-    else:
-        raise NameError('Houston We Have a Problem -- \
-    That Kernel is not recognized')
-    return K
 
 
-def calcEk(oS, k):
-    """
-    计算E值并返回
-    该过程在完整版的SMO算法中陪出现次数较多，因此将其单独作为一个方法
-    Args:
-        oS:
-        k:
-
-    Returns:
-
-    """
-    fXk = float(multiply(oS.alphas, oS.labelMat).T * oS.K[:, k] + oS.b)
-    Ek = fXk - float(oS.labelMat[k])
-    return Ek
 
 
-def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
-    """
-    内循环的启发式方法。
-    选择第二个(内循环)alpha的alpha值
-    这里的目标是选择合适的第二个alpha值以保证每次优化中采用最大步长。
-    该函数的误差与第一个alpha值Ei和下标i有关。
-    Args:
-        i:
-        oS:
-        Ei:
-
-    Returns:
-
-    """
-    maxK = -1
-    maxDeltaE = 0
-    Ej = 0
-    oS.eCache[i] = [1, Ei]  # 首先将输入值Ei在缓存中设置成为有效的。这里的有效意味着它已经计算好了。
-    validEcacheList = nonzero(oS.eCache[:, 0].A)[0] # 非零E值所对应的alpha值
-    if (len(validEcacheList)) > 1:
-        for k in validEcacheList:  # 在所有的值上进行循环，并选择其中使得改变最大的那个值
-            if k == i: continue  # don't calc for i, waste of time
-            Ek = calcEk(oS, k)
-            deltaE = abs(Ei - Ek)
-            if (deltaE > maxDeltaE):
-                # 选择具有最大步长的j
-                maxK = k
-                maxDeltaE = deltaE
-                Ej = Ek
-        return maxK, Ej
-    else:  # 如果是第一次循环，则随机选择一个alpha值
-        j = selectJrand(i, oS.m)
-        Ej = calcEk(oS, j)
-    return j, Ej
 
 
-def updateEk(oS, k):  # after any alpha has changed update the new value in the cache
-    """
-    计算误差值并存入缓存中。
-    在对alpha值进行优化之后会用到这个值。
-    Args:
-        oS:
-        k:
-
-    Returns:
-
-    """
-    Ek = calcEk(oS, k)
-    oS.eCache[k] = [1, Ek]
 
 
-def innerL(i, oS):
-    """
-    内循环代码
-    Args:
-        i:
-        oS:
 
-    Returns:
 
-    """
-    Ei = calcEk(oS, i)
-    if ((oS.labelMat[i] * Ei < -oS.tol) and (oS.alphas[i] < oS.C)) or (
-        (oS.labelMat[i] * Ei > oS.tol) and (oS.alphas[i] > 0)):
-        j, Ej = selectJ(i, oS, Ei)  # this has been changed from selectJrand
-        alphaIold = oS.alphas[i].copy()
-        alphaJold = oS.alphas[j].copy()
-        if (oS.labelMat[i] != oS.labelMat[j]):
-            L = max(0, oS.alphas[j] - oS.alphas[i])
-            H = min(oS.C, oS.C + oS.alphas[j] - oS.alphas[i])
-        else:
-            L = max(0, oS.alphas[j] + oS.alphas[i] - oS.C)
-            H = min(oS.C, oS.alphas[j] + oS.alphas[i])
-        if L == H:
-            print("L==H")
-            return 0
-        eta = 2.0 * oS.K[i, j] - oS.K[i, i] - oS.K[j, j]  # changed for kernel
-        if eta >= 0:
-            print("eta>=0")
-            return 0
-        oS.alphas[j] -= oS.labelMat[j] * (Ei - Ej) / eta
-        oS.alphas[j] = clipAlpha(oS.alphas[j], H, L)
-        updateEk(oS, j)  # 更新误差缓存
-        if (abs(oS.alphas[j] - alphaJold) < 0.00001):
-            print("j not moving enough")
-            return 0
-        oS.alphas[i] += oS.labelMat[j] * oS.labelMat[i] * (alphaJold - oS.alphas[j])  # update i by the same amount as j
-        updateEk(oS, i)  # 更新误差缓存                    #the update is in the oppostie direction
-        b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, i] - oS.labelMat[j] * (
-        oS.alphas[j] - alphaJold) * oS.K[i, j]
-        b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, j] - oS.labelMat[j] * (
-        oS.alphas[j] - alphaJold) * oS.K[j, j]
-        if (0 < oS.alphas[i]) and (oS.C > oS.alphas[i]):
-            oS.b = b1
-        elif (0 < oS.alphas[j]) and (oS.C > oS.alphas[j]):
-            oS.b = b2
-        else:
-            oS.b = (b1 + b2) / 2.0
-        return 1
-    else:
-        return 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def testRbf(k1=1.3):
@@ -433,6 +530,9 @@ def calcEkK(oS, k):
     fXk = float(multiply(oS.alphas, oS.labelMat).T * (oS.X * oS.X[k, :].T)) + oS.b
     Ek = fXk - float(oS.labelMat[k])
     return Ek
+
+
+
 
 
 def selectJK(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
