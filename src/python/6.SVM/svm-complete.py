@@ -66,6 +66,7 @@ def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher di
         for j in range(m):
             deltaRow = X[j, :] - A
             K[j] = deltaRow * deltaRow.T
+        # 径向基函数的高斯版本
         K = exp(K / (-1 * kTup[1] ** 2))  # divide in NumPy is element-wise not matrix like Matlab
     else:
         raise NameError('Houston We Have a Problem -- That Kernel is not recognized')
@@ -360,6 +361,100 @@ def calcWs(alphas, dataArr, classLabels):
     return w
 
 
+def testRbf(k1=1.3):
+    dataArr, labelArr = loadDataSet('input/6.SVM/testSetRBF.txt')
+    b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, ('rbf', k1))  # C=200 important
+    datMat = mat(dataArr)
+    labelMat = mat(labelArr).transpose()
+    svInd = nonzero(alphas.A > 0)[0]
+    sVs = datMat[svInd]  # get matrix of only support vectors
+    labelSV = labelMat[svInd]
+    print("there are %d Support Vectors" % shape(sVs)[0])
+    m, n = shape(datMat)
+    errorCount = 0
+    for i in range(m):
+        kernelEval = kernelTrans(sVs, datMat[i, :], ('rbf', k1))
+
+        # 和这个svm-simple类似： fXi = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[i, :].T)) + b
+        predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
+        if sign(predict) != sign(labelArr[i]):
+            errorCount += 1
+    print("the training error rate is: %f" % (float(errorCount) / m))
+
+    dataArr, labelArr = loadDataSet('input/6.SVM/testSetRBF2.txt')
+    errorCount = 0
+    datMat = mat(dataArr)
+    labelMat = mat(labelArr).transpose()
+    m, n = shape(datMat)
+    for i in range(m):
+        kernelEval = kernelTrans(sVs, datMat[i, :], ('rbf', k1))
+        predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
+        if sign(predict) != sign(labelArr[i]):
+            errorCount += 1
+    print("the test error rate is: %f" % (float(errorCount) / m))
+
+
+def img2vector(filename):
+    returnVect = zeros((1, 1024))
+    fr = open(filename)
+    for i in range(32):
+        lineStr = fr.readline()
+        for j in range(32):
+            returnVect[0, 32 * i + j] = int(lineStr[j])
+    return returnVect
+
+
+def loadImages(dirName):
+    from os import listdir
+    hwLabels = []
+    print(dirName)
+    trainingFileList = listdir(dirName)  # load the training set
+    m = len(trainingFileList)
+    trainingMat = zeros((m, 1024))
+    for i in range(m):
+        fileNameStr = trainingFileList[i]
+        fileStr = fileNameStr.split('.')[0]  # take off .txt
+        classNumStr = int(fileStr.split('_')[0])
+        if classNumStr == 9:
+            hwLabels.append(-1)
+        else:
+            hwLabels.append(1)
+        trainingMat[i, :] = img2vector('%s/%s' % (dirName, fileNameStr))
+    return trainingMat, hwLabels
+
+
+def testDigits(kTup=('rbf', 10)):
+
+    # 1. 导入训练数据
+    dataArr, labelArr = loadImages('input/6.SVM/trainingDigits')
+    b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, kTup)
+    datMat = mat(dataArr)
+    labelMat = mat(labelArr).transpose()
+    svInd = nonzero(alphas.A > 0)[0]
+    sVs = datMat[svInd]
+    labelSV = labelMat[svInd]
+    print("there are %d Support Vectors" % shape(sVs)[0])
+    m, n = shape(datMat)
+    errorCount = 0
+    for i in range(m):
+        kernelEval = kernelTrans(sVs, datMat[i, :], kTup)
+        predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
+        if sign(predict) != sign(labelArr[i]): errorCount += 1
+    print("the training error rate is: %f" % (float(errorCount) / m))
+
+    # 2. 导入测试数据
+    dataArr, labelArr = loadImages('input/6.SVM/testDigits')
+    errorCount = 0
+    datMat = mat(dataArr)
+    labelMat = mat(labelArr).transpose()
+    m, n = shape(datMat)
+    for i in range(m):
+        kernelEval = kernelTrans(sVs, datMat[i, :], kTup)
+        predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
+        if sign(predict) != sign(labelArr[i]): errorCount += 1
+    print("the test error rate is: %f" % (float(errorCount) / m))
+
+
 def plotfig_SVM(xArr, yArr, ws, b, alphas):
     """
     参考地址：
@@ -400,134 +495,28 @@ def plotfig_SVM(xArr, yArr, ws, b, alphas):
 
 
 if __name__ == "__main__":
-    # 获取特征和目标变量
-    dataArr, labelArr = loadDataSet('input/6.SVM/testSet.txt')
-    # print labelArr
 
-    # b是常量值， alphas是拉格朗日乘子
-    b, alphas = smoP(dataArr, labelArr, 0.6, 0.001, 40)
-    print '/n/n/n'
-    print 'b=', b
-    print 'alphas[alphas>0]=', alphas[alphas > 0]
-    print 'shape(alphas[alphas > 0])=', shape(alphas[alphas > 0])
-    for i in range(100):
-        if alphas[i] > 0:
-            print dataArr[i], labelArr[i]
-    # 画图
-    ws = calcWs(alphas, dataArr, labelArr)
-    plotfig_SVM(dataArr, labelArr, ws, b, alphas)
+    # # 无核函数的测试
+    # # 获取特征和目标变量
+    # dataArr, labelArr = loadDataSet('input/6.SVM/testSet.txt')
+    # # print labelArr
 
+    # # b是常量值， alphas是拉格朗日乘子
+    # b, alphas = smoP(dataArr, labelArr, 0.6, 0.001, 40)
+    # print '/n/n/n'
+    # print 'b=', b
+    # print 'alphas[alphas>0]=', alphas[alphas > 0]
+    # print 'shape(alphas[alphas > 0])=', shape(alphas[alphas > 0])
+    # for i in range(100):
+    #     if alphas[i] > 0:
+    #         print dataArr[i], labelArr[i]
+    # # 画图
+    # ws = calcWs(alphas, dataArr, labelArr)
+    # plotfig_SVM(dataArr, labelArr, ws, b, alphas)
 
+    # # 有核函数的测试
+    # testRbf(1)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def testRbf(k1=1.3):
-    dataArr, labelArr = loadDataSet('testSetRBF.txt')
-    b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, ('rbf', k1))  # C=200 important
-    datMat = mat(dataArr)
-    labelMat = mat(labelArr).transpose()
-    svInd = nonzero(alphas.A > 0)[0]
-    sVs = datMat[svInd]  # get matrix of only support vectors
-    labelSV = labelMat[svInd]
-    print("there are %d Support Vectors" % shape(sVs)[0])
-    m, n = shape(datMat)
-    errorCount = 0
-    for i in range(m):
-        kernelEval = kernelTrans(sVs, datMat[i, :], ('rbf', k1))
-        predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
-        if sign(predict) != sign(labelArr[i]): errorCount += 1
-    print("the training error rate is: %f" % (float(errorCount) / m))
-    dataArr, labelArr = loadDataSet('testSetRBF2.txt')
-    errorCount = 0
-    datMat = mat(dataArr)
-    labelMat = mat(labelArr).transpose()
-    m, n = shape(datMat)
-    for i in range(m):
-        kernelEval = kernelTrans(sVs, datMat[i, :], ('rbf', k1))
-        predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
-        if sign(predict) != sign(labelArr[i]): errorCount += 1
-    print("the test error rate is: %f" % (float(errorCount) / m))
-
-
-def img2vector(filename):
-    returnVect = zeros((1, 1024))
-    fr = open(filename)
-    for i in range(32):
-        lineStr = fr.readline()
-        for j in range(32):
-            returnVect[0, 32 * i + j] = int(lineStr[j])
-    return returnVect
-
-
-def loadImages(dirName):
-    from os import listdir
-    hwLabels = []
-    print(dirName)
-    trainingFileList = listdir(dirName)  # load the training set
-    m = len(trainingFileList)
-    trainingMat = zeros((m, 1024))
-    for i in range(m):
-        fileNameStr = trainingFileList[i]
-        fileStr = fileNameStr.split('.')[0]  # take off .txt
-        classNumStr = int(fileStr.split('_')[0])
-        if classNumStr == 9:
-            hwLabels.append(-1)
-        else:
-            hwLabels.append(1)
-        trainingMat[i, :] = img2vector('%s/%s' % (dirName, fileNameStr))
-    return trainingMat, hwLabels
-
-
-def testDigits(kTup=('rbf', 10)):
-    dataArr, labelArr = loadImages('trainingDigits')
-    b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, kTup)
-    datMat = mat(dataArr)
-    labelMat = mat(labelArr).transpose()
-    svInd = nonzero(alphas.A > 0)[0]
-    sVs = datMat[svInd]
-    labelSV = labelMat[svInd]
-    print("there are %d Support Vectors" % shape(sVs)[0])
-    m, n = shape(datMat)
-    errorCount = 0
-    for i in range(m):
-        kernelEval = kernelTrans(sVs, datMat[i, :], kTup)
-        predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
-        if sign(predict) != sign(labelArr[i]): errorCount += 1
-    print("the training error rate is: %f" % (float(errorCount) / m))
-    dataArr, labelArr = loadImages('testDigits')
-    errorCount = 0
-    datMat = mat(dataArr)
-    labelMat = mat(labelArr).transpose()
-    m, n = shape(datMat)
-    for i in range(m):
-        kernelEval = kernelTrans(sVs, datMat[i, :], kTup)
-        predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
-        if sign(predict) != sign(labelArr[i]): errorCount += 1
-    print("the test error rate is: %f" % (float(errorCount) / m))
+    # 项目实战
+    # 示例：手写识别问题回顾
+    testDigits(('rbf', 20))
