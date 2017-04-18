@@ -123,7 +123,7 @@ def selectJrand(i, m):
 
 
 def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
-    """selectJ（）
+    """selectJ（返回最优的j和Ej）
 
     内循环的启发式方法。
     选择第二个(内循环)alpha的alpha值
@@ -187,9 +187,6 @@ def updateEk(oS, k):
     Args:
         oS  optStruct对象
         k   某一列的行号
-
-    Returns:
-
     """
 
     # 求 误差：预测值-真实值的差
@@ -214,14 +211,15 @@ def clipAlpha(aj, H, L):
 
 
 def innerL(i, oS):
-    """
+    """innerL
     内循环代码
     Args:
         i   具体的某一行
         oS  optStruct对象
 
     Returns:
-
+        0   找不到最优的值
+        1   找到了最优的值，并且oS.Cache到缓存中
     """
 
     # 求 Ek误差：预测值-真实值的差
@@ -311,20 +309,29 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
     entireSet = True
     alphaPairsChanged = 0
 
-    # 循环遍历：
+    # 循环遍历：循环maxIter次 并且 （alphaPairsChanged存在可以改变 or 所有行遍历一遍）
     while (iter < maxIter) and ((alphaPairsChanged > 0) or (entireSet)):
         alphaPairsChanged = 0
-        if entireSet:  # 在数据集上遍历所有可能的alpha
+
+        #  当entireSet=true or 非边界alpha对没有了；就开始寻找 alpha对，然后决定是否要进行else。
+        if entireSet:
+            # 在数据集上遍历所有可能的alpha
             for i in range(oS.m):
+                # 是否存在alpha对，存在就+1
                 alphaPairsChanged += innerL(i, oS)
                 print("fullSet, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
             iter += 1
-        else:  # 遍历所有的非边界alpha值，也就是不在边界0或C上的值。
+
+        # 对已存在 alpha对，选出非边界的alpha值，进行优化。
+        else:
+            # 遍历所有的非边界alpha值，也就是不在边界0或C上的值。
             nonBoundIs = nonzero((oS.alphas.A > 0) * (oS.alphas.A < C))[0]
             for i in nonBoundIs:
                 alphaPairsChanged += innerL(i, oS)
                 print("non-bound, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
             iter += 1
+
+        # 如果找到alpha对，就优化非边界alpha值，否则，就重新进行寻找，如果寻找一遍 遍历所有的行还是没找到，就退出循环。
         if entireSet:
             entireSet = False  # toggle entire set loop
         elif (alphaPairsChanged == 0):
@@ -409,6 +416,7 @@ if __name__ == "__main__":
     # 画图
     ws = calcWs(alphas, dataArr, labelArr)
     plotfig_SVM(dataArr, labelArr, ws, b, alphas)
+
 
 
 
@@ -546,9 +554,6 @@ def calcEkK(oS, k):
     fXk = float(multiply(oS.alphas, oS.labelMat).T * (oS.X * oS.X[k, :].T)) + oS.b
     Ek = fXk - float(oS.labelMat[k])
     return Ek
-
-
-
 
 
 def selectJK(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
