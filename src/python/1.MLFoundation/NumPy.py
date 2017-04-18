@@ -27,6 +27,7 @@ randMat = mat(randArray)
    https://www.zhihu.com/question/33258489
    http://blog.csdn.net/vernice/article/details/48506027
 .T 表示对矩阵转置(行列颠倒)
+    * 等同于: .transpose()
 .A 返回矩阵基于的数组
     参考案例链接：
     http://blog.csdn.net/qq403977698/article/details/47254539
