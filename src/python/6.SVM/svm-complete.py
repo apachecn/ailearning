@@ -247,8 +247,7 @@ def innerL(i, oS):
             return 0
 
         # eta是alphas[j]的最优修改量，如果eta==0，需要退出for循环的当前迭代过程
-        # 如果ETA为0，那么计算新的alphas[j]就比较麻烦了, 为什么呢？ 因为2个值一样。
-        # 2ab <= a^2 + b^2
+        # 类似：2ab <= a^2 + b^2
         eta = 2.0 * oS.K[i, j] - oS.K[i, i] - oS.K[j, j]  # changed for kernel
         if eta >= 0:
             print("eta>=0")
@@ -274,6 +273,7 @@ def innerL(i, oS):
         # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
         # w= Σ[1~n] ai*yi*xi => b = yi- Σ[1~n] ai*yi(xi*xj)
         # 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
+        # 为什么减2遍？ 因为是 减去Σ[1~n]，当好2个变量i和j，所以减2遍
         b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, i] - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.K[i, j]
         b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, j] - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.K[j, j]
         if (0 < oS.alphas[i]) and (oS.C > oS.alphas[i]):

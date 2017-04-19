@@ -127,8 +127,7 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
                     continue
 
                 # eta是alphas[j]的最优修改量，如果eta==0，需要退出for循环的当前迭代过程
-                # 如果ETA为0，那么计算新的alphas[j]就比较麻烦了, 为什么呢？ 因为2个值一样。
-                # 2ab <= a^2 + b^2
+                # 类似：2ab <= a^2 + b^2
                 eta = 2.0 * dataMatrix[i, :]*dataMatrix[j, :].T - dataMatrix[i, :]*dataMatrix[i,:].T - dataMatrix[j, :]*dataMatrix[j, :].T
                 if eta >= 0:
                     print("eta>=0")
@@ -147,6 +146,7 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
                 # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
                 # w= Σ[1~n] ai*yi*xi => b = yj- Σ[1~n] ai*yi(xi*xj)
                 # 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
+                # 为什么减2遍？ 因为是 减去Σ[1~n]，当好2个变量i和j，所以减2遍
                 b1 = b - Ei- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i,:]*dataMatrix[i,:].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[i,:]*dataMatrix[j,:].T
                 b2 = b - Ej- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i,:]*dataMatrix[j,:].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[j,:]*dataMatrix[j,:].T
                 if (0 < alphas[i]) and (C > alphas[i]):
