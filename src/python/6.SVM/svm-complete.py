@@ -101,7 +101,7 @@ def calcEk(oS, k):
         k   具体的某一行
 
     Returns:
-
+        Ek  预测结果与真实结果比对，计算误差Ek
     """
     fXk = float(multiply(oS.alphas, oS.labelMat).T * oS.K[:, k] + oS.b)
     Ek = fXk - float(oS.labelMat[k])
@@ -142,7 +142,7 @@ def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
     maxK = -1
     maxDeltaE = 0
     Ej = 0
-    # # 首先将输入值Ei在缓存中设置成为有效的。这里的有效意味着它已经计算好了。
+    # 首先将输入值Ei在缓存中设置成为有效的。这里的有效意味着它已经计算好了。
     oS.eCache[i] = [1, Ei]
 
     # print 'oS.eCache[%s]=%s' % (i, oS.eCache[i])
@@ -515,8 +515,8 @@ if __name__ == "__main__":
     # plotfig_SVM(dataArr, labelArr, ws, b, alphas)
 
     # # 有核函数的测试
-    # testRbf(1)
+    testRbf(0.8)
 
     # 项目实战
     # 示例：手写识别问题回顾
-    testDigits(('rbf', 20))
+    # testDigits(('rbf', 20))
