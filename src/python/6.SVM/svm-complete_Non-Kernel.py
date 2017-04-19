@@ -196,7 +196,7 @@ def innerL(i, oS):
             return 0
 
         # eta是alphas[j]的最优修改量，如果eta==0，需要退出for循环的当前迭代过程
-        # 类似：2ab <= a^2 + b^2
+        # 参考《统计学习方法》李航-P125~P128<序列最小最优化算法>
         eta = 2.0 * oS.X[i, :] * oS.X[j, :].T - oS.X[i, :] * oS.X[i, :].T - oS.X[j, :] * oS.X[j, :].T
         if eta >= 0:
             print("eta>=0")
