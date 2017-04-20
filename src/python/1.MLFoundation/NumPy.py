@@ -4,7 +4,7 @@
 from numpy import random, mat, eye
 
 '''
-# NumPy 矩阵和数字的区别
+# NumPy 矩阵和数组的区别
 NumPy存在2中不同的数据类型:
     1. 矩阵 matrix
     2. 数组 array
