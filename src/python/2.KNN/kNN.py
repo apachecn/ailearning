@@ -38,7 +38,7 @@ def classify0(inX, dataSet, labels, k):
     dataSetSize = dataSet.shape[0]
     # tile生成和训练样本对应的矩阵，并与训练样本求差
     """
-    tile: 列-3表示复制的行树， 行-1／2表示对inx的重复的次数
+    tile: 列-3表示复制的行数， 行-1／2表示对inx的重复的次数
 
     In [8]: tile(inx, (3, 1))
     Out[8]:
@@ -69,8 +69,10 @@ def classify0(inX, dataSet, labels, k):
     sqDistances = sqDiffMat.sum(axis=1)
     # 开方
     distances = sqDistances ** 0.5
-    # 距离排序
+    # 根据距离排序从小到大的排序，返回对应的索引位置
+    # print 'distances=', distances
     sortedDistIndicies = distances.argsort()
+    # print 'distances.argsort()=', sortedDistIndicies
 
     # 2. 选择距离最小的k个点
     classCount = {}
@@ -127,7 +129,7 @@ def autoNorm(dataSet):
     :return: 归一化后的数据集normDataSet,ranges和minVals即最小值与范围，并没有用到
 
     归一化公式：
-        Y = (X-Xmin)-(Xmax-Xmin)
+        Y = (X-Xmin)/(Xmax-Xmin)
     """
     # 计算每种属性的最大值、最小值、范围
     minVals = dataSet.min(0)
@@ -160,7 +162,7 @@ def datingClassTest():
     print 'numTestVecs=', numTestVecs
     errorCount = 0.0
     for i in range(numTestVecs):
-        # 对数据测试，
+        # 对数据测试
         classifierResult = classify0(normMat[i, :], normMat[numTestVecs:m, :], datingLabels[numTestVecs:m], 3)
         print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, datingLabels[i])
         if (classifierResult != datingLabels[i]): errorCount += 1.0
@@ -195,6 +197,7 @@ def handwritingClassTest():
         fileStr = fileNameStr.split('.')[0]  # take off .txt
         classNumStr = int(fileStr.split('_')[0])
         hwLabels.append(classNumStr)
+        # 将 32*32的矩阵->1*1024的矩阵
         trainingMat[i, :] = img2vector('input/2.KNN/trainingDigits/%s' % fileNameStr)
 
     # 2. 导入测试数据
