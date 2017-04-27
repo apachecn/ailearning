@@ -4,11 +4,13 @@
 '''
 Created 2017-04-25
 Random Forest Algorithm on Sonar Dataset
-@author: Flying_sfeng/jiangzhonglian
+@author: Flying_sfeng/片刻
+---
+源代码网址：http://www.tuicool.com/articles/iiUfeim
+Flying_sfeng博客地址：http://blog.csdn.net/flying_sfeng/article/details/64133822
+在此表示感谢你的代码和注解， 我重新也完善了你的注解
 '''
 from random import seed, randrange, random
-from math import sqrt
-from math import log
 
 
 # 导入csv文件
@@ -32,27 +34,29 @@ def loadDataSet(filename):
     return dataset
 
 
-# Split a dataset into k folds
-def cross_validation_split(dataset, n_folds):  #将数据集dataset分成n_flods份，每份包含len(dataset) / n_folds个值，每个值由dataset数据集的内容随机产生，每个值被使用一次
+def cross_validation_split(dataset, n_folds):
+    """cross_validation_split(将数据集进行抽重抽样 n_folds 份，数据可以重复重复抽取，每一次list的元素是无重复的)
+
+    Args:
+        dataset     原始数据集
+        n_folds     数据集dataset分成n_flods份
+    Returns:
+        dataset_split    list集合，存放的是：将数据集进行抽重抽样 n_folds 份，数据可以重复重复抽取，每一次list的元素是无重复的
+    """
     dataset_split = list()
     dataset_copy = list(dataset)  #复制一份dataset,防止dataset的内容改变
     fold_size = len(dataset) / n_folds
     for i in range(n_folds):
         fold = list()   #每次循环fold清零，防止重复导入dataset_split
         while len(fold) < fold_size:   #这里不能用if，if只是在第一次判断时起作用，while执行循环，直到条件不成立
+            # 有放回的随机采样，有一些样本被重复采样，从而在训练集中多次出现，有的则从未在训练集中出现，此则自助采样法。从而保证每棵决策树训练集的差异性            
             index = randrange(len(dataset_copy))
-            fold.append(dataset_copy.pop(index))  #将对应索引index的内容从dataset_copy中导出，并将该内容从dataset_copy中删除。pop() 函数用于移除列表中的一个元素（默认最后一个元素），并且返回该元素的值。
+            # 将对应索引index的内容从dataset_copy中导出，并将该内容从dataset_copy中删除。
+            # pop()函数用于移除列表中的一个元素（默认最后一个元素），并且返回该元素的值。
+            fold.append(dataset_copy.pop(index))
         dataset_split.append(fold)
-    return dataset_split    #由dataset分割出的n_folds个数据构成的列表，为了用于交叉验证
-
-
-# Calculate accuracy percentage  
-def accuracy_metric(actual, predicted):  #导入实际值和预测值，计算精确度
-    correct = 0
-    for i in range(len(actual)):
-        if actual[i] == predicted[i]:
-            correct += 1
-    return correct / float(len(actual)) * 100.0
+    # 由dataset分割出的n_folds个数据构成的列表，为了用于交叉验证
+    return dataset_split
 
 
 # Split a dataset based on an attribute and an attribute value #根据特征和特征值分割数据集
@@ -79,12 +83,12 @@ def gini_index(groups, class_values):   #个人理解：计算代价，分类越
     return gini
 
 
-# Select the best split point for a dataset  #找出分割数据集的最优特征，得到最优的特征index，特征值row[index]，以及分割完的数据groups（left,right）
+# 找出分割数据集的最优特征，得到最优的特征index，特征值row[index]，以及分割完的数据groups（left,right）
 def get_split(dataset, n_features):
     class_values = list(set(row[-1] for row in dataset))  #class_values =[0,1]
     b_index, b_value, b_score, b_groups = 999, 999, 999, None
     features = list()
-    while len(features) < n_features:   
+    while len(features) < n_features:
         index = randrange(len(dataset[0])-1)  #往features添加n_features个特征（n_feature等于特征数的根号），特征索引从dataset中随机取
         if index not in features:
             features.append(index)
@@ -132,8 +136,22 @@ def split(node, max_depth, min_size, n_features, depth):  #max_depth = 10，min_
 
 # Build a decision tree
 def build_tree(train, max_depth, min_size, n_features):
-    #root = get_split(dataset, n_features)
+    """build_tree(创建一个决策树)
+
+    Args:
+        train           训练数据集
+        max_depth       决策树深度不能太深，不然容易导致过拟合
+        min_size        叶子节点的大小
+        n_features      选取的特征的个数
+    Returns:
+        root            返回决策树
+    """
+
+    # 返回最有列和相关的信息
     root = get_split(train, n_features)
+
+    # 对左右2变的数据 进行递归的调用，由于最优特征使用过，所以在后面进行使用的时候，就没有意义了
+    # 例如： 性别-男女，对男使用这一特征就没任何意义了
     split(root, max_depth, min_size, n_features, 1)
     return root
 
@@ -154,46 +172,124 @@ def predict(node, row):   #预测模型分类结果
 
 # Make a prediction with a list of bagged trees
 def bagging_predict(trees, row):
-    predictions = [predict(tree, row) for tree in trees]  #使用多个决策树trees对测试集test的第row行进行预测，再使用简单投票法判断出该行所属分类
+    """bagging_predict(bagging预测)
+
+    Args:
+        trees           决策树的集合
+        row             测试数据集的每一行数据
+    Returns:
+        返回随机森林中，决策树结果出现次数做大的
+    """
+
+    # 使用多个决策树trees对测试集test的第row行进行预测，再使用简单投票法判断出该行所属分类
+    predictions = [predict(tree, row) for tree in trees]
     return max(set(predictions), key=predictions.count)
 
 
 # Create a random subsample from the dataset with replacement
 def subsample(dataset, ratio):   #创建数据集的随机子样本
+    """random_forest(评估算法性能，返回模型得分)
+
+    Args:
+        dataset         训练数据集
+        ratio           训练数据集的样本比例
+    Returns:
+        sample          随机抽样的训练样本
+    """
+
     sample = list()
-    n_sample = round(len(dataset) * ratio)   #round() 方法返回浮点数x的四舍五入值。
+    # 训练样本的按比例抽样。
+    # round() 方法返回浮点数x的四舍五入值。
+    n_sample = round(len(dataset) * ratio)
     while len(sample) < n_sample:
-        index = randrange(len(dataset))  #有放回的随机采样，有一些样本被重复采样，从而在训练集中多次出现，有的则从未在训练集中出现，此则自助采样法。从而保证每棵决策树训练集的差异性
+        # 有放回的随机采样，有一些样本被重复采样，从而在训练集中多次出现，有的则从未在训练集中出现，此则自助采样法。从而保证每棵决策树训练集的差异性
+        index = randrange(len(dataset))
         sample.append(dataset[index])
     return sample
 
 
 # Random Forest Algorithm
 def random_forest(train, test, max_depth, min_size, sample_size, n_trees, n_features):
+    """random_forest(评估算法性能，返回模型得分)
+
+    Args:
+        train           训练数据集
+        test            测试数据集
+        max_depth       决策树深度不能太深，不然容易导致过拟合
+        min_size        叶子节点的大小
+        sample_size     训练数据集的样本比例
+        n_trees         决策树的个数
+        n_features      选取的特征的个数
+    Returns:
+        predictions     每一行的预测结果，bagging 预测最后的分类结果
+    """
+
     trees = list()
-    for i in range(n_trees):   #n_trees表示决策树的数量
-        sample = subsample(train, sample_size)  #随机采样保证了每棵决策树训练集的差异性
-        tree = build_tree(sample, max_depth, min_size, n_features)  #建立一个决策树
+    # n_trees表示决策树的数量
+    for i in range(n_trees):
+        # 随机抽样的训练样本， 随机采样保证了每棵决策树训练集的差异性
+        sample = subsample(train, sample_size)
+        # 创建一个决策树
+        tree = build_tree(sample, max_depth, min_size, n_features)
         trees.append(tree)
+
+    # 每一行的预测结果，bagging 预测最后的分类结果
     predictions = [bagging_predict(trees, row) for row in test]
-    return(predictions)
+    return predictions
 
 
-# Evaluate an algorithm using a cross validation split   
-def evaluate_algorithm(dataset, algorithm, n_folds, *args):   #评估算法性能，返回模型得分
+# Calculate accuracy percentage
+def accuracy_metric(actual, predicted):  #导入实际值和预测值，计算精确度
+    correct = 0
+    for i in range(len(actual)):
+        if actual[i] == predicted[i]:
+            correct += 1
+    return correct / float(len(actual)) * 100.0
+
+
+# 评估算法性能，返回模型得分
+def evaluate_algorithm(dataset, algorithm, n_folds, *args):
+    """evaluate_algorithm(评估算法性能，返回模型得分)
+
+    Args:
+        dataset     原始数据集
+        algorithm   使用的算法
+        n_folds     树的个数
+        *args       其他的参数
+    Returns:
+        scores      模型得分
+    """
+
+    # 将数据集进行抽重抽样 n_folds 份，数据可以重复重复抽取，每一次list的元素是无重复的
     folds = cross_validation_split(dataset, n_folds)
     scores = list()
-    for fold in folds:   #每次循环从folds从取出一个fold作为测试集，其余作为训练集，遍历整个folds，实现交叉验证
+    # 每次循环从folds从取出一个fold作为测试集，其余作为训练集，遍历整个folds，实现交叉验证
+    for fold in folds:
         train_set = list(folds)
         train_set.remove(fold)
-        train_set = sum(train_set, [])   #将多个fold列表组合成一个train_set列表
+        # 将多个fold列表组合成一个train_set列表, 类似 union all
+        """
+        In [20]: l1=[[1, 2, 'a'], [11, 22, 'b']]
+        In [21]: l2=[[3, 4, 'c'], [33, 44, 'd']]
+        In [22]: l=[]
+        In [23]: l.append(l1)
+        In [24]: l.append(l2)
+        In [25]: l
+        Out[25]: [[[1, 2, 'a'], [11, 22, 'b']], [[3, 4, 'c'], [33, 44, 'd']]]
+        In [26]: sum(l, [])
+        Out[26]: [[1, 2, 'a'], [11, 22, 'b'], [3, 4, 'c'], [33, 44, 'd']]
+        """
+        train_set = sum(train_set, [])
         test_set = list()
-        for row in fold:   #fold表示从原始数据集dataset提取出来的测试集
+        # fold表示从原始数据集dataset提取出来的测试集
+        for row in fold:
             row_copy = list(row)
             test_set.append(row_copy)
             row_copy[-1] = None
         predicted = algorithm(train_set, test_set, *args)
         actual = [row[-1] for row in fold]
+
+        # 计算随机森林的预测结果的正确率
         accuracy = accuracy_metric(actual, predicted)
         scores.append(accuracy)
     return scores
@@ -205,18 +301,17 @@ if __name__ == '__main__':
     dataset = loadDataSet('input/7.RandomForest/sonar-all-data.txt')
     # print dataset
 
-    n_folds = 5   #分成5份数据，进行交叉验证
-    #max_depth = 10 #递归十次
-    max_depth = 20 #调参（自己修改） #决策树深度不能太深，不然容易导致过拟合
-    min_size = 1
-    sample_size = 1.0
-    #n_features = int(sqrt(len(dataset[0])-1))
-    n_features =15  #调参（自己修改） #准确性与多样性之间的权衡
-    for n_trees in [1,5,10]:  #理论上树是越多越好
+    n_folds = 5        # 分成5份数据，进行交叉验证
+    max_depth = 20     # 调参（自己修改） #决策树深度不能太深，不然容易导致过拟合
+    min_size = 1       # 决策树的叶子节点最少的元素数量
+    sample_size = 1.0  # 做决策树时候的样本的比例
+    # n_features = int(sqrt(len(dataset[0])-1))
+    n_features =15     # 调参（自己修改） #准确性与多样性之间的权衡
+    for n_trees in [1, 5, 10]:  # 理论上树是越多越好
         scores = evaluate_algorithm(dataset, random_forest, n_folds, max_depth, min_size, sample_size, n_trees, n_features)
         # 每一次执行本文件时都能产生同一个随机数
         seed(1)
         print 'random=', random()
-        print('Trees: %d' % n_trees)
-        print('Scores: %s' % scores)
-        print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))
+        print 'Trees: %d' % n_trees
+        print 'Scores: %s' % scores
+        print 'Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores)))
