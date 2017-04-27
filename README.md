@@ -1,6 +1,7 @@
 # MachineLearning
 
-**Machine Learning in Action (python) | [ApacheCN(apache中文网)](http://www.apache.wiki)**
+* **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
+* **Machine Learning in Action (python) | [ApacheCN(apache中文网)](http://www.apache.wiki)**
 
 ## 第一部分  分类
 
@@ -18,6 +19,8 @@
     * [支持向量机](./docs/6.支持向量机.md)
 * 7) 利用AdaBoost元算法提高分类
     * [利用AdaBoost元算法提高分类](./docs/7.利用AdaBoost元算法提高分类.md)
+* 7) 随机森林的使用(个人补充，非课本内容)
+    * [随机森林的使用](./docs/7.随机森林的使用.md)
 
 ## 第二部分  利用回归预测数值型数据
 
