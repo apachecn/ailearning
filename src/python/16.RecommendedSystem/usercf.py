@@ -102,6 +102,7 @@ class UserBasedCF():
                 if movie not in self.movie_popular:
                     self.movie_popular[movie] = 0
                 self.movie_popular[movie] += 1
+
         print >> sys.stderr, 'build movie-users inverse table success'
 
         # save the total movie number, which will be used in evaluation
@@ -109,7 +110,7 @@ class UserBasedCF():
         print >> sys.stderr, 'total movie number = %d' % self.movie_count
 
         usersim_mat = self.user_sim_mat
-        # 统计在相同电影时，用户同时出现的次数
+        # 统计在相同电影时，不同用户同时出现的次数
         print >> sys.stderr, 'building user co-rated movies matrix...'
 
         for movie, users in movie2users.iteritems():
@@ -138,8 +139,9 @@ class UserBasedCF():
         print >> sys.stderr, 'calculate user similarity matrix(similarity factor) success'
         print >> sys.stderr, 'Total similarity factor number = %d' % simfactor_count
 
+    # @profile
     def recommend(self, user):
-        """recommend(推荐top K的用户，所看过的电影，对电影进行相似度sum的排序，取出top N的电影数)
+        """recommend(找出top K的用户，所看过的电影，对电影进行相似度sum的排序，取出top N的电影数)
 
         Args:
             user       用户
@@ -152,8 +154,9 @@ class UserBasedCF():
         rank = dict()
         watched_movies = self.trainset[user]
 
-        # 找出top 10的用户和相似度
-        # v=similar user, wuv=similarity factor
+        # 计算top K 用户的相似度
+        # v=similar user, wuv=不同用户同时出现的次数
+        # 耗时分析：50.4%的时间在 line-160行
         for v, wuv in sorted(self.user_sim_mat[user].items(), key=itemgetter(1), reverse=True)[0:K]:
             for movie in self.trainset[v]:
                 if movie in watched_movies:
@@ -168,7 +171,7 @@ class UserBasedCF():
         ''' return precision, recall, coverage and popularity '''
         print >> sys.stderr, 'Evaluation start...'
 
-        # 返回top 10的推荐结果
+        # 返回top N的推荐结果
         N = self.n_rec_movie
         # varables for precision and recall
         # hit表示命中(测试集和推荐集相同+1)，rec_count 每个用户的推荐数， test_count 每个用户对应的测试数据集的电影数
@@ -209,7 +212,7 @@ if __name__ == '__main__':
 
     # 创建UserCF对象
     usercf = UserBasedCF()
-    # 将数据按照 7:3的比例，拆分成：训练集和测试集，存储在usercf的trainset河testset中
+    # 将数据按照 7:3的比例，拆分成：训练集和测试集，存储在usercf的trainset和testset中
     usercf.generate_dataset(ratingfile, pivot=0.7)
     # 计算用户之间的相似度
     usercf.calc_user_sim()
