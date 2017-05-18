@@ -1,6 +1,11 @@
 #!/usr/bin/python
 # coding:utf8
-
+'''
+Created on 2017-05-18
+Update  on 2017-05-18
+@author: Peter Harrington/山上有课树
+《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+'''
 from numpy import random, mat, eye
 
 '''

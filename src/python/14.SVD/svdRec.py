@@ -1,7 +1,11 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-  
-# encoding: utf-8
-
+# coding: utf-8
+'''
+Created on Mar 8, 2011
+Update  on 2017-05-18
+@author: Peter Harrington/山上有课树
+《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+'''
 from numpy import linalg as la
 from numpy import *
 

@@ -3,12 +3,14 @@
 
 '''
 Created on Jun 14, 2011
+Update  on 2017-05-18
 FP-Growth FP means frequent pattern
 the FP-Growth algorithm needs:
 1. FP-tree (class treeNode)
 2. header table (use dict)
 This finds frequent itemsets similar to apriori but does not find association rules.
 @author: Peter/片刻
+《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
 print(__doc__)
 

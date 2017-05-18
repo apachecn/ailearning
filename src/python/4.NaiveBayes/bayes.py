@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
+'''
+Created on Oct 19, 2010
+Update  on 2017-05-18
+@author: Peter Harrington/羊山
+《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+'''
 from numpy import *
 """
 p(xy)=p(x|y)p(y)=p(y|x)p(x)
