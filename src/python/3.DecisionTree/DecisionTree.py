@@ -1,11 +1,11 @@
 #!/usr/bin/python
 # coding:utf8
-
 '''
 Created on Oct 12, 2010
-Update on 2017-02-27
+Update on 2017-05-18
 Decision Tree Source Code for Machine Learning in Action Ch. 3
 @author: Peter Harrington/片刻
+《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
 print(__doc__)
 import operator

@@ -2,8 +2,10 @@
 # coding:utf8
 
 '''
-Create by ApacheCN-小瑶
-Date from 2017-02-27
+Created on Jan 8, 2011
+Update  on 2017-05-18
+@author: Peter Harrington/ApacheCN-小瑶
+《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
 
 

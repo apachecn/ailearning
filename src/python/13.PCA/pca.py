@@ -3,8 +3,9 @@
 
 '''
 Created on Jun 1, 2011
-Update on 2017-04-06
+Update  on 2017-05-18
 @author: Peter Harrington/片刻
+《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
 print(__doc__)
 from numpy import *

@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 # encoding: utf-8
 '''
-导入科学计算包numpy和运算符模块operator
+Created on Sep 16, 2010
+Update  on 2017-05-18
+@author: Peter Harrington/羊山
+《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
 from numpy import *
+# 导入科学计算包numpy和运算符模块operator
 import operator
 from os import listdir
 
