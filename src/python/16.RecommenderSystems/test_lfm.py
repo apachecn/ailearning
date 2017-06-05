@@ -1,17 +1,18 @@
 
+
 # 负样本采样过程
 def RandomSelectNegativeSample(self, items):
     ret = dict()
     for i in items.keys():
         ret[i] = 1
-    
+
     n = 0
     for i in range(0, len(items) * 3):
         item = items_pool[random.randint(0, len(items_pool) - 1)]
         if item in ret:
             continue
         ret[item] = 0
-        n + = 1
+        n += 1
         if n > len(items):
             break
     return ret
@@ -19,7 +20,7 @@ def RandomSelectNegativeSample(self, items):
 
 def LatentFactorModel(user_items, F, N, alpha, lambda):
     [P, Q] = InitModel(user_items, F)
-    for step in range(0,N):
+    for step in range(0, N):
         for user, items in user_items.items():
             samples = RandSelectNegativeSamples(items)
             for item, rui in samples.items():
