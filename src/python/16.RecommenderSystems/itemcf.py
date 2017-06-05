@@ -18,23 +18,23 @@ print(__doc__)
 random.seed(0)
 
 
-class UserBasedCF():
-    ''' TopN recommendation - UserBasedCF '''
+class ItemBasedCF():
+    ''' TopN recommendation - ItemBasedCF '''
     def __init__(self):
         self.trainset = {}
         self.testset = {}
 
         # n_sim_user: top 20个用户， n_rec_movie: top 10个推荐结果
-        self.n_sim_user = 20
+        self.n_sim_movie = 20
         self.n_rec_movie = 10
 
-        # user_sim_mat: 用户之间的相似度， movie_popular: 电影的出现次数， movie_count: 总电影数量
-        self.user_sim_mat = {}
+        # user_sim_mat: 电影之间的相似度， movie_popular: 电影的出现次数， movie_count: 总电影数量
+        self.movie_sim_mat = {}
         self.movie_popular = {}
         self.movie_count = 0
 
-        print >> sys.stderr, 'similar user number = %d' % self.n_sim_user
-        print >> sys.stderr, 'recommended movie number = %d' % self.n_rec_movie
+        print >> sys.stderr, 'Similar movie number = %d' % self.n_sim_movie
+        print >> sys.stderr, 'Recommended movie number = %d' % self.n_rec_movie
 
     @staticmethod
     def loadfile(filename):
@@ -65,7 +65,7 @@ class UserBasedCF():
 
         for line in self.loadfile(filename):
             # 用户ID，电影名称，评分，时间戳
-            user, movie, rating, timestamp = line.split('::')
+            user, movie, rating, _ = line.split('::')
             # 通过pivot和随机函数比较，然后初始化用户和对应的值
             if (random.random() < pivot):
 
@@ -82,88 +82,80 @@ class UserBasedCF():
 
         print >> sys.stderr, '分离训练集和测试集成功'
         print >> sys.stderr, 'train set = %s' % trainset_len
-        print >> sys.stderr, 'test  set = %s' % testset_len
+        print >> sys.stderr, 'test set = %s' % testset_len
 
-    def calc_user_sim(self):
-        """calc_user_sim(计算用户之间的相似度)"""
+    def calc_movie_sim(self):
+        """calc_movie_sim(计算用户之间的相似度)"""
 
-        # build inverse table for item-users
-        # key=movieID, value=list of userIDs who have seen this movie
-        print >> sys.stderr, 'building movie-users inverse table...'
-        movie2users = dict()
+        print >> sys.stderr, 'counting movies number and popularity...'
 
         for user, movies in self.trainset.iteritems():
             for movie in movies:
-                # inverse table for item-users
-                if movie not in movie2users:
-                    movie2users[movie] = set()
-                movie2users[movie].add(user)
-                # count item popularity at the same time
+                # count item popularity
                 if movie not in self.movie_popular:
                     self.movie_popular[movie] = 0
                 self.movie_popular[movie] += 1
 
-        print >> sys.stderr, 'build movie-users inverse table success'
+        print >> sys.stderr, 'count movies number and popularity success'
 
-        # save the total movie number, which will be used in evaluation
-        self.movie_count = len(movie2users)
+        # save the total number of movies
+        self.movie_count = len(self.movie_popular)
         print >> sys.stderr, 'total movie number = %d' % self.movie_count
 
-        usersim_mat = self.user_sim_mat
-        # 统计在相同电影时，不同用户同时出现的次数
-        print >> sys.stderr, 'building user co-rated movies matrix...'
+        # 统计在相同用户时，不同电影同时出现的次数
+        itemsim_mat = self.movie_sim_mat
+        print >> sys.stderr, 'building co-rated users matrix...'
 
-        for movie, users in movie2users.iteritems():
-            for u in users:
-                for v in users:
-                    if u == v:
+        for user, movies in self.trainset.iteritems():
+            for m1 in movies:
+                for m2 in movies:
+                    if m1 == m2:
                         continue
-                    usersim_mat.setdefault(u, {})
-                    usersim_mat[u].setdefault(v, 0)
-                    usersim_mat[u][v] += 1
-        print >> sys.stderr, 'build user co-rated movies matrix success'
+                    itemsim_mat.setdefault(m1, {})
+                    itemsim_mat[m1].setdefault(m2, 0)
+                    itemsim_mat[m1][m2] += 1
+        print >> sys.stderr, 'build co-rated users matrix success'
 
         # calculate similarity matrix
-        print >> sys.stderr, 'calculating user similarity matrix...'
+        print >> sys.stderr, 'calculating movie similarity matrix...'
         simfactor_count = 0
         PRINT_STEP = 2000000
-        for u, related_users in usersim_mat.iteritems():
-            for v, count in related_users.iteritems():
+        for m1, related_movies in itemsim_mat.iteritems():
+            for m2, count in related_movies.iteritems():
                 # 余弦相似度
-                usersim_mat[u][v] = count / math.sqrt(len(self.trainset[u]) * len(self.trainset[v]))
+                itemsim_mat[m1][m2] = count / math.sqrt(self.movie_popular[m1] * self.movie_popular[m2])
                 simfactor_count += 1
                 # 打印进度条
                 if simfactor_count % PRINT_STEP == 0:
-                    print >> sys.stderr, 'calculating user similarity factor(%d)' % simfactor_count
+                    print >> sys.stderr, 'calculating movie similarity factor(%d)' % simfactor_count
 
-        print >> sys.stderr, 'calculate user similarity matrix(similarity factor) success'
+        print >> sys.stderr, 'calculate movie similarity matrix(similarity factor) success'
         print >> sys.stderr, 'Total similarity factor number = %d' % simfactor_count
 
     # @profile
     def recommend(self, user):
-        """recommend(找出top K的用户，所看过的电影，对电影进行相似度sum的排序，取出top N的电影数)
+        """recommend(找出top K的电影，对电影进行相似度sum的排序，取出top N的电影数)
 
         Args:
             user       用户
         Returns:
             rec_movie  电影推荐列表，按照相似度从大到小的排序
         """
-        ''' Find K similar users and recommend N movies. '''
-        K = self.n_sim_user
+        ''' Find K similar movies and recommend N movies. '''
+        K = self.n_sim_movie
         N = self.n_rec_movie
-        rank = dict()
+        rank = {}
         watched_movies = self.trainset[user]
 
-        # 计算top K 用户的相似度
-        # v=similar user, wuv=不同用户同时出现的次数
-        # 耗时分析：50.4%的时间在 line-160行
-        for v, wuv in sorted(self.user_sim_mat[user].items(), key=itemgetter(1), reverse=True)[0:K]:
-            for movie in self.trainset[v]:
-                if movie in watched_movies:
+        # 计算top K 电影的相似度
+        # rating=电影评分, w=不同电影出现的次数
+        # 耗时分析：98.2%的时间在 line-154行
+        for movie, rating in watched_movies.iteritems():
+            for related_movie, w in sorted(self.movie_sim_mat[movie].items(), key=itemgetter(1), reverse=True)[0:K]:
+                if related_movie in watched_movies:
                     continue
-                # predict the user's "interest" for each movie
-                rank.setdefault(movie, 0)
-                rank[movie] += wuv
+                rank.setdefault(related_movie, 0)
+                rank[related_movie] += w * rating
         # return the N best movies
         return sorted(rank.items(), key=itemgetter(1), reverse=True)[0:N]
 
@@ -199,22 +191,22 @@ class UserBasedCF():
             rec_count += N
             test_count += len(test_movies)
 
-        precision = hit / (1.0*rec_count)
-        recall = hit / (1.0*test_count)
-        coverage = len(all_rec_movies) / (1.0*self.movie_count)
-        popularity = popular_sum / (1.0*rec_count)
+        precision = hit / (1.0 * rec_count)
+        recall = hit / (1.0 * test_count)
+        coverage = len(all_rec_movies) / (1.0 * self.movie_count)
+        popularity = popular_sum / (1.0 * rec_count)
 
         print >> sys.stderr, 'precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (precision, recall, coverage, popularity)
 
 
 if __name__ == '__main__':
-    ratingfile = 'input/16.RecommendedSystem/ml-1m/ratings.dat'
+    ratingfile = 'input/16.RecommenderSystems/ml-1m/ratings.dat'
 
-    # 创建UserCF对象
-    usercf = UserBasedCF()
+    # 创建ItemCF对象
+    itemcf = ItemBasedCF()
     # 将数据按照 7:3的比例，拆分成：训练集和测试集，存储在usercf的trainset和testset中
-    usercf.generate_dataset(ratingfile, pivot=0.7)
+    itemcf.generate_dataset(ratingfile, pivot=0.7)
     # 计算用户之间的相似度
-    usercf.calc_user_sim()
+    itemcf.calc_movie_sim()
     # 评估推荐效果
-    usercf.evaluate()
+    itemcf.evaluate()
