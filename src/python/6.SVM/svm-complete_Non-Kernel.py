@@ -203,7 +203,7 @@ def innerL(i, oS):
             print("eta>=0")
             return 0
 
-         # 计算出一个新的alphas[j]值
+        # 计算出一个新的alphas[j]值
         oS.alphas[j] -= oS.labelMat[j] * (Ei - Ej) / eta
         # 并使用辅助函数，以及L和H对其进行调整
         oS.alphas[j] = clipAlpha(oS.alphas[j], H, L)
