@@ -71,14 +71,14 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
         C   松弛变量(常量值)，允许有些数据点可以处于分隔面的错误一侧。
             控制最大化间隔和保证大部分的函数间隔小于1.0这两个目标的权重。
             可以通过调节该参数达到不同的结果。
-        toler   容错率
+        toler   容错率（是指在某个体系中能减小一些因素或选择对某个系统产生不稳定的概率。）
         maxIter 退出前最大的循环次数
     Returns:
         b       模型的常量值
         alphas  拉格朗日乘子
     """
     dataMatrix = mat(dataMatIn)
-    # 矩阵转制 和 .T 一样的功能
+    # 矩阵转置 和 .T 一样的功能
     labelMat = mat(classLabels).transpose()
     m, n = shape(dataMatrix)
 
@@ -98,7 +98,7 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
             # print 'alphas=', alphas
             # print 'labelMat=', labelMat
             # print 'multiply(alphas, labelMat)=', multiply(alphas, labelMat)
-            # 我们预测的类别 y = w^Tx[i]+b; 其中因为 w = Σ(1~n) a[n]lable[n]x[n]
+            # 我们预测的类别 y = w^Tx[i]+b; 其中因为 w = Σ(1~n) a[n]*lable[n]*x[n]
             fXi = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[i, :].T)) + b
             # 预测结果与真实结果比对，计算误差Ei
             Ei = fXi - float(labelMat[i])
@@ -106,6 +106,8 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
             # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值。)
             # 0<=alphas[i]<=C，但由于0和C是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。
             # 表示发生错误的概率：labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。
+            # 如果你大于 负错误的概率，那么要求你小于C，这样才可以只优化一边
+            # 如果你大于 正错误的概率，那么要求你大于0，这样才可以只优化一边
             if ((labelMat[i]*Ei < -toler) and (alphas[i] < C)) or ((labelMat[i]*Ei > toler) and (alphas[i] > 0)):
 
                 # 如果满足优化的条件，我们就随机选取非i的一个点，进行优化比较
@@ -117,12 +119,14 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
                 alphaJold = alphas[j].copy()
 
                 # L和H用于将alphas[j]调整到0-C之间。如果L==H，就不做任何改变，直接执行continue语句
+                # labelMat[i] != labelMat[j] 表示异侧，就相减，否则是同侧，就相加。
                 if (labelMat[i] != labelMat[j]):
                     L = max(0, alphas[j] - alphas[i])
                     H = min(C, C + alphas[j] - alphas[i])
                 else:
                     L = max(0, alphas[j] + alphas[i] - C)
                     H = min(C, alphas[j] + alphas[i])
+                # 如果相同，就没发优化了
                 if L == H:
                     print("L==H")
                     continue
