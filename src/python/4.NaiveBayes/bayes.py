@@ -3,7 +3,7 @@
 '''
 Created on Oct 19, 2010
 Update  on 2017-05-18
-@author: Peter Harrington/羊山
+@author: Peter Harrington/羊三/小瑶
 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
 from numpy import *
@@ -36,18 +36,21 @@ def createVocabList(dataSet):
     """
     vocabSet = set([])  # create empty set
     for document in dataSet:
+        # 操作符 | 用于求两个集合的并集
         vocabSet = vocabSet | set(document)  # union of the two sets
     return list(vocabSet)
 
 
 def setOfWords2Vec(vocabList, inputSet):
     """
-    遍历查看该单词属否出现，出现该单词则将该单词置1
+    遍历查看该单词是否出现，出现该单词则将该单词置1
     :param vocabList: 所有单词集合列表
     :param inputSet: 输入数据集
-    :return: 匹配列表[0,1,0,1...]
+    :return: 匹配列表[0,1,0,1...]，其中 1与0 表示词汇表中的单词是否出现在输入的数据集中
     """
+    # 创建一个和词汇表等长的向量，并将其元素都设置为0
     returnVec = [0] * len(vocabList)# [0,0......]
+    # 遍历文档中的所有单词，如果出现了词汇表中的单词，则将输出的文档向量中的对应值设为1
     for word in inputSet:
         if word in vocabList:
             returnVec[vocabList.index(word)] = 1
@@ -60,14 +63,15 @@ def _trainNB0(trainMatrix, trainCategory):
     """
     训练数据原版
     :param trainMatrix: 文件单词矩阵 [[1,0,1,1,1....],[],[]...]
-    :param trainCategory: 文件对应的类别[0,1,1,0....]
+    :param trainCategory: 文件对应的类别[0,1,1,0....]，列表长度等于单词矩阵数，其中的1代表对应的文件是侮辱性文件，0代表不是侮辱性矩阵
     :return:
     """
     # 文件数
     numTrainDocs = len(trainMatrix)
     # 单词数
     numWords = len(trainMatrix[0])
-    # 侮辱性文件的出现概率
+    # 侮辱性文件的出现概率，即trainCategory中所有的1的个数，
+    # 代表的就是多少个侮辱性文件，与文件的总数相除就得到了侮辱性文件的出现概率
     pAbusive = sum(trainCategory) / float(numTrainDocs)
     # 构造单词出现次数列表
     p0Num = zeros(numWords) # [0,0,0,.....]
@@ -77,10 +81,12 @@ def _trainNB0(trainMatrix, trainCategory):
     p0Denom = 0.0
     p1Denom = 0.0
     for i in range(numTrainDocs):
+        # 遍历所有的文件，如果是侮辱性文件，就计算此侮辱性文件中出现的侮辱性单词的个数
         if trainCategory[i] == 1:
             p1Num += trainMatrix[i] #[0,1,1,....]->[0,1,1,...]
             p1Denom += sum(trainMatrix[i])
         else:
+            # 如果不是侮辱性文件，则计算非侮辱性文件中出现的侮辱性单词的个数
             p0Num += trainMatrix[i]
             p0Denom += sum(trainMatrix[i])
     # 类别1，即侮辱性文档的[P(F1|C1),P(F2|C1),P(F3|C1),P(F4|C1),P(F5|C1)....]列表
@@ -133,16 +139,18 @@ def trainNB0(trainMatrix, trainCategory):
 def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):
     """
     使用算法：
-        # 将乘法转坏为加法
+        # 将乘法转换为加法
         乘法：P(C|F1F2...Fn) = P(F1F2...Fn|C)P(C)/P(F1F2...Fn)
         加法：P(F1|C)*P(F2|C)....P(Fn|C)P(C) -> log(P(F1|C))+log(P(F2|C))+....+log(P(Fn|C))+log(P(C))
-    :param vec2Classify: 待测数据[0,1,1,1,1...]
-    :param p0Vec: 类别1，即侮辱性文档的[log(P(F1|C1)),log(P(F2|C1)),log(P(F3|C1)),log(P(F4|C1)),log(P(F5|C1))....]列表
-    :param p1Vec: 类别0，即正常文档的[log(P(F1|C0)),log(P(F2|C0)),log(P(F3|C0)),log(P(F4|C0)),log(P(F5|C0))....]列表
+    :param vec2Classify: 待测数据[0,1,1,1,1...]，即要分类的向量
+    :param p0Vec: 类别0，即正常文档的[log(P(F1|C0)),log(P(F2|C0)),log(P(F3|C0)),log(P(F4|C0)),log(P(F5|C0))....]列表
+    :param p1Vec: 类别1，即侮辱性文档的[log(P(F1|C1)),log(P(F2|C1)),log(P(F3|C1)),log(P(F4|C1)),log(P(F5|C1))....]列表
     :param pClass1: 类别1，侮辱性文件的出现概率
     :return: 类别1 or 0
     """
     # 计算公式  log(P(F1|C))+log(P(F2|C))+....+log(P(Fn|C))+log(P(C))
+    # 使用 NumPy 数组来计算两个向量相乘的结果，这里的相乘是指对应元素相乘，即先将两个向量中的第一个元素相乘，然后将第2个元素相乘，以此类推。
+    # 我的理解是：这里的 vec2Classify * p1Vec 的意思就是将每个词与其对应的概率相关联起来
     p1 = sum(vec2Classify * p1Vec) + log(pClass1)
     p0 = sum(vec2Classify * p0Vec) + log(1.0 - pClass1)
     if p1 > p0:

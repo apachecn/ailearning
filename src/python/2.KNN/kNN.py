@@ -3,7 +3,7 @@
 '''
 Created on Sep 16, 2010
 Update  on 2017-05-18
-@author: Peter Harrington/羊山
+@author: Peter Harrington/羊三/小瑶
 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
 from numpy import *
@@ -46,15 +46,15 @@ def classify0(inX, dataSet, labels, k):
 
     In [8]: tile(inx, (3, 1))
     Out[8]:
-    array([[1, 2],
-        [1, 2],
-        [1, 2]])
+    array([[1, 2, 3],
+        [1, 2, 3],
+        [1, 2, 3]])
 
     In [9]: tile(inx, (3, 2))
     Out[9]:
-    array([[1, 2, 1, 2],
-        [1, 2, 1, 2],
-        [1, 2, 1, 2]])
+    array([[1, 2, 3, 1, 2, 3],
+        [1, 2, 3, 1, 2, 3],
+        [1, 2, 3, 1, 2, 3]])
     """
     diffMat = tile(inX, (dataSetSize, 1)) - dataSet
     """
@@ -74,6 +74,8 @@ def classify0(inX, dataSet, labels, k):
     # 开方
     distances = sqDistances ** 0.5
     # 根据距离排序从小到大的排序，返回对应的索引位置
+    # argsort() 是将x中的元素从小到大排列，提取其对应的index（索引），然后输出到y。
+    # 例如：y=array([3,0,2,1,4,5]) 则，x[3]=-1最小，所以y[0]=3,x[5]=9最大，所以y[5]=5。
     # print 'distances=', distances
     sortedDistIndicies = distances.argsort()
     # print 'distances.argsort()=', sortedDistIndicies
@@ -84,8 +86,19 @@ def classify0(inX, dataSet, labels, k):
         # 找到该样本的类型
         voteIlabel = labels[sortedDistIndicies[i]]
         # 在字典中将该类型加一
+        # 字典的get方法
+        # 如：list.get(k,d) 其中 get相当于一条if...else...语句,参数k在字典中，字典将返回list[k];如果参数k不在字典中则返回参数d,如果K在字典中则返回k对应的value值
+        # l = {5:2,3:4}
+        # print l.get(3,0)返回的值是4；
+        # Print l.get（1,0）返回值是0；
         classCount[voteIlabel] = classCount.get(voteIlabel, 0) + 1
     # 3. 排序并返回出现最多的那个类型
+    # 字典的 items() 方法，以列表返回可遍历的(键，值)元组数组。
+    # 例如：dict = {'Name': 'Zara', 'Age': 7}   print "Value : %s" %  dict.items()   Value : [('Age', 7), ('Name', 'Zara')]
+    # sorted 中的第2个参数 key=operator.itemgetter(1) 这个参数的意思是先比较第几个元素
+    # 例如：a=[('b',2),('a',1),('c',0)]  b=sorted(a,key=operator.itemgetter(1)) >>>b=[('c',0),('a',1),('b',2)] 可以看到排序是按照后边的0,1,2进行排序的，而不是a,b,c
+    # b=sorted(a,key=operator.itemgetter(0)) >>>b=[('a',1),('b',2),('c',0)] 这次比较的是前边的a,b,c而不是0,1,2
+    # b=sorted(a,key=opertator.itemgetter(1,0)) >>>b=[('c',0),('a',1),('b',2)] 这个是先比较第2个元素，然后对第一个元素进行排序，形成多级排序。
     sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)
     return sortedClassCount[0][0]
 
@@ -108,18 +121,22 @@ def file2matrix(filename):
     :return: 数据矩阵returnMat和对应的类别classLabelVector
     """
     fr = open(filename)
-    numberOfLines = len(fr.readlines())  # get the number of lines in the file
+    # 获得文件中的数据行的行数
+    numberOfLines = len(fr.readlines())
     # 生成对应的空矩阵
+    # 例如：zeros(2，3)就是生成一个 2*3的矩阵，各个位置上全是 0 
     returnMat = zeros((numberOfLines, 3))  # prepare matrix to return
     classLabelVector = []  # prepare labels return
     fr = open(filename)
     index = 0
     for line in fr.readlines():
+        # str.strip([chars]) --返回移除字符串头尾指定的字符生成的新字符串
         line = line.strip()
+        # 以 '\t' 切割字符串
         listFromLine = line.split('\t')
         # 每列的属性数据
         returnMat[index, :] = listFromLine[0:3]
-        # 每列的类别数据
+        # 每列的类别数据，就是 label 标签数据
         classLabelVector.append(int(listFromLine[-1]))
         index += 1
     # 返回数据矩阵returnMat和对应的类别classLabelVector
@@ -134,6 +151,7 @@ def autoNorm(dataSet):
 
     归一化公式：
         Y = (X-Xmin)/(Xmax-Xmin)
+        其中的 min 和 max 分别是数据集中的最小特征值和最大特征值。该函数可以自动将数字特征值转化为0到1的区间。
     """
     # 计算每种属性的最大值、最小值、范围
     minVals = dataSet.min(0)
@@ -160,6 +178,7 @@ def datingClassTest():
     datingDataMat, datingLabels = file2matrix('input/2.KNN/datingTestSet2.txt')  # load data setfrom file
     # 归一化数据
     normMat, ranges, minVals = autoNorm(datingDataMat)
+    # m 表示数据的行数，即矩阵的第一维
     m = normMat.shape[0]
     # 设置测试的样本数量， numTestVecs:m表示训练样本的数量
     numTestVecs = int(m * hoRatio)
@@ -177,8 +196,10 @@ def datingClassTest():
 def img2vector(filename):
     """
     将图像数据转换为向量
-    :param filename: 图片文件
-    :return: 一纬矩阵
+    :param filename: 图片文件 因为我们的输入数据的图片格式是 32 * 32的
+    :return: 一维矩阵
+    该函数将图像转换为向量：该函数创建 1 * 1024 的NumPy数组，然后打开给定的文件，
+    循环读出文件的前32行，并将每行的头32个字符值存储在NumPy数组中，最后返回数组。
     """
     returnVect = zeros((1, 1024))
     fr = open(filename)
@@ -221,6 +242,6 @@ def handwritingClassTest():
 
 
 if __name__ == '__main__':
-    # test1()
+     test1()
     # datingClassTest()
-    handwritingClassTest()
+    # handwritingClassTest()
