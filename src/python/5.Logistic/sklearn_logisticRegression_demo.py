@@ -182,7 +182,6 @@ plt.show()
 
 # Logistic Regression 3-class Classifier 逻辑回归 3-类 分类器 
 
-'''
 print(__doc__)
 
 import numpy as np
@@ -224,11 +223,11 @@ plt.xticks(())
 plt.yticks(())
 
 plt.show()
-'''
 
 # Logistic function 逻辑回归函数
 # 这个类似于咱们之前讲解 logistic 回归的 Sigmoid 函数，模拟的阶跃函数
 
+'''
 print(__doc__)
 
 import numpy as np
@@ -276,5 +275,7 @@ plt.xlim(-4, 10)
 plt.legend(('Logistic Regression Model', 'Linear Regression Model'),
            loc="lower right", fontsize='small')
 plt.show()
+'''
+
 
 
