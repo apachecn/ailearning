@@ -92,6 +92,8 @@ class UserBasedCF():
         print >> sys.stderr, 'building movie-users inverse table...'
         movie2users = dict()
 
+        # 同一个电影中，收集用户的集合
+        # 统计在所有的用户中，不同电影的总出现次数
         for user, movies in self.trainset.iteritems():
             for movie in movies:
                 # inverse table for item-users
@@ -155,16 +157,24 @@ class UserBasedCF():
         watched_movies = self.trainset[user]
 
         # 计算top K 用户的相似度
-        # v=similar user, wuv=不同用户同时出现的次数
+        # v=similar user, wuv=不同用户同时出现的次数，根据wuv倒序从大到小选出K个用户进行排列
         # 耗时分析：50.4%的时间在 line-160行
         for v, wuv in sorted(self.user_sim_mat[user].items(), key=itemgetter(1), reverse=True)[0:K]:
-            for movie in self.trainset[v]:
+            for movie, rating in self.trainset[v].iteritems():
                 if movie in watched_movies:
                     continue
                 # predict the user's "interest" for each movie
                 rank.setdefault(movie, 0)
-                rank[movie] += wuv
+                rank[movie] += wuv * rating
         # return the N best movies
+
+        """
+        wuv
+        precision=0.3766         recall=0.0759   coverage=0.3183         popularity=6.9194
+
+        wuv * rating
+        precision=0.3865         recall=0.0779   coverage=0.2681         popularity=7.0116
+        """
         return sorted(rank.items(), key=itemgetter(1), reverse=True)[0:N]
 
     def evaluate(self):
@@ -183,6 +193,8 @@ class UserBasedCF():
         # varables for popularity
         popular_sum = 0
 
+        # enumerate将其组成一个索引序列，利用它可以同时获得索引和值
+        # 参考地址：http://blog.csdn.net/churximi/article/details/51648388
         for i, user in enumerate(self.trainset):
             if i > 0 and i % 500 == 0:
                 print >> sys.stderr, 'recommended for %d users' % i

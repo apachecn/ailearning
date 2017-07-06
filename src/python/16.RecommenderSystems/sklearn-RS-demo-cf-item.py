@@ -34,33 +34,17 @@ def calc_similarity(n_users, n_items, train_data, test_data):
         test_data_matrix[line[1]-1, line[2]-1] = line[3]
 
     # 使用sklearn的pairwise_distances函数来计算余弦相似性。
-    print "1:", np.shape(train_data_matrix)    # 行：人，列：电影
-    print "2:", np.shape(train_data_matrix.T)  # 行：电影，列：人
     user_similarity = pairwise_distances(train_data_matrix, metric="cosine")
     item_similarity = pairwise_distances(train_data_matrix.T, metric="cosine")
     return train_data_matrix, test_data_matrix, user_similarity, item_similarity
 
 
 def predict(rating, similarity, type='user'):
-    print type
-    print "rating=", np.shape(rating)
-    print "similarity=", np.shape(similarity)
     if type == 'user':
-        # 求出每一个用户，所有电影的综合评分（axis=0 表示对列操作， 1表示对行操作）
-        # print "rating=", np.shape(rating)
         mean_user_rating = rating.mean(axis=1)
-        # np.newaxis参考地址: http://blog.csdn.net/xtingjie/article/details/72510834
-        # print "mean_user_rating=", np.shape(mean_user_rating)
-        # print "mean_user_rating.newaxis=", np.shape(mean_user_rating[:, np.newaxis])
         rating_diff = (rating - mean_user_rating[:, np.newaxis])
-        # print "rating=", rating[:3, :3]
-        # print "mean_user_rating[:, np.newaxis]=", mean_user_rating[:, np.newaxis][:3, :3]
-        # print "rating_diff=", rating_diff[:3, :3]
-
-        # 均分  +  人-人-距离(943, 943)*人-电影-评分diff(943, 1682)=结果-人-电影（每个人对同一电影的综合得分）(943, 1682)  再除以  个人与其他人总的距离 = 人-电影综合得分
         pred = mean_user_rating[:, np.newaxis] + similarity.dot(rating_diff)/np.array([np.abs(similarity).sum(axis=1)]).T
     elif type == 'item':
-        # 综合打分： 人-电影-评分(943, 1682)*电影-电影-距离1682, 1682)=结果-人-电影(各个电影对同一电影的综合得分)(943, 1682)  ／  再除以  电影与其他电影总的距离 = 人-电影综合得分
         pred = rating.dot(similarity)/np.array([np.abs(similarity).sum(axis=1)])
     return pred
 

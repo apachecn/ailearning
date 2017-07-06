@@ -89,6 +89,7 @@ class ItemBasedCF():
 
         print >> sys.stderr, 'counting movies number and popularity...'
 
+        # 统计在所有的用户中，不同电影的总出现次数
         for user, movies in self.trainset.iteritems():
             for movie in movies:
                 # count item popularity
@@ -175,6 +176,8 @@ class ItemBasedCF():
         # varables for popularity
         popular_sum = 0
 
+        # enumerate将其组成一个索引序列，利用它可以同时获得索引和值
+        # 参考地址：http://blog.csdn.net/churximi/article/details/51648388
         for i, user in enumerate(self.trainset):
             if i > 0 and i % 500 == 0:
                 print >> sys.stderr, 'recommended for %d users' % i
