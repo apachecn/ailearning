@@ -19,7 +19,7 @@ def loadDataSet(file_name):
     fr = open(file_name)
     for line in fr.readlines():
         lineArr = line.strip().split()
-        # 将 X0 的值设为 1.0
+        # 为了方便计算，我们将 X0 的值设为 1.0 ，也就是在每一行的开头添加一个 1.0 作为 X0
         dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])
         labelMat.append(int(lineArr[2]))
     return dataMat,labelMat
@@ -57,6 +57,7 @@ def gradAscent(dataMatIn, classLabels):
         # print 'weights====', weights
         # n*3   *  3*1  = n*1
         h = sigmoid(dataMatrix*weights)     # 矩阵乘法
+        # print 'hhhhhhh====', h
         # labelMat是实际值
         error = (labelMat - h)              # 向量相减
         # 0.001* (3*m)*(m*1) 表示在每一个列上的一个误差情况，最后得出 x1,x2,xn的系数的偏移量
@@ -110,6 +111,17 @@ def stocGradAscent1(dataMatrix, classLabels, numIter=150):
 
 # 可视化展示
 def plotBestFit(dataArr, labelMat, weights):
+    '''
+        Desc:
+            将我们得到的数据可视化展示出来
+        Args:
+            dataArr:样本数据的特征
+            labelMat:样本数据的类别标签，即目标变量
+            weights:回归系数
+        Returns:
+            None
+    '''
+    
     n = shape(dataArr)[0]
     xcord1 = []; ycord1 = []
     xcord2 = []; ycord2 = []
@@ -146,8 +158,8 @@ def main():
     # 因为数组没有是复制n份， array的乘法就是乘法
     dataArr = array(dataMat)
     # print dataArr
-    # weights = gradAscent(dataArr, labelMat)
-    weights = stocGradAscent0(dataArr, labelMat)
+    weights = gradAscent(dataArr, labelMat)
+    # weights = stocGradAscent0(dataArr, labelMat)
     # weights = stocGradAscent1(dataArr, labelMat)
     # print '*'*30, weights
 
