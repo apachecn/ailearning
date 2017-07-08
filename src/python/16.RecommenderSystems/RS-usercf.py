@@ -65,7 +65,8 @@ class UserBasedCF():
 
         for line in self.loadfile(filename):
             # 用户ID，电影名称，评分，时间戳
-            user, movie, rating, timestamp = line.split('::')
+            # user, movie, rating, timestamp = line.split('::')
+            user, movie, rating, timestamp = line.split('\t')
             # 通过pivot和随机函数比较，然后初始化用户和对应的值
             if (random.random() < pivot):
 
@@ -220,7 +221,8 @@ class UserBasedCF():
 
 
 if __name__ == '__main__':
-    ratingfile = 'input/16.RecommenderSystems/ml-1m/ratings.dat'
+    # ratingfile = 'input/16.RecommenderSystems/ml-1m/ratings.dat'
+    ratingfile = 'input/16.RecommenderSystems/ml-100k/u.data'
 
     # 创建UserCF对象
     usercf = UserBasedCF()

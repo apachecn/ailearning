@@ -65,7 +65,8 @@ class ItemBasedCF():
 
         for line in self.loadfile(filename):
             # 用户ID，电影名称，评分，时间戳
-            user, movie, rating, _ = line.split('::')
+            # user, movie, rating, _ = line.split('::')
+            user, movie, rating, _ = line.split('\t')
             # 通过pivot和随机函数比较，然后初始化用户和对应的值
             if (random.random() < pivot):
 
@@ -203,7 +204,8 @@ class ItemBasedCF():
 
 
 if __name__ == '__main__':
-    ratingfile = 'input/16.RecommenderSystems/ml-1m/ratings.dat'
+    # ratingfile = 'input/16.RecommenderSystems/ml-1m/ratings.dat'
+    ratingfile = 'input/16.RecommenderSystems/ml-100k/u.data'
 
     # 创建ItemCF对象
     itemcf = ItemBasedCF()
@@ -212,4 +214,8 @@ if __name__ == '__main__':
     # 计算用户之间的相似度
     itemcf.calc_movie_sim()
     # 评估推荐效果
-    itemcf.evaluate()
+    # itemcf.evaluate()
+    # 查看推荐结果用户
+    user = "2"
+    print "推荐结果", itemcf.recommend(user)
+    print "---", itemcf.testset.get(user, {})
