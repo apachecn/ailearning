@@ -128,6 +128,7 @@ def recommend(u_index, prediction):
 
 
 if __name__ == "__main__":
+    
     # 基于内存的协同过滤
     # ...
     # 拆分数据集
@@ -155,6 +156,7 @@ if __name__ == "__main__":
     u, s, vt = svds(train_data_matrix, k=15)
     s_diag_matrix = np.diag(s)
     svd_prediction = np.dot(np.dot(u, s_diag_matrix), vt)
+    print "svd-shape:", np.shape(svd_prediction)
     print 'Model based CF RMSE: ' + str(rmse(svd_prediction, test_data_matrix))
 
     """
