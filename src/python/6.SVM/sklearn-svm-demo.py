@@ -7,6 +7,7 @@ Updated on 2017-06-28
 SVM：最大边距分离超平面
 @author: 片刻
 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+sklearn-SVM译文链接: http://cwiki.apachecn.org/pages/viewpage.action?pageId=10031359
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -52,7 +53,7 @@ clf.fit(X, Y)
 # 获取分割超平面
 w = clf.coef_[0]
 # 斜率
-a = -w[0] / w[1]
+a = -w[0]/w[1]
 # 从-5到5，顺序间隔采样50个样本，默认是num=50
 # xx = np.linspace(-5, 5)  # , num=50)
 xx = np.linspace(-2, 10)  # , num=50)
@@ -74,7 +75,7 @@ plt.plot(xx, yy_down, 'k--')
 plt.plot(xx, yy_up, 'k--')
 
 plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=80, facecolors='none')
-plt.scatter(X[:, 0], X[:, 1], c=Y, cmap=plt.cm.Paired)
+plt.scatter([X[:, 0]], [X[:, 1]], c=Y, cmap=plt.cm.Paired)
 
 plt.axis('tight')
 plt.show()
