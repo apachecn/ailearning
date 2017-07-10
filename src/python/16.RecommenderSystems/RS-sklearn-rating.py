@@ -23,6 +23,7 @@ def splitData(dataFile, test_size):
 
     print 'Number of users = ' + str(n_users) + ' | Number of movies = ' + str(n_items)
     train_data, test_data = cv.train_test_split(df, test_size=test_size)
+    print "数据量：", len(train_data), len(test_data)
     return df, n_users, n_items, train_data, test_data
 
 
