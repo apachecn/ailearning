@@ -4,21 +4,17 @@
 """
 Created on 2017-07-10
 Updated on 2017-07-10
-@author: 片刻
+@author: 片刻／Noel Dawe 
 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 sklearn-AdaBoost译文链接: http://cwiki.apachecn.org/pages/viewpage.action?pageId=10813457
 """
-print(__doc__)
-
-# Author: Noel Dawe <noel.dawe@gmail.com>
-#
-# License: BSD 3 clause
-
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.datasets import make_gaussian_quantiles
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.tree import DecisionTreeClassifier
+
+print(__doc__)
 
 # Construct dataset
 X1, y1 = make_gaussian_quantiles(cov=2.,

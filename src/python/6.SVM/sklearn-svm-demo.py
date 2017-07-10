@@ -9,9 +9,10 @@ SVM：最大边距分离超平面
 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 sklearn-SVM译文链接: http://cwiki.apachecn.org/pages/viewpage.action?pageId=10031359
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from sklearn import svm
+
 print(__doc__)
 
 
