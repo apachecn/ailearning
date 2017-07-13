@@ -66,7 +66,7 @@ def standRegres(xArr,yArr):
     # 书中的公式，求得w的最优解
     ws = xTx.I * (xMat.T*yMat)            
     return ws
-
+    
     # 局部加权线性回归
 def lwlr(testPoint,xArr,yArr,k=1.0):
     '''
