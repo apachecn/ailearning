@@ -1,7 +1,7 @@
 # MachineLearning
 
 * **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
-* **Machine Learning in Action (python) | [ApacheCN(apache中文网)](http://www.apache.wiki)**
+* **Machine Learning in Action (机器学习实战) | [ApacheCN(apache中文网)](http://www.apache.wiki)**
 
 ## 第一部分  分类
 
