@@ -257,9 +257,9 @@ def plotROC(predStrengths, classLabels):
     plt.show()
     '''
     参考说明：http://blog.csdn.net/wenyusuran/article/details/39056013
-    为了计算AUC，我们需要对多个小矩形的面积进行累加。这些小矩形的宽度是xStep，因此
-    可以先对所有矩形的高度进行累加，最后再乘以xStep得到其总面积。所有高度的和(ySum)随
-    着x轴的每次移动而渐次增加。
+    为了计算 AUC ，我们需要对多个小矩形的面积进行累加。
+    这些小矩形的宽度是xStep，因此可以先对所有矩形的高度进行累加，最后再乘以xStep得到其总面积。
+    所有高度的和(ySum)随着x轴的每次移动而渐次增加。
     '''
     print "the Area Under the Curve is: ", ySum*xStep
 
