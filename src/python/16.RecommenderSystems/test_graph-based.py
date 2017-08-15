@@ -14,4 +14,3 @@ def PersonalRank(G, alpha, root):
                     tmp[j] += 1 - alpha
         rank = tmp
     return rank
-

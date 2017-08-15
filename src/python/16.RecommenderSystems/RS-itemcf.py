@@ -65,7 +65,8 @@ class ItemBasedCF():
 
         for line in self.loadfile(filename):
             # 用户ID，电影名称，评分，时间戳
-            user, movie, rating, _ = line.split('::')
+            # user, movie, rating, _ = line.split('::')
+            user, movie, rating, _ = line.split('\t')
             # 通过pivot和随机函数比较，然后初始化用户和对应的值
             if (random.random() < pivot):
 
@@ -89,6 +90,7 @@ class ItemBasedCF():
 
         print >> sys.stderr, 'counting movies number and popularity...'
 
+        # 统计在所有的用户中，不同电影的总出现次数
         for user, movies in self.trainset.iteritems():
             for movie in movies:
                 # count item popularity
@@ -175,6 +177,8 @@ class ItemBasedCF():
         # varables for popularity
         popular_sum = 0
 
+        # enumerate将其组成一个索引序列，利用它可以同时获得索引和值
+        # 参考地址：http://blog.csdn.net/churximi/article/details/51648388
         for i, user in enumerate(self.trainset):
             if i > 0 and i % 500 == 0:
                 print >> sys.stderr, 'recommended for %d users' % i
@@ -200,7 +204,8 @@ class ItemBasedCF():
 
 
 if __name__ == '__main__':
-    ratingfile = 'input/16.RecommenderSystems/ml-1m/ratings.dat'
+    # ratingfile = 'input/16.RecommenderSystems/ml-1m/ratings.dat'
+    ratingfile = 'input/16.RecommenderSystems/ml-100k/u.data'
 
     # 创建ItemCF对象
     itemcf = ItemBasedCF()
@@ -209,4 +214,8 @@ if __name__ == '__main__':
     # 计算用户之间的相似度
     itemcf.calc_movie_sim()
     # 评估推荐效果
-    itemcf.evaluate()
+    # itemcf.evaluate()
+    # 查看推荐结果用户
+    user = "2"
+    print "推荐结果", itemcf.recommend(user)
+    print "---", itemcf.testset.get(user, {})

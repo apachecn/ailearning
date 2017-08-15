@@ -43,9 +43,9 @@ def stumpClassify(dataMat, dimen, threshVal, threshIneq):
     """stumpClassify(将数据集，按照feature列的value进行 二分法切分比较来赋值分类)
 
     Args:
-        dataMat  Matrix数据集
-        dimen 特征列
-        threshVal 特征列要比较的值
+        dataMat    Matrix数据集
+        dimen      特征列
+        threshVal  特征列要比较的值
     Returns:
         retArray 结果集
     """
@@ -110,11 +110,11 @@ def buildStump(dataArr, labelArr, D):
                 # 例如： 一个都没错，那么错误率= 0.2*0=0 ， 5个都错，那么错误率= 0.2*5=1， 只错3个，那么错误率= 0.2*3=0.6
                 weightedError = D.T*errArr
                 '''
-                dim       表示 feature列
-                threshVal 表示树的分界值
-                inequal   表示计算树左右颠倒的错误率的情况
-                weightedError 表示整体结果的错误率
-                bestClasEst   预测的最优结果
+                dim            表示 feature列
+                threshVal      表示树的分界值
+                inequal        表示计算树左右颠倒的错误率的情况
+                weightedError  表示整体结果的错误率
+                bestClasEst    预测的最优结果
                 '''
                 # print "split: dim %d, thresh %.2f, thresh ineqal: %s, the weighted error is %.3f" % (i, threshVal, inequal, weightedError)
                 if weightedError < minError:
@@ -155,7 +155,7 @@ def adaBoostTrainDS(dataArr, labelArr, numIt=40):
         # store Stump Params in Array
         weakClassArr.append(bestStump)
 
-        # print "alpha=%s, classEst=%s, bestStump=%s, error=%s " % (alpha, classEst.T, bestStump, error)
+        print "alpha=%s, classEst=%s, bestStump=%s, error=%s " % (alpha, classEst.T, bestStump, error)
         # -1主要是下面求e的-alpha次方； 如果判断正确，乘积为1，否则成绩为-1，这样就可以算出分类的情况了
         expon = multiply(-1*alpha*mat(labelArr).T, classEst)
         print '\n'
@@ -207,8 +207,11 @@ def plotROC(predStrengths, classLabels):
 
     Args:
         predStrengths  最终预测结果的权重值
-        classLabels 原始数据的分类结果集
+        classLabels    原始数据的分类结果集
     """
+    print 'predStrengths=', predStrengths
+    print 'classLabels=', classLabels
+
     import matplotlib.pyplot as plt
     # variable to calculate AUC
     ySum = 0.0
@@ -221,6 +224,8 @@ def plotROC(predStrengths, classLabels):
     # argsort函数返回的是数组值从小到大的索引值
     # get sorted index, it's reverse
     sortedIndicies = predStrengths.argsort()
+    # 测试结果是否是从小到大排列
+    print 'sortedIndicies=', sortedIndicies, predStrengths[0, 176], predStrengths.min(), predStrengths[0, 293], predStrengths.max()
 
     # 开始创建模版对象
     fig = plt.figure()
@@ -239,7 +244,7 @@ def plotROC(predStrengths, classLabels):
             ySum += cur[1]
         # draw line from cur to (cur[0]-delX, cur[1]-delY)
         # 画点连线 (x1, x2, y1, y2)
-        # print cur[0], cur[0]-delX, cur[1], cur[1]-delY
+        print cur[0], cur[0]-delX, cur[1], cur[1]-delY
         ax.plot([cur[0], cur[0]-delX], [cur[1], cur[1]-delY], c='b')
         cur = (cur[0]-delX, cur[1]-delY)
     # 画对角的虚线线
@@ -252,55 +257,54 @@ def plotROC(predStrengths, classLabels):
     plt.show()
     '''
     参考说明：http://blog.csdn.net/wenyusuran/article/details/39056013
-    为了计算AUC，我们需要对多个小矩形的面积进行累加。这些小矩形的宽度是xStep，因此
-    可以先对所有矩形的高度进行累加，最后再乘以xStep得到其总面积。所有高度的和(ySum)随
-    着x轴的每次移动而渐次增加。
+    为了计算 AUC ，我们需要对多个小矩形的面积进行累加。
+    这些小矩形的宽度是xStep，因此可以先对所有矩形的高度进行累加，最后再乘以xStep得到其总面积。
+    所有高度的和(ySum)随着x轴的每次移动而渐次增加。
     '''
     print "the Area Under the Curve is: ", ySum*xStep
 
 
 if __name__ == "__main__":
-    # 我们要将5个点进行分类
-    dataArr, labelArr = loadSimpData()
-    print 'dataArr', dataArr, 'labelArr', labelArr
+    # # 我们要将5个点进行分类
+    # dataArr, labelArr = loadSimpData()
+    # print 'dataArr', dataArr, 'labelArr', labelArr
 
-    # D表示最初值，对1进行均分为5份，平均每一个初始的概率都为0.2
-    # D的目的是为了计算错误概率： weightedError = D.T*errArr
-    D = mat(ones((5, 1))/5)
-    print 'D=', D.T
+    # # D表示最初值，对1进行均分为5份，平均每一个初始的概率都为0.2
+    # # D的目的是为了计算错误概率： weightedError = D.T*errArr
+    # D = mat(ones((5, 1))/5)
+    # print 'D=', D.T
 
-    # bestStump, minError, bestClasEst = buildStump(dataArr, labelArr, D)
-    # print 'bestStump=', bestStump
-    # print 'minError=', minError
-    # print 'bestClasEst=', bestClasEst.T
+    # # bestStump, minError, bestClasEst = buildStump(dataArr, labelArr, D)
+    # # print 'bestStump=', bestStump
+    # # print 'minError=', minError
+    # # print 'bestClasEst=', bestClasEst.T
 
+    # # 分类器：weakClassArr
+    # # 历史累计的分类结果集
+    # weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 9)
+    # print '\nweakClassArr=', weakClassArr, '\naggClassEst=', aggClassEst.T
 
-    # 分类器：weakClassArr
-    # 历史累计的分类结果集
-    weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 9)
-    print '\nweakClassArr=', weakClassArr, '\naggClassEst=', aggClassEst.T
+    # """
+    # 发现:
+    # 分类的权重值：最大的值，为alpha的加和，最小值为-最大值
+    # 特征的权重值：如果一个值误判的几率越小，那么D的特征权重越少
+    # """
 
-    """
-    发现:
-    分类的权重值：最大的值，为alpha的加和，最小值为-最大值
-    特征的权重值：如果一个值误判的几率越小，那么D的特征权重越少
-    """
+    # # 测试数据的分类结果, 观测：aggClassEst分类的最终权重
+    # print adaClassify([0, 0], weakClassArr).T
+    # print adaClassify([[5, 5], [0, 0]], weakClassArr).T
 
-    # 测试数据的分类结果, 观测：aggClassEst分类的最终权重
-    print adaClassify([0, 0], weakClassArr).T
-    print adaClassify([[5, 5], [0, 0]], weakClassArr).T
-
-    # # 马疝病数据集
-    # # 训练集合
-    # dataArr, labelArr = loadDataSet("input/7.AdaBoost/horseColicTraining2.txt")
-    # weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 40)
-    # print weakClassArr, '\n-----\n', aggClassEst.T
-    # # 计算ROC下面的AUC的面积大小
-    # plotROC(aggClassEst.T, labelArr)
-    # # 测试集合
-    # dataArrTest, labelArrTest = loadDataSet("input/7.AdaBoost/horseColicTest2.txt")
-    # m = shape(dataArrTest)[0]
-    # predicting10 = adaClassify(dataArrTest, weakClassArr)
-    # errArr = mat(ones((m, 1)))
-    # # 测试：计算总样本数，错误样本数，错误率
-    # print m, errArr[predicting10 != mat(labelArrTest).T].sum(), errArr[predicting10 != mat(labelArrTest).T].sum()/m
+    # 马疝病数据集
+    # 训练集合
+    dataArr, labelArr = loadDataSet("input/7.AdaBoost/horseColicTraining2.txt")
+    weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 40)
+    print weakClassArr, '\n-----\n', aggClassEst.T
+    # 计算ROC下面的AUC的面积大小
+    plotROC(aggClassEst.T, labelArr)
+    # 测试集合
+    dataArrTest, labelArrTest = loadDataSet("input/7.AdaBoost/horseColicTest2.txt")
+    m = shape(dataArrTest)[0]
+    predicting10 = adaClassify(dataArrTest, weakClassArr)
+    errArr = mat(ones((m, 1)))
+    # 测试：计算总样本数，错误样本数，错误率
+    print m, errArr[predicting10 != mat(labelArrTest).T].sum(), errArr[predicting10 != mat(labelArrTest).T].sum()/m
