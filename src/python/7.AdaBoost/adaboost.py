@@ -209,8 +209,8 @@ def plotROC(predStrengths, classLabels):
         predStrengths  最终预测结果的权重值
         classLabels    原始数据的分类结果集
     """
-    print 'predStrengths=', predStrengths
-    print 'classLabels=', classLabels
+    # print 'predStrengths=', predStrengths
+    # print 'classLabels=', classLabels
 
     import matplotlib.pyplot as plt
     # variable to calculate AUC
@@ -225,7 +225,7 @@ def plotROC(predStrengths, classLabels):
     # get sorted index, it's reverse
     sortedIndicies = predStrengths.argsort()
     # 测试结果是否是从小到大排列
-    print 'sortedIndicies=', sortedIndicies, predStrengths[0, 176], predStrengths.min(), predStrengths[0, 293], predStrengths.max()
+    # print 'sortedIndicies=', sortedIndicies, predStrengths[0, 176], predStrengths.min(), predStrengths[0, 293], predStrengths.max()
 
     # 开始创建模版对象
     fig = plt.figure()
@@ -244,7 +244,7 @@ def plotROC(predStrengths, classLabels):
             ySum += cur[1]
         # draw line from cur to (cur[0]-delX, cur[1]-delY)
         # 画点连线 (x1, x2, y1, y2)
-        print cur[0], cur[0]-delX, cur[1], cur[1]-delY
+        # print cur[0], cur[0]-delX, cur[1], cur[1]-delY
         ax.plot([cur[0], cur[0]-delX], [cur[1], cur[1]-delY], c='b')
         cur = (cur[0]-delX, cur[1]-delY)
     # 画对角的虚线线
