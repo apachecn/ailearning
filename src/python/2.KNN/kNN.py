@@ -242,6 +242,6 @@ def handwritingClassTest():
 
 
 if __name__ == '__main__':
-     test1()
+    # test1()
     # datingClassTest()
-    # handwritingClassTest()
+    handwritingClassTest()
