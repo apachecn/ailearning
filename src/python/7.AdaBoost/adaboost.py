@@ -155,16 +155,16 @@ def adaBoostTrainDS(dataArr, labelArr, numIt=40):
         # store Stump Params in Array
         weakClassArr.append(bestStump)
 
-        print "alpha=%s, classEst=%s, bestStump=%s, error=%s " % (alpha, classEst.T, bestStump, error)
+        # print "alpha=%s, classEst=%s, bestStump=%s, error=%s " % (alpha, classEst.T, bestStump, error)
         # -1主要是下面求e的-alpha次方； 如果判断正确，乘积为1，否则成绩为-1，这样就可以算出分类的情况了
         expon = multiply(-1*alpha*mat(labelArr).T, classEst)
-        print '\n'
-        print 'labelArr=', labelArr
-        print 'classEst=', classEst.T
-        print '\n'
-        print '乘积: ', multiply(mat(labelArr).T, classEst).T
+        # print '\n'
+        # print 'labelArr=', labelArr
+        # print 'classEst=', classEst.T
+        # print '\n'
+        # print '乘积: ', multiply(mat(labelArr).T, classEst).T
         # 判断正确的，就乘以-1，否则就乘以1， 为什么？ 书上的公式。
-        print '(-1取反)预测值expon=', expon.T
+        # print '(-1取反)预测值expon=', expon.T
         # 计算e的expon次方，然后计算得到一个综合的概率的值
         # 结果发现： 判断错误的特征，D对于的特征的权重值会变大。
         D = multiply(D, exp(expon))
@@ -173,9 +173,9 @@ def adaBoostTrainDS(dataArr, labelArr, numIt=40):
         print '\n'
 
         # 预测的分类结果值，在上一轮结果的基础上，进行加和操作
-        print '当前的分类结果：', alpha*classEst.T
+        # print '当前的分类结果：', alpha*classEst.T
         aggClassEst += alpha*classEst
-        print "叠加后的分类结果aggClassEst: ", aggClassEst.T
+        # print "叠加后的分类结果aggClassEst: ", aggClassEst.T
         # sign 判断正为1， 0为0， 负为-1，通过最终加和的权重值，判断符号。
         # 结果为：错误的样本标签集合，因为是 !=,那么结果就是0 正, 1 负
         aggErrors = multiply(sign(aggClassEst) != mat(labelArr).T, ones((m, 1)))
