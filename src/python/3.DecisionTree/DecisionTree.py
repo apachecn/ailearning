@@ -250,14 +250,12 @@ def grabTree(filename):
     fr = open(filename)
     return pickle.load(fr)
 
-
-if __name__ == "__main__":
-
+def fishTest():
     # 1.创建数据和结果标签
     myDat, labels = createDataSet()
     # print myDat, labels
 
-    # # 计算label分类标签的香农熵
+    # 计算label分类标签的香农熵
     # calcShannonEnt(myDat)
 
     # # 求第0列 为 1/0的列的数据集【排除第0列】
@@ -274,4 +272,32 @@ if __name__ == "__main__":
     # print classify(myTree, labels, [1, 1])
 
     # 画图可视化展现
-    dtPlot.createPlot(myTree)
+    # dtPlot.createPlot(myTree)
+
+def ContactLensesTest():
+    """
+    Desc:
+        预测隐形眼镜的测试代码
+    Args:
+        none
+    Returns:
+        none
+    """
+
+    # 加载隐形眼镜相关的 文本文件 数据
+    fr = open('input/3.DecisionTree/lenses.txt')
+    # 解析数据，获得 features 数据
+    lenses = [inst.strip().split('\t') for inst in fr.readlines()]
+    # 得到数据的对应的 Labels
+    lensesLabels = ['age', 'prescript', 'astigmatic', 'tearRate']
+    # 使用上面的创建决策树的代码，构造预测隐形眼镜的决策树
+    lensesTree = createTree(lenses, lensesLabels)
+    print lensesTree
+    # 画图可视化展现
+    # dtPlot.createPlot(lensesTree)
+
+
+if __name__ == "__main__":
+    fishTest()
+    # ContactLensesTest()
+
