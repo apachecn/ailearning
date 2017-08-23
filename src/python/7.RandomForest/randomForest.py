@@ -163,7 +163,7 @@ def build_tree(train, max_depth, min_size, n_features):
 # Make a prediction with a decision tree
 def predict(node, row):   # 预测模型分类结果
     if row[node['index']] < node['value']:
-        if isinstance(node['left'], dict):       # isinstance是Python中的一个内建函数。是用来判断一个对象是否是一个已知的类型。
+        if isinstance(node['left'], dict):       # isinstance 是 Python 中的一个内建函数。是用来判断一个对象是否是一个已知的类型。
             return predict(node['left'], row)
         else:
             return node['left']
@@ -258,7 +258,7 @@ def evaluate_algorithm(dataset, algorithm, n_folds, *args):
     Args:
         dataset     原始数据集
         algorithm   使用的算法
-        n_folds     树的个数
+        n_folds     数据的份数
         *args       其他的参数
     Returns:
         scores      模型得分
