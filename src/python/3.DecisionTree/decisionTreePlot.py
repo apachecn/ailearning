@@ -87,7 +87,7 @@ def plotTree(myTree, parentPt, nodeTxt):
             plotNode(secondDict[key], (plotTree.xOff, plotTree.yOff), cntrPt, leafNode)
             # 并打印输入对应的文字
             plotMidText((plotTree.xOff, plotTree.yOff), cntrPt, str(key))
-    # plotTree.yOff = plotTree.yOff + 1.0/plotTree.totalD
+    plotTree.yOff = plotTree.yOff + 1.0/plotTree.totalD
 
 
 def createPlot(inTree):
