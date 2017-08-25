@@ -148,15 +148,16 @@ def adaBoostTrainDS(dataArr, labelArr, numIt=40):
         # 得到决策树的模型
         bestStump, error, classEst = buildStump(dataArr, labelArr, D)
 
-        # alpha目的主要是计算每一个分类器实例的权重(组合就是分类结果)
-        # 计算每个分类器的alpha权重值
+        # alpha 目的主要是计算每一个分类器实例的权重(加和就是分类结果)
+        # 计算每个分类器的 alpha 权重值
         alpha = float(0.5*log((1.0-error)/max(error, 1e-16)))
         bestStump['alpha'] = alpha
         # store Stump Params in Array
         weakClassArr.append(bestStump)
 
         # print "alpha=%s, classEst=%s, bestStump=%s, error=%s " % (alpha, classEst.T, bestStump, error)
-        # -1主要是下面求e的-alpha次方； 如果判断正确，乘积为1，否则成绩为-1，这样就可以算出分类的情况了
+        # 分类正确：乘积为1，不会影响结果，-1主要是下面求e的-alpha次方
+        # 分类错误：乘积为 -1，结果会受影响，所以也乘以 -1
         expon = multiply(-1*alpha*mat(labelArr).T, classEst)
         # print '\n'
         # print 'labelArr=', labelArr
@@ -166,11 +167,11 @@ def adaBoostTrainDS(dataArr, labelArr, numIt=40):
         # 判断正确的，就乘以-1，否则就乘以1， 为什么？ 书上的公式。
         # print '(-1取反)预测值expon=', expon.T
         # 计算e的expon次方，然后计算得到一个综合的概率的值
-        # 结果发现： 判断错误的特征，D对于的特征的权重值会变大。
+        # 结果发现： 判断错误的样本，D对于的样本权重值会变大。
         D = multiply(D, exp(expon))
         D = D/D.sum()
-        print "D: ", D.T
-        print '\n'
+        # print "D: ", D.T
+        # print '\n'
 
         # 预测的分类结果值，在上一轮结果的基础上，进行加和操作
         # print '当前的分类结果：', alpha*classEst.T
