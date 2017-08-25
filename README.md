@@ -1,7 +1,8 @@
 # MachineLearning
 
 * **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
-* **Machine Learning in Action (机器学习实战) | [ApacheCN(apache中文网)](http://www.apache.wiki)**
+* **Machine Learning in Action (机器学习实战) | [ApacheCN(apache中文网)](http://cwiki.apachecn.org/)**
+* **视频每周更新：如果您觉得对你学习有价值，请帮忙点 Star【后续组织学习：机器学习框架sklearn、深度学习框架TensorFlow】**
 
 ## 第一部分  分类
 
@@ -32,7 +33,7 @@
 
 ## 第五部分  项目实战(非课本内容)
 
-* 16.) [推荐系统](/docs/16.推荐系统.md)【后续组织学习：机器学习框架sklearn、深度学习框架TensorFlow】
+* 16.) [推荐系统](/docs/16.推荐系统.md)
 
 ## 阶段性总结
 
@@ -46,11 +47,15 @@
 * 附录D 资源
 * 索引
 * 版权声明
-* [ApacheCN(apache中文网) 维护更新](http://www.apache.wiki)
-    * [关于我们](http://www.apache.wiki/pages/viewpage.action?pageId=2887240)
-    * [加入我们](http://www.apache.wiki/pages/viewpage.action?pageId=2887239)
+* [ApacheCN(apache中文网) 维护更新](http://cwiki.apachecn.org/)
+    * [关于我们](http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887240)
+    * [加入我们](http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887239)
 
-[ApacheCN-ML视频-优酷地址](http://i.youku.com/apachecn)
-![](/images/MainPage/apachecn_youku.png)
-[ApacheCN-ML视频-百度云地址](https://pan.baidu.com/s/1eS44hCu)
-![](/images/MainPage/apachecn_baiduyun.png)
+[ApacheCN-机器学习视频-更新地址-AcFun](http://www.acfun.cn/u/12540256.aspx#page=1)
+![](/images/MainPage/ApacheCN-ML-AcFun.jpg)<br/>
+[ApacheCN-机器学习视频-更新地址-bilibili](https://space.bilibili.com/97678687/#!/index)
+![](/images/MainPage/ApacheCN-ML-bilibili.jpg)<br/>
+[ApacheCN-机器学习视频-更新地址-优酷](http://i.youku.com/apachecn)
+![](/images/MainPage/ApacheCM-ML-youku.jpg)<br/>
+[ApacheCN-机器学习视频-讨论版-百度云地址](https://pan.baidu.com/s/1eS44hCu)
+![](/images/MainPage/ApacheCM-ML-baiduyun.png)
