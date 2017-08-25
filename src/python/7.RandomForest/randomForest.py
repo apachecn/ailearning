@@ -99,7 +99,7 @@ def get_split(dataset, n_features):
         for row in dataset:
             groups = test_split(index, row[index], dataset)  # groups=(left, right), row[index] 遍历每一行 index 索引下的特征值作为分类值 value, 找出最优的分类特征和特征值
             gini = gini_index(groups, class_values)
-            # 左右两边的数量越一样，说明数据区分度不高，gini系数越大
+            # 左右两边的数量越一样，说明数据区分度不高，gini系数越大
             if gini < b_score:
                 b_index, b_value, b_score, b_groups = index, row[index], gini, groups  # 最后得到最优的分类特征 b_index,分类特征值 b_value,分类结果 b_groups。b_value 为分错的代价成本
     # print b_score
