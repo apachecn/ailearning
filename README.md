@@ -2,7 +2,7 @@
 
 * **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
 * **Machine Learning in Action (机器学习实战) | [ApacheCN(apache中文网)](http://cwiki.apachecn.org/)**
-* **视频每周更新：如果您觉得对你学习有价值，请帮忙点 Star【后续组织学习：机器学习框架sklearn、深度学习框架TensorFlow】**
+* **视频每周更新：如果你觉得有价值，请帮忙点 Star【后续组织学习活动：sklearn + tensorflow】**
 
 ## 第一部分  分类
 
