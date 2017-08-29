@@ -26,8 +26,8 @@ def pca(dataMat, topNfeat=9999999):
         dataMat   原数据集矩阵
         topNfeat  应用的N个特征
     Returns:
-        lowDDataMat
-        reconMat
+        lowDDataMat  降维后数据集
+        reconMat     新的数据集空间
     """
 
     # 计算每一列的均值
