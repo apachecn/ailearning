@@ -145,8 +145,8 @@ if __name__ == "__main__":
     # 利用PCA对半导体制造数据降维
     dataMat = replaceNanWithMean()
     print shape(dataMat)
-    # # 分析数据
-    # analyse_data(dataMat)
-    lowDmat, reconMat = pca(dataMat, 20)
-    print shape(lowDmat)
-    show_picture(dataMat, reconMat)
+    # 分析数据
+    analyse_data(dataMat)
+    # lowDmat, reconMat = pca(dataMat, 20)
+    # print shape(lowDmat)
+    # show_picture(dataMat, reconMat)
