@@ -74,10 +74,11 @@ def pca(dataMat, topNfeat=9999999):
     # -1表示倒序，返回topN的特征值[-1 到 -(topNfeat+1) 但是不包括-(topNfeat+1)本身的倒叙]
     eigValInd = eigValInd[:-(topNfeat+1):-1]
     # print 'eigValInd2=', eigValInd
-    # 重组eig vects 最大到最小
+    # 重组 eigVects 最大到最小
     redEigVects = eigVects[:, eigValInd]
     # print 'redEigVects=', redEigVects.T
     # 将数据转换到新空间
+    # print "---", shape(meanRemoved), shape(redEigVects)
     lowDDataMat = meanRemoved * redEigVects
     reconMat = (lowDDataMat * redEigVects.T) + meanVals
     # print 'lowDDataMat=', lowDDataMat
@@ -114,10 +115,10 @@ def analyse_data(dataMat):
 
     topNfeat = 20
     eigValInd = eigValInd[:-(topNfeat+1):-1]
-    cov_all_score = sum(eigvals)
+    cov_all_score = float(sum(eigvals))
     sum_cov_score = 0
     for i in range(0, len(eigValInd)):
-        line_cov_score = eigvals[eigValInd[i]]
+        line_cov_score = float(eigvals[eigValInd[i]])
         sum_cov_score += line_cov_score
         '''
         我们发现其中有超过20%的特征值都是0。
@@ -128,7 +129,7 @@ def analyse_data(dataMat):
 
         最后，我们可能会注意到有一些小的负值，他们主要源自数值误差应该四舍五入成0.
         '''
-        print '主成分：%s, 方差占比：%s%%, 累积方差占比：%s%%' % (format(i+1, '2.0f'), format(line_cov_score/cov_all_score*100, '4.1f'), format(sum_cov_score/cov_all_score*100, '4.1f'))
+        print '主成分：%s, 方差占比：%s%%, 累积方差占比：%s%%' % (format(i+1, '2.0f'), format(line_cov_score/cov_all_score*100, '4.2f'), format(sum_cov_score/cov_all_score*100, '4.1f'))
 
 
 if __name__ == "__main__":
@@ -144,8 +145,8 @@ if __name__ == "__main__":
     # 利用PCA对半导体制造数据降维
     dataMat = replaceNanWithMean()
     print shape(dataMat)
-    # # 分析数据
-    # analyse_data(dataMat)
-    lowDmat, reconMat = pca(dataMat, 20)
-    print shape(lowDmat)
-    show_picture(dataMat, reconMat)
+    # 分析数据
+    analyse_data(dataMat)
+    # lowDmat, reconMat = pca(dataMat, 20)
+    # print shape(lowDmat)
+    # show_picture(dataMat, reconMat)

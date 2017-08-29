@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # coding: utf-8
+
 '''
 Created on Mar 8, 2011
 Update  on 2017-05-18
@@ -73,7 +74,7 @@ def pearsSim(inA, inB):
     # 如果不存在，该函数返回1.0，此时两个向量完全相关。
     if len(inA) < 3:
         return 1.0
-    return 0.5 + 0.5 * corrcoef(inA, inB, rowvar = 0)[0][1]
+    return 0.5 + 0.5 * corrcoef(inA, inB, rowvar=0)[0][1]
 
 
 # 计算余弦相似度，如果夹角为90度，相似度为0；如果两个向量的方向相同，相似度为1.0
@@ -100,7 +101,7 @@ def standEst(dataMat, user, simMeas, item):
             continue
         # 寻找两个用户都评级的物品
         # 变量overLap 给出的是两个物品当中已经被评分的那个元素
-        overLap = nonzero(logical_and(dataMat[:, item].A>0, dataMat[:, j].A>0))[0]
+        overLap = nonzero(logical_and(dataMat[:, item].A > 0, dataMat[:, j].A > 0))[0]
         # 如果相似度为0，则两着没有任何重合元素，终止本次循环
         if len(overLap) == 0:
             similarity = 0
@@ -216,17 +217,17 @@ def imgCompress(numSV=3, thresh=0.8):
 
 if __name__ == "__main__":
 
-    # 对矩阵进行SVD分解(用python实现SVD)
-    Data = loadExData()
-    print Data
-    U, Sigma, VT = linalg.svd(Data)
-    # 打印Sigma的结果，因为前3个数值比其他的值大了很多，为9.72140007e+00，5.29397912e+00，6.84226362e-01
-    # 后两个值比较小，每台机器输出结果可能有不同可以将这两个值去掉
-    print Sigma
+    # # 对矩阵进行SVD分解(用python实现SVD)
+    # Data = loadExData()
+    # print Data
+    # U, Sigma, VT = linalg.svd(Data)
+    # # 打印Sigma的结果，因为前3个数值比其他的值大了很多，为9.72140007e+00，5.29397912e+00，6.84226362e-01
+    # # 后两个值比较小，每台机器输出结果可能有不同可以将这两个值去掉
+    # print Sigma
 
-    # 重构一个3x3的矩阵Sig3
-    Sig3 = mat([[Sigma[0], 0, 0], [0, Sigma[1], 0], [0, 0, Sigma[2]]])
-    print U[:, :3] * Sig3 * VT[:3, :]
+    # # 重构一个3x3的矩阵Sig3
+    # Sig3 = mat([[Sigma[0], 0, 0], [0, Sigma[1], 0], [0, 0, Sigma[2]]])
+    # print U[:, :3] * Sig3 * VT[:3, :]
 
     """
     # 计算欧氏距离
@@ -245,7 +246,6 @@ if __name__ == "__main__":
 
     """
 
-    """
     # 计算相似度的方法
     myMat = mat(loadExData2())
     # print myMat
@@ -256,7 +256,6 @@ if __name__ == "__main__":
 
     # 默认推荐（菜馆菜肴推荐示例）
     print recommend(myMat, 2)
-    """
 
     """
     # 利用SVD提高推荐效果
