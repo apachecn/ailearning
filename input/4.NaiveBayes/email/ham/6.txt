@@ -1,0 +1,7 @@
+Hello,
+
+Since you are an owner of at least one Google Groups group that uses the customized welcome message, pages or files, we are writing to inform you that we will no longer be supporting these features starting February 2011. We made this decision so that we can focus on improving the core functionalities of Google Groups -- mailing lists and forum discussions.  Instead of these features, we encourage you to use products that are designed specifically for file storage and page creation, such as Google Docs and Google Sites.
+
+For example, you can easily create your pages on Google Sites and share the site (http://www.google.com/support/sites/bin/answer.py?hl=en&answer=174623) with the members of your group. You can also store your files on the site by attaching files to pages (http://www.google.com/support/sites/bin/answer.py?hl=en&answer=90563) on the site. If you’re just looking for a place to upload your files so that your group members can download them, we suggest you try Google Docs. You can upload files (http://docs.google.com/support/bin/answer.py?hl=en&answer=50092) and share access with either a group (http://docs.google.com/support/bin/answer.py?hl=en&answer=66343) or an individual (http://docs.google.com/support/bin/answer.py?hl=en&answer=86152), assigning either edit or download only access to the files.
+
+you have received this mandatory email service announcement to update you about important changes to Google Groups.
