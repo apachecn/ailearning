@@ -100,7 +100,7 @@ def standEst(dataMat, user, simMeas, item):
         if userRating == 0:
             continue
         # 寻找两个用户都评级的物品
-        # 变量overLap 给出的是两个物品当中已经被评分的那个元素
+        # 变量 overLap 给出的是两个物品当中已经被评分的那个元素
         overLap = nonzero(logical_and(dataMat[:, item].A > 0, dataMat[:, j].A > 0))[0]
         # 如果相似度为0，则两着没有任何重合元素，终止本次循环
         if len(overLap) == 0:
@@ -120,7 +120,7 @@ def standEst(dataMat, user, simMeas, item):
         return ratSimTotal/simTotal
 
 
-# recommend()函数，就是推荐引擎，它会调用standEst()函数，产生了最高的N个推荐结果。
+# recommend()函数，就是推荐引擎，它默认调用standEst()函数，产生了最高的N个推荐结果。
 # 如果不指定N的大小，则默认值为3。该函数另外的参数还包括相似度计算方法和估计方法
 def recommend(dataMat, user, N=3, simMeas=cosSim, estMethod=standEst):
     # 寻找未评级的物品
@@ -162,7 +162,7 @@ def svdEst(dataMat, user, simMeas, item):
         if userRating == 0 or j == item:
             continue
         # 相似度的计算方法也会作为一个参数传递给该函数
-        similarity = simMeas(xformedItems[item, :].T,xformedItems[j, :].T)
+        similarity = simMeas(xformedItems[item, :].T, xformedItems[j, :].T)
         # for 循环中加入了一条print语句，以便了解相似度计算的进展情况。如果觉得累赘，可以去掉
         print 'the %d and %d similarity is: %f' % (item, j, similarity)
         # 对相似度不断累加求和
@@ -252,10 +252,10 @@ if __name__ == "__main__":
     # 计算相似度的第一种方式
     print recommend(myMat, 1, estMethod=svdEst)
     # 计算相似度的第二种方式
-    print recommend(myMat, 1, estMethod=svdEst, simMeas=pearsSim)
+    # print recommend(myMat, 1, estMethod=svdEst, simMeas=pearsSim)
 
     # 默认推荐（菜馆菜肴推荐示例）
-    print recommend(myMat, 2)
+    # print recommend(myMat, 2)
 
     """
     # 利用SVD提高推荐效果

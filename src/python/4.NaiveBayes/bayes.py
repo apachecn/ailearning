@@ -90,8 +90,10 @@ def _trainNB0(trainMatrix, trainCategory):
             p0Num += trainMatrix[i]
             p0Denom += sum(trainMatrix[i])
     # 类别1，即侮辱性文档的[P(F1|C1),P(F2|C1),P(F3|C1),P(F4|C1),P(F5|C1)....]列表
+    # 即 在1类别下，每个单词出现次数的占比
     p1Vect = p1Num / p1Denom# [1,2,3,5]/90->[1/90,...]
     # 类别0，即正常文档的[P(F1|C0),P(F2|C0),P(F3|C0),P(F4|C0),P(F5|C0)....]列表
+    # 即 在0类别下，每个单词出现次数的占比
     p0Vect = p0Num / p0Denom
     return p0Vect, p1Vect, pAbusive
 
@@ -111,7 +113,8 @@ def trainNB0(trainMatrix, trainCategory):
     pAbusive = sum(trainCategory) / float(numTrainDocs)
     # 构造单词出现次数列表
     # p0Num 正常的统计
-    # p1Num 侮辱的统计
+    # p1Num 侮辱的统计 
+    # 避免单词列表中的任何一个单词为0，而导致最后的乘积为0，所以将每个单词的出现次数初始化为 1
     p0Num = ones(numWords)#[0,0......]->[1,1,1,1,1.....]
     p1Num = ones(numWords)
 
@@ -151,6 +154,7 @@ def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):
     # 计算公式  log(P(F1|C))+log(P(F2|C))+....+log(P(Fn|C))+log(P(C))
     # 使用 NumPy 数组来计算两个向量相乘的结果，这里的相乘是指对应元素相乘，即先将两个向量中的第一个元素相乘，然后将第2个元素相乘，以此类推。
     # 我的理解是：这里的 vec2Classify * p1Vec 的意思就是将每个词与其对应的概率相关联起来
+    # 可以理解为 1.单词在词汇表中的条件下，文件是good 类别的概率 也可以理解为 2.在整个空间下，文件既在词汇表中又是good类别的概率
     p1 = sum(vec2Classify * p1Vec) + log(pClass1)
     p0 = sum(vec2Classify * p0Vec) + log(1.0 - pClass1)
     if p1 > p0:
