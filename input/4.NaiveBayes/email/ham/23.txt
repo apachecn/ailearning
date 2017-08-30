@@ -1,0 +1,7 @@
+
+SciFinance now automatically generates GPU-enabled pricing & risk model source code that runs up to 50-300x faster than serial code using a new NVIDIA Fermi-class Tesla 20-Series GPU.
+
+SciFinance® is a derivatives pricing and risk model development tool that automatically generates C/C++ and GPU-enabled source code from concise, high-level model specifications. No parallel computing or CUDA programming expertise is required.
+
+SciFinance's automatic, GPU-enabled Monte Carlo pricing model source code generation capabilities have been significantly extended in the latest release. This includes:
+
