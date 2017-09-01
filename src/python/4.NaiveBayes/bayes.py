@@ -11,6 +11,8 @@ from numpy import *
 p(xy)=p(x|y)p(y)=p(y|x)p(x)
 p(x|y)=p(y|x)p(x)/p(y)
 """
+
+
 # 项目案例1: 屏蔽社区留言板的侮辱性言论
 
 def loadDataSet():
@@ -213,6 +215,7 @@ def textParse(bigString):
     listOfTokens = re.split(r'\W*', bigString)
     return [tok.lower() for tok in listOfTokens if len(tok) > 2]
 
+
 def spamTest():
     '''
     Desc:
@@ -264,12 +267,13 @@ def spamTest():
 def testParseTest():
     print textParse(open('input/4.NaiveBayes/email/ham/1.txt').read())
 
+
 # -----------------------------------------------------------------------------------
 # 项目案例3: 使用朴素贝叶斯从个人广告中获取区域倾向
 
 # 将文本文件解析成 词条向量
 def setOfWords2VecMN(vocabList,inputSet):
-    returnVec=[0]*len(vocabList)  #创建一个其中所含元素都为0的向量
+    returnVec=[0]*len(vocabList)  # 创建一个其中所含元素都为0的向量
     for word in inputSet:
         if word in vocabList:
                 returnVec[vocabList.index(word)]+=1
@@ -279,8 +283,9 @@ def setOfWords2VecMN(vocabList,inputSet):
 #文件解析
 def textParse(bigString):
     import re
-    listOfTokens=re.split(r'\W*',bigString)
+    listOfTokens=re.split(r'\W*', bigString)
     return [tok.lower() for tok in listOfTokens if len(tok)>2]
+
 
 #RSS源分类器及高频词去除函数
 def calcMostFreq(vocabList,fullText):
@@ -343,7 +348,8 @@ def getTopWords(ny,sf):
     for item in sortedNY:
         print item[0]
 
+
 if __name__ == "__main__":
-    testingNB()
-    # spamTest()
+    # testingNB()
+    spamTest()
     # laTest()
