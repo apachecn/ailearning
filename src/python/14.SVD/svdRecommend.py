@@ -85,9 +85,17 @@ def cosSim(inA, inB):
 
 
 # 基于物品相似度的推荐引擎
-# standEst()函数，用来计算在给定相似度计算方法的条件下，用户对物品的估计评分值。
-# standEst()函数的参数包括数据矩阵、用户编号、物品编号和相似度计算方法
 def standEst(dataMat, user, simMeas, item):
+    """standEst(计算某用户未评分物品中，以对该物品和其他物品评分的用户的物品相似度，然后进行综合评分)
+
+    Args:
+        dataMat         训练数据集
+        user            用户编号
+        simMeas         相似度计算方法
+        item            未评分的物品编号
+    Returns:
+        ratSimTotal/simTotal     评分（0～5之间的值）
+    """
     # 得到数据集中的物品数目
     n = shape(dataMat)[1]
     # 初始化两个评分值
@@ -100,7 +108,8 @@ def standEst(dataMat, user, simMeas, item):
         if userRating == 0:
             continue
         # 寻找两个用户都评级的物品
-        # 变量 overLap 给出的是两个物品当中已经被评分的那个元素
+        # 变量 overLap 给出的是两个物品当中已经被评分的那个元素的索引ID
+        # logical_and 计算x1和x2元素的真值。
         overLap = nonzero(logical_and(dataMat[:, item].A > 0, dataMat[:, j].A > 0))[0]
         # 如果相似度为0，则两着没有任何重合元素，终止本次循环
         if len(overLap) == 0:
@@ -114,35 +123,25 @@ def standEst(dataMat, user, simMeas, item):
         simTotal += similarity
         ratSimTotal += similarity * userRating
     if simTotal == 0:
-        return 0 
+        return 0
     # 通过除以所有的评分总和，对上述相似度评分的乘积进行归一化，使得最后评分在0~5之间，这些评分用来对预测值进行排序
     else:
         return ratSimTotal/simTotal
 
 
-# recommend()函数，就是推荐引擎，它默认调用standEst()函数，产生了最高的N个推荐结果。
-# 如果不指定N的大小，则默认值为3。该函数另外的参数还包括相似度计算方法和估计方法
-def recommend(dataMat, user, N=3, simMeas=cosSim, estMethod=standEst):
-    # 寻找未评级的物品
-    # 对给定的用户建立一个未评分的物品列表
-    unratedItems = nonzero(dataMat[user, :].A == 0)[1]
-    # 如果不存在未评分物品，那么就退出函数
-    if len(unratedItems) == 0:
-        return 'you rated everything'
-    # 物品的编号和评分值
-    itemScores = []
-    # 在未评分物品上进行循环
-    for item in unratedItems:
-        estimatedScore = estMethod(dataMat, user, simMeas, item)
-        # 寻找前N个未评级物品，调用standEst()来产生该物品的预测得分，该物品的编号和估计值会放在一个元素列表itemScores中
-        itemScores.append((item, estimatedScore))
-        # 按照估计得分，对该列表进行排序并返回。列表逆排序，第一个值就是最大值
-    return sorted(itemScores, key=lambda jj: jj[1], reverse=True)[: N]
-
-
 # 基于SVD的评分估计
 # 在recommend() 中，这个函数用于替换对standEst()的调用，该函数对给定用户给定物品构建了一个评分估计值
 def svdEst(dataMat, user, simMeas, item):
+    """svdEst( )
+
+    Args:
+        dataMat         训练数据集
+        user            用户编号
+        simMeas         相似度计算方法
+        item            未评分的物品编号
+    Returns:
+        ratSimTotal/simTotal     评分（0～5之间的值）
+    """
     # 物品数目
     n = shape(dataMat)[1]
     # 对数据集进行SVD分解
@@ -174,6 +173,36 @@ def svdEst(dataMat, user, simMeas, item):
     else:
         # 计算估计评分
         return ratSimTotal/simTotal
+
+
+# recommend()函数，就是推荐引擎，它默认调用standEst()函数，产生了最高的N个推荐结果。
+# 如果不指定N的大小，则默认值为3。该函数另外的参数还包括相似度计算方法和估计方法
+def recommend(dataMat, user, N=3, simMeas=cosSim, estMethod=standEst):
+    """svdEst( )
+
+    Args:
+        dataMat         训练数据集
+        user            用户编号
+        simMeas         相似度计算方法
+        estMethod       使用的推荐算法
+    Returns:
+        返回最终 N 个推荐结果
+    """
+    # 寻找未评级的物品
+    # 对给定的用户建立一个未评分的物品列表
+    unratedItems = nonzero(dataMat[user, :].A == 0)[1]
+    # 如果不存在未评分物品，那么就退出函数
+    if len(unratedItems) == 0:
+        return 'you rated everything'
+    # 物品的编号和评分值
+    itemScores = []
+    # 在未评分物品上进行循环
+    for item in unratedItems:
+        # 获取 item 该物品的评分
+        estimatedScore = estMethod(dataMat, user, simMeas, item)
+        itemScores.append((item, estimatedScore))
+    # 按照评分得分 进行逆排序，获取前N个未评级物品进行推荐
+    return sorted(itemScores, key=lambda jj: jj[1], reverse=True)[: N]
 
 
 # 图像压缩函数
