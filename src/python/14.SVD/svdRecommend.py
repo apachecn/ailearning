@@ -150,11 +150,22 @@ def svdEst(dataMat, user, simMeas, item):
     # 奇异值分解
     # 在SVD分解之后，我们只利用包含了90%能量值的奇异值，这些奇异值会以NumPy数组的形式得以保存
     U, Sigma, VT = la.svd(dataMat)
+
+    # # 分析 Sigma 的长度取值
+    # analyse_data(Sigma, 20)
+
     # 如果要进行矩阵运算，就必须要用这些奇异值构建出一个对角矩阵
     Sig4 = mat(eye(4) * Sigma[: 4])
-    # 利用U矩阵将物品转换到低维空间中，构建转换后的物品
+
+    # 利用U矩阵将物品转换到低维空间中，构建转换后的物品(物品+4个主要的特征)
     xformedItems = dataMat.T * U[:, :4] * Sig4.I
-    # 对于给定的用户，for循环在用户对应行的元素上进行遍历，
+    print 'dataMat', shape(dataMat)
+    print 'U[:, :4]', shape(U[:, :4])
+    print 'Sig4.I', shape(Sig4.I)
+    print 'VT[:4, :]', shape(VT[:4, :])
+    print 'xformedItems', shape(xformedItems)
+
+    # 对于给定的用户，for循环在用户对应行的元素上进行遍历
     # 这和standEst()函数中的for循环的目的一样，只不过这里的相似度计算时在低维空间下进行的。
     for j in range(n):
         userRating = dataMat[user, j]
@@ -205,7 +216,41 @@ def recommend(dataMat, user, N=3, simMeas=cosSim, estMethod=standEst):
     return sorted(itemScores, key=lambda jj: jj[1], reverse=True)[: N]
 
 
+def analyse_data(Sigma, loopNum=20):
+    """analyse_data(分析 Sigma 的长度取值)
+
+    Args:
+        Sigma         Sigma的值
+        loopNum       循环次数
+    """
+    # 总方差的集合（总能量值）
+    Sig2 = Sigma**2
+    SigmaSum = sum(Sig2)
+    for i in range(loopNum):
+        SigmaI = sum(Sig2[:i+1])
+        '''
+        根据自己的业务情况，就行处理，设置对应的 Singma 次数
+
+        通常保留矩阵 80% ～ 90% 的能量，就可以得到重要的特征并取出噪声。
+        '''
+        print '主成分：%s, 方差占比：%s%%' % (format(i+1, '2.0f'), format(SigmaI/SigmaSum*100, '4.2f'))
+
+
 # 图像压缩函数
+# 加载并转换数据
+def imgLoadData(filename):
+    myl = []
+    # 打开文本文件，并从文件以数组方式读入字符
+    for line in open(filename).readlines():
+        newRow = []
+        for i in range(32):
+            newRow.append(int(line[i]))
+        myl.append(newRow)
+    # 矩阵调入后，就可以在屏幕上输出该矩阵
+    myMat = mat(myl)
+    return myMat
+
+
 # 打印矩阵
 def printMat(inMat, thresh=0.8):
     # 由于矩阵保护了浮点数，因此定义浅色和深色，遍历所有矩阵元素，当元素大于阀值时打印1，否则打印0
@@ -220,25 +265,30 @@ def printMat(inMat, thresh=0.8):
 
 # 实现图像压缩，允许基于任意给定的奇异值数目来重构图像
 def imgCompress(numSV=3, thresh=0.8):
+    """imgCompress( )
+
+    Args:
+        numSV       Sigma长度   
+        thresh      判断的阈值
+    """
     # 构建一个列表
-    myl = []
-    # 打开文本文件，并从文件以数组方式读入字符
-    for line in open('testData/testDigits/0_5.txt').readlines():
-        newRow = []
-        for i in range(32):
-            newRow.append(int(line[i]))
-        myl.append(newRow)
-    # 矩阵调入后，就可以在屏幕上输出该矩阵
-    myMat = mat(myl)
+    myMat = imgLoadData('input/14.SVD/0_5.txt')
+
     print "****original matrix****"
     # 对原始图像进行SVD分解并重构图像e
     printMat(myMat, thresh)
+
     # 通过Sigma 重新构成SigRecom来实现
     # Sigma是一个对角矩阵，因此需要建立一个全0矩阵，然后将前面的那些奇异值填充到对角线上。
     U, Sigma, VT = la.svd(myMat)
-    SigRecon = mat(zeros((numSV, numSV)))
-    for k in range(numSV):
-        SigRecon[k, k] = Sigma[k]
+    # SigRecon = mat(zeros((numSV, numSV)))
+    # for k in range(numSV):
+    #     SigRecon[k, k] = Sigma[k]
+
+    # 分析插入的 Sigma 长度
+    analyse_data(Sigma, 20)
+
+    SigRecon = mat(eye(numSV) * Sigma[: numSV])
     reconMat = U[:, :numSV] * SigRecon * VT[:numSV, :]
     print "****reconstructed matrix using %d singular values *****" % numSV
     printMat(reconMat, thresh)
