@@ -303,15 +303,15 @@ def imgCompress(numSV=3, thresh=0.8):
 if __name__ == "__main__":
 
     # # 对矩阵进行SVD分解(用python实现SVD)
-    Data = loadExData()
-    print 'Data:', Data
-    U, Sigma, VT = linalg.svd(Data)
+    # Data = loadExData()
+    # print 'Data:', Data
+    # U, Sigma, VT = linalg.svd(Data)
     # # 打印Sigma的结果，因为前3个数值比其他的值大了很多，为9.72140007e+00，5.29397912e+00，6.84226362e-01
     # # 后两个值比较小，每台机器输出结果可能有不同可以将这两个值去掉
-    print 'U:', U
-    print 'Sigma', Sigma
-    print 'VT:', VT
-    print 'VT:', VT.T
+    # print 'U:', U
+    # print 'Sigma', Sigma
+    # print 'VT:', VT
+    # print 'VT:', VT.T
 
     # # 重构一个3x3的矩阵Sig3
     # Sig3 = mat([[Sigma[0], 0, 0], [0, Sigma[1], 0], [0, 0, Sigma[2]]])
@@ -335,15 +335,15 @@ if __name__ == "__main__":
     """
 
     # 计算相似度的方法
-    # myMat = mat(loadExData2())
+    myMat = mat(loadExData3())
     # print myMat
     # 计算相似度的第一种方式
-    # print recommend(myMat, 1, estMethod=svdEst)
+    print recommend(myMat, 1, estMethod=svdEst)
     # 计算相似度的第二种方式
-    # print recommend(myMat, 1, estMethod=svdEst, simMeas=pearsSim)
+    print recommend(myMat, 1, estMethod=svdEst, simMeas=pearsSim)
 
     # 默认推荐（菜馆菜肴推荐示例）
-    # print recommend(myMat, 2)
+    print recommend(myMat, 2)
 
     """
     # 利用SVD提高推荐效果
