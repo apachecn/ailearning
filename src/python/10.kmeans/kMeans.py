@@ -129,6 +129,8 @@ def testBiKMeans():
 
     centList, myNewAssments = biKMeans(datMat, 3)
 
+    print 'centList=', centList
+
 if __name__ == "__main__":
 
     # 测试基础的函数
