@@ -17,6 +17,15 @@ import matplotlib.pyplot as plt
 
 # 解析数据
 def loadDataSet(file_name):
+    '''
+    Desc: 
+        加载并解析数据
+    Args:
+        file_name -- 文件名称，要解析的文件所在磁盘位置
+    Returns:
+        dataMat -- 原始数据的特征
+        labelMat -- 原始数据的标签，也就是每条样本对应的类别
+    '''
     # dataMat为原始数据， labelMat为原始数据的标签
     dataMat = []; labelMat = []
     fr = open(file_name)
@@ -36,6 +45,16 @@ def sigmoid(inX):
 # 两个参数：第一个参数==> dataMatIn 是一个2维NumPy数组，每列分别代表每个不同的特征，每行则代表每个训练样本。
 # 第二个参数==> classLabels 是类别标签，它是一个 1*100 的行向量。为了便于矩阵计算，需要将该行向量转换为列向量，做法是将原向量转置，再将它赋值给labelMat。
 def gradAscent(dataMatIn, classLabels):
+    '''
+    Desc:
+        正常的梯度上升法
+    Args:
+        dataMatIn -- 输入的 数据的特征 List
+        classLabels -- 输入的数据的类别标签
+    Returns:
+        array(weights) -- 得到的最佳回归系数
+    '''
+
     # 转化为矩阵[[1,1,2],[1,1,2]....]
     dataMatrix = mat(dataMatIn)             # 转换为 NumPy 矩阵
     # 转化为矩阵[[0,1,0,1,0,1.....]]，并转制[[0],[1],[0].....]
@@ -72,6 +91,15 @@ def gradAscent(dataMatIn, classLabels):
 # 梯度上升优化算法在每次更新数据集时都需要遍历整个数据集，计算复杂都较高
 # 随机梯度上升一次只用一个样本点来更新回归系数
 def stocGradAscent0(dataMatrix, classLabels):
+    '''
+    Desc:
+        随机梯度上升，只使用一个样本点来更新回归系数
+    Args:
+        dataMatrix -- 输入数据的数据特征（除去最后一列）
+        classLabels -- 输入数据的类别标签（最后一列数据）
+    Returns:
+        weights -- 得到的最佳回归系数
+    '''
     m,n = shape(dataMatrix)
     alpha = 0.01
     # n*1的矩阵
@@ -91,6 +119,16 @@ def stocGradAscent0(dataMatrix, classLabels):
 
 # 随机梯度上升算法（随机化）
 def stocGradAscent1(dataMatrix, classLabels, numIter=150):
+    '''
+    Desc:
+        改进版的随机梯度上升，使用随机的一个样本来更新回归系数
+    Args:
+        dataMatrix -- 输入数据的数据特征（除去最后一列数据）
+        classLabels -- 输入数据的类别标签（最后一列数据）
+        numIter=150 --  迭代次数
+    Returns:
+        weights -- 得到的最佳回归系数
+    '''
     m,n = shape(dataMatrix)
     weights = ones(n)   # 创建与列数相同的矩阵的系数矩阵，所有的元素都是1
     # 随机梯度, 循环150,观察是否收敛
