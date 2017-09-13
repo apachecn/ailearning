@@ -1,11 +1,13 @@
+#!/usr/bin/python
+# coding:utf8
 '''
 Created on 2017-04-07
 Sequential Pegasos 
 the input T is k*T in Batch Pegasos
 @author: Peter/ApacheCN-xy
 '''
-
 from numpy import *
+
 
 def loadDataSet(fileName):
     dataMat = []; labelMat = []
@@ -16,6 +18,7 @@ def loadDataSet(fileName):
         dataMat.append([float(lineArr[0]), float(lineArr[1])])
         labelMat.append(float(lineArr[2]))
     return dataMat,labelMat
+
 
 def seqPegasos(dataSet, labels, lam, T):
     m,n = shape(dataSet); w = zeros(n)
@@ -29,9 +32,11 @@ def seqPegasos(dataSet, labels, lam, T):
             w = (1.0 - 1/t)*w
         print w
     return w
-        
+
+
 def predict(w, x):
     return w*x.T
+
 
 def batchPegasos(dataSet, labels, lam, T, k):
     m,n = shape(dataSet); w = zeros(n); 
@@ -47,6 +52,8 @@ def batchPegasos(dataSet, labels, lam, T, k):
                 wDelta += labels[i]*dataSet[i,:].A # 累积变化  
         w = (1.0 - 1/t)*w + (eta/k)*wDelta       # 在每个 T上应用更改
     return w
+
+
 
 datArr,labelList = loadDataSet('testSet.txt')
 datMat = mat(datArr)
