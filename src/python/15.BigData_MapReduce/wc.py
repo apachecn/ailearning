@@ -1,5 +1,6 @@
+#!/usr/bin/python
+# coding:utf8
 from mrjob.job import MRJob
-import json
 
 
 class MRWordCountUtility(MRJob):
