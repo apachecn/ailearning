@@ -199,9 +199,9 @@ def simpleTest():
     # 因为数组没有是复制n份， array的乘法就是乘法
     dataArr = array(dataMat)
     # print dataArr
-    weights = gradAscent(dataArr, labelMat)
+    # weights = gradAscent(dataArr, labelMat)
     # weights = stocGradAscent0(dataArr, labelMat)
-    # weights = stocGradAscent1(dataArr, labelMat)
+    weights = stocGradAscent1(dataArr, labelMat)
     # print '*'*30, weights
 
     # 数据可视化
@@ -278,5 +278,5 @@ def multiTest():
 
 
 if __name__ == "__main__":
-    simpleTest()
-    # multiTest()
+    # simpleTest()
+    multiTest()
