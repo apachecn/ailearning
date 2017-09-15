@@ -46,19 +46,19 @@ def batchPegasos(dataSet, labels, lam, T, k):
     Args:
         dataMat    特征集合
         labels     分类结果集合
-        lam        固定值，微调的空间
+        lam        固定值
         T          迭代次数
         k          待处理列表大小
     Returns:
-        w          权重向量
+        w          回归系数
     """
     m, n = shape(dataSet)
-    w = zeros(n)
+    w = zeros(n)  # 回归系数
     dataIndex = range(m)
     for t in range(1, T+1):
         wDelta = mat(zeros(n))  # 重置 wDelta
 
-        # 它是学习率，代表了权重调整幅度的大小。（也可以理解为随机梯度的步长）
+        # 它是学习率，代表了权重调整幅度的大小。（也可以理解为随机梯度的步长，使它不断减小，便于拟合）
         # 输入T和K分别设定了迭代次数和待处理列表的大小。在T次迭代过程中，每次需要重新计算eta
         eta = 1.0/(lam*t)
         random.shuffle(dataIndex)
@@ -66,7 +66,7 @@ def batchPegasos(dataSet, labels, lam, T, k):
             i = dataIndex[j]
             p = predict(w, dataSet[i, :])              # mapper 代码
 
-            # 如果预测正确，并且预测结果的绝对值>=1, 认为没问题。
+            # 如果预测正确，并且预测结果的绝对值>=1，因为最大间隔为1, 认为没问题。
             # 否则算是预测错误, 通过预测错误的结果，来累计更新w.
             if labels[i]*p < 1:                        # mapper 代码
                 wDelta += labels[i]*dataSet[i, :].A    # 累积变化
