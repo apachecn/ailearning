@@ -58,7 +58,7 @@ def batchPegasos(dataSet, labels, lam, T, k):
     for t in range(1, T+1):
         wDelta = mat(zeros(n))  # 重置 wDelta
 
-        # 它是学习率，代表了权重调整幅度的大小。
+        # 它是学习率，代表了权重调整幅度的大小。（也可以理解为随机梯度的步长）
         # 输入T和K分别设定了迭代次数和待处理列表的大小。在T次迭代过程中，每次需要重新计算eta
         eta = 1.0/(lam*t)
         random.shuffle(dataIndex)
@@ -72,8 +72,8 @@ def batchPegasos(dataSet, labels, lam, T, k):
                 wDelta += labels[i]*dataSet[i, :].A    # 累积变化
         # w通过不断的随机梯度的方式来优化
         w = (1.0 - 1/t)*w + (eta/k)*wDelta             # 在每个 T上应用更改
-        print '-----', w
-    print '++++++', w
+        # print '-----', w
+    # print '++++++', w
     return w
 
 
