@@ -310,6 +310,8 @@ def testApriori():
     print 'L(0.7): ', L1
     print 'supportData(0.7): ', supportData1
 
+    print '->->->->->->->->->->->->->->->->->->->->->->->->->->->->'
+
     # Apriori 算法生成频繁项集以及它们的支持度
     L2, supportData2 = apriori(dataSet, minSupport=0.5)
     print 'L(0.5): ', L2
@@ -331,10 +333,10 @@ def testGenerateRules():
 
 def main():
     # 测试 Apriori 算法
-    # testApriori()
+    testApriori()
 
     # 生成关联规则
-    testGenerateRules()
+    # testGenerateRules()
 
     # # 项目案例
     # # 构建美国国会投票记录的事务数据集
