@@ -584,9 +584,9 @@ def regression5():
     
 
 if __name__ == "__main__":
-    # regression1()
+    regression1()
     # regression2()
     # abaloneTest()
     # regression3()
-    regression4()
+    # regression4()
     # regression5()
