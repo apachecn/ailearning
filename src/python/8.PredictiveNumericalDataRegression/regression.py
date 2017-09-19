@@ -369,6 +369,7 @@ gt56                trainY.append(yArr[indexList[j]])
 # python setup.py build 
 # python setup.py install
 #  
+'''
 from numpy import *
 from bs4 import BeautifulSoup
 
@@ -481,7 +482,7 @@ def crossValidation(xArr,yArr,numVal=10):
     # 输出构建的模型
     print "the best model from Ridge Regression is:\n",unReg
     print "with constant term: ",-1*sum(multiply(meanX,unReg)) + mean(yMat)
-
+'''
 
 
     #test for standRegression
@@ -491,9 +492,9 @@ def regression1():
     yMat = mat(yArr)
     ws = standRegres(xArr, yArr)
     fig = plt.figure()
-    ax = fig.add_subplot(111)               #add_subplot(349)函数的参数的意思是，将画布分成3行4列图像画在从左到右从上到下第9块
-    ax.scatter(xMat[:, 1].flatten(), yMat.T[:, 0].flatten().A[0]) #scatter 的x是xMat中的第二列，y是yMat的第一列
-    xCopy = xMat.copy() 
+    ax = fig.add_subplot(111)               # add_subplot(349)函数的参数的意思是，将画布分成3行4列图像画在从左到右从上到下第9块
+    ax.scatter([xMat[:, 1].flatten()], [yMat.T[:, 0].flatten().A[0]]) # scatter 的x是xMat中的第二列，y是yMat的第一列
+    xCopy = xMat.copy()
     xCopy.sort(0)
     yHat = xCopy * ws
     ax.plot(xCopy[:, 1], yHat)
@@ -512,7 +513,7 @@ def regression2():
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.plot(xSort[:,1], yHat[srtInd])
-    ax.scatter(xMat[:,1].flatten().A[0], mat(yArr).T.flatten().A[0] , s=2, c='red')
+    ax.scatter([xMat[:,1].flatten().A[0]], [mat(yArr).T.flatten().A[0]] , s=2, c='red')
     plt.show()
 
 
@@ -576,17 +577,17 @@ def regression4():
 
 # predict for lego's price
 def regression5():
-    lgX = []
-    lgY = []
+   lgX = []
+   lgY = []
 
-    setDataCollect(lgX, lgY)
-    crossValidation(lgX, lgY, 10)
+   setDataCollect(lgX, lgY)
+   crossValidation(lgX, lgY, 10)
     
 
 if __name__ == "__main__":
-    regression1()
+    # regression1()
     # regression2()
-    # abaloneTest()
+    abaloneTest()
     # regression3()
     # regression4()
     # regression5()
