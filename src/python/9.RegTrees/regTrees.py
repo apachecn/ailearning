@@ -395,12 +395,12 @@ def createForeCast(tree, testData, modelEval=regTreeEval):
 
 
 if __name__ == "__main__":
-    # 测试数据集
-    testMat = mat(eye(4))
-    print testMat
-    print type(testMat)
-    mat0, mat1 = binSplitDataSet(testMat, 1, 0.5)
-    print mat0, '\n-----------\n', mat1
+    # # 测试数据集
+    # testMat = mat(eye(4))
+    # print testMat
+    # print type(testMat)
+    # mat0, mat1 = binSplitDataSet(testMat, 1, 0.5)
+    # print mat0, '\n-----------\n', mat1
 
     # # 回归树
     # myDat = loadDataSet('input/9.RegTrees/data1.txt')
@@ -431,29 +431,29 @@ if __name__ == "__main__":
     # myTree = createTree(myMat, modelLeaf, modelErr)
     # print myTree
 
-    # # # 回归树 VS 模型树 VS 线性回归
-    # trainMat = mat(loadDataSet('input/9.RegTrees/bikeSpeedVsIq_train.txt'))
-    # testMat = mat(loadDataSet('input/9.RegTrees/bikeSpeedVsIq_test.txt'))
-    # # # 回归树
-    # myTree1 = createTree(trainMat, ops=(1, 20))
-    # print myTree1
-    # yHat1 = createForeCast(myTree1, testMat[:, 0])
-    # print "--------------\n"
-    # # print yHat1
-    # # print "ssss==>", testMat[:, 1]
-    # print "回归树:", corrcoef(yHat1, testMat[:, 1],rowvar=0)[0, 1]
+    # # 回归树 VS 模型树 VS 线性回归
+    trainMat = mat(loadDataSet('input/9.RegTrees/bikeSpeedVsIq_train.txt'))
+    testMat = mat(loadDataSet('input/9.RegTrees/bikeSpeedVsIq_test.txt'))
+    # # 回归树
+    myTree1 = createTree(trainMat, ops=(1, 20))
+    print myTree1
+    yHat1 = createForeCast(myTree1, testMat[:, 0])
+    print "--------------\n"
+    # print yHat1
+    # print "ssss==>", testMat[:, 1]
+    print "回归树:", corrcoef(yHat1, testMat[:, 1],rowvar=0)[0, 1]
 
-    # # 模型树
-    # myTree2 = createTree(trainMat, modelLeaf, modelErr, ops=(1, 20))
-    # yHat2 = createForeCast(myTree2, testMat[:, 0], modelTreeEval)
-    # print myTree2
-    # print "模型树:", corrcoef(yHat2, testMat[:, 1],rowvar=0)[0, 1]
+    # 模型树
+    myTree2 = createTree(trainMat, modelLeaf, modelErr, ops=(1, 20))
+    yHat2 = createForeCast(myTree2, testMat[:, 0], modelTreeEval)
+    print myTree2
+    print "模型树:", corrcoef(yHat2, testMat[:, 1],rowvar=0)[0, 1]
 
-    # # 线性回归
-    # ws, X, Y = linearSolve(trainMat)
-    # print ws
-    # m = len(testMat[:, 0])
-    # yHat3 = mat(zeros((m, 1)))
-    # for i in range(shape(testMat)[0]):
-    #     yHat3[i] = testMat[i, 0]*ws[1, 0] + ws[0, 0]
-    # print "线性回归:", corrcoef(yHat3, testMat[:, 1],rowvar=0)[0, 1]
+    # 线性回归
+    ws, X, Y = linearSolve(trainMat)
+    print ws
+    m = len(testMat[:, 0])
+    yHat3 = mat(zeros((m, 1)))
+    for i in range(shape(testMat)[0]):
+        yHat3[i] = testMat[i, 0]*ws[1, 0] + ws[0, 0]
+    print "线性回归:", corrcoef(yHat3, testMat[:, 1],rowvar=0)[0, 1]
