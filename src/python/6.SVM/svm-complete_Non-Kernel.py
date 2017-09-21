@@ -176,9 +176,15 @@ def innerL(i, oS):
     # 求 Ek误差：预测值-真实值的差
     Ei = calcEk(oS, i)
 
-    # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值。)
+    # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值)
     # 0<=alphas[i]<=C，但由于0和C是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。
     # 表示发生错误的概率：labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。
+    '''
+    # 检验训练样本(xi, yi)是否满足KKT条件
+    yi*f(i) >= 1 and alpha = 0 (outside the boundary)
+    yi*f(i) == 1 and 0<alpha< C (on the boundary)
+    yi*f(i) <= 1 and alpha = C (between the boundary)
+    '''
     if ((oS.labelMat[i] * Ei < -oS.tol) and (oS.alphas[i] < oS.C)) or ((oS.labelMat[i] * Ei > oS.tol) and (oS.alphas[i] > 0)):
         # 选择最大的误差对应的j进行优化。效果更明显
         j, Ej = selectJ(i, oS, Ei)
@@ -223,7 +229,7 @@ def innerL(i, oS):
         # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
         # w= Σ[1~n] ai*yi*xi => b = yj Σ[1~n] ai*yi(xi*xj)
         # 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
-        # 为什么减2遍？ 因为是 减去Σ[1~n]，当好2个变量i和j，所以减2遍
+        # 为什么减2遍？ 因为是 减去Σ[1~n]，正好2个变量i和j，所以减2遍
         b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.X[i, :] * oS.X[i, :].T - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.X[i, :] * oS.X[j, :].T
         b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.X[i, :] * oS.X[j, :].T - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.X[j, :] * oS.X[j, :].T
         if (0 < oS.alphas[i]) and (oS.C > oS.alphas[i]):
@@ -260,6 +266,7 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter):
     alphaPairsChanged = 0
 
     # 循环遍历：循环maxIter次 并且 （alphaPairsChanged存在可以改变 or 所有行遍历一遍）
+    # 循环迭代结束 或者 循环遍历所有alpha后，alphaPairs还是没变化
     while (iter < maxIter) and ((alphaPairsChanged > 0) or (entireSet)):
         alphaPairsChanged = 0
 
@@ -271,7 +278,6 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter):
                 alphaPairsChanged += innerL(i, oS)
                 print("fullSet, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
             iter += 1
-
         # 对已存在 alpha对，选出非边界的alpha值，进行优化。
         else:
             # 遍历所有的非边界alpha值，也就是不在边界0或C上的值。

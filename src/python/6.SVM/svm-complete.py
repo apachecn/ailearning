@@ -227,9 +227,15 @@ def innerL(i, oS):
     # 求 Ek误差：预测值-真实值的差
     Ei = calcEk(oS, i)
 
-    # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值。)
+    # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值)
     # 0<=alphas[i]<=C，但由于0和C是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。
     # 表示发生错误的概率：labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。
+    '''
+    # 检验训练样本(xi, yi)是否满足KKT条件
+    yi*f(i) >= 1 and alpha = 0 (outside the boundary)
+    yi*f(i) == 1 and 0<alpha< C (on the boundary)
+    yi*f(i) <= 1 and alpha = C (between the boundary)
+    '''
     if ((oS.labelMat[i] * Ei < -oS.tol) and (oS.alphas[i] < oS.C)) or ((oS.labelMat[i] * Ei > oS.tol) and (oS.alphas[i] > 0)):
         # 选择最大的误差对应的j进行优化。效果更明显
         j, Ej = selectJ(i, oS, Ei)
@@ -244,7 +250,7 @@ def innerL(i, oS):
             L = max(0, oS.alphas[j] + oS.alphas[i] - oS.C)
             H = min(oS.C, oS.alphas[j] + oS.alphas[i])
         if L == H:
-            print("L==H")
+            # print("L==H")
             return 0
 
         # eta是alphas[j]的最优修改量，如果eta==0，需要退出for循环的当前迭代过程
@@ -263,7 +269,7 @@ def innerL(i, oS):
 
         # 检查alpha[j]是否只是轻微的改变，如果是的话，就退出for循环。
         if (abs(oS.alphas[j] - alphaJold) < 0.00001):
-            print("j not moving enough")
+            # print("j not moving enough")
             return 0
 
         # 然后alphas[i]和alphas[j]同样进行改变，虽然改变的大小一样，但是改变的方向正好相反
@@ -274,7 +280,7 @@ def innerL(i, oS):
         # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
         # w= Σ[1~n] ai*yi*xi => b = yi- Σ[1~n] ai*yi(xi*xj)
         # 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
-        # 为什么减2遍？ 因为是 减去Σ[1~n]，当好2个变量i和j，所以减2遍
+        # 为什么减2遍？ 因为是 减去Σ[1~n]，正好2个变量i和j，所以减2遍
         b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, i] - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.K[i, j]
         b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, j] - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.K[j, j]
         if (0 < oS.alphas[i]) and (oS.C > oS.alphas[i]):
@@ -321,7 +327,7 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
             for i in range(oS.m):
                 # 是否存在alpha对，存在就+1
                 alphaPairsChanged += innerL(i, oS)
-                print("fullSet, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
+                # print("fullSet, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
             iter += 1
 
         # 对已存在 alpha对，选出非边界的alpha值，进行优化。
@@ -330,7 +336,7 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
             nonBoundIs = nonzero((oS.alphas.A > 0) * (oS.alphas.A < C))[0]
             for i in nonBoundIs:
                 alphaPairsChanged += innerL(i, oS)
-                print("non-bound, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
+                # print("non-bound, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
             iter += 1
 
         # 如果找到alpha对，就优化非边界alpha值，否则，就重新进行寻找，如果寻找一遍 遍历所有的行还是没找到，就退出循环。
@@ -434,11 +440,12 @@ def testDigits(kTup=('rbf', 10)):
     svInd = nonzero(alphas.A > 0)[0]
     sVs = datMat[svInd]
     labelSV = labelMat[svInd]
-    print("there are %d Support Vectors" % shape(sVs)[0])
+    # print("there are %d Support Vectors" % shape(sVs)[0])
     m, n = shape(datMat)
     errorCount = 0
     for i in range(m):
         kernelEval = kernelTrans(sVs, datMat[i, :], kTup)
+        # 1*m * m*1 = 1*1 单个预测结果
         predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
         if sign(predict) != sign(labelArr[i]): errorCount += 1
     print("the training error rate is: %f" % (float(errorCount) / m))
@@ -497,27 +504,32 @@ def plotfig_SVM(xArr, yArr, ws, b, alphas):
 
 if __name__ == "__main__":
 
-    # 无核函数的测试
-    # 获取特征和目标变量
-    dataArr, labelArr = loadDataSet('input/6.SVM/testSet.txt')
-    # print labelArr
+    # # 无核函数的测试
+    # # 获取特征和目标变量
+    # dataArr, labelArr = loadDataSet('input/6.SVM/testSet.txt')
+    # # print labelArr
 
-    # b是常量值， alphas是拉格朗日乘子
-    b, alphas = smoP(dataArr, labelArr, 0.6, 0.001, 40)
-    print '/n/n/n'
-    print 'b=', b
-    print 'alphas[alphas>0]=', alphas[alphas > 0]
-    print 'shape(alphas[alphas > 0])=', shape(alphas[alphas > 0])
-    for i in range(100):
-        if alphas[i] > 0:
-            print dataArr[i], labelArr[i]
-    # 画图
-    ws = calcWs(alphas, dataArr, labelArr)
-    plotfig_SVM(dataArr, labelArr, ws, b, alphas)
+    # # b是常量值， alphas是拉格朗日乘子
+    # b, alphas = smoP(dataArr, labelArr, 0.6, 0.001, 40)
+    # print '/n/n/n'
+    # print 'b=', b
+    # print 'alphas[alphas>0]=', alphas[alphas > 0]
+    # print 'shape(alphas[alphas > 0])=', shape(alphas[alphas > 0])
+    # for i in range(100):
+    #     if alphas[i] > 0:
+    #         print dataArr[i], labelArr[i]
+    # # 画图
+    # ws = calcWs(alphas, dataArr, labelArr)
+    # plotfig_SVM(dataArr, labelArr, ws, b, alphas)
 
-    # # 有核函数的测试
+    # 有核函数的测试
     # testRbf(0.8)
 
     # 项目实战
     # 示例：手写识别问题回顾
-    # testDigits(('rbf', 20))
+    testDigits(('rbf', 0.1))
+    testDigits(('rbf', 5))
+    testDigits(('rbf', 10))
+    testDigits(('rbf', 50))
+    testDigits(('rbf', 100))
+    testDigits(('lin'))
