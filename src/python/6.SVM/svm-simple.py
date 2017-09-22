@@ -14,11 +14,11 @@ import matplotlib.pyplot as plt
 
 def loadDataSet(fileName):
     """
-    对文件进行逐行解析，从而得到第行的类标签和整个数据矩阵
+    对文件进行逐行解析，从而得到第行的类标签和整个特征矩阵
     Args:
         fileName 文件名
     Returns:
-        dataMat  数据矩阵
+        dataMat  特征矩阵
         labelMat 类标签
     """
     dataMat = []
@@ -103,11 +103,15 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
             # 预测结果与真实结果比对，计算误差Ei
             Ei = fXi - float(labelMat[i])
 
-            # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值。)
+            # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值)
             # 0<=alphas[i]<=C，但由于0和C是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。
             # 表示发生错误的概率：labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。
-            # 如果你大于 负错误的概率，那么要求你小于C，这样才可以只优化一边
-            # 如果你大于 正错误的概率，那么要求你大于0，这样才可以只优化一边
+            '''
+            # 检验训练样本(xi, yi)是否满足KKT条件
+            yi*f(i) >= 1 and alpha = 0 (outside the boundary)
+            yi*f(i) == 1 and 0<alpha< C (on the boundary)
+            yi*f(i) <= 1 and alpha = C (between the boundary)
+            '''
             if ((labelMat[i]*Ei < -toler) and (alphas[i] < C)) or ((labelMat[i]*Ei > toler) and (alphas[i] > 0)):
 
                 # 如果满足优化的条件，我们就随机选取非i的一个点，进行优化比较
@@ -133,7 +137,7 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
 
                 # eta是alphas[j]的最优修改量，如果eta==0，需要退出for循环的当前迭代过程
                 # 参考《统计学习方法》李航-P125~P128<序列最小最优化算法>
-                eta = 2.0 * dataMatrix[i, :]*dataMatrix[j, :].T - dataMatrix[i, :]*dataMatrix[i,:].T - dataMatrix[j, :]*dataMatrix[j, :].T
+                eta = 2.0 * dataMatrix[i, :]*dataMatrix[j, :].T - dataMatrix[i, :]*dataMatrix[i, :].T - dataMatrix[j, :]*dataMatrix[j, :].T
                 if eta >= 0:
                     print("eta>=0")
                     continue
@@ -151,9 +155,9 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
                 # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
                 # w= Σ[1~n] ai*yi*xi => b = yj- Σ[1~n] ai*yi(xi*xj)
                 # 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
-                # 为什么减2遍？ 因为是 减去Σ[1~n]，当好2个变量i和j，所以减2遍
-                b1 = b - Ei- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i,:]*dataMatrix[i,:].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[i,:]*dataMatrix[j,:].T
-                b2 = b - Ej- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i,:]*dataMatrix[j,:].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[j,:]*dataMatrix[j,:].T
+                # 为什么减2遍？ 因为是 减去Σ[1~n]，正好2个变量i和j，所以减2遍
+                b1 = b - Ei- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i, :]*dataMatrix[i, :].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[i, :]*dataMatrix[j, :].T
+                b2 = b - Ej- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i, :]*dataMatrix[j, :].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[j, :]*dataMatrix[j, :].T
                 if (0 < alphas[i]) and (C > alphas[i]):
                     b = b1
                 elif (0 < alphas[j]) and (C > alphas[j]):
