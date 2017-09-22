@@ -61,7 +61,7 @@ def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher di
     m, n = shape(X)
     K = mat(zeros((m, 1)))
     if kTup[0] == 'lin':
-        # linear kernel:   m*n * n*1 = m*1, 求y值
+        # linear kernel:   m*n * n*1 = m*1
         K = X * A.T
     elif kTup[0] == 'rbf':
         for j in range(m):
