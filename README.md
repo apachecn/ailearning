@@ -6,6 +6,8 @@
 * **Machine Learning in Action (机器学习实战) | [ApacheCN(apache中文网)](http://cwiki.apachecn.org/)**
 * 电子版书籍：[【机器学习实战-中文版-带目录版.pdf】](https://github.com/apachecn/MachineLearning/tree/master/books)  
 * **视频每周更新：如果你觉得有价值，请帮忙点 Star【后续组织学习活动：sklearn + tensorflow】**
+* --- 视频网站：优酷／bilibili / Acfun ，可直接在线播放。（最下方有相应链接）
+* --- 对于帮忙转发的朋友，可以私聊 企鹅 赠送《机器学习实战》百度云视频一套，谢谢
 
 ## 第一部分  分类
 
@@ -42,17 +44,33 @@
 
 * [2017-04-08_第一期的总结](/report/2017-04-08_第一期的总结.md)
 
-* * *
+## 联系方式
 
-* 附录A Python入门
-* 附录B 线性代数
-* 附录C 概率论复习
-* 附录D 资源
-* 索引
-* 版权声明
-* [ApacheCN(apache中文网) 维护更新](http://cwiki.apachecn.org/)
+> 项目负责人
+
+* [@jiangzhonglian](https://github.com/jiangzhonglian)（片刻）
+
+> 项目贡献者
+
+* [@jiangzhonglian](https://github.com/jiangzhonglian)（片刻）
+* [@wangyangting](https://github.com/wangyangting)（那伊抹微笑）
+* [@chenyyx](https://github.com/chenyyx)（瑶妹）
+* [@geekidentity](https://github.com/geekidentity)（侯法超）
+* [@mikechengwei](https://github.com/mikechengwei)（Mike）
+* [@hello19883](https://github.com/hello19883)（hello19883）
+* [@sheepmen](https://github.com/sheepmen)（徐鑫）
+* [@highfei2011](https://github.com/highfei2011)（ibe）
+* [@LeeMoonCh](https://github.com/LeeMoonCh)（Arithmetic）
+
+> 加入方式
+
+* 企鹅: 529815144(片刻) 1042658081(那伊抹微笑) 190442212(瑶妹)
+
+* [ApacheCN(apache中文网) 维护更新](http://www.apachecn.org)
     * [关于我们](http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887240)
     * [加入我们](http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887239)
+
+## 网站视频
 
 [ApacheCN-机器学习视频-更新地址-AcFun](http://www.acfun.cn/u/12540256.aspx#page=1)
 ![](/images/MainPage/ApacheCN-ML-AcFun.jpg)<br/>
@@ -60,3 +78,14 @@
 ![](/images/MainPage/ApacheCN-ML-bilibili.jpg)<br/>
 [ApacheCN-机器学习视频-更新地址-优酷](http://i.youku.com/apachecn)
 ![](/images/MainPage/ApacheCM-ML-youku.jpg)
+
+## 其它中文文档
+
+* [Sklearn 0.19 中文文档](http://sklearn.apachecn.org/)
+* [Spark 2.2.0和2.0.2 中文文档](http://spark.apachecn.org)
+* [Storm 1.1.0和1.0.1 中文文档](http://storm.apachecn.org/)
+* [TensorFlow R1.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10030122)
+* [Kudu 1.4.0 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10813594)
+* [Zeppelin 0.7.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10030467)
+* [Elasticsearch 5.4 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=4260364)
+* [Kibana 5.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=8159377)
