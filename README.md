@@ -59,6 +59,4 @@
 [ApacheCN-机器学习视频-更新地址-bilibili](https://space.bilibili.com/97678687/#!/index)
 ![](/images/MainPage/ApacheCN-ML-bilibili.jpg)<br/>
 [ApacheCN-机器学习视频-更新地址-优酷](http://i.youku.com/apachecn)
-![](/images/MainPage/ApacheCM-ML-youku.jpg)<br/>
-[ApacheCN-机器学习视频-讨论版-百度云地址](https://pan.baidu.com/s/1eS44hCu)
-![](/images/MainPage/ApacheCM-ML-baiduyun.png)
+![](/images/MainPage/ApacheCM-ML-youku.jpg)
