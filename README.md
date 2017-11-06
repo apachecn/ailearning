@@ -62,6 +62,7 @@
 * [@sheepmen](https://github.com/sheepmen)（徐鑫）
 * [@highfei2011](https://github.com/highfei2011)（ibe）
 * [@LeeMoonCh](https://github.com/LeeMoonCh)（Arithmetic）
+* [@caopeirui](https://github.com/caopeirui)（Veyron C）
 
 > 加入方式
 
