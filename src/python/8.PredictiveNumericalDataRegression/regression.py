@@ -59,7 +59,7 @@ def standRegres(xArr,yArr):
     # 因为要用到xTx的逆矩阵，所以事先需要确定计算得到的xTx是否可逆，条件是矩阵的行列式不为0
     # linalg.det() 函数是用来求得矩阵的行列式的，如果矩阵的行列式为0，则这个矩阵是不可逆的，就无法进行接下来的运算                   
     if linalg.det(xTx) == 0.0:
-        print "This matrix is singular, cannot do inverse" 
+        print("This matrix is singular, cannot do inverse" )
         return
     # 最小二乘法
     # http://www.apache.wiki/pages/viewpage.action?pageId=5505133
@@ -534,22 +534,22 @@ def abaloneTest():
     oldyHat1 = lwlrTest(abX[0:99], abX[0:99], abY[0:99], 1)
     oldyHat10 = lwlrTest(abX[0:99], abX[0:99], abY[0:99], 10)   
     # 打印出不同的核预测值与训练数据集上的真实值之间的误差大小
-    print "old yHat01 error Size is :" , rssError(abY[0:99], oldyHat01.T)
-    print "old yHat1 error Size is :" , rssError(abY[0:99], oldyHat1.T)
-    print "old yHat10 error Size is :" , rssError(abY[0:99], oldyHat10.T)
+    print("old yHat01 error Size is :" , rssError(abY[0:99], oldyHat01.T))
+    print("old yHat1 error Size is :" , rssError(abY[0:99], oldyHat1.T))
+    print("old yHat10 error Size is :" , rssError(abY[0:99], oldyHat10.T))
 
     # 打印出 不同的核预测值 与 新数据集（测试数据集）上的真实值之间的误差大小
     newyHat01 = lwlrTest(abX[100:199], abX[0:99], abY[0:99], 0.1)
-    print "new yHat01 error Size is :" , rssError(abY[0:99], newyHat01.T)
+    print("new yHat01 error Size is :" , rssError(abY[0:99], newyHat01.T))
     newyHat1 = lwlrTest(abX[100:199], abX[0:99], abY[0:99], 1)
-    print "new yHat1 error Size is :" , rssError(abY[0:99], newyHat1.T)
+    print("new yHat1 error Size is :" , rssError(abY[0:99], newyHat1.T))
     newyHat10 = lwlrTest(abX[100:199], abX[0:99], abY[0:99], 10)
-    print "new yHat10 error Size is :" , rssError(abY[0:99], newyHat10.T)
+    print("new yHat10 error Size is :" , rssError(abY[0:99], newyHat10.T))
 
     # 使用简单的 线性回归 进行预测，与上面的计算进行比较
     standWs = standRegres(abX[0:99], abY[0:99])
     standyHat = mat(abX[100:199]) * standWs
-    print "standRegress error Size is:", rssError(abY[100:199], standyHat.T.A)
+    print("standRegress error Size is:", rssError(abY[100:199], standyHat.T.A))
 
 
 #test for ridgeRegression
@@ -586,7 +586,7 @@ def regression5():
 
 if __name__ == "__main__":
     # regression1()
-    # regression2()
+    regression2()
     abaloneTest()
     # regression3()
     # regression4()
