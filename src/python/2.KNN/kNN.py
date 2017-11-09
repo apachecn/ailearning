@@ -58,7 +58,7 @@ def classify0(inX, dataSet, labels, k):
 	dist = np.sum((inx - dataset)**2, axis=1)**0.5
     
     """
-	2. k个最近的标签
+    2. k个最近的标签
     
     对距离排序使用numpy中的argsort函数， 见 https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.sort.html#numpy.sort
     函数返回的是索引，因此取前k个索引使用[0 : k]
