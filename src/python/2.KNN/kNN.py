@@ -123,7 +123,7 @@ def classify0(inX, dataSet, labels, k):
     # inx - dataset 使用了numpy broadcasting，见 https://docs.scipy.org/doc/numpy-1.13.0/user/basics.broadcasting.html
     # np.sum() 函数的使用见 https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.sum.html
     # """
-	# dist = np.sum((inx - dataset)**2, axis=1)**0.5
+	#   dist = np.sum((inx - dataset)**2, axis=1)**0.5
     
     # """
     # 2. k个最近的标签
