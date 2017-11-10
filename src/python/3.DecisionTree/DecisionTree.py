@@ -176,7 +176,7 @@ def chooseBestFeatureToSplit(dataSet):
             bestInfoGain = infoGain
             bestFeature = i
     return bestFeature
-    # -----------选择最优特征的第一种方式 start------------------------------------
+    # -----------选择最优特征的第一种方式 end------------------------------------
 
     # # -----------选择最优特征的第二种方式 start------------------------------------
     # # 计算初始香农熵
@@ -208,6 +208,7 @@ def majorityCnt(classList):
     Returns:
         bestFeature 最优的特征列
     """
+    # -----------majorityCnt的第一种方式 start------------------------------------
     classCount = {}
     for vote in classList:
         if vote not in classCount.keys():
@@ -217,6 +218,12 @@ def majorityCnt(classList):
     sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
     # print 'sortedClassCount:', sortedClassCount
     return sortedClassCount[0][0]
+    # -----------majorityCnt的第一种方式 end------------------------------------
+
+    # # -----------majorityCnt的第二种方式 start------------------------------------
+    # major_label = Counter(classList).most_common(1)[0]
+    # return major_label
+    # # -----------majorityCnt的第二种方式 end------------------------------------
 
 
 def createTree(dataSet, labels):
@@ -228,7 +235,7 @@ def createTree(dataSet, labels):
         return classList[0]
     # 如果数据集只有1列，那么最初出现label次数最多的一类，作为结果
     # 第二个停止条件：使用完了所有特征，仍然不能将数据集划分成仅包含唯一类别的分组。
-    if len(dataSet[0]) == 1:
+    if len(dataSet[0]):
         return majorityCnt(classList)
 
     # 选择最优的列，得到最优列对应的label含义
@@ -282,9 +289,16 @@ def classify(inputTree, featLabels, testVec):
 
 def storeTree(inputTree, filename):
     import pickle
+    # -------------- 第一种方法 start --------------
     fw = open(filename, 'w')
     pickle.dump(inputTree, fw)
     fw.close()
+    # -------------- 第一种方法 end --------------
+
+    # -------------- 第二种方法 start --------------
+    with open(filename, 'w') as fw:
+        pickle.dump(inputTree, fw)
+    # -------------- 第二种方法 start --------------
 
 
 def grabTree(filename):
