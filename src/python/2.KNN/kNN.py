@@ -123,7 +123,7 @@ def classify0(inX, dataSet, labels, k):
     # inx - dataset 使用了numpy broadcasting，见 https://docs.scipy.org/doc/numpy-1.13.0/user/basics.broadcasting.html
     # np.sum() 函数的使用见 https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.sum.html
     # """
-	# dist = np.sum((inx - dataset)**2, axis=1)**0.5
+	#   dist = np.sum((inx - dataset)**2, axis=1)**0.5
     
     # """
     # 2. k个最近的标签
@@ -199,7 +199,18 @@ def autoNorm(dataSet):
     maxVals = dataSet.max(0)
     # 极差
     ranges = maxVals - minVals
-    norm_dataset = (dataset - minvalue) / ranges
+    # -------第一种实现方式---start-------------------------
+    normDataSet = zeros(shape(dataSet))
+    m = dataSet.shape[0]
+    # 生成与最小值之差组成的矩阵
+    normDataSet = dataSet - tile(minVals, (m, 1))
+    # 将最小值之差除以范围组成矩阵
+    normDataSet = normDataSet / tile(ranges, (m, 1))  # element wise divide
+    # -------第二种实现方式---end---------------------------------------------
+    
+    # # -------第二种实现方式---start---------------------------------------
+    # norm_dataset = (dataset - minvalue) / ranges
+    # # -------第二种实现方式---end---------------------------------------------
     return normDataSet, ranges, minVals
 
 
