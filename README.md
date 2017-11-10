@@ -63,6 +63,7 @@
 * [@highfei2011](https://github.com/highfei2011)（ibe）
 * [@LeeMoonCh](https://github.com/LeeMoonCh)（Arithmetic）
 * [@caopeirui](https://github.com/caopeirui)（Veyron C）
+* [@Cugtyt](https://github.com/Cugtyt)（Cugtyt）
 
 > 加入方式
 
