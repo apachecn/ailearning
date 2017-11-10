@@ -235,7 +235,7 @@ def createTree(dataSet, labels):
         return classList[0]
     # 如果数据集只有1列，那么最初出现label次数最多的一类，作为结果
     # 第二个停止条件：使用完了所有特征，仍然不能将数据集划分成仅包含唯一类别的分组。
-    if len(dataSet[0]):
+    if len(dataSet[0]) == 1:
         return majorityCnt(classList)
 
     # 选择最优的列，得到最优列对应的label含义
