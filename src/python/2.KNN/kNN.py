@@ -199,7 +199,18 @@ def autoNorm(dataSet):
     maxVals = dataSet.max(0)
     # 极差
     ranges = maxVals - minVals
-    norm_dataset = (dataset - minvalue) / ranges
+    # -------第一种实现方式---start-------------------------
+    normDataSet = zeros(shape(dataSet))
+    m = dataSet.shape[0]
+    # 生成与最小值之差组成的矩阵
+    normDataSet = dataSet - tile(minVals, (m, 1))
+    # 将最小值之差除以范围组成矩阵
+    normDataSet = normDataSet / tile(ranges, (m, 1))  # element wise divide
+    # -------第二种实现方式---end---------------------------------------------
+    
+    # # -------第二种实现方式---start---------------------------------------
+    # norm_dataset = (dataset - minvalue) / ranges
+    # # -------第二种实现方式---end---------------------------------------------
     return normDataSet, ranges, minVals
 
 
