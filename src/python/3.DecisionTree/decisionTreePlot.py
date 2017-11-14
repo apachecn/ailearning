@@ -22,7 +22,7 @@ def getNumLeafs(myTree):
     # 根节点开始遍历
     for key in secondDict.keys():
         # 判断子节点是否为dict, 不是+1
-        if type(secondDict[key]).__name__ == 'dict':
+        if type(secondDict[key]) is dict:
             numLeafs += getNumLeafs(secondDict[key])
         else:
             numLeafs += 1
@@ -36,7 +36,7 @@ def getTreeDepth(myTree):
     # 根节点开始遍历
     for key in secondDict.keys():
         # 判断子节点是不是dict, 求分枝的深度
-        if type(secondDict[key]).__name__ == 'dict':
+        if type(secondDict[key]) is dict:
             thisDepth = 1 + getTreeDepth(secondDict[key])
         else:
             thisDepth = 1
@@ -77,7 +77,7 @@ def plotTree(myTree, parentPt, nodeTxt):
     plotTree.yOff = plotTree.yOff - 1.0/plotTree.totalD
     for key in secondDict.keys():
         # 判断该节点是否是Node节点
-        if type(secondDict[key]).__name__ == 'dict':
+        if type(secondDict[key]) is dict:
             # 如果是就递归调用[recursion]
             plotTree(secondDict[key], cntrPt, str(key))
         else:
