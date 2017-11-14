@@ -99,22 +99,23 @@
 
 干货内容实际操作：[MachineLearning(机器学习) 学习路线图](http://www.apachecn.org/map/145.html)
 
+> 机器学习视频-教学版
 
-[ApacheCN-机器学习视频-更新地址-AcFun](http://www.acfun.cn/u/12540256.aspx#page=1)
-![](images/MainPage/ApacheCN-ML-AcFun.jpg)<br/>
-[ApacheCN-机器学习视频-更新地址-bilibili](https://space.bilibili.com/97678687/#!/index)
-![](images/MainPage/ApacheCN-ML-bilibili.jpg)<br/>
-[ApacheCN-机器学习视频-更新地址-优酷](http://i.youku.com/apachecn)
-![](images/MainPage/ApacheCM-ML-youku.jpg)
+|||
+| - | - |
+| AcFun | B站 |
+| <a title="AcFun（机器学习视频）" href="http://www.acfun.cn/u/12540256.aspx#page=1" target="_blank"><img width="290" src="images/MainPage/ApacheCN-ML-AcFun.jpg"></a> | <a title="bilibili（机器学习视频）" href="https://space.bilibili.com/97678687/#!/channel/index" target="_blank"><img width="290" src="images/MainPage/ApacheCN-ML-bilibili.jpg"></a> |
+| 优酷 | 网易云课堂 |
+| <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="images/MainPage/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="images/MainPage/ApacheCM-ML-WangYiYunKeTang.png"></a> |
 
-## 其它中文文档
 
-* [Sklearn 0.19 中文文档](http://sklearn.apachecn.org/)
-* [Spark 2.2.0和2.0.2 中文文档](http://spark.apachecn.org)
-* [Storm 1.1.0和1.0.1 中文文档](http://storm.apachecn.org/)
-* [Beam 中文文档](http://beam.apachecn.org)
-* [TensorFlow R1.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10030122)
-* [Kudu 1.4.0 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10813594)
-* [Zeppelin 0.7.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10030467)
-* [Elasticsearch 5.4 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=4260364)
-* [Kibana 5.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=8159377)
+## 中文文档-权威资料
+
+> [kaggle: 机器学习竞赛](https://github.com/apachecn/kaggle)
+
+| 深度学习 | 机器学习  | 大数据 | 运维工具 |
+| --- | --- | --- | --- |
+| [TensorFlow R1.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10030122) | [Sklearn 0.19 中文文档](http://sklearn.apachecn.org/) | [Spark 2.2.0和2.0.2 中文文档](http://spark.apachecn.org/) | [Zeppelin 0.7.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10030467) |
+| pytorch 计划中 | [机器学习实战-教学版](https://github.com/apachecn/MachineLearning) | [Storm 1.1.0和1.0.1 中文文档](http://storm.apachecn.org/) | [Kibana 5.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=8159377) |
+| | [Beam 中文文档](http://beam.apachecn.org/) | [Kudu 1.4.0 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10813594) | |
+| | | [Elasticsearch 5.4 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=4260364) | |
