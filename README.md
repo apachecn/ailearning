@@ -109,7 +109,7 @@
 | <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="images/MainPage/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="images/MainPage/ApacheCM-ML-WangYiYunKeTang.png"></a> |
 
 
-## 中文文档-权威资料
+## [ApacheCN 组织翻译](http://www.apachecn.org/)
 
 > [kaggle: 机器学习竞赛](https://github.com/apachecn/kaggle)
 
