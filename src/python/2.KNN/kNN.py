@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# encoding: utf-8
+# -*- coding: UTF-8 -*-
 '''
 Created on Sep 16, 2010
 Update  on 2017-05-18
@@ -149,9 +149,9 @@ def test1():
     第一个例子演示
     """
     group, labels = createDataSet()
-    print str(group)
-    print str(labels)
-    print classify0([0.1, 0.1], group, labels, 3)
+    print(str(group))
+    print(str(labels))
+    print(classify0([0.1, 0.1], group, labels, 3))
 
 
 # ----------------------------------------------------------------------------------------
@@ -176,7 +176,7 @@ def file2matrix(filename):
         # 以 '\t' 切割字符串
         listFromLine = line.split('\t')
         # 每列的属性数据
-        returnMat[index, :] = listFromLine[0:3]
+        returnMat[index] = listFromLine[0 : 3]
         # 每列的类别数据，就是 label 标签数据
         classLabelVector.append(int(listFromLine[-1]))
         index += 1
@@ -206,7 +206,7 @@ def autoNorm(dataSet):
     normDataSet = dataSet - tile(minVals, (m, 1))
     # 将最小值之差除以范围组成矩阵
     normDataSet = normDataSet / tile(ranges, (m, 1))  # element wise divide
-    # -------第二种实现方式---end---------------------------------------------
+    # -------第一种实现方式---end---------------------------------------------
     
     # # -------第二种实现方式---start---------------------------------------
     # norm_dataset = (dataset - minvalue) / ranges
@@ -222,22 +222,22 @@ def datingClassTest():
     # 设置测试数据的的一个比例（训练数据集比例=1-hoRatio）
     hoRatio = 0.1  # 测试范围,一部分测试一部分作为样本
     # 从文件中加载数据
-    datingDataMat, datingLabels = file2matrix('input/2.KNN/datingTestSet2.txt')  # load data setfrom file
+    datingDataMat, datingLabels = file2matrix('../../../input/2.KNN/datingTestSet2.txt')  # load data setfrom file
     # 归一化数据
     normMat, ranges, minVals = autoNorm(datingDataMat)
     # m 表示数据的行数，即矩阵的第一维
     m = normMat.shape[0]
     # 设置测试的样本数量， numTestVecs:m表示训练样本的数量
     numTestVecs = int(m * hoRatio)
-    print 'numTestVecs=', numTestVecs
-    errorCount = 0.0
+    print('numTestVecs=', numTestVecs)
+    errorCount = 0
     for i in range(numTestVecs):
         # 对数据测试
-        classifierResult = classify0(normMat[i, :], normMat[numTestVecs:m, :], datingLabels[numTestVecs:m], 3)
-        print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, datingLabels[i])
-        if (classifierResult != datingLabels[i]): errorCount += 1.0
-    print "the total error rate is: %f" % (errorCount / float(numTestVecs))
-    print errorCount
+        classifierResult = classify0(normMat[i], normMat[numTestVecs : m], datingLabels[numTestVecs : m], 3)
+        print("the classifier came back with: %d, the real answer is: %d" % (classifierResult, datingLabels[i]))
+        errorCount += classifierResult != datingLabels[i]
+    print("the total error rate is: %f" % (errorCount / numTestVecs))
+    print(errorCount)
 
 
 def img2vector(filename):
@@ -260,7 +260,7 @@ def img2vector(filename):
 def handwritingClassTest():
     # 1. 导入数据
     hwLabels = []
-    trainingFileList = listdir('input/2.KNN/trainingDigits')  # load the training set
+    trainingFileList = listdir('../../../input/2.KNN/trainingDigits')  # load the training set
     m = len(trainingFileList)
     trainingMat = zeros((m, 1024))
     # hwLabels存储0～9对应的index位置， trainingMat存放的每个位置对应的图片向量
@@ -270,22 +270,22 @@ def handwritingClassTest():
         classNumStr = int(fileStr.split('_')[0])
         hwLabels.append(classNumStr)
         # 将 32*32的矩阵->1*1024的矩阵
-        trainingMat[i, :] = img2vector('input/2.KNN/trainingDigits/%s' % fileNameStr)
+        trainingMat[i] = img2vector('../../../input/2.KNN/trainingDigits/%s' % fileNameStr)
 
     # 2. 导入测试数据
-    testFileList = listdir('input/2.KNN/testDigits')  # iterate through the test set
-    errorCount = 0.0
+    testFileList = listdir('../../../input/2.KNN/testDigits')  # iterate through the test set
+    errorCount = 0
     mTest = len(testFileList)
     for i in range(mTest):
         fileNameStr = testFileList[i]
         fileStr = fileNameStr.split('.')[0]  # take off .txt
         classNumStr = int(fileStr.split('_')[0])
-        vectorUnderTest = img2vector('input/2.KNN/testDigits/%s' % fileNameStr)
+        vectorUnderTest = img2vector('../../../input/2.KNN/testDigits/%s' % fileNameStr)
         classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)
-        print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, classNumStr)
-        if (classifierResult != classNumStr): errorCount += 1.0
-    print "\nthe total number of errors is: %d" % errorCount
-    print "\nthe total error rate is: %f" % (errorCount / float(mTest))
+        print("the classifier came back with: %d, the real answer is: %d" % (classifierResult, classNumStr))
+        errorCount += classifierResult != classNumStr
+    print("\nthe total number of errors is: %d" % errorCount)
+    print("\nthe total error rate is: %f" % (errorCount / mTest))
 
 
 if __name__ == '__main__':
