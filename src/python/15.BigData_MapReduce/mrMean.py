@@ -1,12 +1,15 @@
 #!/usr/bin/python
-# coding:utf8
+# coding:utf-8
+
 '''
 Created on 2017-04-07
-Update  on 2017-06-20
-@author: Peter/ApacheCN-xy/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+Update  on 2017-11-17
+Author: Peter/ApacheCN-xy/片刻
+GitHub: https://github.com/apachecn/MachineLearning
 '''
+
 from mrjob.job import MRJob
+from mrjob.step import MRStep
 
 
 class MRmean(MRJob):
@@ -27,6 +30,8 @@ class MRmean(MRJob):
 
     # 所有输入到达后开始处理
     def map_final(self):  # 计算数据的平均值，平方的均值，并返回
+        if self.inCount == 0:
+            return
         mn = self.inSum/self.inCount
         mnSq = self.inSqSum/self.inCount
         yield (1, [self.inCount, mn, mnSq])
@@ -53,7 +58,7 @@ class MRmean(MRJob):
 
         在mapper 和 mapper_final中还可以共享状态，mapper 或 mapper_final 不能 reducer之间共享状态。
         """
-        return ([self.mr(mapper=self.map, mapper_final=self.map_final, reducer=self.reduce,)])
+        return [MRStep(mapper=self.map, mapper_final=self.map_final, reducer=self.reduce)]
 
 
 if __name__ == '__main__':
