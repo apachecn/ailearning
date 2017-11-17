@@ -1,11 +1,13 @@
 #!/usr/bin/python
-# -*- coding: UTF-8 -*-
+# coding:utf-8
+
 '''
 Created on 2017-05-18
-Update  on 2017-05-18
-@author: Peter Harrington/1988/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+Update  on 2017-11-17
+Author: Peter Harrington/1988/片刻
+GitHub: https://github.com/apachecn/MachineLearning
 '''
+
 from numpy import random, mat, eye
 
 '''
