@@ -6,10 +6,11 @@ Update  on 2017-05-18
 @author: Peter Harrington/羊三/小瑶
 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
-from numpy import *
+
 # 导入科学计算包numpy和运算符模块operator
+from numpy import *
 import operator
-from os import listdir
+import os
 from collections import Counter
 
 
@@ -161,14 +162,14 @@ def file2matrix(filename):
     :param filename: 数据文件路径
     :return: 数据矩阵returnMat和对应的类别classLabelVector
     """
-    fr = open(filename)
+    fr = open(filename, 'r')
     # 获得文件中的数据行的行数
     numberOfLines = len(fr.readlines())
     # 生成对应的空矩阵
     # 例如：zeros(2，3)就是生成一个 2*3的矩阵，各个位置上全是 0 
     returnMat = zeros((numberOfLines, 3))  # prepare matrix to return
     classLabelVector = []  # prepare labels return
-    fr = open(filename)
+    fr = open(filename, 'r')
     index = 0
     for line in fr.readlines():
         # str.strip([chars]) --返回移除字符串头尾指定的字符生成的新字符串
@@ -222,7 +223,7 @@ def datingClassTest():
     # 设置测试数据的的一个比例（训练数据集比例=1-hoRatio）
     hoRatio = 0.1  # 测试范围,一部分测试一部分作为样本
     # 从文件中加载数据
-    datingDataMat, datingLabels = file2matrix('../../../input/2.KNN/datingTestSet2.txt')  # load data setfrom file
+    datingDataMat, datingLabels = file2matrix("../../../input/2.KNN/datingTestSet2.txt")  # load data setfrom file
     # 归一化数据
     normMat, ranges, minVals = autoNorm(datingDataMat)
     # m 表示数据的行数，即矩阵的第一维
@@ -249,7 +250,7 @@ def img2vector(filename):
     循环读出文件的前32行，并将每行的头32个字符值存储在NumPy数组中，最后返回数组。
     """
     returnVect = zeros((1, 1024))
-    fr = open(filename)
+    fr = open(filename, 'r')
     for i in range(32):
         lineStr = fr.readline()
         for j in range(32):
@@ -260,7 +261,7 @@ def img2vector(filename):
 def handwritingClassTest():
     # 1. 导入数据
     hwLabels = []
-    trainingFileList = listdir('../../../input/2.KNN/trainingDigits')  # load the training set
+    trainingFileList = os.listdir("../../../input/2.KNN/trainingDigits") # load the training set
     m = len(trainingFileList)
     trainingMat = zeros((m, 1024))
     # hwLabels存储0～9对应的index位置， trainingMat存放的每个位置对应的图片向量
@@ -273,7 +274,7 @@ def handwritingClassTest():
         trainingMat[i] = img2vector('../../../input/2.KNN/trainingDigits/%s' % fileNameStr)
 
     # 2. 导入测试数据
-    testFileList = listdir('../../../input/2.KNN/testDigits')  # iterate through the test set
+    testFileList = os.listdir('../../../input/2.KNN/testDigits')  # iterate through the test set
     errorCount = 0
     mTest = len(testFileList)
     for i in range(mTest):
