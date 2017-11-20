@@ -42,7 +42,7 @@ cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA'])
 cmap_bold = ListedColormap(['#FF0000', '#00FF00'])
 
 for weights in ['uniform', 'distance']:
-    # 我们创建了一个knn分类器的实例，并适合数据。
+    # 我们创建了一个knn分类器的实例，并拟合数据。
     clf = neighbors.KNeighborsClassifier(n_neighbors, weights=weights)
     clf.fit(X, y)
 
