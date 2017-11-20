@@ -16,11 +16,16 @@ from collections import Counter
 
 def createDataSet():
     """
-    创建数据集和标签
-
-     调用方式
-     import kNN
-     group, labels = kNN.createDataSet()
+    Desc:
+        创建数据集和标签
+    Args:
+        None
+    Returns:
+        group -- 训练数据集的 features
+        labels -- 训练数据集的 labels
+    调用方式
+    import kNN
+    group, labels = kNN.createDataSet()
     """
     group = array([[1.0, 1.1], [1.0, 1.0], [0, 0], [0, 0.1]])
     labels = ['A', 'A', 'B', 'B']
@@ -29,12 +34,16 @@ def createDataSet():
 
 def classify0(inX, dataSet, labels, k):
     """
-    inx[1,2,3]
-    DS=[[1,2,3],[1,2,0]]
-    inX: 用于分类的输入向量
-    dataSet: 输入的训练样本集
-    labels: 标签向量
-    k: 选择最近邻居的数目
+    Desc:
+        kNN 的分类函数
+    Args:
+        inX -- 用于分类的输入向量/测试数据
+        dataSet -- 训练数据集的 features
+        labels -- 训练数据集的 labels
+        k -- 选择最近邻的数目
+    Returns:
+        sortedClassCount[0][0] -- 输入向量的预测分类 labels
+
     注意：labels元素数目和dataSet行数相同；程序使用欧式距离公式.
 
     预测数据所在分类可在输入下列命令
@@ -63,10 +72,10 @@ def classify0(inX, dataSet, labels, k):
     diffMat = tile(inX, (dataSetSize, 1)) - dataSet
     """
     欧氏距离： 点到点之间的距离
-       第一行： 同一个点 到 dataSet的第一个点的距离。
-       第二行： 同一个点 到 dataSet的第二个点的距离。
+       第一行： 同一个点 到 dataSet 的第一个点的距离。
+       第二行： 同一个点 到 dataSet 的第二个点的距离。
        ...
-       第N行： 同一个点 到 dataSet的第N个点的距离。
+       第N行： 同一个点 到 dataSet 的第N个点的距离。
 
     [[1,2,3],[1,2,3]]-[[1,2,3],[1,2,0]]
     (A1-A2)^2+(B1-B2)^2+(c1-c2)^2
@@ -166,7 +175,7 @@ def file2matrix(filename):
     # 获得文件中的数据行的行数
     numberOfLines = len(fr.readlines())
     # 生成对应的空矩阵
-    # 例如：zeros(2，3)就是生成一个 2*3的矩阵，各个位置上全是 0 
+    # 例如：zeros(2，3)就是生成一个 2*3 的矩阵，各个位置上全是 0 
     returnMat = zeros((numberOfLines, 3))  # prepare matrix to return
     classLabelVector = []  # prepare labels return
     fr = open(filename, 'r')
@@ -176,7 +185,7 @@ def file2matrix(filename):
         line = line.strip()
         # 以 '\t' 切割字符串
         listFromLine = line.split('\t')
-        # 每列的属性数据
+        # 每列的属性数据，即 features
         returnMat[index] = listFromLine[0 : 3]
         # 每列的类别数据，就是 label 标签数据
         classLabelVector.append(int(listFromLine[-1]))
@@ -187,9 +196,14 @@ def file2matrix(filename):
 
 def autoNorm(dataSet):
     """
-    归一化特征值，消除属性之间量级不同导致的影响
-    :param dataSet: 数据集
-    :return: 归一化后的数据集normDataSet,ranges和minVals即最小值与范围，并没有用到
+    Desc：
+        归一化特征值，消除属性之间量级不同导致的影响
+    Args：
+        dataSet -- 需要进行归一化处理的数据集
+    Returns：
+        normDataSet -- 归一化处理后得到的数据集
+        ranges -- 归一化处理的范围
+        minVals -- 最小值
 
     归一化公式：
         Y = (X-Xmin)/(Xmax-Xmin)
@@ -217,8 +231,12 @@ def autoNorm(dataSet):
 
 def datingClassTest():
     """
-    对约会网站的测试方法
-    :return: 错误数
+    Desc：
+        对约会网站的测试方法，并将分类错误的数量和分类错误率打印出来
+    Args：
+        None
+    Returns：
+        None
     """
     # 设置测试数据的的一个比例（训练数据集比例=1-hoRatio）
     hoRatio = 0.1  # 测试范围,一部分测试一部分作为样本
@@ -243,9 +261,13 @@ def datingClassTest():
 
 def img2vector(filename):
     """
-    将图像数据转换为向量
-    :param filename: 图片文件 因为我们的输入数据的图片格式是 32 * 32的
-    :return: 一维矩阵
+    Desc：
+        将图像数据转换为向量
+    Args：
+        filename -- 图片文件 因为我们的输入数据的图片格式是 32 * 32的
+    Returns:
+        returnVect -- 图片文件处理完成后的一维矩阵
+
     该函数将图像转换为向量：该函数创建 1 * 1024 的NumPy数组，然后打开给定的文件，
     循环读出文件的前32行，并将每行的头32个字符值存储在NumPy数组中，最后返回数组。
     """
@@ -259,6 +281,14 @@ def img2vector(filename):
 
 
 def handwritingClassTest():
+    """
+    Desc:
+        手写数字识别分类器，并将分类错误数和分类错误率打印出来
+    Args:
+        None
+    Returns:
+        None
+    """
     # 1. 导入数据
     hwLabels = []
     trainingFileList = os.listdir("../../../input/2.KNN/trainingDigits") # load the training set
