@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# coding:utf8
+# -*- coding:utf-8 -*-
 
 """
 Created on Nov 4, 2010
@@ -54,7 +54,7 @@ def selectJrand(i, m):
     """
     j = i
     while j == i:
-        j = int(random.uniform(0, m))
+        j = random.randint(0, m - 1)
     return j
 
 
@@ -67,10 +67,8 @@ def clipAlpha(aj, H, L):
     Returns:
         aj  目标值
     """
-    if aj > H:
-        aj = H
-    if L > aj:
-        aj = L
+    aj = min(aj, H)
+    aj = max(L, aj)
     return aj
 
 
@@ -85,7 +83,7 @@ def calcEk(oS, k):
     Returns:
         Ek  预测结果与真实结果比对，计算误差Ek
     """
-    fXk = float(multiply(oS.alphas, oS.labelMat).T * (oS.X * oS.X[k, :].T)) + oS.b
+    fXk = multiply(oS.alphas, oS.labelMat).T * (oS.X * oS.X[k].T) + oS.b
     Ek = fXk - float(oS.labelMat[k])
     return Ek
 
@@ -134,7 +132,7 @@ def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
             # 求 Ek误差：预测值-真实值的差
             Ek = calcEk(oS, k)
             deltaE = abs(Ei - Ek)
-            if (deltaE > maxDeltaE):
+            if deltaE > maxDeltaE:
                 maxK = k
                 maxDeltaE = deltaE
                 Ej = Ek
@@ -192,7 +190,7 @@ def innerL(i, oS):
         alphaJold = oS.alphas[j].copy()
 
         # L和H用于将alphas[j]调整到0-C之间。如果L==H，就不做任何改变，直接return 0
-        if (oS.labelMat[i] != oS.labelMat[j]):
+        if oS.labelMat[i] != oS.labelMat[j]:
             L = max(0, oS.alphas[j] - oS.alphas[i])
             H = min(oS.C, oS.C + oS.alphas[j] - oS.alphas[i])
         else:
@@ -204,7 +202,8 @@ def innerL(i, oS):
 
         # eta是alphas[j]的最优修改量，如果eta==0，需要退出for循环的当前迭代过程
         # 参考《统计学习方法》李航-P125~P128<序列最小最优化算法>
-        eta = 2.0 * oS.X[i, :] * oS.X[j, :].T - oS.X[i, :] * oS.X[i, :].T - oS.X[j, :] * oS.X[j, :].T
+        eta = oS.X[i] - oS.X[j]
+        eta = - eta * eta.T
         if eta >= 0:
             print("eta>=0")
             return 0
@@ -230,14 +229,14 @@ def innerL(i, oS):
         # w= Σ[1~n] ai*yi*xi => b = yj Σ[1~n] ai*yi(xi*xj)
         # 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
         # 为什么减2遍？ 因为是 减去Σ[1~n]，正好2个变量i和j，所以减2遍
-        b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.X[i, :] * oS.X[i, :].T - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.X[i, :] * oS.X[j, :].T
-        b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.X[i, :] * oS.X[j, :].T - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.X[j, :] * oS.X[j, :].T
+        b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.X[i] * oS.X[i].T - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.X[i] * oS.X[j].T
+        b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.X[i] * oS.X[j].T - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.X[j] * oS.X[j].T
         if (0 < oS.alphas[i]) and (oS.C > oS.alphas[i]):
             oS.b = b1
         elif (0 < oS.alphas[j]) and (oS.C > oS.alphas[j]):
             oS.b = b2
         else:
-            oS.b = (b1 + b2) / 2.0
+            oS.b = (b1 + b2) / 2
         return 1
     else:
         return 0
@@ -269,7 +268,7 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter):
     # 循环迭代结束 或者 循环遍历所有alpha后，alphaPairs还是没变化
     while (iter < maxIter) and ((alphaPairsChanged > 0) or (entireSet)):
         alphaPairsChanged = 0
-
+        # ----------- 第一种写法 start -------------------------
         #  当entireSet=true or 非边界alpha对没有了；就开始寻找 alpha对，然后决定是否要进行else。
         if entireSet:
             # 在数据集上遍历所有可能的alpha
@@ -286,11 +285,20 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter):
                 alphaPairsChanged += innerL(i, oS)
                 print("non-bound, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
             iter += 1
+        # ----------- 第一种写法 end -------------------------
 
+        # ----------- 第二种方法 start -------------------------
+        # if entireSet:																				#遍历整个数据集
+    	# 	alphaPairsChanged += sum(innerL(i, oS) for i in range(oS.m))
+		# else: 																						#遍历非边界值
+		# 	nonBoundIs = nonzero((oS.alphas.A > 0) * (oS.alphas.A < C))[0]						#遍历不在边界0和C的alpha
+		# 	alphaPairsChanged += sum(innerL(i, oS) for i in nonBoundIs)
+		# iter += 1
+        # ----------- 第二种方法 end -------------------------
         # 如果找到alpha对，就优化非边界alpha值，否则，就重新进行寻找，如果寻找一遍 遍历所有的行还是没找到，就退出循环。
         if entireSet:
             entireSet = False  # toggle entire set loop
-        elif (alphaPairsChanged == 0):
+        elif alphaPairsChanged == 0:
             entireSet = True
         print("iteration number: %d" % iter)
     return oS.b, oS.alphas
@@ -308,11 +316,11 @@ def calcWs(alphas, dataArr, classLabels):
         wc  回归系数
     """
     X = mat(dataArr)
-    labelMat = mat(classLabels).transpose()
+    labelMat = mat(classLabels).T
     m, n = shape(X)
     w = zeros((n, 1))
     for i in range(m):
-        w += multiply(alphas[i] * labelMat[i], X[i, :].T)
+        w += multiply(alphas[i] * labelMat[i], X[i].T)
     return w
 
 
@@ -339,10 +347,10 @@ def plotfig_SVM(xArr, yArr, ws, b, alphas):
     x = arange(-1.0, 10.0, 0.1)
 
     # 根据x.w + b = 0 得到，其式子展开为w0.x1 + w1.x2 + b = 0, x2就是y值
-    y = (-b-ws[0, 0]*x)/ws[1, 0]
+    y = (- b - ws[0, 0] * x) / ws[1, 0]
     ax.plot(x, y)
 
-    for i in range(shape(yMat[0, :])[1]):
+    for i in range(shape(yMat[0])[1]):
         if yMat[0, i] > 0:
             ax.plot(xMat[i, 0], xMat[i, 1], 'cx')
         else:
@@ -357,18 +365,18 @@ def plotfig_SVM(xArr, yArr, ws, b, alphas):
 
 if __name__ == "__main__":
     # 获取特征和目标变量
-    dataArr, labelArr = loadDataSet('input/6.SVM/testSet.txt')
+    dataArr, labelArr = loadDataSet('../../../input/6.SVM/testSet.txt')
     # print labelArr
 
     # b是常量值， alphas是拉格朗日乘子
     b, alphas = smoP(dataArr, labelArr, 0.6, 0.001, 40)
-    print '/n/n/n'
-    print 'b=', b
-    print 'alphas[alphas>0]=', alphas[alphas > 0]
-    print 'shape(alphas[alphas > 0])=', shape(alphas[alphas > 0])
+    print('/n/n/n')
+    print('b=', b)
+    print('alphas[alphas>0]=', alphas[alphas > 0])
+    print('shape(alphas[alphas > 0])=', shape(alphas[alphas > 0]))
     for i in range(100):
         if alphas[i] > 0:
-            print dataArr[i], labelArr[i]
+            print(dataArr[i], labelArr[i])
     # 画图
     ws = calcWs(alphas, dataArr, labelArr)
     plotfig_SVM(dataArr, labelArr, ws, b, alphas)
