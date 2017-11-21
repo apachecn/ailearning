@@ -16,13 +16,15 @@ from collections import Counter
 
 
 def createDataSet():
-    """DateSet 基础数据集
-
+    """
+    Desc:
+        创建数据集
     Args:
         无需传入参数
     Returns:
         返回数据集和对应的label标签
     """
+    # dataSet 前两列是特征，最后一列对应的是每条数据对应的分类标签
     dataSet = [[1, 1, 'yes'],
                [1, 1, 'yes'],
                [1, 0, 'no'],
@@ -33,19 +35,20 @@ def createDataSet():
     #         ['no'],
     #         ['no'],
     #         ['no']]
-    # labels  露出水面   脚蹼
+    # labels  露出水面   脚蹼，注意：这里的labels是写的 dataSet 中特征的含义，并不是对应的分类标签或者说目标变量
     labels = ['no surfacing', 'flippers']
-    # change to discrete values
+    # 返回
     return dataSet, labels
 
 
 def calcShannonEnt(dataSet):
-    """calcShannonEnt(calculate Shannon entropy 计算给定数据集的香农熵)
-
+    """
+    Desc：
+        calculate Shannon entropy -- 计算给定数据集的香农熵
     Args:
-        dataSet 数据集
+        dataSet -- 数据集
     Returns:
-        返回 每一组feature下的某个分类下，香农熵的信息期望
+        shannonEnt -- 返回 每一组 feature 下的某个分类下，香农熵的信息期望
     """
     # -----------计算香农熵的第一种实现方式start--------------------------------------------------------------------------------
     # 求list的长度，表示计算参与训练的数据量
@@ -89,14 +92,17 @@ def calcShannonEnt(dataSet):
 
 
 def splitDataSet(dataSet, index, value):
-    """splitDataSet(通过遍历dataSet数据集，求出index对应的colnum列的值为value的行)
+    """
+    Desc：
+        划分数据集
+        splitDataSet(通过遍历dataSet数据集，求出index对应的colnum列的值为value的行)
         就是依据index列进行分类，如果index列的数据等于 value的时候，就要将 index 划分到我们创建的新的数据集中
     Args:
-        dataSet 数据集                 待划分的数据集
-        index 表示每一行的index列        划分数据集的特征
-        value 表示index列对应的value值   需要返回的特征的值。
+        dataSet  -- 数据集                 待划分的数据集
+        index -- 表示每一行的index列        划分数据集的特征
+        value -- 表示index列对应的value值   需要返回的特征的值。
     Returns:
-        index列为value的数据集【该数据集需要排除index列】
+        index 列为 value 的数据集【该数据集需要排除index列】
     """
     # -----------切分数据集的第一种方式 start------------------------------------
     retDataSet = []
@@ -138,12 +144,13 @@ def splitDataSet(dataSet, index, value):
 
 
 def chooseBestFeatureToSplit(dataSet):
-    """chooseBestFeatureToSplit(选择最好的特征)
-
+    """
+    Desc:
+        选择切分数据集的最佳特征
     Args:
-        dataSet 数据集
+        dataSet -- 需要切分的数据集
     Returns:
-        bestFeature 最优的特征列
+        bestFeature -- 切分数据集的最优的特征列
     """
 
     # -----------选择最优特征的第一种方式 start------------------------------------
@@ -202,8 +209,9 @@ def chooseBestFeatureToSplit(dataSet):
 
 
 def majorityCnt(classList):
-    """majorityCnt(选择出现次数最多的一个结果)
-
+    """
+    Desc:
+        选择出现次数最多的一个结果
     Args:
         classList label列的集合
     Returns:
@@ -228,6 +236,15 @@ def majorityCnt(classList):
 
 
 def createTree(dataSet, labels):
+    """
+    Desc:
+        创建决策树
+    Args:
+        dataSet -- 要创建决策树的训练数据集
+        labels -- 训练数据集中特征对应的含义的labels，不是目标变量
+    Returns:
+        myTree -- 创建完成的决策树
+    """
     classList = [example[-1] for example in dataSet]
     # 如果数据集的最后一列的第一个值出现的次数=整个集合的数量，也就说只有一个类别，就只直接返回结果就行
     # 第一个停止条件：所有的类标签完全相同，则直接返回该类标签。
@@ -261,14 +278,15 @@ def createTree(dataSet, labels):
 
 
 def classify(inputTree, featLabels, testVec):
-    """classify(给输入的节点，进行分类)
-
+    """
+    Desc:
+        对新数据进行分类
     Args:
-        inputTree  决策树模型
-        featLabels Feature标签对应的名称
-        testVec    测试输入的数据
+        inputTree  -- 已经训练好的决策树模型
+        featLabels -- Feature标签对应的名称，不是目标变量
+        testVec    -- 测试输入的数据
     Returns:
-        classLabel 分类的结果值，需要映射label才能知道名称
+        classLabel -- 分类的结果值，需要映射label才能知道名称
     """
     # 获取tree的根节点对于的key值
     firstStr = list(inputTree.keys())[0]
@@ -289,6 +307,15 @@ def classify(inputTree, featLabels, testVec):
 
 
 def storeTree(inputTree, filename):
+    """
+    Desc:
+        将之前训练好的决策树模型存储起来，使用 pickle 模块
+    Args:
+        inputTree -- 以前训练好的决策树模型
+        filename -- 要存储的名称
+    Returns:
+        None
+    """
     import pickle
     # -------------- 第一种方法 start --------------
     fw = open(filename, 'w')
@@ -303,12 +330,28 @@ def storeTree(inputTree, filename):
 
 
 def grabTree(filename):
+    """
+    Desc:
+        将之前存储的决策树模型使用 pickle 模块 还原出来
+    Args:
+        filename -- 之前存储决策树模型的文件名
+    Returns:
+        pickle.load(fr) -- 将之前存储的决策树模型还原出来
+    """
     import pickle
     fr = open(filename)
     return pickle.load(fr)
 
 
 def fishTest():
+    """
+    Desc:
+        对动物是否是鱼类分类的测试函数，并将结果使用 matplotlib 画出来
+    Args:
+        None
+    Returns:
+        None
+    """
     # 1.创建数据和结果标签
     myDat, labels = createDataSet()
     # print myDat, labels
@@ -336,7 +379,7 @@ def fishTest():
 def ContactLensesTest():
     """
     Desc:
-        预测隐形眼镜的测试代码
+        预测隐形眼镜的测试代码，并将结果画出来
     Args:
         none
     Returns:
