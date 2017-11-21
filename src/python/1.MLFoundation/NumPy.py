@@ -1,11 +1,13 @@
 #!/usr/bin/python
-# -*- coding: UTF-8 -*-
+# coding:utf-8
+
 '''
 Created on 2017-05-18
-Update  on 2017-05-18
-@author: Peter Harrington/1988/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+Update  on 2017-11-17
+Author: Peter Harrington/1988/片刻
+GitHub: https://github.com/apachecn/MachineLearning
 '''
+
 from numpy import random, mat, eye
 
 '''
@@ -41,11 +43,11 @@ invRandMat = randMat.I
 TraRandMat = randMat.T
 ArrRandMat = randMat.A
 # 输出结果
-print('randArray=', randArray)
-print('randMat=', randMat)
-print('invRandMat=', invRandMat)
-print('TraRandMat=', TraRandMat)
-print('ArrRandMat=', ArrRandMat)
+print('randArray=(%s) \n' % type(randArray), randArray)
+print('randMat=(%s) \n' % type(randMat), randMat)
+print('invRandMat=(%s) \n' % type(invRandMat), invRandMat)
+print('TraRandMat=(%s) \n' % type(TraRandMat), TraRandMat)
+print('ArrRandMat=(%s) \n' % type(ArrRandMat), ArrRandMat)
 # 矩阵和逆矩阵 进行求积 (单位矩阵，对角线都为1嘛，理论上4*4的矩阵其他的都为0)
 myEye = randMat*invRandMat
 # 误差

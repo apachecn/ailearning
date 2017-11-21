@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# coding: utf8
+# -*- coding:utf-8 -*-
 
 '''
 Created on Oct 27, 2010
@@ -27,7 +27,8 @@ def loadDataSet(file_name):
         labelMat -- 原始数据的标签，也就是每条样本对应的类别
     '''
     # dataMat为原始数据， labelMat为原始数据的标签
-    dataMat = []; labelMat = []
+    dataMat = []
+    labelMat = []
     fr = open(file_name)
     for line in fr.readlines():
         lineArr = line.strip().split()
@@ -38,7 +39,7 @@ def loadDataSet(file_name):
 
 # sigmoid跳跃函数
 def sigmoid(inX):
-    return 1.0/(1+exp(-inX))
+    return 1 / (1 + exp(-inX))
 
 
 # 正常的处理方案
@@ -60,9 +61,9 @@ def gradAscent(dataMatIn, classLabels):
     # 转化为矩阵[[0,1,0,1,0,1.....]]，并转制[[0],[1],[0].....]
     # transpose() 行列转置函数
     # 将行向量转化为列向量   =>  矩阵的转置
-    labelMat = mat(classLabels).transpose() # 首先将数组转换为 NumPy 矩阵，然后再将行向量转置为列向量
+    labelMat = mat(classLabels).T # 首先将数组转换为 NumPy 矩阵，然后再将行向量转置为列向量
     # m->数据量，样本数 n->特征数
-    m,n = shape(dataMatrix)
+    m, n = shape(dataMatrix)
     # print m, n, '__'*10, shape(dataMatrix.transpose()), '__'*100
     # alpha代表向目标移动的步长
     alpha = 0.001
@@ -70,7 +71,7 @@ def gradAscent(dataMatIn, classLabels):
     maxCycles = 500
     # 生成一个长度和特征数相同的矩阵，此处n为3 -> [[1],[1],[1]]
     # weights 代表回归系数， 此处的 ones((n,1)) 创建一个长度和特征数相同的矩阵，其中的数全部都是 1
-    weights = ones((n,1))
+    weights = ones((n, 1))
     for k in range(maxCycles):              #heavy on matrix operations
         # m*3 的矩阵 * 3*1 的单位矩阵 ＝ m*1的矩阵
         # 那么乘上单位矩阵的意义，就代表：通过公式得到的理论值
@@ -112,7 +113,7 @@ def stocGradAscent0(dataMatrix, classLabels):
         # 计算真实类别与预测类别之间的差值，然后按照该差值调整回归系数
         error = classLabels[i] - h
         # 0.01*(1*1)*(1*n)
-        print weights, "*"*10 , dataMatrix[i], "*"*10 , error
+        print(weights, "*"*10 , dataMatrix[i], "*"*10 , error)
         weights = weights + alpha * error * dataMatrix[i]
     return weights
 
@@ -129,15 +130,16 @@ def stocGradAscent1(dataMatrix, classLabels, numIter=150):
     Returns:
         weights -- 得到的最佳回归系数
     '''
+    # ------------第一种方法 start --------------
     m,n = shape(dataMatrix)
     weights = ones(n)   # 创建与列数相同的矩阵的系数矩阵，所有的元素都是1
     # 随机梯度, 循环150,观察是否收敛
     for j in range(numIter):
         # [0, 1, 2 .. m-1]
-        dataIndex = range(m)
+        dataIndex = list(range(m))
         for i in range(m):
             # i和j的不断增大，导致alpha的值不断减少，但是不为0
-            alpha = 4/(1.0+j+i)+0.0001    # alpha 会随着迭代不断减小，但永远不会减小到0，因为后边还有一个常数项0.0001
+            alpha = 4 / (1 + j + i) + 0.0001    # alpha 会随着迭代不断减小，但永远不会减小到0，因为后边还有一个常数项0.0001
             # 随机产生一个 0～len()之间的一个值
             # random.uniform(x, y) 方法将随机生成下一个实数，它在[x,y]范围内,x是这个范围内的最小值，y是这个范围内的最大值。
             randIndex = int(random.uniform(0,len(dataIndex)))
@@ -148,7 +150,19 @@ def stocGradAscent1(dataMatrix, classLabels, numIter=150):
             weights = weights + alpha * error * dataMatrix[randIndex]
             del(dataIndex[randIndex])
     return weights
+    # ------------第一种方法 end --------------
 
+    # ------------第二种方法 start --------------
+    # m, n = shape(dataMatrix)
+    # weights = random.randn(n)                                                
+    # for j in range(numIter * m):                                           
+    #     alpha = 4 / (1 + j) + 0.0001       #降低alpha的大小，每次减小1/(j+i)。
+    #     randIndex = random.randint(0, m - 1)                #随机选取样本
+    #     h = sigmoid(sum(dataMatrix[randIndex] * weights))          #选择随机选取的一个样本，计算h
+    #     error = classLabels[randIndex] - h                      #计算误差
+    #     weights = weights + alpha * error * dataMatrix[randIndex]       #更新回归系数
+    # return weights
+    # ------------第二种方法 end --------------
 
 # 可视化展示
 def plotBestFit(dataArr, labelMat, weights):
@@ -164,13 +178,17 @@ def plotBestFit(dataArr, labelMat, weights):
     '''
     
     n = shape(dataArr)[0]
-    xcord1 = []; ycord1 = []
-    xcord2 = []; ycord2 = []
+    xcord1 = []
+    ycord1 = []
+    xcord2 = []
+    ycord2 = []
     for i in range(n):
-        if int(labelMat[i])== 1:
-            xcord1.append(dataArr[i,1]); ycord1.append(dataArr[i,2])
+        if int(labelMat[i]) == 1:
+            xcord1.append(dataArr[i, 1])
+            ycord1.append(dataArr[i, 2])
         else:
-            xcord2.append(dataArr[i,1]); ycord2.append(dataArr[i,2])
+            xcord2.append(dataArr[i, 1])
+            ycord2.append(dataArr[i, 2])
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.scatter(xcord1, ycord1, s=30, c='red', marker='s')
@@ -184,15 +202,16 @@ def plotBestFit(dataArr, labelMat, weights):
     x0最开始就设置为1叻， x2就是我们画图的y值，而f(x)被我们磨合误差给算到w0,w1,w2身上去了
     所以： w0+w1*x+w2*y=0 => y = (-w0-w1*x)/w2   
     """
-    y = (-weights[0]-weights[1]*x)/weights[2]
+    y = (-weights[0] - weights[1] * x) / weights[2]
     ax.plot(x, y)
-    plt.xlabel('X'); plt.ylabel('Y')
+    plt.xlabel('X')
+    plt.ylabel('Y')
     plt.show()
 
 
 def simpleTest():
     # 1.收集并准备数据
-    dataMat, labelMat = loadDataSet("input/5.Logistic/TestSet.txt")
+    dataMat, labelMat = loadDataSet("../../../input/5.Logistic/TestSet.txt")
 
     # print dataMat, '---\n', labelMat
     # 2.训练模型，  f(x)=a1*x1+b2*x2+..+nn*xn中 (a1,b2, .., nn).T的矩阵值
@@ -223,9 +242,8 @@ def classifyVector(inX, weights):
         如果 prob 计算大于 0.5 函数返回 1
         否则返回 0
     '''
-    prob = sigmoid(sum(inX*weights))
-    if prob > 0.5: return 1.0
-    else: return 0.0
+    prob = sigmoid(sum(inX * weights))
+    return prob > 0.5
 
 # 打开测试集和训练集,并对数据进行格式化处理
 def colicTest():
@@ -237,44 +255,37 @@ def colicTest():
     Returns:
         errorRate -- 分类错误率
     '''
-    frTrain = open('input/5.Logistic/horseColicTraining.txt')
-    frTest = open('input/5.Logistic/horseColicTest.txt')
+    frTrain = open('../../../input/5.Logistic/horseColicTraining.txt')
+    frTest = open('../../../input/5.Logistic/horseColicTest.txt')
     trainingSet = []
     trainingLabels = []
     # 解析训练数据集中的数据特征和Labels
     # trainingSet 中存储训练数据集的特征，trainingLabels 存储训练数据集的样本对应的分类标签
     for line in frTrain.readlines():
         currLine = line.strip().split('\t')
-        lineArr = []
-        for i in range(21):
-            lineArr.append(float(currLine[i]))
+        lineArr = [float(currLine[i]) for i in range(21)]
         trainingSet.append(lineArr)
         trainingLabels.append(float(currLine[21]))
     # 使用 改进后的 随机梯度下降算法 求得在此数据集上的最佳回归系数 trainWeights
     trainWeights = stocGradAscent1(array(trainingSet), trainingLabels, 500)
     errorCount = 0
-    numTestVec = 0.0
+    numTestVec = 0
     # 读取 测试数据集 进行测试，计算分类错误的样本条数和最终的错误率
     for line in frTest.readlines():
-        numTestVec += 1.0
+        numTestVec += 1
         currLine = line.strip().split('\t')
-        lineArr = []
-        for i in range(21):
-            lineArr.append(float(currLine[i]))
-        if int(classifyVector(array(lineArr), trainWeights)) != int(currLine[21]):
-            errorCount += 1
-    errorRate = (float(errorCount) / numTestVec)
-    print "the error rate of this test is: %f" % errorRate
+        lineArr = [float(currLine[i]) for i in range(21)]
+        errorCount += int(classifyVector(array(lineArr), trainWeights)) != int(currLine[21])
+    errorRate = errorCount / numTestVec
+    print("the error rate of this test is: %f" % errorRate)
     return errorRate
 
 
 # 调用 colicTest() 10次并求结果的平均值
 def multiTest():
     numTests = 10
-    errorSum = 0.0
-    for k in range(numTests):
-        errorSum += colicTest()
-    print "after %d iterations the average error rate is: %f" % (numTests, errorSum/float(numTests)) 
+    errorSum = sum(colicTest() for k in range(numTests))
+    print("after %d iterations the average error rate is: %f" % (numTests, errorSum / numTests)) 
 
 
 if __name__ == "__main__":

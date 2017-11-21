@@ -1,13 +1,13 @@
 #!/usr/bin/python
-# coding:utf8
+# coding:utf-8
+
 '''
 Created on 2017-04-06
-Update  on 2017-06-20
-Machine Learning in Action Chapter 18
-Map Reduce Job for Hadoop Streaming
-@author: Peter/ApacheCN-xy/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+Update  on 2017-11-17
+Author: Peter/ApacheCN-xy/片刻
+GitHub: https://github.com/apachecn/MachineLearning
 '''
+
 import sys
 from numpy import mat, mean, power
 
@@ -37,4 +37,4 @@ sqInput = power(input, 2)                # 将矩阵的数据分别求 平方，
 # 第二行识标准错误输出，即对主节点作出的响应报告，表明本节点工作正常。
 # 【这不就是面试的装逼重点吗？如何设计监听架构细节】注意：一个好的习惯是想标准错误输出发送报告。如果某任务10分钟内没有报告输出，则将被Hadoop中止。
 print("%d\t%f\t%f" % (numInputs, mean(input), mean(sqInput)))  # 计算均值
-print >> sys.stderr, "map report: still alive"
+print("map report: still alive", file=sys.stderr)

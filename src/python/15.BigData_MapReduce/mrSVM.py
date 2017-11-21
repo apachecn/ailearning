@@ -1,17 +1,17 @@
 #!/usr/bin/python
-# coding:utf8
+# coding:utf-8
+
 '''
 Created on 2017-04-07
-Update  on 2017-06-20
-MapReduce version of Pegasos SVM
-Using mrjob to automate job flow
-@author: Peter/ApacheCN-xy/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+Update  on 2017-11-17
+Author: Peter/ApacheCN-xy/片刻
+GitHub: https://github.com/apachecn/MachineLearning
 '''
-from mrjob.job import MRJob
 
 import pickle
 from numpy import *
+from mrjob.job import MRJob
+from mrjob.step import MRStep
 
 
 class MRsvm(MRJob):
@@ -19,7 +19,7 @@ class MRsvm(MRJob):
 
     def __init__(self, *args, **kwargs):
         super(MRsvm, self).__init__(*args, **kwargs)
-        self.data = pickle.load(open('/opt/git/MachineLearning/input/15.BigData_MapReduce/svmDat27'))
+        self.data = pickle.load(open('/opt/git/MachineLearning/input/15.BigData_MapReduce/svmDat27', 'r'))
         self.w = 0
         self.eta = 0.69
         self.dataList = []
@@ -27,13 +27,13 @@ class MRsvm(MRJob):
         self.numMappers = 1
         self.t = 1  # iteration number
 
-    def configure_options(self):
-        super(MRsvm, self).configure_options()
-        self.add_passthrough_option(
-            '--iterations', dest='iterations', default=2, type='int',
+    def configure_args(self):
+        super(MRsvm, self).configure_args()
+        self.add_passthru_arg(
+            '--iterations', dest='iterations', default=2, type=int,
             help='T: number of iterations to run')
-        self.add_passthrough_option(
-            '--batchsize', dest='batchsize', default=100, type='int',
+        self.add_passthru_arg(
+            '--batchsize', dest='batchsize', default=100, type=int,
             help='k: number of data points in a batch')
 
     def map(self, mapperId, inVals):  # 需要 2 个参数
@@ -88,7 +88,7 @@ class MRsvm(MRJob):
                     yield (mapperNum, ['x', random.randint(shape(self.data)[0])])
 
     def steps(self):
-        return ([self.mr(mapper=self.map, reducer=self.reduce, mapper_final=self.map_fin)] * self.options.iterations)
+        return [MRStep(mapper=self.map, reducer=self.reduce, mapper_final=self.map_fin)] * self.options.iterations
 
 
 if __name__ == '__main__':

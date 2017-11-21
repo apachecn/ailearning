@@ -19,30 +19,30 @@ from sklearn import neighbors, datasets
 n_neighbors = 3
 
 # 导入一些要玩的数据
-# iris = datasets.load_iris()
-# X = iris.data[:, :2]  # 我们只采用前两个feature. 我们可以使用二维数据集避免这个丑陋的切片
-# y = iris.target
+iris = datasets.load_iris()
+X = iris.data[:, :2]  # 我们只采用前两个feature. 我们可以使用二维数据集避免这个丑陋的切片
+y = iris.target
 
 # print 'X=', type(X), X
 # print 'y=', type(y), y
 
-X = array([[-1.0, -1.1], [-1.0, -1.0], [0, 0], [1.0, 1.1], [2.0, 2.0], [2.0, 2.1]])
-y = array([0, 0, 0, 1, 1, 1])
+# X = array([[-1.0, -1.1], [-1.0, -1.0], [0, 0], [1.0, 1.1], [2.0, 2.0], [2.0, 2.1]])
+# y = array([0, 0, 0, 1, 1, 1])
 
 # print 'X=', type(X), X
 # print 'y=', type(y), y
 
 h = .02  # 网格中的步长
 
-# 创建彩色的地图
-# cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
-# cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
+# 创建彩色的图
+cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
+cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
 
-cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA'])
-cmap_bold = ListedColormap(['#FF0000', '#00FF00'])
+# cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA'])
+# cmap_bold = ListedColormap(['#FF0000', '#00FF00'])
 
 for weights in ['uniform', 'distance']:
-    # 我们创建了一个knn分类器的实例，并适合数据。
+    # 我们创建了一个knn分类器的实例，并拟合数据。
     clf = neighbors.KNeighborsClassifier(n_neighbors, weights=weights)
     clf.fit(X, y)
 
