@@ -1,7 +1,13 @@
 #!/usr/bin/env python
-# created by Bruce Yuan on 17-11-24
+# -*- coding:utf-8 -*-
+"""
+Created on Oct 19, 2010
+Update  on 2017-05-18
+@author: Peter Harrington/羊三/小瑶/BBruceyuan
+《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+"""
 
-# 我个人非常不见 from numpy import *
+# 我个人非常不喜欢 from numpy import *
 # 因为这样会和一些系统函数冲突，比如log, sum之类的
 import numpy as np
 
@@ -388,6 +394,7 @@ def get_top_words():
     print('\n----------- this is NY ---------------\n')
     for item in sorted_ny:
         print(item[0])
+
 
 if __name__ == "__main__":
     # testing_naive_bayes()
