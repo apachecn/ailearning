@@ -13,6 +13,18 @@ Flying_sfeng博客地址：http://blog.csdn.net/flying_sfeng/article/details/641
 在此表示感谢你的代码和注解， 我重新也完善了个人注解
 '''
 from random import seed, randrange, random
+import re
+
+
+def isnumber(num):
+    """
+    判断是否是小数，由于声呐信息是小数，isdigit()无法使用
+    """
+    regex = re.compile(r"^(-?\d+)(\.\d*)?$")
+    if re.match(regex,num):
+        return True
+    else:
+        return False
 
 
 # 导入csv文件
@@ -26,7 +38,8 @@ def loadDataSet(filename):
             for featrue in line.split(','):
                 # strip()返回移除字符串头尾指定的字符生成的新字符串
                 str_f = featrue.strip()
-                if str_f.isdigit():   # 判断是否是数字
+                # if str_f.isdigit():   # 判断是否是数字
+                if isnumber(str_f):
                     # 将数据集的第column列转换成float形式
                     lineArr.append(float(str_f))
                 else:
@@ -315,7 +328,7 @@ if __name__ == '__main__':
         scores = evaluate_algorithm(dataset, random_forest, n_folds, max_depth, min_size, sample_size, n_trees, n_features)
         # 每一次执行本文件时都能产生同一个随机数
         seed(1)
-        print 'random=', random()
-        print 'Trees: %d' % n_trees
-        print 'Scores: %s' % scores
-        print 'Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores)))
+        print('random=', random())
+        print('Trees: %d' % n_trees)
+        print('Scores: %s' % scores)
+        print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))
