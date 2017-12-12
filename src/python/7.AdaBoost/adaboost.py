@@ -1,233 +1,204 @@
 #!/usr/bin/python
 # coding:utf8
-
-'''
+"""
 Created on Nov 28, 2010
 Update  on 2017-05-18
 Adaboost is short for Adaptive Boosting
-@author: Peter/片刻
+@author: Peter/片刻/BBruceyuan
 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
-'''
-from numpy import *
+"""
+import numpy as np
 
 
-def loadSimpData():
-    """ 测试数据
-    Returns:
-        dataArr   feature对应的数据集
-        labelArr  feature对应的分类标签
+def load_sim_data():
     """
-    dataArr = array([[1., 2.1], [2., 1.1], [1.3, 1.], [1., 1.], [2., 1.]])
-    labelArr = [1.0, 1.0, -1.0, -1.0, 1.0]
-    return dataArr, labelArr
+    测试数据，
+    :return: data_arr   feature对应的数据集
+            label_arr  feature对应的分类标签
+    """
+    data_mat = np.matrix([[1.0, 2.1],
+                          [2.0, 1.1],
+                          [1.3, 1.0],
+                          [1.0, 1.0],
+                          [2.0, 1.0]])
+    class_labels = [1.0, 1.0, -1.0, -1.0, 1.0]
+    return data_mat, class_labels
 
 
-# general function to parse tab -delimited floats
-def loadDataSet(fileName):
-    # get number of fields
-    numFeat = len(open(fileName).readline().split('\t'))
-    dataArr = []
-    labelArr = []
-    fr = open(fileName)
+def load_data_set(file_name):
+    """
+    加载马的疝气病的数据
+    :param file_name: 文件名
+    :return: 必须要是np.array或者np.matrix不然后面没有，shape
+    """
+    num_feat = len(open(file_name).readline().split('\t'))
+    data_arr = []
+    label_arr = []
+    fr = open(file_name)
     for line in fr.readlines():
-        lineArr = []
-        curLine = line.strip().split('\t')
-        for i in range(numFeat-1):
-            lineArr.append(float(curLine[i]))
-        dataArr.append(lineArr)
-        labelArr.append(float(curLine[-1]))
-    return dataArr, labelArr
+        line_arr = []
+        cur_line = line.strip().split('\t')
+        for i in range(num_feat - 1):
+            line_arr.append(float(cur_line[i]))
+        data_arr.append(line_arr)
+        label_arr.append(float(cur_line[-1]))
+    return np.matrix(data_arr), label_arr
 
 
-def stumpClassify(dataMat, dimen, threshVal, threshIneq):
-    """stumpClassify(将数据集，按照feature列的value进行 二分法切分比较来赋值分类)
-
-    Args:
-        dataMat    Matrix数据集
-        dimen      特征列
-        threshVal  特征列要比较的值
-    Returns:
-        retArray 结果集
+def stump_classify(data_mat, dimen, thresh_val, thresh_ineq):
     """
-    # 默认都是1
-    retArray = ones((shape(dataMat)[0], 1))
-    # dataMat[:, dimen] 表示数据集中第dimen列的所有值
-    # threshIneq == 'lt'表示修改左边的值，gt表示修改右边的值
-    # print '-----', threshIneq, dataMat[:, dimen], threshVal
-    if threshIneq == 'lt':
-        retArray[dataMat[:, dimen] <= threshVal] = -1.0
+    (将数据集，按照feature列的value进行 二分法切分比较来赋值分类)
+    :param data_mat: Matrix数据集
+    :param dimen: 特征的哪一个列
+    :param thresh_val: 特征列要比较的值
+    :param thresh_ineq: 
+    :return: np.array
+    """
+    ret_array = np.ones((np.shape(data_mat)[0], 1))
+    # data_mat[:, dimen] 表示数据集中第dimen列的所有值
+    # thresh_ineq == 'lt'表示修改左边的值，gt表示修改右边的值
+    # （这里其实我建议理解为转换左右边，就是一棵树的左右孩子，可能有点问题。。。待考证）
+    if thresh_ineq == 'lt':
+        ret_array[data_mat[:, dimen] <= thresh_val] = -1.0
     else:
-        retArray[dataMat[:, dimen] > threshVal] = -1.0
-    return retArray
+        ret_array[data_mat[:, dimen] > thresh_val] = -1.0
+    return ret_array
 
 
-def buildStump(dataArr, labelArr, D):
-    """buildStump(得到决策树的模型)
-
-    Args:
-        dataArr   特征标签集合
-        labelArr  分类标签集合
-        D         最初的特征权重值
-    Returns:
-        bestStump    最优的分类器模型
-        minError     错误率
-        bestClasEst  训练后的结果集
+def build_stump(data_arr, class_labels, D):
     """
-    # 转换数据
-    dataMat = mat(dataArr)
-    labelMat = mat(labelArr).T
-    # m行 n列
-    m, n = shape(dataMat)
+    得到决策树的模型 (这个比较重要，需要看懂）
+    :param data_arr: 特征标签集合
+    :param class_labels: 分类标签集合
+    :param D: 最初的特征权重值
+    :return: bestStump    最优的分类器模型
+            min_error     错误率
+            best_class_est  训练后的结果集
+    """
+    data_mat = np.mat(data_arr)
+    label_mat = np.mat(class_labels).T
 
-    # 初始化数据
-    numSteps = 10.0
-    bestStump = {}
-    bestClasEst = mat(zeros((m, 1)))
-    # 初始化的最小误差为无穷大
-    minError = inf
-
-    # 循环所有的feature列，将列切分成 若干份，每一段以最左边的点作为分类节点
+    m, n = np.shape(data_mat)
+    num_steps = 10.0
+    best_stump = {}
+    best_class_est = np.mat(np.zeros((m, 1)))
+    # 无穷大
+    min_err = np.inf
     for i in range(n):
-        rangeMin = dataMat[:, i].min()
-        rangeMax = dataMat[:, i].max()
-        # print 'rangeMin=%s, rangeMax=%s' % (rangeMin, rangeMax)
-        # 计算每一份的元素个数
-        stepSize = (rangeMax-rangeMin)/numSteps
-        # 例如： 4=(10-1)/2   那么  1-4(-1次)   1(0次)  1+1*4(1次)   1+2*4(2次)
-        # 所以： 循环 -1/0/1/2
-        for j in range(-1, int(numSteps)+1):
-            # go over less than and greater than
+        range_min = data_mat[:, i].min()
+        range_max = data_mat[:, i].max()
+        step_size = (range_max - range_min) / num_steps
+        for j in range(-1, int(num_steps) + 1):
             for inequal in ['lt', 'gt']:
-                # 如果是-1，那么得到rangeMin-stepSize; 如果是numSteps，那么得到rangeMax
-                threshVal = (rangeMin + float(j) * stepSize)
-                # 对单层决策树进行简单分类，得到预测的分类值
-                predictedVals = stumpClassify(dataMat, i, threshVal, inequal)
-                # print predictedVals
-                errArr = mat(ones((m, 1)))
-                # 正确为0，错误为1
-                errArr[predictedVals == labelMat] = 0
-                # 计算 平均每个特征的概率0.2*错误概率的总和为多少，就知道错误率多高
-                # 例如： 一个都没错，那么错误率= 0.2*0=0 ， 5个都错，那么错误率= 0.2*5=1， 只错3个，那么错误率= 0.2*3=0.6
-                weightedError = D.T*errArr
-                '''
-                dim            表示 feature列
-                threshVal      表示树的分界值
-                inequal        表示计算树左右颠倒的错误率的情况
-                weightedError  表示整体结果的错误率
-                bestClasEst    预测的最优结果
-                '''
-                # print "split: dim %d, thresh %.2f, thresh ineqal: %s, the weighted error is %.3f" % (i, threshVal, inequal, weightedError)
-                if weightedError < minError:
-                    minError = weightedError
-                    bestClasEst = predictedVals.copy()
-                    bestStump['dim'] = i
-                    bestStump['thresh'] = threshVal
-                    bestStump['ineq'] = inequal
-
-    # bestStump 表示分类器的结果，在第几个列上，用大于／小于比较，阈值是多少
-    return bestStump, minError, bestClasEst
+                thresh_val = (range_min + float(j) * step_size)
+                predicted_vals = stump_classify(data_mat, i, thresh_val, inequal)
+                err_arr = np.mat(np.ones((m, 1)))
+                err_arr[predicted_vals == label_mat] = 0
+                # 这里是矩阵乘法
+                weighted_err = D.T * err_arr
+                # print('split: dim {}, thresh {}, thresh inequal: {}, the weighted err is {}'.format(
+                #     i, thresh_val, inequal, weighted_err
+                # ))
+                if weighted_err < min_err:
+                    min_err = weighted_err
+                    best_class_est = predicted_vals.copy()
+                    best_stump['dim'] = 1
+                    best_stump['thresh'] = thresh_val
+                    best_stump['ineq'] = inequal
+    return best_stump, min_err, best_class_est
 
 
-def adaBoostTrainDS(dataArr, labelArr, numIt=40):
-    """adaBoostTrainDS(adaBoost训练过程放大)
-
-    Args:
-        dataArr   特征标签集合
-        labelArr  分类标签集合
-        numIt     实例数
-    Returns:
-        weakClassArr  弱分类器的集合
-        aggClassEst   预测的分类结果值
+def ada_boost_train_ds(data_arr, class_labels, num_it=40):
     """
-    weakClassArr = []
-    m = shape(dataArr)[0]
+    adaBoost训练过程放大
+    :param data_arr: 特征标签集合
+    :param class_labels: 分类标签集合
+    :param num_it: 迭代次数
+    :return: weak_class_arr  弱分类器的集合
+            agg_class_est   预测的分类结果值
+    """
+    weak_class_arr = []
+    m = np.shape(data_arr)[0]
     # 初始化 D，设置每个特征的权重值，平均分为m份
-    D = mat(ones((m, 1))/m)
-    aggClassEst = mat(zeros((m, 1)))
-    for i in range(numIt):
+    D = np.mat(np.ones((m, 1)) / m)
+    agg_class_est = np.mat(np.zeros((m, 1)))
+    for i in range(num_it):
         # 得到决策树的模型
-        bestStump, error, classEst = buildStump(dataArr, labelArr, D)
-
+        best_stump, error, class_est = build_stump(data_arr, class_labels, D)
+        # print('D: {}'.format(D.T))
         # alpha 目的主要是计算每一个分类器实例的权重(加和就是分类结果)
         # 计算每个分类器的 alpha 权重值
-        alpha = float(0.5*log((1.0-error)/max(error, 1e-16)))
-        bestStump['alpha'] = alpha
+        alpha = float(0.5 * np.log((1.0 - error) / max(error, 1e-16)))
+        best_stump['alpha'] = alpha
         # store Stump Params in Array
-        weakClassArr.append(bestStump)
-
-        # print "alpha=%s, classEst=%s, bestStump=%s, error=%s " % (alpha, classEst.T, bestStump, error)
+        weak_class_arr.append(best_stump)
+        # print('class_est: {}'.format(class_est.T))
         # 分类正确：乘积为1，不会影响结果，-1主要是下面求e的-alpha次方
         # 分类错误：乘积为 -1，结果会受影响，所以也乘以 -1
-        expon = multiply(-1*alpha*mat(labelArr).T, classEst)
-        # print '\n'
-        # print 'labelArr=', labelArr
-        # print 'classEst=', classEst.T
-        # print '\n'
-        # print '乘积: ', multiply(mat(labelArr).T, classEst).T
+        expon = np.multiply(-1 * alpha * np.mat(class_labels).T, class_est)
         # 判断正确的，就乘以-1，否则就乘以1， 为什么？ 书上的公式。
-        # print '(-1取反)预测值expon=', expon.T
+        # print('(-1取反)预测值 expon=', expon.T)
         # 计算e的expon次方，然后计算得到一个综合的概率的值
         # 结果发现： 判断错误的样本，D对于的样本权重值会变大。
-        D = multiply(D, exp(expon))
-        D = D/D.sum()
-        # print "D: ", D.T
-        # print '\n'
-
+        D = np.multiply(D, np.exp(expon))
+        D = D / D.sum()
         # 预测的分类结果值，在上一轮结果的基础上，进行加和操作
-        # print '当前的分类结果：', alpha*classEst.T
-        aggClassEst += alpha*classEst
-        # print "叠加后的分类结果aggClassEst: ", aggClassEst.T
+        # print('叠加前的分类结果class_est: {}'.format(class_est.T))
+        agg_class_est += alpha * class_est
+        # print('叠加后的分类结果agg_class_est: {}'.format(agg_class_est.T))
         # sign 判断正为1， 0为0， 负为-1，通过最终加和的权重值，判断符号。
         # 结果为：错误的样本标签集合，因为是 !=,那么结果就是0 正, 1 负
-        aggErrors = multiply(sign(aggClassEst) != mat(labelArr).T, ones((m, 1)))
-        errorRate = aggErrors.sum()/m
-        # print "total error=%s " % (errorRate)
-        if errorRate == 0.0:
+        agg_errors = np.multiply(np.sign(agg_class_est) != np.mat(class_labels).T,
+                                 np.ones((m, 1)))
+        error_rate = agg_errors.sum() / m
+        # print('total error: {}\n'.format(error_rate))
+        if error_rate == 0.0:
             break
-    return weakClassArr, aggClassEst
+    return weak_class_arr, agg_class_est
 
 
-def adaClassify(datToClass, classifierArr):
-    # do stuff similar to last aggClassEst in adaBoostTrainDS
-    dataMat = mat(datToClass)
-    m = shape(dataMat)[0]
-    aggClassEst = mat(zeros((m, 1)))
-
-    # 循环 多个分类器
-    for i in range(len(classifierArr)):
-        # 前提： 我们已经知道了最佳的分类器的实例
-        # 通过分类器来核算每一次的分类结果，然后通过alpha*每一次的结果 得到最后的权重加和的值。
-        classEst = stumpClassify(dataMat, classifierArr[i]['dim'], classifierArr[i]['thresh'], classifierArr[i]['ineq'])
-        aggClassEst += classifierArr[i]['alpha']*classEst
-        # print aggClassEst
-    return sign(aggClassEst)
-
-
-def plotROC(predStrengths, classLabels):
-    """plotROC(打印ROC曲线，并计算AUC的面积大小)
-
-    Args:
-        predStrengths  最终预测结果的权重值
-        classLabels    原始数据的分类结果集
+def ada_classify(data_to_class, classifier_arr):
     """
-    # print 'predStrengths=', predStrengths
-    # print 'classLabels=', classLabels
+    通过刚刚上面那个函数得到的弱分类器的集合进行预测
+    :param data_to_class: 数据集
+    :param classifier_arr: 分类器列表
+    :return: 正负一，也就是表示分类的结果
+    """
+    data_mat = np.mat(data_to_class)
+    m = np.shape(data_mat)[0]
+    agg_class_est = np.mat(np.zeros((m, 1)))
+    for i in range(len(classifier_arr)):
+        class_est = stump_classify(
+            data_mat, classifier_arr[i]['dim'],
+            classifier_arr[i]['thresh'],
+            classifier_arr[i]['ineq']
+        )
+        agg_class_est += classifier_arr[i]['alpha'] * class_est
+        print(agg_class_est)
+    return np.sign(agg_class_est)
 
+
+def plot_roc(pred_strengths, class_labels):
+    """
+    (打印ROC曲线，并计算AUC的面积大小)
+    :param pred_strengths: 最终预测结果的权重值
+    :param class_labels: 原始数据的分类结果集
+    :return: 
+    """
     import matplotlib.pyplot as plt
     # variable to calculate AUC
-    ySum = 0.0
+    y_sum = 0.0
     # 对正样本的进行求和
-    numPosClas = sum(array(classLabels)==1.0)
+    num_pos_class = np.sum(np.array(class_labels) == 1.0)
     # 正样本的概率
-    yStep = 1/float(numPosClas)
+    y_step = 1 / float(num_pos_class)
     # 负样本的概率
-    xStep = 1/float(len(classLabels)-numPosClas)
-    # argsort函数返回的是数组值从小到大的索引值
+    x_step = 1 / float(len(class_labels) - num_pos_class)
+    # np.argsort函数返回的是数组值从小到大的索引值
     # get sorted index, it's reverse
-    sortedIndicies = predStrengths.argsort()
+    sorted_indicies = pred_strengths.argsort()
     # 测试结果是否是从小到大排列
-    # print 'sortedIndicies=', sortedIndicies, predStrengths[0, 176], predStrengths.min(), predStrengths[0, 293], predStrengths.max()
-
+    # 可以选择打印看一下
     # 开始创建模版对象
     fig = plt.figure()
     fig.clf()
@@ -235,19 +206,19 @@ def plotROC(predStrengths, classLabels):
     # cursor光标值
     cur = (1.0, 1.0)
     # loop through all the values, drawing a line segment at each point
-    for index in sortedIndicies.tolist()[0]:
-        if classLabels[index] == 1.0:
-            delX = 0
-            delY = yStep
+    for index in sorted_indicies.tolist()[0]:
+        if class_labels[index] == 1.0:
+            del_x = 0
+            del_y = y_step
         else:
-            delX = xStep
-            delY = 0
-            ySum += cur[1]
+            del_x = x_step
+            del_y = 0
+            y_sum += cur[1]
         # draw line from cur to (cur[0]-delX, cur[1]-delY)
         # 画点连线 (x1, x2, y1, y2)
         # print cur[0], cur[0]-delX, cur[1], cur[1]-delY
-        ax.plot([cur[0], cur[0]-delX], [cur[1], cur[1]-delY], c='b')
-        cur = (cur[0]-delX, cur[1]-delY)
+        ax.plot([cur[0], cur[0] - del_x], [cur[1], cur[1] - del_y], c='b')
+        cur = (cur[0] - del_x, cur[1] - del_y)
     # 画对角的虚线线
     ax.plot([0, 1], [0, 1], 'b--')
     plt.xlabel('False positive rate')
@@ -259,53 +230,35 @@ def plotROC(predStrengths, classLabels):
     '''
     参考说明：http://blog.csdn.net/wenyusuran/article/details/39056013
     为了计算 AUC ，我们需要对多个小矩形的面积进行累加。
-    这些小矩形的宽度是xStep，因此可以先对所有矩形的高度进行累加，最后再乘以xStep得到其总面积。
-    所有高度的和(ySum)随着x轴的每次移动而渐次增加。
+    这些小矩形的宽度是x_step，因此可以先对所有矩形的高度进行累加，最后再乘以x_step得到其总面积。
+    所有高度的和(y_sum)随着x轴的每次移动而渐次增加。
     '''
-    print "the Area Under the Curve is: ", ySum*xStep
+    print("the Area Under the Curve is: ", y_sum * x_step)
 
 
-if __name__ == "__main__":
-    # # 我们要将5个点进行分类
-    # dataArr, labelArr = loadSimpData()
-    # print 'dataArr', dataArr, 'labelArr', labelArr
-
-    # # D表示最初值，对1进行均分为5份，平均每一个初始的概率都为0.2
-    # # D的目的是为了计算错误概率： weightedError = D.T*errArr
-    # D = mat(ones((5, 1))/5)
-    # print 'D=', D.T
-
-    # # bestStump, minError, bestClasEst = buildStump(dataArr, labelArr, D)
-    # # print 'bestStump=', bestStump
-    # # print 'minError=', minError
-    # # print 'bestClasEst=', bestClasEst.T
-
-    # # 分类器：weakClassArr
-    # # 历史累计的分类结果集
-    # weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 9)
-    # print '\nweakClassArr=', weakClassArr, '\naggClassEst=', aggClassEst.T
-
-    # """
-    # 发现:
-    # 分类的权重值：最大的值，为alpha的加和，最小值为-最大值
-    # 特征的权重值：如果一个值误判的几率越小，那么D的特征权重越少
-    # """
-
-    # # 测试数据的分类结果, 观测：aggClassEst分类的最终权重
-    # print adaClassify([0, 0], weakClassArr).T
-    # print adaClassify([[5, 5], [0, 0]], weakClassArr).T
-
-    # 马疝病数据集
-    # 训练集合
-    dataArr, labelArr = loadDataSet("input/7.AdaBoost/horseColicTraining2.txt")
-    weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 40)
-    print weakClassArr, '\n-----\n', aggClassEst.T
-    # 计算ROC下面的AUC的面积大小
-    plotROC(aggClassEst.T, labelArr)
-    # 测试集合
-    dataArrTest, labelArrTest = loadDataSet("input/7.AdaBoost/horseColicTest2.txt")
-    m = shape(dataArrTest)[0]
-    predicting10 = adaClassify(dataArrTest, weakClassArr)
-    errArr = mat(ones((m, 1)))
+def test():
+    # D = np.mat(np.ones((5, 1)) / 5)
+    # data_mat, class_labels = load_sim_data()
+    # print(data_mat.shape)
+    # result = build_stump(data_mat, class_labels, D)
+    # print(result)
+    # classifier_array, agg_class_est = ada_boost_train_ds(data_mat, class_labels, 9)
+    # print(classifier_array, agg_class_est)
+    data_mat, class_labels = load_data_set('../../../input/7.AdaBoost/horseColicTraining2.txt')
+    print(data_mat.shape, len(class_labels))
+    weak_class_arr, agg_class_est = ada_boost_train_ds(data_mat, class_labels, 40)
+    print(weak_class_arr, '\n-----\n', agg_class_est.T)
+    plot_roc(agg_class_est, class_labels)
+    data_arr_test, label_arr_test = load_data_set("../../../input/7.AdaBoost/horseColicTest2.txt")
+    m = np.shape(data_arr_test)[0]
+    predicting10 = ada_classify(data_arr_test, weak_class_arr)
+    err_arr = np.mat(np.ones((m, 1)))
     # 测试：计算总样本数，错误样本数，错误率
-    print m, errArr[predicting10 != mat(labelArrTest).T].sum(), errArr[predicting10 != mat(labelArrTest).T].sum()/m
+    print(m,
+          err_arr[predicting10 != np.mat(label_arr_test).T].sum(),
+          err_arr[predicting10 != np.mat(label_arr_test).T].sum() / m
+          )
+
+
+if __name__ == '__main__':
+    test()
