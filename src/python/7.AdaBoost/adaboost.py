@@ -98,7 +98,7 @@ def build_stump(data_arr, class_labels, D):
                 weighted_err = D.T * err_arr
                 '''
                 dim            表示 feature列
-                threshVal      表示树的分界值
+                thresh_val      表示树的分界值
                 inequal        表示计算树左右颠倒的错误率的情况
                 weighted_error  表示整体结果的错误率
                 best_class_est    预测的最优结果 （与class_labels对应）
