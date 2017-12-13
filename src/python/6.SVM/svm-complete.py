@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding:utf-8 -*-
+# coding:utf8
 
 """
 Created on Nov 4, 2010
@@ -44,7 +44,7 @@ class optStruct:
         # m行m列的矩阵
         self.K = mat(zeros((self.m, self.m)))
         for i in range(self.m):
-            self.K[:, i] = kernelTrans(self.X, self.X[i], kTup)
+            self.K[:, i] = kernelTrans(self.X, self.X[i, :], kTup)
 
 
 def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher dimensional space
@@ -104,7 +104,7 @@ def calcEk(oS, k):
     Returns:
         Ek  预测结果与真实结果比对，计算误差Ek
     """
-    fXk = multiply(oS.alphas, oS.labelMat).T * oS.K[:, k] + oS.b
+    fXk = float(multiply(oS.alphas, oS.labelMat).T * oS.K[:, k] + oS.b)
     Ek = fXk - float(oS.labelMat[k])
     return Ek
 
@@ -120,7 +120,7 @@ def selectJrand(i, m):
     """
     j = i
     while j == i:
-        j = random.randint(0, m - 1)
+        j = int(random.uniform(0, m))
     return j
 
 
@@ -168,7 +168,7 @@ def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
             # 求 Ek误差：预测值-真实值的差
             Ek = calcEk(oS, k)
             deltaE = abs(Ei - Ek)
-            if deltaE > maxDeltaE:
+            if (deltaE > maxDeltaE):
                 # 选择具有最大步长的j
                 maxK = k
                 maxDeltaE = deltaE
@@ -205,8 +205,10 @@ def clipAlpha(aj, H, L):
     Returns:
         aj  目标值
     """
-    aj = min(aj, H)
-    aj = max(L, aj)
+    if aj > H:
+        aj = H
+    if L > aj:
+        aj = L
     return aj
 
 
@@ -266,7 +268,7 @@ def innerL(i, oS):
         updateEk(oS, j)
 
         # 检查alpha[j]是否只是轻微的改变，如果是的话，就退出for循环。
-        if abs(oS.alphas[j] - alphaJold) < 0.00001:
+        if (abs(oS.alphas[j] - alphaJold) < 0.00001):
             # print("j not moving enough")
             return 0
 
@@ -286,7 +288,7 @@ def innerL(i, oS):
         elif (0 < oS.alphas[j]) and (oS.C > oS.alphas[j]):
             oS.b = b2
         else:
-            oS.b = (b1 + b2) / 2
+            oS.b = (b1 + b2) / 2.0
         return 1
     else:
         return 0
@@ -318,7 +320,7 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
     # 循环遍历：循环maxIter次 并且 （alphaPairsChanged存在可以改变 or 所有行遍历一遍）
     while (iter < maxIter) and ((alphaPairsChanged > 0) or (entireSet)):
         alphaPairsChanged = 0
-        # ----------- 第一种写法 start -------------------------
+
         #  当entireSet=true or 非边界alpha对没有了；就开始寻找 alpha对，然后决定是否要进行else。
         if entireSet:
             # 在数据集上遍历所有可能的alpha
@@ -336,20 +338,11 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
                 alphaPairsChanged += innerL(i, oS)
                 # print("non-bound, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
             iter += 1
-        # ----------- 第一种写法 end -------------------------
 
-        # ----------- 第二种方法 start -------------------------
-        # if entireSet:																				#遍历整个数据集
-    	# 	alphaPairsChanged += sum(innerL(i, oS) for i in range(oS.m))
-		# else: 																						#遍历非边界值
-		# 	nonBoundIs = nonzero((oS.alphas.A > 0) * (oS.alphas.A < C))[0]						#遍历不在边界0和C的alpha
-		# 	alphaPairsChanged += sum(innerL(i, oS) for i in nonBoundIs)
-		# iter += 1
-        # ----------- 第二种方法 end -------------------------
         # 如果找到alpha对，就优化非边界alpha值，否则，就重新进行寻找，如果寻找一遍 遍历所有的行还是没找到，就退出循环。
         if entireSet:
             entireSet = False  # toggle entire set loop
-        elif alphaPairsChanged == 0:
+        elif (alphaPairsChanged == 0):
             entireSet = True
         print("iteration number: %d" % iter)
     return oS.b, oS.alphas
@@ -367,16 +360,16 @@ def calcWs(alphas, dataArr, classLabels):
         wc  回归系数
     """
     X = mat(dataArr)
-    labelMat = mat(classLabels).T
+    labelMat = mat(classLabels).transpose()
     m, n = shape(X)
     w = zeros((n, 1))
     for i in range(m):
-        w += multiply(alphas[i] * labelMat[i], X[i].T)
+        w += multiply(alphas[i] * labelMat[i], X[i, :].T)
     return w
 
 
 def testRbf(k1=1.3):
-    dataArr, labelArr = loadDataSet('.././../input/6.SVM/testSetRBF.txt')
+    dataArr, labelArr = loadDataSet('input/6.SVM/testSetRBF.txt')
     b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, ('rbf', k1))  # C=200 important
     datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
@@ -395,7 +388,7 @@ def testRbf(k1=1.3):
             errorCount += 1
     print("the training error rate is: %f" % (float(errorCount) / m))
 
-    dataArr, labelArr = loadDataSet('../../../input/6.SVM/testSetRBF2.txt')
+    dataArr, labelArr = loadDataSet('input/6.SVM/testSetRBF2.txt')
     errorCount = 0
     datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
@@ -440,7 +433,7 @@ def loadImages(dirName):
 def testDigits(kTup=('rbf', 10)):
 
     # 1. 导入训练数据
-    dataArr, labelArr = loadImages('../../../input/6.SVM/trainingDigits')
+    dataArr, labelArr = loadImages('input/6.SVM/trainingDigits')
     b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, kTup)
     datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
@@ -458,7 +451,7 @@ def testDigits(kTup=('rbf', 10)):
     print("the training error rate is: %f" % (float(errorCount) / m))
 
     # 2. 导入测试数据
-    dataArr, labelArr = loadImages('../../../input/6.SVM/testDigits')
+    dataArr, labelArr = loadImages('input/6.SVM/testDigits')
     errorCount = 0
     datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
@@ -539,4 +532,4 @@ if __name__ == "__main__":
     testDigits(('rbf', 10))
     testDigits(('rbf', 50))
     testDigits(('rbf', 100))
-    testDigits(('lin', 10))
+    testDigits(('lin'))
