@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# coding: utf-8
+# encoding: utf-8
 '''
 Created on Sep 16, 2010
 Update  on 2017-05-18

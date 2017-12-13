@@ -11,6 +11,7 @@ Chapter 5 source file for Machine Learing in Action
 from numpy import *
 import matplotlib.pyplot as plt
 
+
 class optStruct:
     def __init__(self, dataMatIn, classLabels, C, toler):  # Initialize the structure with the parameters
         self.X = dataMatIn
@@ -111,8 +112,8 @@ def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
     # 首先将输入值Ei在缓存中设置成为有效的。这里的有效意味着它已经计算好了。
     oS.eCache[i] = [1, Ei]
 
-    # print('oS.eCache[%s]=%s' % (i, oS.eCache[i]))
-    # print('oS.eCache[:, 0].A=%s' % oS.eCache[:, 0].A.T)
+    # print 'oS.eCache[%s]=%s' % (i, oS.eCache[i])
+    # print 'oS.eCache[:, 0].A=%s' % oS.eCache[:, 0].A.T
     # """
     # # 返回非0的：行列值
     # nonzero(oS.eCache[:, 0].A)= (
@@ -120,9 +121,9 @@ def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
     #     列： array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0])
     # )
     # """
-    # print(nonzero(oS.eCache[:, 0].A)=', nonzero(oS.eCache[:, 0].A))
+    # print 'nonzero(oS.eCache[:, 0].A)=', nonzero(oS.eCache[:, 0].A)
     # # 取行的list
-    # print(nonzero(oS.eCache[:, 0].A)[0]=', nonzero(oS.eCache[:, 0].A)[0])
+    # print 'nonzero(oS.eCache[:, 0].A)[0]=', nonzero(oS.eCache[:, 0].A)[0]
     # 非零E值的行的list列表，所对应的alpha值
     validEcacheList = nonzero(oS.eCache[:, 0].A)[0]
     if (len(validEcacheList)) > 1:
@@ -357,17 +358,17 @@ def plotfig_SVM(xArr, yArr, ws, b, alphas):
 if __name__ == "__main__":
     # 获取特征和目标变量
     dataArr, labelArr = loadDataSet('input/6.SVM/testSet.txt')
-    print(labelArr)
+    # print labelArr
 
     # b是常量值， alphas是拉格朗日乘子
     b, alphas = smoP(dataArr, labelArr, 0.6, 0.001, 40)
-    print('/n/n/n')
-    print( 'b=', b)
-    print('alphas[alphas>0]=', alphas[alphas > 0])
-    print('shape(alphas[alphas > 0])=', shape(alphas[alphas > 0]))
+    print '/n/n/n'
+    print 'b=', b
+    print 'alphas[alphas>0]=', alphas[alphas > 0]
+    print 'shape(alphas[alphas > 0])=', shape(alphas[alphas > 0])
     for i in range(100):
         if alphas[i] > 0:
-            print(dataArr[i], labelArr[i])
+            print dataArr[i], labelArr[i]
     # 画图
     ws = calcWs(alphas, dataArr, labelArr)
     plotfig_SVM(dataArr, labelArr, ws, b, alphas)

@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# coding: utf8
+# -*- coding: UTF-8 -*-
 # 原始链接： http://blog.csdn.net/lsldd/article/details/41223147
 # 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 import numpy as np
@@ -13,7 +13,7 @@ def createDataSet():
     ''' 数据读入 '''
     data = []
     labels = []
-    with open("input/3.DecisionTree/data.txt") as ifile:
+    with open("../../../input/3.DecisionTree/data.txt") as ifile:
         for line in ifile:
             # 特征： 身高 体重   label： 胖瘦
             tokens = line.strip().split(' ')
@@ -28,7 +28,7 @@ def createDataSet():
 
     ''' 标签转换为0/1 '''
     y[labels == 'fat'] = 1
-    print data, '-------', x, '-------', labels, '-------', y
+    print(data, '-------', x, '-------', labels, '-------', y)
     return x, y
 
 
@@ -41,7 +41,7 @@ def predict_train(x_train, y_train):
     # print(clf)
     clf.fit(x_train, y_train)
     ''' 系数反映每个特征的影响力。越大表示该特征在分类中起到的作用越大 '''
-    print 'feature_importances_: %s' % clf.feature_importances_
+    print('feature_importances_: %s' % clf.feature_importances_)
 
     '''测试结果的打印'''
     y_pre = clf.predict(x_train)
@@ -94,7 +94,7 @@ def show_pdf(clf):
     dot_data = StringIO()
     tree.export_graphviz(clf, out_file=dot_data)
     graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
-    graph.write_pdf("output/3.DecisionTree/tree.pdf")
+    graph.write_pdf("../../../output/3.DecisionTree/tree.pdf")
 
     # from IPython.display import Image
     # Image(graph.create_png())
@@ -105,7 +105,7 @@ if __name__ == '__main__':
 
     ''' 拆分训练数据与测试数据， 80%做训练 20%做测试 '''
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
-    print '拆分数据：', x_train, x_test, y_train, y_test
+    print('拆分数据：', x_train, x_test, y_train, y_test)
 
     # 得到训练的预测结果集
     y_pre, clf = predict_train(x_train, y_train)
