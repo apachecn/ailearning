@@ -69,7 +69,7 @@ def plotTree(myTree, parentPt, nodeTxt):
 
     # 找出第1个中心点的位置，然后与 parentPt定点进行划线
     cntrPt = (plotTree.xOff + (1 + numLeafs) / 2 / plotTree.totalW, plotTree.yOff)
-    # print cntrPt
+    # print(cntrPt)
     # 并打印输入对应的文字
     plotMidText(cntrPt, parentPt, nodeTxt)
 
