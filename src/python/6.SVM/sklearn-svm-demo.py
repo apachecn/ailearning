@@ -43,7 +43,6 @@ def loadDataSet(fileName):
 
 X, Y = loadDataSet('input/6.SVM/testSet.txt')
 X = np.mat(X)
-
 print("X=", X)
 print("Y=", Y)
 
@@ -71,12 +70,12 @@ b = clf.support_vectors_[-1]
 yy_up = a * xx + (b[1] - a * b[0])
 
 # plot the line, the points, and the nearest vectors to the plane
-plt.plot(xx, yy, 'k-')
-plt.plot(xx, yy_down, 'k--')
-plt.plot(xx, yy_up, 'k--')
-
-plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=80, facecolors='none')
-plt.scatter([X[:, 0]], [X[:, 1]], c=Y, cmap=plt.cm.Paired)
-
-plt.axis('tight')
-plt.show()
+# plt.plot(xx, yy, 'k-')
+# plt.plot(xx, yy_down, 'k--')
+# plt.plot(xx, yy_up, 'k--')
+#
+# plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=80, facecolors='none')
+# plt.scatter([X[:, 0]], [X[:, 1]], c=Y, cmap=plt.cm.Paired)
+#
+# plt.axis('tight')
+# plt.show()
