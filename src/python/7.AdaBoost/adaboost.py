@@ -96,6 +96,13 @@ def build_stump(data_arr, class_labels, D):
                 err_arr[predicted_vals == label_mat] = 0
                 # 这里是矩阵乘法
                 weighted_err = D.T * err_arr
+                '''
+                dim            表示 feature列
+                threshVal      表示树的分界值
+                inequal        表示计算树左右颠倒的错误率的情况
+                weighted_error  表示整体结果的错误率
+                best_class_est    预测的最优结果 （与class_labels对应）
+                '''
                 # print('split: dim {}, thresh {}, thresh inequal: {}, the weighted err is {}'.format(
                 #     i, thresh_val, inequal, weighted_err
                 # ))
@@ -105,6 +112,7 @@ def build_stump(data_arr, class_labels, D):
                     best_stump['dim'] = 1
                     best_stump['thresh'] = thresh_val
                     best_stump['ineq'] = inequal
+    # best_stump 表示分类器的结果，在第几个列上，用大于／小于比较，阈值是多少 (单个弱分类器)
     return best_stump, min_err, best_class_est
 
 
@@ -140,6 +148,7 @@ def ada_boost_train_ds(data_arr, class_labels, num_it=40):
         # print('(-1取反)预测值 expon=', expon.T)
         # 计算e的expon次方，然后计算得到一个综合的概率的值
         # 结果发现： 判断错误的样本，D对于的样本权重值会变大。
+        # multiply是对应项相乘
         D = np.multiply(D, np.exp(expon))
         D = D / D.sum()
         # 预测的分类结果值，在上一轮结果的基础上，进行加和操作
