@@ -55,7 +55,7 @@ def calcShannonEnt(dataSet):
     numEntries = len(dataSet)
     # 下面输出我们测试的数据集的一些信息
     # 例如：<type 'list'> numEntries:  5 是下面的代码的输出
-    # print type(dataSet), 'numEntries: ', numEntries
+    # print(type(dataSet), 'numEntries: ', numEntries)
 
     # 计算分类标签label出现的次数
     labelCounts = {}
@@ -67,7 +67,7 @@ def calcShannonEnt(dataSet):
         if currentLabel not in labelCounts.keys():
             labelCounts[currentLabel] = 0
         labelCounts[currentLabel] += 1
-        # print '-----', featVec, labelCounts
+        # print('-----', featVec, labelCounts)
 
     # 对于label标签的占比，求出label标签的香农熵
     shannonEnt = 0.0
@@ -77,7 +77,7 @@ def calcShannonEnt(dataSet):
         # log base 2
         # 计算香农熵，以 2 为底求对数
         shannonEnt -= prob * log(prob, 2)
-        # print '---', prob, prob * log(prob, 2), shannonEnt
+        # print('---', prob, prob * log(prob, 2), shannonEnt)
     # -----------计算香农熵的第一种实现方式end--------------------------------------------------------------------------------
 
     # # -----------计算香农熵的第二种实现方式start--------------------------------------------------------------------------------
@@ -121,11 +121,11 @@ def splitDataSet(dataSet, index, value):
             2、使用extend的时候，是将new_media看作一个序列，将这个序列和music_media序列合并，并放在其后面。
             result = []
             result.extend([1,2,3])
-            print result
+            print(result)
             result.append([4,5,6])
-            print result
+            print(result)
             result.extend([7,8,9])
-            print result
+            print(result)
             结果：
             [1, 2, 3]
             [1, 2, 3, [4, 5, 6]]
@@ -225,7 +225,7 @@ def majorityCnt(classList):
         classCount[vote] += 1
     # 倒叙排列classCount得到一个字典集合，然后取出第一个就是结果（yes/no），即出现次数最多的结果
     sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
-    # print 'sortedClassCount:', sortedClassCount
+    # print('sortedClassCount:', sortedClassCount)
     return sortedClassCount[0][0]
     # -----------majorityCnt的第一种方式 end------------------------------------
 
@@ -273,7 +273,7 @@ def createTree(dataSet, labels):
         subLabels = labels[:]
         # 遍历当前选择特征包含的所有属性值，在每个数据集划分上递归调用函数createTree()
         myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value), subLabels)
-        # print 'myTree', value, myTree
+        # print('myTree', value, myTree)
     return myTree
 
 
@@ -354,17 +354,17 @@ def fishTest():
     """
     # 1.创建数据和结果标签
     myDat, labels = createDataSet()
-    # print myDat, labels
+    # print(myDat, labels)
 
     # 计算label分类标签的香农熵
     # calcShannonEnt(myDat)
 
     # # 求第0列 为 1/0的列的数据集【排除第0列】
-    # print '1---', splitDataSet(myDat, 0, 1)
-    # print '0---', splitDataSet(myDat, 0, 0)
+    # print('1---', splitDataSet(myDat, 0, 1))
+    # print('0---', splitDataSet(myDat, 0, 0))
 
     # # 计算最好的信息增益的列
-    # print chooseBestFeatureToSplit(myDat)
+    # print(chooseBestFeatureToSplit(myDat))
 
     import copy
     myTree = createTree(myDat, copy.deepcopy(labels))
