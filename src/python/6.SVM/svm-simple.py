@@ -95,9 +95,9 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
         # 记录alpha是否已经进行优化，每次循环时设为0，然后再对整个集合顺序遍历
         alphaPairsChanged = 0
         for i in range(m):
-            # print 'alphas=', alphas
-            # print 'labelMat=', labelMat
-            # print 'multiply(alphas, labelMat)=', multiply(alphas, labelMat)
+            # print('alphas=', alphas)
+            # print('labelMat=', labelMat)
+            # print('multiply(alphas, labelMat)=', multiply(alphas, labelMat))
             # 我们预测的类别 y = w^Tx[i]+b; 其中因为 w = Σ(1~n) a[n]*lable[n]*x[n]
             fXi = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[i, :].T)) + b
             # 预测结果与真实结果比对，计算误差Ei
@@ -238,7 +238,7 @@ def plotfig_SVM(xMat, yMat, ws, b, alphas):
 if __name__ == "__main__":
     # 获取特征和目标变量
     dataArr, labelArr = loadDataSet('../../../input/6.SVM/testSet.txt')
-    # print labelArr
+    # print(labelArr)
 
     # b是常量值， alphas是拉格朗日乘子
     b, alphas = smoSimple(dataArr, labelArr, 0.6, 0.001, 40)
