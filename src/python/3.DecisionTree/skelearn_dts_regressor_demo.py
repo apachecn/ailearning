@@ -19,15 +19,15 @@ import matplotlib.pyplot as plt
 # 创建一个随机的数据集
 # 参考 https://docs.scipy.org/doc/numpy-1.6.0/reference/generated/numpy.random.mtrand.RandomState.html
 rng = np.random.RandomState(1)
-# print 'lalalalala===', rng
+# print('lalalalala===', rng)
 # rand() 是给定形状的随机值，rng.rand(80, 1)即矩阵的形状是 80行，1列
 # sort() 
 X = np.sort(5 * rng.rand(80, 1), axis=0)
-# print 'X=', X
+# print('X=', X)
 y = np.sin(X).ravel()
-# print 'y=', y
+# print('y=', y)
 y[::5] += 3 * (0.5 - rng.rand(16))
-# print 'yyy=', y
+# print('yyy=', y)
 
 # 拟合回归模型
 # regr_1 = DecisionTreeRegressor(max_depth=2)
