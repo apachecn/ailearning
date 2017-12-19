@@ -233,7 +233,7 @@ def prune(tree, testData):
     # 注意返回的结果： 如果可以合并，原来的dict就变为了 数值
     if not isTree(tree['left']) and not isTree(tree['right']):
         lSet, rSet = binSplitDataSet(testData, tree['spInd'], tree['spVal'])
-        # power(x, y)表示x的y次方
+        # power(x, y)表示x的y次方；这时tree['left']和tree['right']都是具体数值
         errorNoMerge = sum(power(lSet[:, -1] - tree['left'], 2)) + sum(power(rSet[:, -1] - tree['right'], 2))
         treeMean = (tree['left'] + tree['right'])/2.0
         errorMerge = sum(power(testData[:, -1] - treeMean, 2))
@@ -241,13 +241,14 @@ def prune(tree, testData):
         if errorMerge < errorNoMerge:
             print "merging"
             return treeMean
+        # 可以把下面两个else去掉
         else:
             return tree
     else:
         return tree
 
 
-# 得到模型的ws系数：f(x) = x0 + x1*featrue1+ x3*featrue2 ...
+# 得到模型的ws系数：f(x) = x0 + x1*featrue1+ x2*featrue2 ...
 # create linear model and return coeficients
 def modelLeaf(dataSet):
     """
@@ -331,7 +332,7 @@ def modelTreeEval(model, inDat):
     Desc:
         对 模型树 进行预测
     Args:
-        model -- 输入模型，可选值为 回归树模型 或者 模型树模型，这里为模型树模型
+        model -- 输入模型，可选值为 回归树模型 或者 模型树模型，这里为模型树模型，实则为 回归系数
         inDat -- 输入的测试数据
     Returns:
         float(X * model) -- 将测试数据乘以 回归系数 得到一个预测值 ，转化为 浮点数 返回
@@ -354,19 +355,22 @@ def treeForeCast(tree, inData, modelEval=regTreeEval):
         对特定模型的树进行预测，可以是 回归树 也可以是 模型树
     Args:
         tree -- 已经训练好的树的模型
-        inData -- 输入的测试数据
+        inData -- 输入的测试数据，只有一行
         modelEval -- 预测的树的模型类型，可选值为 regTreeEval（回归树） 或 modelTreeEval（模型树），默认为回归树
     Returns:
         返回预测值
     """
     if not isTree(tree):
         return modelEval(tree, inData)
-    if inData[tree['spInd']] <= tree['spVal']:
+    # 书中写的是inData[tree['spInd']]，只适合inData只有一列的情况，否则会产生异常
+    if inData[0, tree['spInd']] <= tree['spVal']:
+        # 可以把if-else去掉，只留if里面的分支
         if isTree(tree['left']):
             return treeForeCast(tree['left'], inData, modelEval)
         else:
             return modelEval(tree['left'], inData)
     else:
+        # 同上，可以把if-else去掉，只留if里面的分支
         if isTree(tree['right']):
             return treeForeCast(tree['right'], inData, modelEval)
         else:
@@ -380,7 +384,7 @@ def createForeCast(tree, testData, modelEval=regTreeEval):
         调用 treeForeCast ，对特定模型的树进行预测，可以是 回归树 也可以是 模型树
     Args:
         tree -- 已经训练好的树的模型
-        inData -- 输入的测试数据
+        testData -- 输入的测试数据
         modelEval -- 预测的树的模型类型，可选值为 regTreeEval（回归树） 或 modelTreeEval（模型树），默认为回归树
     Returns:
         返回预测值矩阵
