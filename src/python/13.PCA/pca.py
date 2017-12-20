@@ -3,7 +3,7 @@
 
 '''
 Created on Jun 1, 2011
-Update  on 2017-05-18
+Update  on 2017-12-20
 @author: Peter Harrington/片刻
 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
@@ -15,7 +15,8 @@ print(__doc__)
 def loadDataSet(fileName, delim='\t'):
     fr = open(fileName)
     stringArr = [line.strip().split(delim) for line in fr.readlines()]
-    datArr = [map(float, line) for line in stringArr]
+    datArr = [list(map(float, line) for line in stringArr)]
+    #注意这里和python2的区别，需要在map函数外加一个list（），否则显示结果为 map at 0x3fed1d0
     return mat(datArr)
 
 
@@ -32,11 +33,11 @@ def pca(dataMat, topNfeat=9999999):
 
     # 计算每一列的均值
     meanVals = mean(dataMat, axis=0)
-    # print 'meanVals', meanVals
+    # print ('meanVals', meanVals)
 
     # 每个向量同时都减去 均值
     meanRemoved = dataMat - meanVals
-    # print 'meanRemoved=', meanRemoved
+    # print ('meanRemoved=', meanRemoved)
 
     # cov协方差=[(x1-x均值)*(y1-y均值)+(x2-x均值)*(y2-y均值)+...+(xn-x均值)*(yn-y均值)+]/(n-1)
     '''
@@ -52,8 +53,8 @@ def pca(dataMat, topNfeat=9999999):
 
     # eigVals为特征值， eigVects为特征向量
     eigVals, eigVects = linalg.eig(mat(covMat))
-    # print 'eigVals=', eigVals
-    # print 'eigVects=', eigVects
+    # print ('eigVals=', eigVals)
+    # print( 'eigVects=', eigVects)
     # 对特征值，进行从小到大的排序，返回从小到大的index序号
     # 特征值的逆序就可以得到topNfeat个最大的特征向量
     '''
@@ -69,20 +70,20 @@ def pca(dataMat, topNfeat=9999999):
     array([0, 2, 1])
     '''
     eigValInd = argsort(eigVals)
-    # print 'eigValInd1=', eigValInd
+    # print ('eigValInd1=', eigValInd)
 
     # -1表示倒序，返回topN的特征值[-1 到 -(topNfeat+1) 但是不包括-(topNfeat+1)本身的倒叙]
     eigValInd = eigValInd[:-(topNfeat+1):-1]
-    # print 'eigValInd2=', eigValInd
+    # print ('eigValInd2=', eigValInd)
     # 重组 eigVects 最大到最小
     redEigVects = eigVects[:, eigValInd]
-    # print 'redEigVects=', redEigVects.T
+    # print ('redEigVects=', redEigVects.T)
     # 将数据转换到新空间
-    # print "---", shape(meanRemoved), shape(redEigVects)
+    # print( "---", shape(meanRemoved), shape(redEigVects))
     lowDDataMat = meanRemoved * redEigVects
     reconMat = (lowDDataMat * redEigVects.T) + meanVals
-    # print 'lowDDataMat=', lowDDataMat
-    # print 'reconMat=', reconMat
+    # print ('lowDDataMat=', lowDDataMat)
+    # print ('reconMat=', reconMat)
     return lowDDataMat, reconMat
 
 
@@ -139,14 +140,14 @@ if __name__ == "__main__":
     # lowDmat, reconMat = pca(dataMat, 1)
     # # 只需要2个特征向量，和原始数据一致，没任何变化
     # # lowDmat, reconMat = pca(dataMat, 2)
-    # # print shape(lowDmat)
+    # # print (shape(lowDmat))
     # show_picture(dataMat, reconMat)
 
     # 利用PCA对半导体制造数据降维
     dataMat = replaceNanWithMean()
-    print shape(dataMat)
+    print (shape(dataMat))
     # 分析数据
     analyse_data(dataMat)
     # lowDmat, reconMat = pca(dataMat, 20)
-    # print shape(lowDmat)
+    # print (shape(lowDmat))
     # show_picture(dataMat, reconMat)
