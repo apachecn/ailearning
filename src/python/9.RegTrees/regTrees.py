@@ -28,10 +28,8 @@ def loadDataSet(fileName):
     fr = open(fileName)
     for line in fr.readlines():
         curLine = line.strip().split('\t')
-        # 将所有的元素转化为float类型
-        # map all elements to float()
-        # map() 函数具体的含义，可见 https://my.oschina.net/zyzzy/blog/115096
-        fltLine = map(float, curLine)
+        #将每行转换成浮点数
+        fltLine = [float(x) for x in curLine]
         dataMat.append(fltLine)
     return dataMat
 
@@ -96,9 +94,8 @@ def chooseBestSplit(dataSet, leafType=regLeaf, errType=regErr, ops=(1, 4)):
     tolS = ops[0]
     # 划分最小 size 小于，就不继续划分了
     tolN = ops[1]
-    # 如果结果集(最后一列为1个变量)，就返回退出
-    # .T 对数据集进行转置
-    # .tolist()[0] 转化为数组并取第0列
+    #如果数据集的最后一列所有值相等就退出
+    #dataSet[:, -1].T.tolist()[0] 取数据集的最后一列，转置为行向量，然后转换为list,取该list中的第一个元素。
     if len(set(dataSet[:, -1].T.tolist()[0])) == 1: # 如果集合size为1，也就是说全部的数据都是同一个类别，不用继续划分。
         #  exit cond 1
         return None, leafType(dataSet)
@@ -111,7 +108,7 @@ def chooseBestSplit(dataSet, leafType=regLeaf, errType=regErr, ops=(1, 4)):
     bestS, bestIndex, bestValue = inf, 0, 0
     # 循环处理每一列对应的feature值
     for featIndex in range(n-1): # 对于每个特征
-        # [0]表示这一列的[所有行]，不要[0]就是一个array[[所有行]]，下面的一行表示的是将某一列全部的数据转换为行，然后设置为list形式
+        # 下面的一行表示的是将某一列全部的数据转换为行，然后设置为list形式
         for splitVal in set(dataSet[:, featIndex].T.tolist()[0]):
             # 对该列进行分组，然后组内的成员的val值进行 二元切分
             mat0, mat1 = binSplitDataSet(dataSet, featIndex, splitVal)
@@ -239,7 +236,7 @@ def prune(tree, testData):
         errorMerge = sum(power(testData[:, -1] - treeMean, 2))
         # 如果 合并的总方差 < 不合并的总方差，那么就进行合并
         if errorMerge < errorNoMerge:
-            print "merging"
+            print("merging")
             return treeMean
         else:
             return tree
@@ -436,24 +433,24 @@ if __name__ == "__main__":
     testMat = mat(loadDataSet('input/9.RegTrees/bikeSpeedVsIq_test.txt'))
     # # 回归树
     myTree1 = createTree(trainMat, ops=(1, 20))
-    print myTree1
+    print(myTree1)
     yHat1 = createForeCast(myTree1, testMat[:, 0])
-    print "--------------\n"
+    print("--------------\n")
     # print yHat1
     # print "ssss==>", testMat[:, 1]
-    print "回归树:", corrcoef(yHat1, testMat[:, 1],rowvar=0)[0, 1]
+    print("回归树:", corrcoef(yHat1, testMat[:, 1],rowvar=0)[0, 1])
 
     # 模型树
     myTree2 = createTree(trainMat, modelLeaf, modelErr, ops=(1, 20))
     yHat2 = createForeCast(myTree2, testMat[:, 0], modelTreeEval)
-    print myTree2
-    print "模型树:", corrcoef(yHat2, testMat[:, 1],rowvar=0)[0, 1]
+    print(myTree2)
+    print("模型树:", corrcoef(yHat2, testMat[:, 1],rowvar=0)[0, 1])
 
     # 线性回归
     ws, X, Y = linearSolve(trainMat)
-    print ws
+    print(ws)
     m = len(testMat[:, 0])
     yHat3 = mat(zeros((m, 1)))
     for i in range(shape(testMat)[0]):
         yHat3[i] = testMat[i, 0]*ws[1, 0] + ws[0, 0]
-    print "线性回归:", corrcoef(yHat3, testMat[:, 1],rowvar=0)[0, 1]
+    print("线性回归:", corrcoef(yHat3, testMat[:, 1],rowvar=0)[0, 1])
