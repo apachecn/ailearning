@@ -3,8 +3,8 @@
 
 '''
 Created on Jun 1, 2011
-Update  on 2017-05-18
-@author: Peter Harrington/片刻
+Update  on 2017-12-19
+@author: Peter Harrington/片刻/卉心&布丁
 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
 from numpy import *
@@ -15,7 +15,8 @@ print(__doc__)
 def loadDataSet(fileName, delim='\t'):
     fr = open(fileName)
     stringArr = [line.strip().split(delim) for line in fr.readlines()]
-    datArr = [map(float, line) for line in stringArr]
+    datArr = [list(map(float,line)) for line in stringArr] 
+    #注意这里和python2的区别，需要在map函数外加一个list（），否则显示结果为 map at 0x3fed1d0
     return mat(datArr)
 
 
@@ -129,7 +130,9 @@ def analyse_data(dataMat):
 
         最后，我们可能会注意到有一些小的负值，他们主要源自数值误差应该四舍五入成0.
         '''
-        print '主成分：%s, 方差占比：%s%%, 累积方差占比：%s%%' % (format(i+1, '2.0f'), format(line_cov_score/cov_all_score*100, '4.2f'), format(sum_cov_score/cov_all_score*100, '4.1f'))
+    print ('主成分：%s, 方差占比：%s%%, 累积方差占比：%s%%' \
+           % (format(i+1, '2.0f'), format(line_cov_score/cov_all_score*100, '4.2f'),\
+              format(sum_cov_score/cov_all_score*100, '4.1f')))
 
 
 if __name__ == "__main__":
@@ -144,7 +147,7 @@ if __name__ == "__main__":
 
     # 利用PCA对半导体制造数据降维
     dataMat = replaceNanWithMean()
-    print shape(dataMat)
+    print (shape(dataMat) )
     # 分析数据
     analyse_data(dataMat)
     # lowDmat, reconMat = pca(dataMat, 20)
