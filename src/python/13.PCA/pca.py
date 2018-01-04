@@ -1,11 +1,11 @@
 #!/usr/bin/python
-# coding:utf8
+# coding: utf-8
 
 '''
 Created on Jun 1, 2011
 Update  on 2017-05-18
-@author: Peter Harrington/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+Author: Peter Harrington/片刻
+GitHub：https://github.com/apachecn/MachineLearning
 '''
 from numpy import *
 import matplotlib.pyplot as plt
