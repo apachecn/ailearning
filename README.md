@@ -139,7 +139,7 @@
     <td>第 10 章: K-Means 聚类</td>
     <td>聚类</td>
     <td>@徐昭清</td>
-    <td></td>
+    <td><a href="https://github.com/xuzhaoqing">xuzhaoqing</a></td>
     <td>827106588</td>
   </tr>
   <tr>
@@ -155,7 +155,7 @@
     <td>第 12 章: FP-growth 高效发现频繁项集</td>
     <td>频繁项集</td>
     <td>@程威</td>
-    <td></td>
+    <td><a href="https://github.com/mikechengwei">mikechengwei</a></td>
     <td>842725815</td>
   </tr>
   <tr>
