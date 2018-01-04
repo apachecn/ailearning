@@ -3,9 +3,9 @@
 
 '''
 Created on Oct 14, 2010
-Update on 2017-02-27
+Update on 2018-01-04
 Decision Tree Source Code for Machine Learning in Action Ch. 3
-@author: Peter Harrington/jiangzhonglian
+@author: Peter Harrington/jiangzhonglian/zh0ng
 '''
 import matplotlib.pyplot as plt
 
@@ -47,12 +47,13 @@ def getTreeDepth(myTree):
 
 
 def plotNode(nodeTxt, centerPt, parentPt, nodeType):
-    createPlot.ax1.annotate(nodeTxt, xy=parentPt,  xycoords='axes fraction', xytext=centerPt, textcoords='axes fraction', va="center", ha="center", bbox=nodeType, arrowprops=arrow_args)
+    createPlot.ax1.annotate(nodeTxt, xy=parentPt,  xycoords='axes fraction', xytext=centerPt,
+                            textcoords='axes fraction', va="center", ha="center", bbox=nodeType, arrowprops=arrow_args)
 
 
 def plotMidText(cntrPt, parentPt, txtString):
-    xMid = (parentPt[0]-cntrPt[0])/2.0 + cntrPt[0]
-    yMid = (parentPt[1]-cntrPt[1])/2.0 + cntrPt[1]
+    xMid = (parentPt[0] - cntrPt[0]) / 2.0 + cntrPt[0]
+    yMid = (parentPt[1] - cntrPt[1]) / 2.0 + cntrPt[1]
     createPlot.ax1.text(xMid, yMid, txtString, va="center", ha="center", rotation=30)
 
 
@@ -63,18 +64,19 @@ def plotTree(myTree, parentPt, nodeTxt):
     # depth = getTreeDepth(myTree)
 
     # 找出第1个中心点的位置，然后与 parentPt定点进行划线
-    cntrPt = (plotTree.xOff + (1.0 + float(numLeafs))/2.0/plotTree.totalW, plotTree.yOff)
+    # x坐标为 (numLeafs-1.)/plotTree.totalW/2+1./plotTree.totalW，化简如下
+    cntrPt = (plotTree.xOff + (1.0 + float(numLeafs)) / 2.0 / plotTree.totalW, plotTree.yOff)
     # print cntrPt
     # 并打印输入对应的文字
     plotMidText(cntrPt, parentPt, nodeTxt)
 
     firstStr = myTree.keys()[0]
-    # 可视化Node分支点
+    # 可视化Node分支点；第一次调用plotTree时，cntrPt与parentPt相同
     plotNode(firstStr, cntrPt, parentPt, decisionNode)
     # 根节点的值
     secondDict = myTree[firstStr]
-    # y值 = 最高点-层数的高度[第二个节点位置]
-    plotTree.yOff = plotTree.yOff - 1.0/plotTree.totalD
+    # y值 = 最高点-层数的高度[第二个节点位置]；1.0相当于树的高度
+    plotTree.yOff = plotTree.yOff - 1.0 / plotTree.totalD
     for key in secondDict.keys():
         # 判断该节点是否是Node节点
         if type(secondDict[key]) is dict:
@@ -82,12 +84,12 @@ def plotTree(myTree, parentPt, nodeTxt):
             plotTree(secondDict[key], cntrPt, str(key))
         else:
             # 如果不是，就在原来节点一半的地方找到节点的坐标
-            plotTree.xOff = plotTree.xOff + 1.0/plotTree.totalW
+            plotTree.xOff = plotTree.xOff + 1.0 / plotTree.totalW
             # 可视化该节点位置
             plotNode(secondDict[key], (plotTree.xOff, plotTree.yOff), cntrPt, leafNode)
             # 并打印输入对应的文字
             plotMidText((plotTree.xOff, plotTree.yOff), cntrPt, str(key))
-    plotTree.yOff = plotTree.yOff + 1.0/plotTree.totalD
+    plotTree.yOff = plotTree.yOff + 1.0 / plotTree.totalD
 
 
 def createPlot(inTree):
@@ -101,9 +103,13 @@ def createPlot(inTree):
 
     plotTree.totalW = float(getNumLeafs(inTree))
     plotTree.totalD = float(getTreeDepth(inTree))
-    # 半个节点的长度
-    plotTree.xOff = -0.5/plotTree.totalW
+    # 半个节点的长度；xOff表示当前plotTree未遍历到的最左的叶节点的左边一个叶节点的x坐标
+    # 所有叶节点中，最左的叶节点的x坐标是0.5/plotTree.totalW（因为totalW个叶节点在x轴方向是平均分布在[0, 1]区间上的）
+    # 因此，xOff的初始值应该是 0.5/plotTree.totalW-相邻两个叶节点的x轴方向距离
+    plotTree.xOff = -0.5 / plotTree.totalW
+    # 根节点的y坐标为1.0，树的最低点y坐标为0
     plotTree.yOff = 1.0
+    # 第二个参数是根节点的坐标
     plotTree(inTree, (0.5, 1.0), '')
     plt.show()
 
@@ -127,6 +133,6 @@ def retrieveTree(i):
     ]
     return listOfTrees[i]
 
-
+# 用测试数据绘制树
 # myTree = retrieveTree(1)
 # createPlot(myTree)
