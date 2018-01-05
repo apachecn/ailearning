@@ -33,7 +33,7 @@ class treeNode:
         """disp(用于将树以文本形式显示)
 
         """
-        print '  '*ind, self.name, ' ', self.count
+        print('  '*ind, self.name, ' ', self.count)
         for child in self.children.values():
             child.disp(ind+1)
 
@@ -129,7 +129,7 @@ def createTree(dataSet, minSup=1):
             # 例如： {'ababa': 3}  count(a)=3+3+3=9   count(b)=3+3=6
             headerTable[item] = headerTable.get(item, 0) + dataSet[trans]
     # 删除 headerTable中，元素次数<最小支持度的元素
-    for k in headerTable.keys():
+    for k in list(headerTable.keys()):
         if headerTable[k] < minSup:
             del(headerTable[k])
 
@@ -146,15 +146,15 @@ def createTree(dataSet, minSup=1):
     retTree = treeNode('Null Set', 1, None)
     # 循环 dist{行：出现次数}的样本数据
     for tranSet, count in dataSet.items():
-        # print 'tranSet, count=', tranSet, count
+        # print('tranSet, count=', tranSet, count)
         # localD = dist{元素key: 元素总出现次数}
         localD = {}
         for item in tranSet:
             # 判断是否在满足minSup的集合中
             if item in freqItemSet:
-                # print 'headerTable[item][0]=', headerTable[item][0], headerTable[item]
+                # print('headerTable[item][0]=', headerTable[item][0], headerTable[item])
                 localD[item] = headerTable[item][0]
-        # print 'localD=', localD
+        # print('localD=', localD)
         if len(localD) > 0:
             # p=key,value; 所以是通过value值的大小，进行从大到小进行排序
             # orderedItems 表示取出元组的key值，也就是字母本身，但是字母本身是大到小的顺序
@@ -201,7 +201,7 @@ def findPrefixPath(basePat, treeNode):
             condPats[frozenset(prefixPath[1:])] = treeNode.count
         # 递归，寻找改节点的下一个 相同值的链接节点
         treeNode = treeNode.nodeLink
-        # print treeNode
+        # print(treeNode)
     return condPats
 
 
@@ -218,30 +218,30 @@ def mineTree(inTree, headerTable, minSup, preFix, freqItemList):
     # 通过value进行从小到大的排序， 得到频繁项集的key
     # 最小支持项集的key的list集合
     bigL = [v[0] for v in sorted(headerTable.items(), key=lambda p: p[1])]
-    print '-----', sorted(headerTable.items(), key=lambda p: p[1])
-    print 'bigL=', bigL
+    print('-----', sorted(headerTable.items(), key=lambda p: p[1][0]))
+    print('bigL=', bigL)
     # 循环遍历 最频繁项集的key，从小到大的递归寻找对应的频繁项集
     for basePat in bigL:
         # preFix为newFreqSet上一次的存储记录，一旦没有myHead，就不会更新
         newFreqSet = preFix.copy()
         newFreqSet.add(basePat)
-        print 'newFreqSet=', newFreqSet, preFix
+        print('newFreqSet=', newFreqSet, preFix)
 
         freqItemList.append(newFreqSet)
-        print 'freqItemList=', freqItemList
+        print('freqItemList=', freqItemList)
         condPattBases = findPrefixPath(basePat, headerTable[basePat][1])
-        print 'condPattBases=', basePat, condPattBases
+        print('condPattBases=', basePat, condPattBases)
 
         # 构建FP-tree
         myCondTree, myHead = createTree(condPattBases, minSup)
-        print 'myHead=', myHead
+        print('myHead=', myHead)
         # 挖掘条件 FP-tree, 如果myHead不为空，表示满足minSup {所有的元素+(value, treeNode)}
         if myHead is not None:
             myCondTree.disp(1)
-            print '\n\n\n'
+            print('\n\n\n')
             # 递归 myHead 找出频繁项集
             mineTree(myCondTree, myHead, minSup, newFreqSet, freqItemList)
-        print '\n\n\n'
+        print('\n\n\n')
 
 
 # import twitter
@@ -262,7 +262,7 @@ def mineTree(inTree, headerTable, minSup, preFix, freqItemList):
 #     # you can get 1500 results 15 pages * 100 per page
 #     resultsPages = []
 #     for i in range(1, 15):
-#         print "fetching page %d" % i
+#         print("fetching page %d" % i)
 #         searchResults = api.GetSearch(searchStr, per_page=100, page=i)
 #         resultsPages.append(searchResults)
 #         sleep(6)
@@ -298,14 +298,14 @@ if __name__ == "__main__":
     # rootNode.children['eye'] = treeNode('eye', 13, None)
     # rootNode.children['phoenix'] = treeNode('phoenix', 3, None)
     # # 将树以文本形式显示
-    # # print rootNode.disp()
+    # # print(rootNode.disp())
 
     # load样本数据
     simpDat = loadSimpDat()
-    # print simpDat, '\n'
+    # print(simpDat, '\n')
     # frozen set 格式化 并 重新装载 样本数据，对所有的行进行统计求和，格式: {行：出现次数}
     initSet = createInitSet(simpDat)
-    print initSet
+    print(initSet)
 
     # 创建FP树
     # 输入：dist{行：出现次数}的样本数据  和  最小的支持度
@@ -315,23 +315,23 @@ if __name__ == "__main__":
 
     # 抽取条件模式基
     # 查询树节点的，频繁子项
-    print 'x --->', findPrefixPath('x', myHeaderTab['x'][1])
-    print 'z --->', findPrefixPath('z', myHeaderTab['z'][1])
-    print 'r --->', findPrefixPath('r', myHeaderTab['r'][1])
+    print('x --->', findPrefixPath('x', myHeaderTab['x'][1]))
+    print('z --->', findPrefixPath('z', myHeaderTab['z'][1]))
+    print('r --->', findPrefixPath('r', myHeaderTab['r'][1]))
 
     # 创建条件模式基
     freqItemList = []
     mineTree(myFPtree, myHeaderTab, 3, set([]), freqItemList)
-    print freqItemList
+    print(freqItemList)
 
     # # 项目实战
     # # 1.twitter项目案例
     # # 无法运行，因为没发链接twitter
     # lotsOtweets = getLotsOfTweets('RIMM')
     # listOfTerms = mineTweets(lotsOtweets, 20)
-    # print len(listOfTerms)
+    # print(len(listOfTerms))
     # for t in listOfTerms:
-    #     print t
+    #     print(t)
 
     # # 2.新闻网站点击流中挖掘，例如：文章1阅读过的人，还阅读过什么？
     # parsedDat = [line.split() for line in open('input/12.FPGrowth/kosarak.dat').readlines()]
