@@ -16,7 +16,7 @@ def loadDataSet(fileName):    # 通用函数，用来解析以 tab 键分隔的 
     fr = open(fileName)
     for line in fr.readlines():
         curLine = line.strip().split('\t')
-        fltLine = list(map(float,curLine))    # 映射所有的元素为 float（浮点数）类型
+        fltLine = map(float,curLine)    # 映射所有的元素为 float（浮点数）类型
         dataMat.append(fltLine)
     return dataMat
 
