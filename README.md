@@ -163,7 +163,7 @@
     <td>机器学习实战</td>
     <td>第 15 章: 大数据与 MapReduce</td>
     <td>工具</td>
-    <td><a href="">@范未太</a></td>
+    <td><a href="https://github.com/bigdataf">@范未太</a></td>
     <td>842376188</td>
   </tr>
 </table>
