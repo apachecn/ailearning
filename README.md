@@ -149,7 +149,7 @@
     <td>机器学习实战</td>
     <td>第 13 章: 利用 PCA 来简化数据</td>
     <td>工具</td>
-    <td><a href="">@廖立娟</a></td>
+    <td><a href="https://github.com/lljuan330">@廖立娟</a></td>
     <td>835670618</td>
   </tr>
   <tr>
