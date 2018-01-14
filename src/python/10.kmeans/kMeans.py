@@ -23,8 +23,9 @@ def loadDataSet(fileName):
         # 切割每一行的数据
         curLine = line.strip().split('\t')
         # 将数据转换为浮点类型,便于后面的计算
-        fltLine = [float(x) for x in curLine]
+        # fltLine = [float(x) for x in curLine]
         # 将数据追加到dataMat
+        fltLine = list(map(float,curLine))    # 映射所有的元素为 float（浮点数）类型
         dataMat.append(fltLine)
     # 返回dataMat
     return dataMat

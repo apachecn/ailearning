@@ -6,8 +6,7 @@ Created on Mar 24, 2011
 Update  on 2017-05-18
 Ch 11 code
 @author: Peter/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
-'''
+《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning'''
 print(__doc__)
 from numpy import *
 
@@ -52,7 +51,7 @@ def scanD(D, Ck, minSupport):
         supportData 候选项集支持度数据
     """
 
-    # ssCnt 临时存放选数据集 Ck 的频率. 例如: a->10, b->5, c->8
+    # ssCnt 临时存放选数据集 Ck 的频率. 例如: a->10, b->5, c->8    
     ssCnt = {}
     for tid in D:
         for can in Ck:
@@ -171,7 +170,7 @@ def calcConf(freqSet, H, supportData, brl, minConf=0.7):
         conf = supportData[freqSet]/supportData[freqSet-conseq] # 支持度定义: a -> b = support(a | b) / support(a). 假设  freqSet = frozenset([1, 3]), conseq = [frozenset([1])]，那么 frozenset([1]) 至 frozenset([3]) 的可信度为 = support(a | b) / support(a) = supportData[freqSet]/supportData[freqSet-conseq] = supportData[frozenset([1, 3])] / supportData[frozenset([1])]
         if conf >= minConf:
             # 只要买了 freqSet-conseq 集合，一定会买 conseq 集合（freqSet-conseq 集合和 conseq集合 是全集）
-            print freqSet-conseq, '-->', conseq, 'conf:', conf
+            print (freqSet-conseq, '-->', conseq, 'conf:', conf)
             brl.append((freqSet-conseq, conseq, conf))
             prunedH.append(conseq)
     return prunedH
@@ -201,8 +200,8 @@ def rulesFromConseq(freqSet, H, supportData, brl, minConf=0.7):
         Hmp1 = aprioriGen(H, m+1)
         # 返回可信度大于最小可信度的集合
         Hmp1 = calcConf(freqSet, Hmp1, supportData, brl, minConf)
-        print 'Hmp1=', Hmp1
-        print 'len(Hmp1)=', len(Hmp1), 'len(freqSet)=', len(freqSet)
+        print ('Hmp1=', Hmp1)
+        print ('len(Hmp1)=', len(Hmp1), 'len(freqSet)=', len(freqSet))
         # 计算可信度后，还有数据大于最小可信度的话，那么继续递归调用，否则跳出递归
         if (len(Hmp1) > 1):
             # print '----------------------', Hmp1
@@ -251,11 +250,11 @@ def getActionIds():
             for action in billDetail.actions:
                 if action.level == 'House' and (action.stage == 'Passage' or action.stage == 'Amendment Vote'):
                     actionId = int(action.actionId)
-                    print 'bill: %d has actionId: %d' % (billNum, actionId)
+                    print ('bill: %d has actionId: %d' % (billNum, actionId))
                     actionIdList.append(actionId)
                     billTitleList.append(line.strip().split('\t')[1])
         except:
-            print "problem getting bill %d" % billNum
+            print ("problem getting bill %d" % billNum)
         sleep(1)                                      # delay to be polite
     return actionIdList, billTitleList
 
@@ -269,7 +268,7 @@ def getTransList(actionIdList, billTitleList): #this will return a list of lists
     voteCount = 2
     for actionId in actionIdList:
         sleep(3)
-        print 'getting votes for actionId: %d' % actionId
+        print ('getting votes for actionId: %d' % actionId)
         try:
             voteList = votesmart.votes.getBillActionVotes(actionId)
             for vote in voteList:
@@ -284,7 +283,7 @@ def getTransList(actionIdList, billTitleList): #this will return a list of lists
                 elif vote.action == 'Yea':
                     transDict[vote.candidateName].append(voteCount + 1)
         except:
-            print "problem getting actionId: %d" % actionId
+            print ("problem getting actionId: %d" % actionId)
         voteCount += 2
     return transDict, itemMeaning
 
@@ -303,68 +302,68 @@ def getTransList(actionIdList, billTitleList): #this will return a list of lists
 def testApriori():
     # 加载测试数据集
     dataSet = loadDataSet()
-    print 'dataSet: ', dataSet
+    print ('dataSet: ', dataSet)
 
     # Apriori 算法生成频繁项集以及它们的支持度
     L1, supportData1 = apriori(dataSet, minSupport=0.7)
-    print 'L(0.7): ', L1
-    print 'supportData(0.7): ', supportData1
+    print ('L(0.7): ', L1)
+    print ('supportData(0.7): ', supportData1)
 
-    print '->->->->->->->->->->->->->->->->->->->->->->->->->->->->'
+    print ('->->->->->->->->->->->->->->->->->->->->->->->->->->->->')
 
     # Apriori 算法生成频繁项集以及它们的支持度
     L2, supportData2 = apriori(dataSet, minSupport=0.5)
-    print 'L(0.5): ', L2
-    print 'supportData(0.5): ', supportData2
+    print ('L(0.5): ', L2)
+    print ('supportData(0.5): ', supportData2)
 
 def testGenerateRules():
     # 加载测试数据集
     dataSet = loadDataSet()
-    print 'dataSet: ', dataSet
+    print ('dataSet: ', dataSet)
 
     # Apriori 算法生成频繁项集以及它们的支持度
     L1, supportData1 = apriori(dataSet, minSupport=0.5)
-    print 'L(0.7): ', L1
-    print 'supportData(0.7): ', supportData1
+    print ('L(0.7): ', L1)
+    print ('supportData(0.7): ', supportData1)
 
     # 生成关联规则
     rules = generateRules(L1, supportData1, minConf=0.5)
-    print 'rules: ', rules
+    print ('rules: ', rules)
 
 def main():
     # 测试 Apriori 算法
-    testApriori()
+    # testApriori()
 
     # 生成关联规则
     # testGenerateRules()
 
-    # # 项目案例
+    ##项目案例
     # # 构建美国国会投票记录的事务数据集
     # actionIdList, billTitleList = getActionIds()
     # # 测试前2个
-    # # transDict, itemMeaning = getTransList(actionIdList[: 2], billTitleList[: 2])
-    # # transDict 表示 action_id的集合，transDict[key]这个就是action_id对应的选项，例如 [1, 2, 3]
+    # transDict, itemMeaning = getTransList(actionIdList[: 2], billTitleList[: 2])
+    #transDict 表示 action_id的集合，transDict[key]这个就是action_id对应的选项，例如 [1, 2, 3]
     # transDict, itemMeaning = getTransList(actionIdList, billTitleList)
     # # 得到全集的数据
     # dataSet = [transDict[key] for key in transDict.keys()]
     # L, supportData = apriori(dataSet, minSupport=0.3)
     # rules = generateRules(L, supportData, minConf=0.95)
-    # print rules
+    # print (rules)
 
     # # 项目案例
     # # 发现毒蘑菇的相似特性
     # # 得到全集的数据
-    # dataSet = [line.split() for line in open("input/11.Apriori/mushroom.dat").readlines()]
-    # L, supportData = apriori(dataSet, minSupport=0.3)
+     dataSet = [line.split() for line in open("input/11.Apriori/mushroom.dat").readlines()]
+     L, supportData = apriori(dataSet, minSupport=0.3)
     # # 2表示毒蘑菇，1表示可食用的蘑菇
     # # 找出关于2的频繁子项出来，就知道如果是毒蘑菇，那么出现频繁的也可能是毒蘑菇
-    # for item in L[1]:
-    #     if item.intersection('2'):
-    #         print item
-
-    # for item in L[2]:
-    #     if item.intersection('2'):
-    #         print item
+     for item in L[1]:
+         if item.intersection('2'):
+             print (item)
+    
+     for item in L[2]:
+         if item.intersection('2'):
+             print (item)
 
 if __name__ == "__main__":
     main()
