@@ -105,7 +105,7 @@ def gini_index(groups, class_values):    # 个人理解：计算代价，分类�
             if size == 0:
                 continue
             proportion = [row[-1] for row in group].count(class_value) / float(size)
-            gini += size/D * (proportion * (1.0 - proportion))    # 个人理解：计算代价，分类越准确，则 gini 越小
+            gini += float(size)/D * (proportion * (1.0 - proportion))    # 个人理解：计算代价，分类越准确，则 gini 越小
     return gini
 
 
