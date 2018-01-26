@@ -129,7 +129,7 @@ def createTree(dataSet, minSup=1):
             # 例如： {'ababa': 3}  count(a)=3+3+3=9   count(b)=3+3=6
             headerTable[item] = headerTable.get(item, 0) + dataSet[trans]
     # 删除 headerTable中，元素次数<最小支持度的元素
-    for k in list(headerTable.keys()):
+    for k in list(headerTable.keys()): #python3中.keys()返回的是迭代器不是list,不能在遍历时对其改变。
         if headerTable[k] < minSup:
             del(headerTable[k])
 
