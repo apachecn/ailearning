@@ -146,15 +146,15 @@ def createTree(dataSet, minSup=1):
     retTree = treeNode('Null Set', 1, None)
     # 循环 dist{行：出现次数}的样本数据
     for tranSet, count in dataSet.items():
-        # print 'tranSet, count=', tranSet, count
+        # print('tranSet, count=', tranSet, count)
         # localD = dist{元素key: 元素总出现次数}
         localD = {}
         for item in tranSet:
             # 判断是否在满足minSup的集合中
             if item in freqItemSet:
-                # print 'headerTable[item][0]=', headerTable[item][0], headerTable[item]
+                # print('headerTable[item][0]=', headerTable[item][0], headerTable[item])
                 localD[item] = headerTable[item][0]
-        # print 'localD=', localD
+        # print('localD=', localD)
         if len(localD) > 0:
             # p=key,value; 所以是通过value值的大小，进行从大到小进行排序
             # orderedItems 表示取出元组的key值，也就是字母本身，但是字母本身是大到小的顺序
@@ -201,7 +201,7 @@ def findPrefixPath(basePat, treeNode):
             condPats[frozenset(prefixPath[1:])] = treeNode.count
         # 递归，寻找改节点的下一个 相同值的链接节点
         treeNode = treeNode.nodeLink
-        # print treeNode
+        # print(treeNode)
     return condPats
 
 
@@ -217,11 +217,8 @@ def mineTree(inTree, headerTable, minSup, preFix, freqItemList):
     """
     # 通过value进行从小到大的排序， 得到频繁项集的key
     # 最小支持项集的key的list集合
-    headerDic = {}
-    for key in headerTable.keys():
-        headerDic[key]=headerTable[key][0]
-    bigL = [v[0] for v in sorted(headerDic.items(), key=lambda p: p[1])]
-    print('-----', sorted(headerTable.items(), key=lambda p: p[1]))
+    bigL = [v[0] for v in sorted(headerTable.items(), key=lambda p: p[1])]
+    print('-----', sorted(headerTable.items(), key=lambda p: p[1][0]))
     print('bigL=', bigL)
     # 循环遍历 最频繁项集的key，从小到大的递归寻找对应的频繁项集
     for basePat in bigL:
@@ -265,7 +262,7 @@ def mineTree(inTree, headerTable, minSup, preFix, freqItemList):
 #     # you can get 1500 results 15 pages * 100 per page
 #     resultsPages = []
 #     for i in range(1, 15):
-#         print "fetching page %d" % i
+#         print("fetching page %d" % i)
 #         searchResults = api.GetSearch(searchStr, per_page=100, page=i)
 #         resultsPages.append(searchResults)
 #         sleep(6)
@@ -301,11 +298,11 @@ if __name__ == "__main__":
     # rootNode.children['eye'] = treeNode('eye', 13, None)
     # rootNode.children['phoenix'] = treeNode('phoenix', 3, None)
     # # 将树以文本形式显示
-    # # print rootNode.disp()
+    # # print(rootNode.disp())
 
     # load样本数据
     simpDat = loadSimpDat()
-    # print simpDat, '\n'
+    # print(simpDat, '\n')
     # frozen set 格式化 并 重新装载 样本数据，对所有的行进行统计求和，格式: {行：出现次数}
     initSet = createInitSet(simpDat)
     print(initSet)
@@ -332,9 +329,9 @@ if __name__ == "__main__":
     # # 无法运行，因为没发链接twitter
     # lotsOtweets = getLotsOfTweets('RIMM')
     # listOfTerms = mineTweets(lotsOtweets, 20)
-    # print len(listOfTerms)
+    # print(len(listOfTerms))
     # for t in listOfTerms:
-    #     print t
+    #     print(t)
 
     # # 2.新闻网站点击流中挖掘，例如：文章1阅读过的人，还阅读过什么？
     # parsedDat = [line.split() for line in open('input/12.FPGrowth/kosarak.dat').readlines()]
