@@ -67,7 +67,7 @@ def buildStump(dataArr, labelArr, D):
     Args:
         dataArr   特征标签集合
         labelArr  分类标签集合
-        D         最初的特征权重值
+        D         最初的样本权重值
     Returns:
         bestStump    最优的分类器模型
         minError     错误率
@@ -141,7 +141,7 @@ def adaBoostTrainDS(dataArr, labelArr, numIt=40):
     """
     weakClassArr = []
     m = shape(dataArr)[0]
-    # 初始化 D，设置每个特征的权重值，平均分为m份
+    # 初始化 D，设置每行数据的样本权重值，平均分为m份
     D = mat(ones((m, 1))/m)
     aggClassEst = mat(zeros((m, 1)))
     for i in range(numIt):
