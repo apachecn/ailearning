@@ -4,8 +4,8 @@
 Created on Feb 4, 2011
 Update on 2017-12-20
 Tree-Based Regression Methods Source Code for Machine Learning in Action Ch. 9
-@author: Peter Harrington/片刻/小瑶/zh0ng
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+Author: Peter Harrington/片刻/小瑶/zh0ng
+GitHub: https://github.com/apachecn/MachineLearning
 '''
 print(__doc__)
 from numpy import *
@@ -155,6 +155,9 @@ def createTree(dataSet, leafType=regLeaf, errType=regErr, ops=(1, 4)):
     feat, val = chooseBestSplit(dataSet, leafType, errType, ops)
     # if the splitting hit a stop condition return val
     # 如果 splitting 达到一个停止条件，那么返回 val
+    '''
+    *** 最后的返回结果是最后剩下的 val，也就是len小于topN的集合
+    '''
     if feat is None:
         return val
     retTree = {}

@@ -4,8 +4,8 @@
 Created on Oct 27, 2010
 Update  on 2017-05-18
 Logistic Regression Working Module
-@author: Peter Harrington/羊三/小瑶
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+Author: Peter Harrington/羊三/小瑶
+GitHub: https://github.com/apachecn/MachineLearning
 '''
 from numpy import *
 import matplotlib.pyplot as plt
