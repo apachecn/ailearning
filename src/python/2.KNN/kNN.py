@@ -206,7 +206,7 @@ def autoNorm(dataSet):
     normDataSet = dataSet - tile(minVals, (m, 1))
     # 将最小值之差除以范围组成矩阵
     normDataSet = normDataSet / tile(ranges, (m, 1))  # element wise divide
-    # -------第二种实现方式---end---------------------------------------------
+    # -------第一种实现方式---end---------------------------------------------
     
     # # -------第二种实现方式---start---------------------------------------
     # norm_dataset = (dataset - minvalue) / ranges
