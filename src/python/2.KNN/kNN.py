@@ -78,7 +78,7 @@ def classify0(inX, dataSet, labels, k):
     distances = sqDistances ** 0.5
     # 根据距离排序从小到大的排序，返回对应的索引位置
     # argsort() 是将x中的元素从小到大排列，提取其对应的index（索引），然后输出到y。
-    # 例如：y=array([3,0,2,1,4,5]) 则，x[3]=-1最小，所以y[0]=3,x[5]=9最大，所以y[5]=5。
+    # 例如：y=array([3,0,2,1,4,5]) 则，x[3]=-1最小，所以y[0]=3;x[5]=9最大，所以y[5]=5。
     # print 'distances=', distances
     sortedDistIndicies = distances.argsort()
     # print 'distances.argsort()=', sortedDistIndicies
