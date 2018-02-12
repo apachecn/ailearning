@@ -1,33 +1,31 @@
 #!/usr/bin/python
 # coding:utf8
-
 '''
 Created on Jan 8, 2011
 Update  on 2017-05-18
-@author: Peter Harrington/小瑶
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+Author: Peter Harrington/小瑶
+GitHub: https://github.com/apachecn/MachineLearning
 '''
-
 
 from numpy import *
 import matplotlib.pylab as plt
 
-def loadDataSet(fileName):                 
+
+def loadDataSet(fileName):
     """ 加载数据
         解析以tab键分隔的文件中的浮点数
     Returns：
         dataMat ：  feature 对应的数据集
         labelMat ： feature 对应的分类标签，即类别标签
-
     """
     # 获取样本特征的总数，不算最后的目标变量 
-    numFeat = len(open(fileName).readline().split('\t')) - 1 
+    numFeat = len(open(fileName).readline().split('\t')) - 1
     dataMat = []
     labelMat = []
     fr = open(fileName)
     for line in fr.readlines():
         # 读取每一行
-        lineArr =[]
+        lineArr = []
         # 删除一行中以tab分隔的数据前后的空白符号
         curLine = line.strip().split('\t')
         # i 从0到2，不包括2 
@@ -38,9 +36,10 @@ def loadDataSet(fileName):
         dataMat.append(lineArr)
         # 将每一行的最后一个数据，即类别，或者叫目标变量存储到labelMat List中
         labelMat.append(float(curLine[-1]))
-    return dataMat,labelMat
+    return dataMat, labelMat
 
-def standRegres(xArr,yArr):
+
+def standRegres(xArr, yArr):
     '''
     Description：
         线性回归
@@ -55,20 +54,21 @@ def standRegres(xArr,yArr):
     xMat = mat(xArr)
     yMat = mat(yArr).T
     # 矩阵乘法的条件是左矩阵的列数等于右矩阵的行数
-    xTx = xMat.T*xMat
+    xTx = xMat.T * xMat
     # 因为要用到xTx的逆矩阵，所以事先需要确定计算得到的xTx是否可逆，条件是矩阵的行列式不为0
     # linalg.det() 函数是用来求得矩阵的行列式的，如果矩阵的行列式为0，则这个矩阵是不可逆的，就无法进行接下来的运算                   
     if linalg.det(xTx) == 0.0:
-        print("This matrix is singular, cannot do inverse" )
+        print("This matrix is singular, cannot do inverse")
         return
     # 最小二乘法
     # http://www.apache.wiki/pages/viewpage.action?pageId=5505133
     # 书中的公式，求得w的最优解
-    ws = xTx.I * (xMat.T*yMat)            
+    ws = xTx.I * (xMat.T * yMat)
     return ws
-    
+
+
     # 局部加权线性回归
-def lwlr(testPoint,xArr,yArr,k=1.0):
+def lwlr(testPoint, xArr, yArr, k=1.0):
     '''
         Description：
             局部加权线性回归，在待预测点附近的每个点赋予一定的权重，在子集上基于最小均方差来进行普通的回归。
@@ -96,19 +96,20 @@ def lwlr(testPoint,xArr,yArr,k=1.0):
     for j in range(m):
         # testPoint 的形式是 一个行向量的形式
         # 计算 testPoint 与输入样本点之间的距离，然后下面计算出每个样本贡献误差的权值
-        diffMat = testPoint - xMat[j,:]
+        diffMat = testPoint - xMat[j, :]
         # k控制衰减的速度
-        weights[j,j] = exp(diffMat*diffMat.T/(-2.0*k**2))
+        weights[j, j] = exp(diffMat * diffMat.T / (-2.0 * k**2))
     # 根据矩阵乘法计算 xTx ，其中的 weights 矩阵是样本点对应的权重矩阵
     xTx = xMat.T * (weights * xMat)
     if linalg.det(xTx) == 0.0:
-        print ("This matrix is singular, cannot do inverse")
+        print("This matrix is singular, cannot do inverse")
         return
     # 计算出回归系数的一个估计
     ws = xTx.I * (xMat.T * (weights * yMat))
     return testPoint * ws
 
-def lwlrTest(testArr,xArr,yArr,k=1.0):
+
+def lwlrTest(testArr, xArr, yArr, k=1.0):
     '''
         Description：
             测试局部加权线性回归，对数据集中每个点调用 lwlr() 函数
@@ -126,11 +127,12 @@ def lwlrTest(testArr,xArr,yArr,k=1.0):
     yHat = zeros(m)
     # 循环所有的数据点，并将lwlr运用于所有的数据点 
     for i in range(m):
-        yHat[i] = lwlr(testArr[i],xArr,yArr,k)
+        yHat[i] = lwlr(testArr[i], xArr, yArr, k)
     # 返回估计值
     return yHat
 
-def lwlrTestPlot(xArr,yArr,k=1.0):  
+
+def lwlrTestPlot(xArr, yArr, k=1.0):
     '''
         Description:
             首先将 X 排序，其余的都与lwlrTest相同，这样更容易绘图
@@ -150,10 +152,11 @@ def lwlrTestPlot(xArr,yArr,k=1.0):
     xCopy.sort(0)
     # 开始循环，为每个样本点进行局部加权线性回归，得到最终的目标变量估计值
     for i in range(shape(xArr)[0]):
-        yHat[i] = lwlr(xCopy[i],xArr,yArr,k)
-    return yHat,xCopy
+        yHat[i] = lwlr(xCopy[i], xArr, yArr, k)
+    return yHat, xCopy
 
-def rssError(yArr,yHatArr):
+
+def rssError(yArr, yHatArr):
     '''
         Desc:
             计算分析预测误差的大小
@@ -163,13 +166,14 @@ def rssError(yArr,yHatArr):
         Returns:
             计算真实值和估计值得到的值的平方和作为最后的返回值
     '''
-    return ((yArr-yHatArr)**2).sum()
+    return ((yArr - yHatArr)**2).sum()
 
-def ridgeRegres(xMat,yMat,lam=0.2):
+
+def ridgeRegres(xMat, yMat, lam=0.2):
     '''
         Desc：
             这个函数实现了给定 lambda 下的岭回归求解。
-            如果数据的特征比样本点还多，就不能再使用上面介绍的的线性回归和局部现行回归了，因为计算 (xTx)^(-1)会出现错误。
+            如果数据的特征比样本点还多，就不能再使用上面介绍的的线性回归和局部线性回归了，因为计算 (xTx)^(-1)会出现错误。
             如果特征比样本点还多（n > m），也就是说，输入数据的矩阵x不是满秩矩阵。非满秩矩阵在求逆时会出现问题。
             为了解决这个问题，我们下边讲一下：岭回归，这是我们要讲的第一种缩减方法。
         Args：
@@ -180,17 +184,18 @@ def ridgeRegres(xMat,yMat,lam=0.2):
             经过岭回归公式计算得到的回归系数
     '''
 
-    xTx = xMat.T*xMat
+    xTx = xMat.T * xMat
     # 岭回归就是在矩阵 xTx 上加一个 λI 从而使得矩阵非奇异，进而能对 xTx + λI 求逆
-    denom = xTx + eye(shape(xMat)[1])*lam
+    denom = xTx + eye(shape(xMat)[1]) * lam
     # 检查行列式是否为零，即矩阵是否可逆，行列式为0的话就不可逆，不为0的话就是可逆。
     if linalg.det(denom) == 0.0:
-        print ("This matrix is singular, cannot do inverse")
+        print("This matrix is singular, cannot do inverse")
         return
-    ws = denom.I * (xMat.T*yMat)
+    ws = denom.I * (xMat.T * yMat)
     return ws
 
-def ridgeTest(xArr,yArr):
+
+def ridgeTest(xArr, yArr):
     '''
         Desc：
             函数 ridgeTest() 用于在一组 λ 上测试结果
@@ -202,52 +207,56 @@ def ridgeTest(xArr,yArr):
     '''
 
     xMat = mat(xArr)
-    yMat=mat(yArr).T
+    yMat = mat(yArr).T
     # 计算Y的均值
-    yMean = mean(yMat,0)
+    yMean = mean(yMat, 0)
     # Y的所有的特征减去均值
     yMat = yMat - yMean
     # 标准化 x，计算 xMat 平均值
-    xMeans = mean(xMat,0)
+    xMeans = mean(xMat, 0)
     # 然后计算 X的方差
-    xVar = var(xMat,0)
+    xVar = var(xMat, 0)
     # 所有特征都减去各自的均值并除以方差
-    xMat = (xMat - xMeans)/xVar
+    xMat = (xMat - xMeans) / xVar
     # 可以在 30 个不同的 lambda 下调用 ridgeRegres() 函数。
     numTestPts = 30
     # 创建30 * m 的全部数据为0 的矩阵
-    wMat = zeros((numTestPts,shape(xMat)[1]))
+    wMat = zeros((numTestPts, shape(xMat)[1]))
     for i in range(numTestPts):
         # exp() 返回 e^x 
-        ws = ridgeRegres(xMat,yMat,exp(i-10))
-        wMat[i,:]=ws.T
+        ws = ridgeRegres(xMat, yMat, exp(i - 10))
+        wMat[i, :] = ws.T
     return wMat
 
 
-def regularize(xMat):# 按列进行规范化
+def regularize(xMat):  # 按列进行规范化
     inMat = xMat.copy()
-    inMeans = mean(inMat,0)   # 计算平均值然后减去它
-    inVar = var(inMat,0)      # 计算除以Xi的方差
-    inMat = (inMat - inMeans)/inVar
+    inMeans = mean(inMat, 0)  # 计算平均值然后减去它
+    inVar = var(inMat, 0)  # 计算除以Xi的方差
+    inMat = (inMat - inMeans) / inVar
     return inMat
 
-def stageWise(xArr,yArr,eps=0.01,numIt=100):
-    xMat = mat(xArr); yMat=mat(yArr).T
-    yMean = mean(yMat,0)
-    yMat = yMat - yMean     # 也可以规则化ys但会得到更小的coef
+
+def stageWise(xArr, yArr, eps=0.01, numIt=100):
+    xMat = mat(xArr)
+    yMat = mat(yArr).T
+    yMean = mean(yMat, 0)
+    yMat = yMat - yMean  # 也可以规则化ys但会得到更小的coef
     xMat = regularize(xMat)
-    m,n=shape(xMat)
+    m, n = shape(xMat)
     #returnMat = zeros((numIt,n)) # 测试代码删除
-    ws = zeros((n,1)); wsTest = ws.copy(); wsMax = ws.copy()
+    ws = zeros((n, 1))
+    wsTest = ws.copy()
+    wsMax = ws.copy()
     for i in range(numIt):
-        print (ws.T)
-        lowestError = inf; 
+        print(ws.T)
+        lowestError = inf
         for j in range(n):
-            for sign in [-1,1]:
+            for sign in [-1, 1]:
                 wsTest = ws.copy()
-                wsTest[j] += eps*sign
-                yTest = xMat*wsTest
-                rssE = rssError(yMat.A,yTest.A)
+                wsTest[j] += eps * sign
+                yTest = xMat * wsTest
+                rssE = rssError(yMat.A, yTest.A)
                 if rssE < lowestError:
                     lowestError = rssE
                     wsMax = wsTest
@@ -255,39 +264,40 @@ def stageWise(xArr,yArr,eps=0.01,numIt=100):
         #returnMat[i,:]=ws.T
     #return returnMat
 
-#def scrapePage(inFile,outFile,yr,numPce,origPrc):
-#    from BeautifulSoup import BeautifulSoup
-#    fr = open(inFile); fw=open(outFile,'a') #a is append mode writing
-#    soup = BeautifulSoup(fr.read())
-#    i=1
-#    currentRow = soup.findAll('table', r="%d" % i)
-#    while(len(currentRow)!=0):
-#        title = currentRow[0].findAll('a')[1].text
-#        lwrTitle = title.lower()
-#        if (lwrTitle.find('new') > -1) or (lwrTitle.find('nisb') > -1):
-#            newFlag = 1.0
-#        else:
-#            newFlag = 0.0
-#        soldUnicde = currentRow[0].findAll('td')[3].findAll('span')
-#        if len(soldUnicde)==0:
-#            print "item #%d did not sell" % i
-#        else:
-#            soldPrice = currentRow[0].findAll('td')[4]
-#            priceStr = soldPrice.text
-#            priceStr = priceStr.replace('$','') #strips out $
-#            priceStr = priceStr.replace(',','') #strips out ,
-#            if len(soldPrice)>1:
-#                priceStr = priceStr.replace('Free shipping', '') #strips out Free Shipping
-#            print "%s\t%d\t%s" % (priceStr,newFlag,title)
-#            fw.write("%d\t%d\t%d\t%f\t%s\n" % (yr,numPce,newFlag,origPrc,priceStr))
-#        i += 1
-#        currentRow = soup.findAll('table', r="%d" % i)
-#    fw.close()
- 
-  
-#--------------------------------------------------------------
-# 预测乐高玩具套装的价格 ------ 最初的版本，因为现在 google 的 api 变化，无法获取数据
-# 故改为了下边的样子，但是需要安装一个 beautifulSoup 这个第三方爬虫库，安装很简单，见下边
+    #def scrapePage(inFile,outFile,yr,numPce,origPrc):
+    #    from BeautifulSoup import BeautifulSoup
+    #    fr = open(inFile); fw=open(outFile,'a') #a is append mode writing
+    #    soup = BeautifulSoup(fr.read())
+    #    i=1
+    #    currentRow = soup.findAll('table', r="%d" % i)
+    #    while(len(currentRow)!=0):
+    #        title = currentRow[0].findAll('a')[1].text
+    #        lwrTitle = title.lower()
+    #        if (lwrTitle.find('new') > -1) or (lwrTitle.find('nisb') > -1):
+    #            newFlag = 1.0
+    #        else:
+    #            newFlag = 0.0
+    #        soldUnicde = currentRow[0].findAll('td')[3].findAll('span')
+    #        if len(soldUnicde)==0:
+    #            print "item #%d did not sell" % i
+    #        else:
+    #            soldPrice = currentRow[0].findAll('td')[4]
+    #            priceStr = soldPrice.text
+    #            priceStr = priceStr.replace('$','') #strips out $
+    #            priceStr = priceStr.replace(',','') #strips out ,
+    #            if len(soldPrice)>1:
+    #                priceStr = priceStr.replace('Free shipping', '') #strips out Free Shipping
+    #            print "%s\t%d\t%s" % (priceStr,newFlag,title)
+    #            fw.write("%d\t%d\t%d\t%f\t%s\n" % (yr,numPce,newFlag,origPrc,priceStr))
+    #        i += 1
+    #        currentRow = soup.findAll('table', r="%d" % i)
+    #    fw.close()
+
+    #--------------------------------------------------------------
+    # 预测乐高玩具套装的价格 ------ 最初的版本，因为现在 google 的 api 变化，无法获取数据
+    # 故改为了下边的样子，但是需要安装一个 beautifulSoup 这个第三方爬虫库，安装很简单，见下边
+
+
 '''  
 from time import sleep
 import json
@@ -358,8 +368,6 @@ gt56                trainY.append(yArr[indexList[j]])
     print ("the best model from Ridge Regression is:\n",unReg)
     print ("with constant term: ",-1*sum(multiply(meanX,unReg)) + mean(yMat))
 '''
-
-
 
 # ----------------------------------------------------------------------------
 # 预测乐高玩具套装的价格 可运行版本，我们把乐高数据存储到了我们的 input 文件夹下，使用 beautifulSoup 爬去一下内容
@@ -485,22 +493,23 @@ def crossValidation(xArr,yArr,numVal=10):
 '''
 
 
-    #test for standRegression
+#test for standRegression
 def regression1():
     xArr, yArr = loadDataSet("input/8.Regression/data.txt")
     xMat = mat(xArr)
     yMat = mat(yArr)
     ws = standRegres(xArr, yArr)
     fig = plt.figure()
-    ax = fig.add_subplot(111)               # add_subplot(349)函数的参数的意思是，将画布分成3行4列图像画在从左到右从上到下第9块
-    ax.scatter([xMat[:, 1].flatten()], [yMat.T[:, 0].flatten().A[0]]) # scatter 的x是xMat中的第二列，y是yMat的第一列
+    ax = fig.add_subplot(
+        111)  # add_subplot(349)函数的参数的意思是，将画布分成3行4列图像画在从左到右从上到下第9块
+    ax.scatter(
+        [xMat[:, 1].flatten()],
+        [yMat.T[:, 0].flatten().A[0]])  # scatter 的x是xMat中的第二列，y是yMat的第一列
     xCopy = xMat.copy()
     xCopy.sort(0)
     yHat = xCopy * ws
     ax.plot(xCopy[:, 1], yHat)
     plt.show()
-    
-
 
 
     #test for LWLR
@@ -508,12 +517,16 @@ def regression2():
     xArr, yArr = loadDataSet("input/8.Regression/data.txt")
     yHat = lwlrTest(xArr, xArr, yArr, 0.003)
     xMat = mat(xArr)
-    srtInd = xMat[:,1].argsort(0)           #argsort()函数是将x中的元素从小到大排列，提取其对应的index(索引)，然后输出
-    xSort=xMat[srtInd][:,0,:]
+    srtInd = xMat[:, 1].argsort(
+        0)  #argsort()函数是将x中的元素从小到大排列，提取其对应的index(索引)，然后输出
+    xSort = xMat[srtInd][:, 0, :]
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    ax.plot(xSort[:,1], yHat[srtInd])
-    ax.scatter([xMat[:,1].flatten().A[0]], [mat(yArr).T.flatten().A[0]] , s=2, c='red')
+    ax.plot(xSort[:, 1], yHat[srtInd])
+    ax.scatter(
+        [xMat[:, 1].flatten().A[0]], [mat(yArr).T.flatten().A[0]],
+        s=2,
+        c='red')
     plt.show()
 
 
@@ -532,19 +545,19 @@ def abaloneTest():
     # 使用不同的核进行预测
     oldyHat01 = lwlrTest(abX[0:99], abX[0:99], abY[0:99], 0.1)
     oldyHat1 = lwlrTest(abX[0:99], abX[0:99], abY[0:99], 1)
-    oldyHat10 = lwlrTest(abX[0:99], abX[0:99], abY[0:99], 10)   
+    oldyHat10 = lwlrTest(abX[0:99], abX[0:99], abY[0:99], 10)
     # 打印出不同的核预测值与训练数据集上的真实值之间的误差大小
-    print("old yHat01 error Size is :" , rssError(abY[0:99], oldyHat01.T))
-    print("old yHat1 error Size is :" , rssError(abY[0:99], oldyHat1.T))
-    print("old yHat10 error Size is :" , rssError(abY[0:99], oldyHat10.T))
+    print("old yHat01 error Size is :", rssError(abY[0:99], oldyHat01.T))
+    print("old yHat1 error Size is :", rssError(abY[0:99], oldyHat1.T))
+    print("old yHat10 error Size is :", rssError(abY[0:99], oldyHat10.T))
 
     # 打印出 不同的核预测值 与 新数据集（测试数据集）上的真实值之间的误差大小
     newyHat01 = lwlrTest(abX[100:199], abX[0:99], abY[0:99], 0.1)
-    print("new yHat01 error Size is :" , rssError(abY[0:99], newyHat01.T))
+    print("new yHat01 error Size is :", rssError(abY[0:99], newyHat01.T))
     newyHat1 = lwlrTest(abX[100:199], abX[0:99], abY[0:99], 1)
-    print("new yHat1 error Size is :" , rssError(abY[0:99], newyHat1.T))
+    print("new yHat1 error Size is :", rssError(abY[0:99], newyHat1.T))
     newyHat10 = lwlrTest(abX[100:199], abX[0:99], abY[0:99], 10)
-    print("new yHat10 error Size is :" , rssError(abY[0:99], newyHat10.T))
+    print("new yHat10 error Size is :", rssError(abY[0:99], newyHat10.T))
 
     # 使用简单的 线性回归 进行预测，与上面的计算进行比较
     standWs = standRegres(abX[0:99], abY[0:99])
@@ -554,7 +567,7 @@ def abaloneTest():
 
 #test for ridgeRegression
 def regression3():
-    abX,abY = loadDataSet("input/8.Regression/abalone.txt")
+    abX, abY = loadDataSet("input/8.Regression/abalone.txt")
     ridgeWeights = ridgeTest(abX, abY)
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -564,25 +577,25 @@ def regression3():
 
 #test for stageWise
 def regression4():
-    xArr,yArr=loadDataSet("input/8.Regression/abalone.txt")
-    stageWise(xArr,yArr,0.01,200)
+    xArr, yArr = loadDataSet("input/8.Regression/abalone.txt")
+    stageWise(xArr, yArr, 0.01, 200)
     xMat = mat(xArr)
     yMat = mat(yArr).T
     xMat = regularize(xMat)
-    yM = mean(yMat,0)
+    yM = mean(yMat, 0)
     yMat = yMat - yM
     weights = standRegres(xMat, yMat.T)
-    print (weights.T)
+    print(weights.T)
 
 
 # predict for lego's price
 def regression5():
-   lgX = []
-   lgY = []
+    lgX = []
+    lgY = []
 
-   setDataCollect(lgX, lgY)
-   crossValidation(lgX, lgY, 10)
-    
+    setDataCollect(lgX, lgY)
+    crossValidation(lgX, lgY, 10)
+
 
 if __name__ == "__main__":
     regression1()

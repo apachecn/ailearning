@@ -1,19 +1,18 @@
 #!/usr/bin/python
 # coding: utf8
-
 '''
 Created on Oct 27, 2010
 Update  on 2017-05-18
 Logistic Regression Working Module
-@author: Peter Harrington/羊三/小瑶
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+Author: Peter Harrington/羊三/小瑶
+GitHub: https://github.com/apachecn/MachineLearning
 '''
 from numpy import *
 import matplotlib.pyplot as plt
 
-
 # ---------------------------------------------------------------------------
 # 使用 Logistic 回归在简单数据集上的分类
+
 
 # 解析数据
 def loadDataSet(file_name):
@@ -27,18 +26,23 @@ def loadDataSet(file_name):
         labelMat -- 原始数据的标签，也就是每条样本对应的类别
     '''
     # dataMat为原始数据， labelMat为原始数据的标签
-    dataMat = []; labelMat = []
+    dataMat = []
+    labelMat = []
     fr = open(file_name)
     for line in fr.readlines():
         lineArr = line.strip().split()
         # 为了方便计算，我们将 X0 的值设为 1.0 ，也就是在每一行的开头添加一个 1.0 作为 X0
         dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])
         labelMat.append(int(lineArr[2]))
-    return dataMat,labelMat
+    return dataMat, labelMat
+
 
 # sigmoid跳跃函数
 def sigmoid(inX):
-    return 1.0/(1+exp(-inX))
+    # return 1.0 / (1 + exp(-inX))
+
+    # Tanh是Sigmoid的变形，与 sigmoid 不同的是，tanh 是0均值的。因此，实际应用中，tanh 会比 sigmoid 更好。
+    return 2 * 1.0/(1+exp(-2*inX)) - 1
 
 
 # 正常的处理方案
@@ -56,13 +60,13 @@ def gradAscent(dataMatIn, classLabels):
     '''
 
     # 转化为矩阵[[1,1,2],[1,1,2]....]
-    dataMatrix = mat(dataMatIn)             # 转换为 NumPy 矩阵
+    dataMatrix = mat(dataMatIn)  # 转换为 NumPy 矩阵
     # 转化为矩阵[[0,1,0,1,0,1.....]]，并转制[[0],[1],[0].....]
     # transpose() 行列转置函数
     # 将行向量转化为列向量   =>  矩阵的转置
-    labelMat = mat(classLabels).transpose() # 首先将数组转换为 NumPy 矩阵，然后再将行向量转置为列向量
+    labelMat = mat(classLabels).transpose()  # 首先将数组转换为 NumPy 矩阵，然后再将行向量转置为列向量
     # m->数据量，样本数 n->特征数
-    m,n = shape(dataMatrix)
+    m, n = shape(dataMatrix)
     # print m, n, '__'*10, shape(dataMatrix.transpose()), '__'*100
     # alpha代表向目标移动的步长
     alpha = 0.001
@@ -70,20 +74,20 @@ def gradAscent(dataMatIn, classLabels):
     maxCycles = 500
     # 生成一个长度和特征数相同的矩阵，此处n为3 -> [[1],[1],[1]]
     # weights 代表回归系数， 此处的 ones((n,1)) 创建一个长度和特征数相同的矩阵，其中的数全部都是 1
-    weights = ones((n,1))
-    for k in range(maxCycles):              #heavy on matrix operations
+    weights = ones((n, 1))
+    for k in range(maxCycles):  # heavy on matrix operations
         # m*3 的矩阵 * 3*1 的单位矩阵 ＝ m*1的矩阵
         # 那么乘上单位矩阵的意义，就代表：通过公式得到的理论值
         # 参考地址： 矩阵乘法的本质是什么？ https://www.zhihu.com/question/21351965/answer/31050145
         # print 'dataMatrix====', dataMatrix 
         # print 'weights====', weights
         # n*3   *  3*1  = n*1
-        h = sigmoid(dataMatrix*weights)     # 矩阵乘法
+        h = sigmoid(dataMatrix * weights)  # 矩阵乘法
         # print 'hhhhhhh====', h
         # labelMat是实际值
-        error = (labelMat - h)              # 向量相减
+        error = (labelMat - h)  # 向量相减
         # 0.001* (3*m)*(m*1) 表示在每一个列上的一个误差情况，最后得出 x1,x2,xn的系数的偏移量
-        weights = weights + alpha * dataMatrix.transpose() * error # 矩阵乘法，最后得到回归系数
+        weights = weights + alpha * dataMatrix.transpose() * error  # 矩阵乘法，最后得到回归系数
     return array(weights)
 
 
@@ -100,19 +104,19 @@ def stocGradAscent0(dataMatrix, classLabels):
     Returns:
         weights -- 得到的最佳回归系数
     '''
-    m,n = shape(dataMatrix)
+    m, n = shape(dataMatrix)
     alpha = 0.01
     # n*1的矩阵
     # 函数ones创建一个全1的数组
-    weights = ones(n)   # 初始化长度为n的数组，元素全部为 1
+    weights = ones(n)  # 初始化长度为n的数组，元素全部为 1
     for i in range(m):
         # sum(dataMatrix[i]*weights)为了求 f(x)的值， f(x)=a1*x1+b2*x2+..+nn*xn,此处求出的 h 是一个具体的数值，而不是一个矩阵
-        h = sigmoid(sum(dataMatrix[i]*weights))
+        h = sigmoid(sum(dataMatrix[i] * weights))
         # print 'dataMatrix[i]===', dataMatrix[i]
         # 计算真实类别与预测类别之间的差值，然后按照该差值调整回归系数
         error = classLabels[i] - h
         # 0.01*(1*1)*(1*n)
-        print weights, "*"*10 , dataMatrix[i], "*"*10 , error
+        print weights, "*" * 10, dataMatrix[i], "*" * 10, error
         weights = weights + alpha * error * dataMatrix[i]
     return weights
 
@@ -129,24 +133,26 @@ def stocGradAscent1(dataMatrix, classLabels, numIter=150):
     Returns:
         weights -- 得到的最佳回归系数
     '''
-    m,n = shape(dataMatrix)
-    weights = ones(n)   # 创建与列数相同的矩阵的系数矩阵，所有的元素都是1
+    m, n = shape(dataMatrix)
+    weights = ones(n)  # 创建与列数相同的矩阵的系数矩阵，所有的元素都是1
     # 随机梯度, 循环150,观察是否收敛
     for j in range(numIter):
         # [0, 1, 2 .. m-1]
         dataIndex = range(m)
         for i in range(m):
             # i和j的不断增大，导致alpha的值不断减少，但是不为0
-            alpha = 4/(1.0+j+i)+0.0001    # alpha 会随着迭代不断减小，但永远不会减小到0，因为后边还有一个常数项0.0001
+            alpha = 4 / (
+                1.0 + j + i
+            ) + 0.0001  # alpha 会随着迭代不断减小，但永远不会减小到0，因为后边还有一个常数项0.0001
             # 随机产生一个 0～len()之间的一个值
             # random.uniform(x, y) 方法将随机生成下一个实数，它在[x,y]范围内,x是这个范围内的最小值，y是这个范围内的最大值。
-            randIndex = int(random.uniform(0,len(dataIndex)))
+            randIndex = int(random.uniform(0, len(dataIndex)))
             # sum(dataMatrix[i]*weights)为了求 f(x)的值， f(x)=a1*x1+b2*x2+..+nn*xn
-            h = sigmoid(sum(dataMatrix[randIndex]*weights))
+            h = sigmoid(sum(dataMatrix[randIndex] * weights))
             error = classLabels[randIndex] - h
             # print weights, '__h=%s' % h, '__'*20, alpha, '__'*20, error, '__'*20, dataMatrix[randIndex]
             weights = weights + alpha * error * dataMatrix[randIndex]
-            del(dataIndex[randIndex])
+            del (dataIndex[randIndex])
     return weights
 
 
@@ -162,15 +168,19 @@ def plotBestFit(dataArr, labelMat, weights):
         Returns:
             None
     '''
-    
+
     n = shape(dataArr)[0]
-    xcord1 = []; ycord1 = []
-    xcord2 = []; ycord2 = []
+    xcord1 = []
+    ycord1 = []
+    xcord2 = []
+    ycord2 = []
     for i in range(n):
-        if int(labelMat[i])== 1:
-            xcord1.append(dataArr[i,1]); ycord1.append(dataArr[i,2])
+        if int(labelMat[i]) == 1:
+            xcord1.append(dataArr[i, 1])
+            ycord1.append(dataArr[i, 2])
         else:
-            xcord2.append(dataArr[i,1]); ycord2.append(dataArr[i,2])
+            xcord2.append(dataArr[i, 1])
+            ycord2.append(dataArr[i, 2])
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.scatter(xcord1, ycord1, s=30, c='red', marker='s')
@@ -184,9 +194,10 @@ def plotBestFit(dataArr, labelMat, weights):
     x0最开始就设置为1叻， x2就是我们画图的y值，而f(x)被我们磨合误差给算到w0,w1,w2身上去了
     所以： w0+w1*x+w2*y=0 => y = (-w0-w1*x)/w2   
     """
-    y = (-weights[0]-weights[1]*x)/weights[2]
+    y = (-weights[0] - weights[1] * x) / weights[2]
     ax.plot(x, y)
-    plt.xlabel('X'); plt.ylabel('Y')
+    plt.xlabel('X')
+    plt.ylabel('Y')
     plt.show()
 
 
@@ -208,9 +219,8 @@ def simpleTest():
     plotBestFit(dataArr, labelMat, weights)
 
 
-#--------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
 # 从疝气病症预测病马的死亡率
-
 # 分类函数，根据回归系数和特征向量来计算 Sigmoid的值
 def classifyVector(inX, weights):
     '''
@@ -223,9 +233,10 @@ def classifyVector(inX, weights):
         如果 prob 计算大于 0.5 函数返回 1
         否则返回 0
     '''
-    prob = sigmoid(sum(inX*weights))
+    prob = sigmoid(sum(inX * weights))
     if prob > 0.5: return 1.0
     else: return 0.0
+
 
 # 打开测试集和训练集,并对数据进行格式化处理
 def colicTest():
@@ -261,7 +272,8 @@ def colicTest():
         lineArr = []
         for i in range(21):
             lineArr.append(float(currLine[i]))
-        if int(classifyVector(array(lineArr), trainWeights)) != int(currLine[21]):
+        if int(classifyVector(array(lineArr), trainWeights)) != int(
+                currLine[21]):
             errorCount += 1
     errorRate = (float(errorCount) / numTestVec)
     print "the error rate of this test is: %f" % errorRate
@@ -274,7 +286,7 @@ def multiTest():
     errorSum = 0.0
     for k in range(numTests):
         errorSum += colicTest()
-    print "after %d iterations the average error rate is: %f" % (numTests, errorSum/float(numTests)) 
+    print "after %d iterations the average error rate is: %f" % (numTests, errorSum / float(numTests))
 
 
 if __name__ == "__main__":

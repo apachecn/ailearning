@@ -290,20 +290,20 @@ def classify(inputTree, featLabels, testVec):
 def storeTree(inputTree, filename):
     import pickle
     # -------------- 第一种方法 start --------------
-    fw = open(filename, 'w')
+    fw = open(filename, 'wb')
     pickle.dump(inputTree, fw)
     fw.close()
     # -------------- 第一种方法 end --------------
 
     # -------------- 第二种方法 start --------------
-    with open(filename, 'w') as fw:
+    with open(filename, 'wb') as fw:
         pickle.dump(inputTree, fw)
     # -------------- 第二种方法 start --------------
 
 
 def grabTree(filename):
     import pickle
-    fr = open(filename)
+    fr = open(filename,'rb')
     return pickle.load(fr)
 
 
