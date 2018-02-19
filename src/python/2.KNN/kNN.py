@@ -241,7 +241,7 @@ def datingClassTest():
     # 设置测试数据的的一个比例（训练数据集比例=1-hoRatio）
     hoRatio = 0.1  # 测试范围,一部分测试一部分作为样本
     # 从文件中加载数据
-    datingDataMat, datingLabels = file2matrix("../../../input/2.KNN/datingTestSet2.txt")  # load data setfrom file
+    datingDataMat, datingLabels = file2matrix("./input/2.KNN/datingTestSet2.txt")  # load data setfrom file
     # 归一化数据
     normMat, ranges, minVals = autoNorm(datingDataMat)
     # m 表示数据的行数，即矩阵的第一维
@@ -320,6 +320,6 @@ def handwritingClassTest():
 
 
 if __name__ == '__main__':
-    # test1()
-    # datingClassTest()
-    handwritingClassTest()
+    test1()
+    datingClassTest()
+    # handwritingClassTest()
