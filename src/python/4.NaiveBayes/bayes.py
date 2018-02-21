@@ -23,7 +23,7 @@ def loadDataSet():
     postingList = [['my', 'dog', 'has', 'flea', 'problems', 'help', 'please'], #[0,0,1,1,1......]
                    ['maybe', 'not', 'take', 'him', 'to', 'dog', 'park', 'stupid'],
                    ['my', 'dalmation', 'is', 'so', 'cute', 'I', 'love', 'him'],
-                   ['stop', 'posting', 'stupid', 'worthless', 'gar e'],
+                   ['stop', 'posting', 'stupid', 'worthless', 'garbage'],
                    ['mr', 'licks', 'ate', 'my', 'steak', 'how', 'to', 'stop', 'him'],
                    ['quit', 'buying', 'worthless', 'dog', 'food', 'stupid']]
     classVec = [0, 1, 0, 1, 0, 1]  # 1 is abusive, 0 not
@@ -321,7 +321,7 @@ def localWords(feed1,feed0):
     for docIndex in trainingSet:
         trainMat.append(bagOfWords2VecMN(vocabList,docList[docIndex]))
         trainClasses.append(classList[docIndex])
-    p0V,p1V,pSpam=trainNBO(array(trainMat),array(trainClasses))
+    p0V,p1V,pSpam=trainNB0(array(trainMat),array(trainClasses))
     errorCount=0
     for docIndex in testSet:
         wordVector=bagOfWords2VecMN(vocabList,docList[docIndex])
