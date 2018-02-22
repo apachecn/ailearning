@@ -246,17 +246,17 @@ def spam_test():
         # 如果正常能读返回的都是：　ASCII text
         # 对于except需要处理的都是返回： Non-ISO extended-ASCII text, with very long lines
         try:
-            words = text_parse(open('../../../input/4.NaiveBayes/email/spam/{}.txt'.format(i)).read())
+            words = text_parse(open('./input/4.NaiveBayes/email/spam/{}.txt'.format(i)).read())
         except:
-            words = text_parse(open('../../../input/4.NaiveBayes/email/spam/{}.txt'.format(i), encoding='Windows 1252').read())
+            words = text_parse(open('./input/4.NaiveBayes/email/spam/{}.txt'.format(i), encoding='Windows 1252').read())
         doc_list.append(words)
         full_text.extend(words)
         class_list.append(1)
         try:
             # 添加非垃圾邮件
-            words = text_parse(open('../../../input/4.NaiveBayes/email/ham/{}.txt'.format(i)).read())
+            words = text_parse(open('./input/4.NaiveBayes/email/ham/{}.txt'.format(i)).read())
         except:
-            words = text_parse(open('../../../input/4.NaiveBayes/email/ham/{}.txt'.format(i), encoding='Windows 1252').read())
+            words = text_parse(open('./input/4.NaiveBayes/email/ham/{}.txt'.format(i), encoding='Windows 1252').read())
         doc_list.append(words)
         full_text.extend(words)
         class_list.append(0)
@@ -397,7 +397,7 @@ def get_top_words():
 
 
 if __name__ == "__main__":
-    # testing_naive_bayes()
-    # spam_test()
-    # test_rss()
-    get_top_words()
+    testing_naive_bayes()
+    spam_test()
+    test_rss()
+    # get_top_words()
