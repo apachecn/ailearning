@@ -138,7 +138,7 @@ def splitDataSet(dataSet, index, value):
     # -----------切分数据集的第一种方式 end------------------------------------
 
     # # -----------切分数据集的第二种方式 start------------------------------------
-    # retDataSet = [data for data in dataSet for i, v in enumerate(data) if i == index and v == value]
+    # retDataSet = [data[:index] + data[index + 1:] for data in dataSet for i, v in enumerate(data) if i == index and v == value]
     # # -----------切分数据集的第二种方式 end------------------------------------
     return retDataSet
 
