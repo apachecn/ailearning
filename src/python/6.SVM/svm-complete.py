@@ -376,7 +376,7 @@ def calcWs(alphas, dataArr, classLabels):
 
 
 def testRbf(k1=1.3):
-    dataArr, labelArr = loadDataSet('.././../input/6.SVM/testSetRBF.txt')
+    dataArr, labelArr = loadDataSet('./input/6.SVM/testSetRBF.txt')
     b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, ('rbf', k1))  # C=200 important
     datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
@@ -395,7 +395,7 @@ def testRbf(k1=1.3):
             errorCount += 1
     print("the training error rate is: %f" % (float(errorCount) / m))
 
-    dataArr, labelArr = loadDataSet('../../../input/6.SVM/testSetRBF2.txt')
+    dataArr, labelArr = loadDataSet('./input/6.SVM/testSetRBF2.txt')
     errorCount = 0
     datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
@@ -440,7 +440,7 @@ def loadImages(dirName):
 def testDigits(kTup=('rbf', 10)):
 
     # 1. 导入训练数据
-    dataArr, labelArr = loadImages('../../../input/6.SVM/trainingDigits')
+    dataArr, labelArr = loadImages('./input/6.SVM/trainingDigits')
     b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, kTup)
     datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
@@ -457,7 +457,7 @@ def testDigits(kTup=('rbf', 10)):
         if sign(predict) != sign(labelArr[i]): errorCount += 1
     print("the training error rate is: %f" % (float(errorCount) / m))
     # 2. 导入测试数据
-    dataArr, labelArr = loadImages('../../../input/6.SVM/testDigits')
+    dataArr, labelArr = loadImages('./input/6.SVM/testDigits')
     errorCount = 0
     datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
@@ -529,13 +529,13 @@ if __name__ == "__main__":
     # plotfig_SVM(dataArr, labelArr, ws, b, alphas)
 
     # 有核函数的测试
-    # testRbf(0.8)
+    testRbf(0.8)
 
     # 项目实战
     # 示例：手写识别问题回顾
     # testDigits(('rbf', 0.1))
     # testDigits(('rbf', 5))
-    testDigits(('rbf', 10))
+    # testDigits(('rbf', 10))
     # testDigits(('rbf', 50))
     # testDigits(('rbf', 100))
     # testDigits(('lin', 10))
