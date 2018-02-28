@@ -21,7 +21,7 @@
 * 6.) [支持向量机](./docs/6.支持向量机.md)
 * 7.) [集成方法-随机森林和AdaBoost](./docs/7.集成方法-随机森林和AdaBoost.md)
 
-## 第二部分  利用回归预测数值型数据
+## 第二部分  回归
 
 * 8.) [预测数值型数据：回归](./docs/8.预测数值型数据：回归.md)
 * 9.) [树回归](./docs/9.树回归.md)
@@ -86,15 +86,15 @@
     <td>机器学习实战</td>
     <td>第 4 章: 朴素贝叶斯</td>
     <td>分类</td>
-    <td><a href="https://github.com/Leon-Jin">@黎荣晋</a></td>
-    <td>1844886175</td>
+    <td><a href="https://github.com/wnma3mz">@wnma3mz</a><br/><a href="https://github.com/kailian">@分析</a></td>
+    <td>1003324213<br/>244970749</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 5 章: Logistic回归</td>
     <td>分类</td>
-    <td><a href="https://github.com/KingLiuDao">@黄金</a></td>
-    <td>604090997</td>
+    <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
+    <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
@@ -107,22 +107,22 @@
     <td>机器学习实战</td>
     <td>第 7 章: 集成方法（随机森林和 AdaBoost）</td>
     <td>分类</td>
-    <td>@高益美</td>
-    <td>424410028</td>
+    <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
+    <td>529815144</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 8 章: 回归</td>
     <td>回归</td>
-    <td><a href="https://github.com/renwenduan">@段任文</a></td>
-    <td>401233721</td>
+    <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
+    <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 9 章: 树回归</td>
     <td>回归</td>
-    <td><a href="https://github.com/renwenduan">@段任文</a></td>
-    <td>401233721</td>
+    <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
+    <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
@@ -163,7 +163,7 @@
     <td>机器学习实战</td>
     <td>第 15 章: 大数据与 MapReduce</td>
     <td>工具</td>
-    <td><a href="https://github.com/bigdataf">@范未太</a></td>
+    <td>空缺 - 有兴趣私聊片刻</td>
     <td>842376188</td>
   </tr>
 </table>
