@@ -289,7 +289,7 @@ def spam_test():
             p0v,
             p1v,
             p_spam
-        ):
+        ) != class_list[doc_index]:
             error_count += 1
     print('the error rate is {}'.format(
         error_count / len(test_set)
