@@ -370,7 +370,6 @@ def test_rss():
     ny = feedparser.parse('http://newyork.craigslist.org/stp/index.rss')
     sf = feedparser.parse('http://sfbay.craigslist.org/stp/index.rss')
     vocab_list, p_sf, p_nf = local_words(ny, sf)
-    vocab_list, p_sf, p_nf = local_words(ny, sf)
     # 返回值都没用上，可以用_, _, _代替
 
 
