@@ -262,14 +262,13 @@ def spam_test():
         class_list.append(0)
     # 创建词汇表
     vocab_list = create_vocab_list(doc_list)
-    # 后面回过头来看这个操作真的有点弱智诶2333
-    training_set = list(range(50))
-    test_set = []
-    for i in range(10):
-        # 因为这个方法随机出来的不是一个整数,随机生成一个范围为 x - y 的实数
-        rand_index = int(np.random.uniform(0, len(training_set)))
-        test_set.append(training_set[rand_index])
-        del training_set[rand_index]
+    
+    import random
+    # 生成随机取10个数, 为了避免警告将每个数都转换为整型
+    test_set = [int(num) for num in random.sample(range(50), 10)]
+    # 并在原来的training_set中去掉这10个数
+    training_set = list(set(range(50)) - set(test_set))
+    
     training_mat = []
     training_class = []
     for doc_index in training_set:
@@ -335,12 +334,13 @@ def local_words(feed1, feed0):
         if pair[0] in vocab_list:
             vocab_list.remove(pair[0])
     # 获取训练数据和测试数据
-    training_set = list(range(2 * min_len))
-    test_set = []
-    for i in range(20):
-        rand_index = int(np.random.uniform(0, len(training_set)))
-        test_set.append(training_set[rand_index])
-        del training_set[rand_index]
+    
+    import random
+    # 生成随机取10个数, 为了避免警告将每个数都转换为整型
+    test_set = [int(num) for num in random.sample(range(2 * min_len), 20)]
+    # 并在原来的training_set中去掉这10个数
+    training_set = list(set(range(2 * min_len)) - set(test_set))
+    
     # 把这些训练集和测试集变成向量的形式
     training_mat = []
     training_class = []
