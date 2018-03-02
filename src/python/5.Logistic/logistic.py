@@ -10,7 +10,7 @@ Logistic Regression Working Module
 """
 
 import numpy as np
-
+import random
 
 # ------使用 Logistic 回归在简单数据集上的分类-----------
 
@@ -144,18 +144,18 @@ def stoc_grad_ascent1(data_mat, class_labels, num_iter=150):
     m, n = np.shape(data_mat)
     weights = np.ones(n)
     for j in range(num_iter):
-        # 这里必须要用list，不然后面的del没法使用
+        # 随机样本的索引列表
         data_index = list(range(m))
         for i in range(m):
             # i和j的不断增大，导致alpha的值不断减少，但是不为0
             alpha = 4 / (1.0 + j + i) + 0.01
-            # 随机产生一个 0～len()之间的一个值
-            # random.uniform(x, y) 方法将随机生成下一个实数，它在[x,y]范围内,x是这个范围内的最小值，y是这个范围内的最大值。
-            rand_index = int(np.random.uniform(0, len(data_index)))
+            # 从data_index中随机取一个元素
+            rand_index = random.sample(data_index, 1)[0]
             h = sigmoid(np.sum(data_mat[rand_index] * weights))
             error = class_labels[rand_index] - h
             weights = weights + alpha * error * data_mat[rand_index]
-            del(data_index[rand_index])
+            # 移除刚刚取出的元素，因为data_index里面每个元素都是唯一的，所以直接使用remove
+            data_index.remove(rand_index)
     return weights
 
 
