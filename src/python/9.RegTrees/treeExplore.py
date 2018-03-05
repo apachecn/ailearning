@@ -5,8 +5,8 @@
 Created on 2017-03-08
 Update  on 2017-05-18
 Tree-Based Regression Methods Source Code for Machine Learning in Action Ch. 9
-@author: Peter/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+Author: Peter/片刻
+GitHub: https://github.com/apachecn/MachineLearning
 '''
 import regTrees
 from Tkinter import *
@@ -107,7 +107,7 @@ def main(root):
     reDraw.canvas.show()
     reDraw.canvas.get_tk_widget().grid(row=0, columnspan=3)
 
-    reDraw.rawDat = mat(regTrees.loadDataSet('testData/RT_sine.txt'))
+    reDraw.rawDat = mat(regTrees.loadDataSet('input/9.RegTrees/sine.txt'))
     reDraw.testDat = arange(min(reDraw.rawDat[:, 0]), max(reDraw.rawDat[:, 0]), 0.01)
     reDraw(1.0, 10)
 
