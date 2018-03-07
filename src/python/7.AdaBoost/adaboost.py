@@ -257,7 +257,7 @@ def test():
     print(data_mat.shape, len(class_labels))
     weak_class_arr, agg_class_est = ada_boost_train_ds(data_mat, class_labels, 40)
     print(weak_class_arr, '\n-----\n', agg_class_est.T)
-    plot_roc(agg_class_est, class_labels)
+    plot_roc(agg_class_est.T, class_labels)
     data_arr_test, label_arr_test = load_data_set("./input/7.AdaBoost/horseColicTest2.txt")
     m = np.shape(data_arr_test)[0]
     predicting10 = ada_classify(data_arr_test, weak_class_arr)
