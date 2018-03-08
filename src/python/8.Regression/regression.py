@@ -67,7 +67,7 @@ def standRegres(xArr, yArr):
     return ws
 
 
-    # 局部加权线性回归
+# 局部加权线性回归
 def lwlr(testPoint, xArr, yArr, k=1.0):
     '''
         Description：
@@ -244,7 +244,7 @@ def stageWise(xArr, yArr, eps=0.01, numIt=100):
     yMat = yMat - yMean  # 也可以规则化ys但会得到更小的coef
     xMat = regularize(xMat)
     m, n = shape(xMat)
-    #returnMat = zeros((numIt,n)) # 测试代码删除
+    # returnMat = zeros((numIt,n)) # 测试代码删除
     ws = zeros((n, 1))
     wsTest = ws.copy()
     wsMax = ws.copy()
@@ -261,10 +261,10 @@ def stageWise(xArr, yArr, eps=0.01, numIt=100):
                     lowestError = rssE
                     wsMax = wsTest
         ws = wsMax.copy()
-        #returnMat[i,:]=ws.T
-    #return returnMat
+        # returnMat[i,:]=ws.T
+    # return returnMat
 
-    #def scrapePage(inFile,outFile,yr,numPce,origPrc):
+    # def scrapePage(inFile,outFile,yr,numPce,origPrc):
     #    from BeautifulSoup import BeautifulSoup
     #    fr = open(inFile); fw=open(outFile,'a') #a is append mode writing
     #    soup = BeautifulSoup(fr.read())
@@ -293,12 +293,12 @@ def stageWise(xArr, yArr, eps=0.01, numIt=100):
     #        currentRow = soup.findAll('table', r="%d" % i)
     #    fw.close()
 
-    #--------------------------------------------------------------
+    # --------------------------------------------------------------
     # 预测乐高玩具套装的价格 ------ 最初的版本，因为现在 google 的 api 变化，无法获取数据
     # 故改为了下边的样子，但是需要安装一个 beautifulSoup 这个第三方爬虫库，安装很简单，见下边
 
 
-'''  
+'''
 from time import sleep
 import json
 import urllib2
@@ -322,7 +322,7 @@ def searchForSet(retX, retY, setNum, yr, numPce, origPrc):
                     retX.append([yr, numPce, newFlag, origPrc])
                     retY.append(sellingPrice)
         except: print ('problem with item %d' % i)
-    
+
 def setDataCollect(retX, retY):
     searchForSet(retX, retY, 8288, 2006, 800, 49.99)
     searchForSet(retX, retY, 10030, 2002, 3096, 269.99)
@@ -330,7 +330,7 @@ def setDataCollect(retX, retY):
     searchForSet(retX, retY, 10181, 2007, 3428, 199.99)
     searchForSet(retX, retY, 10189, 2008, 5922, 299.99)
     searchForSet(retX, retY, 10196, 2009, 3263, 249.99)
-    
+
 def crossValidation(xArr,yArr,numVal=10):
     m = len(yArr)                           
     indexList = range(m)
@@ -374,9 +374,8 @@ gt56                trainY.append(yArr[indexList[j]])
 # 前提：安装 BeautifulSoup 第三方爬虫库，步骤如下
 # 在这个页面 https://www.crummy.com/software/BeautifulSoup/bs4/download/4.4/ 下载，beautifulsoup4-4.4.1.tar.gz 
 # 将下载文件解压，使用 windows 版本的 cmd 命令行，进入解压的包，输入以下两行命令即可完成安装
-# python setup.py build 
-# python setup.py install
-#  
+# python setup.py build
+# python setup.py install 
 '''
 from numpy import *
 from bs4 import BeautifulSoup
@@ -493,7 +492,7 @@ def crossValidation(xArr,yArr,numVal=10):
 '''
 
 
-#test for standRegression
+# test for standRegression
 def regression1():
     xArr, yArr = loadDataSet("input/8.Regression/data.txt")
     xMat = mat(xArr)
@@ -512,7 +511,7 @@ def regression1():
     plt.show()
 
 
-    #test for LWLR
+# test for LWLR
 def regression2():
     xArr, yArr = loadDataSet("input/8.Regression/data.txt")
     yHat = lwlrTest(xArr, xArr, yArr, 0.003)
@@ -565,7 +564,7 @@ def abaloneTest():
     print("standRegress error Size is:", rssError(abY[100:199], standyHat.T.A))
 
 
-#test for ridgeRegression
+# test for ridgeRegression
 def regression3():
     abX, abY = loadDataSet("input/8.Regression/abalone.txt")
     ridgeWeights = ridgeTest(abX, abY)
@@ -575,7 +574,7 @@ def regression3():
     plt.show()
 
 
-#test for stageWise
+# test for stageWise
 def regression4():
     xArr, yArr = loadDataSet("input/8.Regression/abalone.txt")
     stageWise(xArr, yArr, 0.01, 200)
