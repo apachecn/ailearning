@@ -46,7 +46,8 @@ def cross_validation_split(dataset, n_folds):
         dataset_split    list集合，存放的是：将数据集进行抽重抽样 n_folds 份，数据可以重复重复抽取，每一次list的元素是无重复的
     """
     dataset_split = list()
-    dataset_copy = list(dataset)       # 复制一份 dataset,防止 dataset 的内容改变
+    # 不能直接赋值，需使用copy方法，否则会改变dataset内容
+    dataset_copy = list(dataset).copy()       # 复制一份 dataset,防止 dataset 的内容改变
     fold_size = len(dataset) / n_folds
     for i in range(n_folds):
         fold = list()                  # 每次循环 fold 清零，防止重复导入 dataset_split
