@@ -78,6 +78,7 @@ def test_split(index, value, dataset):
 '''
 Gini指数的计算问题，假如将原始数据集D切割两部分，分别为D1和D2，则
 Gini(D|切割) = (|D1|/|D| ) * Gini(D1) + (|D2|/|D|) * Gini(D2)
+学习地址：http://bbs.pinggu.org/thread-5986969-1-1.html
 而原文中 计算方式为：
 Gini(D|切割) = Gini(D1) + Gini(D2)
 
