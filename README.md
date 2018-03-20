@@ -188,6 +188,7 @@
 * [@LeeMoonCh](https://github.com/LeeMoonCh)（Arithmetic）
 * [@caopeirui](https://github.com/caopeirui)（Veyron C）
 * [@Cugtyt](https://github.com/Cugtyt)（Cugtyt）
+* [@hey-bruce](https://github.com/hey-bruce) (BBruceyuan)
 
 > 加入方式
 
