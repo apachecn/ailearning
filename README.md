@@ -64,9 +64,11 @@
 
 * 4.) [UNIT-语言理解与交互技术](./docs/nlp/4.UNIT-语言理解与交互技术.md)
 
-## 深度学习(DeepLearning)
+## 深度学习(DeepLearning) —— 正在更新迭代
 
 * 1.) [DeepLearning介绍](./docs/deep-learning/DeepLearning介绍.md)
+
+* 2.） 代码位置：src/deeplearning/py2.x or py3.x
 
 ## 阶段性总结
 
