@@ -53,7 +53,7 @@ for i in doc_set:
 # 把我们的标记文档转换成一个id <-> 词条字典
 dictionary = corpora.Dictionary(texts)
 print(dictionary.token2id)  # 来查看每个单词的id
-print(dictionary.roken2id)  # 显示 brocolli 的 id 是 0
+# print(dictionary.roken2id)  # 显示 brocolli 的 id 是 0
 
 # 将标记文档转换为文档术语矩阵
 # doc2bow() 方法将 dictionary 转化为一个词袋
