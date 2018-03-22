@@ -47,7 +47,9 @@
 
 * 1.) [自然语言处理介绍](./docs/nlp/1.自然语言处理介绍.md)
 
+## 深度学习(DeepLearning)
 
+* 1.) [DeepLearning介绍](./docs/deep-learning/DeepLearning介绍.md)
 
 ## 阶段性总结
 
