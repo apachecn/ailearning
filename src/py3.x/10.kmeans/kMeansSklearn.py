@@ -9,7 +9,7 @@ dataMat = []
 fr = open("input/10.KMeans/testSet.txt") # 注意，这个是相对路径，请保证是在 MachineLearning 这个目录下执行。
 for line in fr.readlines():
     curLine = line.strip().split('\t')
-    fltLine = map(float,curLine)    # 映射所有的元素为 float（浮点数）类型
+    fltLine = list(map(float,curLine))    # 映射所有的元素为 float（浮点数）类型
     dataMat.append(fltLine)
 
 # 训练模型
