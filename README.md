@@ -10,7 +10,8 @@
 * -- 视频网站：优酷／bilibili / Acfun ，可直接在线播放。（最下方有相应链接）
 * -- 对于帮忙转发 [MachineLearning(机器学习) 学习路线图](http://www.apachecn.org/map/145.html) 的朋友，可以加群后私聊 瑶妹 企鹅 赠送《机器学习实战》百度云视频一套，谢谢
 
-## 第一部分  分类
+## 机器学习
+### 第一部分  分类
 
 * 1.) [机器学习基础](./docs/1.机器学习基础.md)
     * [机器学习实战-复习版（问题汇总）](./faq/1.机器学习实战-复习版.md)
@@ -21,18 +22,18 @@
 * 6.) [支持向量机](./docs/6.支持向量机.md)
 * 7.) [集成方法-随机森林和AdaBoost](./docs/7.集成方法-随机森林和AdaBoost.md)
 
-## 第二部分  利用回归预测数值型数据
+### 第二部分  回归
 
 * 8.) [预测数值型数据：回归](./docs/8.预测数值型数据：回归.md)
 * 9.) [树回归](./docs/9.树回归.md)
 
-## 第三部分  无监督学习
+### 第三部分  无监督学习
 
 * 10.) [使用K-均值聚类算法对未标注数据分组:k-means聚类](./docs/10.k-means聚类.md)
 * 11.) [使用Apriori算法进行关联分析](./docs/11.使用Apriori算法进行关联分析.md)
 * 12.) [使用FP-growth算法来高效发现频繁项集](./docs/12.使用FP-growth算法来高效发现频繁项集.md )
 
-## 第四部分  其他工具
+### 第四部分  其他工具
 
 * 13.) [利用PCA来简化数据](./docs/13.利用PCA来简化数据.md)
 * 14.) [利用SVD简化数据](./docs/14.利用SVD简化数据.md)
@@ -41,6 +42,33 @@
 ## 第五部分  项目实战(非课本内容)
 
 * 16.) [推荐系统](/docs/16.推荐系统.md)
+
+## 自然语言处理(NLP)
+
+### 第一部分 入门介绍
+
+* 1.) [自然语言处理入门介绍](./docs/nlp/1.自然语言处理入门介绍.md)
+
+### 第二部分 机器翻译
+
+* 2.) [机器翻译](./docs/nlp/2.机器翻译.md)
+
+### 第三部分 篇章分析
+
+* 3.1.) [篇章分析-内容概述](./docs/nlp/3.1.篇章分析-内容概述.md)
+* 3.2.) [篇章分析-内容标签](./docs/nlp/3.2.篇章分析-内容标签.md)
+* 3.3.) [篇章分析-情感分析](./docs/nlp/3.3.篇章分析-情感分析.md)
+* 3.4.) [篇章分析-自动摘要](./docs/nlp/3.4.篇章分析-自动摘要.md)
+
+### 第四部分 UNIT-语言理解与交互技术
+
+* 4.) [UNIT-语言理解与交互技术](./docs/nlp/4.UNIT-语言理解与交互技术.md)
+
+## 深度学习(DeepLearning) —— 正在更新迭代
+
+* 1.) [DeepLearning介绍](./docs/deep-learning/DeepLearning介绍.md)
+
+* 2.） 代码位置：src/deeplearning/py2.x or py3.x
 
 ## 阶段性总结
 
@@ -65,64 +93,64 @@
     <td>机器学习实战</td>
     <td>第 1 章: 机器学习基础</td>
     <td>介绍</td>
-    <td>@毛红动</td>
+    <td><a href="https://github.com/ElmaDavies">@毛红动</a></td>
     <td>1306014226</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 2 章: KNN 近邻算法</td>
     <td>分类</td>
-    <td>@尤永江</td>
+    <td><a href="https://github.com/youyj521">@尤永江</a></td>
     <td>279393323</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 3 章: 决策树</td>
     <td>分类</td>
-    <td>@景涛</td>
+    <td><a href="https://github.com/jingwangfei">@景涛</a></td>
     <td>844300439</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 4 章: 朴素贝叶斯</td>
     <td>分类</td>
-    <td>@黎荣晋</td>
-    <td>1844886175</td>
+    <td><a href="https://github.com/wnma3mz">@wnma3mz</a><br/><a href="https://github.com/kailian">@分析</a></td>
+    <td>1003324213<br/>244970749</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 5 章: Logistic回归</td>
     <td>分类</td>
-    <td>@卐</td>
-    <td>604090997</td>
+    <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
+    <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 6 章: SVM 支持向量机</td>
     <td>分类</td>
-    <td>@王德红</td>
+    <td><a href="https://github.com/VPrincekin">@王德红</a></td>
     <td>934969547</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 7 章: 集成方法（随机森林和 AdaBoost）</td>
     <td>分类</td>
-    <td>@高益美</td>
-    <td>424410028</td>
+    <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
+    <td>529815144</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 8 章: 回归</td>
     <td>回归</td>
-    <td>@段任文</td>
-    <td>401233721</td>
+    <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
+    <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 9 章: 树回归</td>
     <td>回归</td>
-    <td>@段任文</td>
-    <td>401233721</td>
+    <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
+    <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
@@ -135,7 +163,7 @@
     <td>机器学习实战</td>
     <td>第 11 章: 利用 Apriori 算法进行关联分析</td>
     <td>频繁项集</td>
-    <td>@刘海飞</td>
+    <td><a href="https://github.com/WindZQ">@刘海飞</a></td>
     <td>1049498972</td>
   </tr>
   <tr>
@@ -149,21 +177,21 @@
     <td>机器学习实战</td>
     <td>第 13 章: 利用 PCA 来简化数据</td>
     <td>工具</td>
-    <td>@廖立娟</td>
+    <td><a href="https://github.com/lljuan330">@廖立娟</a></td>
     <td>835670618</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 14 章: 利用 SVD 来简化数据</td>
     <td>工具</td>
-    <td>@张俊皓</td>
+    <td><a href="https://github.com/marsjhao">@张俊皓</a></td>
     <td>714974242</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
     <td>第 15 章: 大数据与 MapReduce</td>
     <td>工具</td>
-    <td>@范未太</td>
+    <td>空缺 - 有兴趣私聊片刻</td>
     <td>842376188</td>
   </tr>
 </table>
@@ -181,6 +209,7 @@
 * [@LeeMoonCh](https://github.com/LeeMoonCh)（Arithmetic）
 * [@caopeirui](https://github.com/caopeirui)（Veyron C）
 * [@Cugtyt](https://github.com/Cugtyt)（Cugtyt）
+* [@hey-bruce](https://github.com/hey-bruce) (BBruceyuan)
 
 > 加入方式
 
@@ -234,8 +263,8 @@
 
 | 深度学习 | 机器学习  | 大数据 | 运维工具 |
 | --- | --- | --- | --- |
-| [TensorFlow R1.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10030122) | [Sklearn 0.19 中文文档](http://sklearn.apachecn.org/) | [Spark 2.2.0和2.0.2 中文文档](http://spark.apachecn.org/) | [Zeppelin 0.7.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10030467) |
-| pytorch 计划中 | [机器学习实战-教学版](https://github.com/apachecn/MachineLearning) | [Storm 1.1.0和1.0.1 中文文档](http://storm.apachecn.org/) | [Kibana 5.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=8159377) |
-|  |  | [Kudu 1.4.0 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10813594) |  |
-|  |  | [Elasticsearch 5.4 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=4260364) |
+| [TensorFlow R1.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10030122) | [机器学习实战-教学](https://github.com/apachecn/MachineLearning) | [Spark 2.2.0和2.0.2 中文文档](http://spark.apachecn.org/) | [Zeppelin 0.7.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10030467) |
+| [Pytorch 0.3 中文文档 ](http://pytorch.apachecn.org/cn/0.3.0/) | [Sklearn 0.19 中文文档](http://sklearn.apachecn.org/) | [Storm 1.1.0和1.0.1 中文文档](http://storm.apachecn.org/) | [Kibana 5.2 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=8159377) |
+|  | [LightGBM 中文文档](http://lightgbm.apachecn.org/cn/latest) | [Kudu 1.4.0 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=10813594) |  |
+|  | [XGBoost 中文文档](http://xgboost.apachecn.org/cn/latest)  | [Elasticsearch 5.4 中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=4260364) |
 |  |  | [Beam 中文文档](http://beam.apachecn.org/) |
