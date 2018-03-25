@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 # 神经元 / 感知器
-from functools import reduce
+
 class Perceptron():
     '''
     Desc:
@@ -58,10 +58,8 @@ class Perceptron():
         # reduce() 从左到右对一个序列的项累计地应用有两个参数的函数，以此合并序列到一个单一值，例如 reduce(lambda x,y: x+y, [1,2,3,4,5]) 计算的就是 ((((1+2)+3)+4)+5)
         # map() 接收一个函数 f 和一个 list ，并通过把函数 f 依次作用在 list 的每个元素上，得到一个新的 list 返回。比如我们的 f 函数是计算平方， map(f, [1,2,3,4,5]) ===> 返回 [1,4,9,16,25]
         # zip() 接收任意多个（包括 0 个和 1个）序列作为参数，返回一个 tuple 列表。例：x = [1,2,3] y = [4,5,6] z = [7,8,9] xyz = zip(x, y, z) ===> [(1,4,7), (2,5,8), (3,6,9)]
-        # 此处python3 lambda无法传入一个tuple的两个变量，因此将tuple当作一个整体，tp[0]为input_vec,tp[1]为self.weights
-        return self.activator(reduce(lambda a, b: a + b,map(lambda tp: tp[0] * tp[1], zip(input_vec, self.weights)), 0.0) + self.bias)
-        #还有一种更加简洁明了的写法，很清楚明白
-        # return self.activator(sum([x*w for (x,w) in zip(input_vec,self.weights)])+self.bias) 
+        return self.activator(reduce(lambda a, b: a + b,map(lambda (x, w): x * w, zip(input_vec, self.weights)), 0.0) + self.bias)
+
 
     def train(self, input_vecs, labels, iteration, rate):
         '''
@@ -115,8 +113,7 @@ class Perceptron():
         delta = label - output
         # map() 接收一个函数 f 和一个 list ，并通过把函数 f 依次作用在 list 的每个元素上，得到一个新的 list 返回。比如我们的 f 函数是计算平方， map(f, [1,2,3,4,5]) ===> 返回 [1,4,9,16,25]
         # zip() 接收任意多个（包括 0 个和 1个）序列作为参数，返回一个 tuple 列表。例：x = [1,2,3] y = [4,5,6] z = [7,8,9] xyz = zip(x, y, z) ===> [(1,4,7), (2,5,8), (3,6,9)]
-        # 此处python3必须对map函数进行list操作，不然 self.weights为map类型，最后无法打印出具体数值
-        self.weights = list(map(lambda tp: tp[1] + rate * delta * tp[0], zip(input_vec, self.weights)))
+        self.weights = map(lambda (x, w): w + rate * delta * x, zip(input_vec, self.weights))
         # 更新 bias
         self.bias += rate * delta
 
@@ -181,9 +178,9 @@ if __name__ == '__main__':
     # 训练 and 感知器
     and_perceptron = train_and_perceptron()
     # 打印训练获得的权重
-    print(and_perceptron)
+    print and_perceptron
     # 测试
-    print('1 and 1 = %d' % and_perceptron.predict([1, 1]))
-    print('0 and 0 = %d' % and_perceptron.predict([0, 0]))
-    print('1 and 0 = %d' % and_perceptron.predict([1, 0]))
-    print('0 and 1 = %d' % and_perceptron.predict([0, 1]))
+    print '1 and 1 = %d' % and_perceptron.predict([1, 1])
+    print '0 and 0 = %d' % and_perceptron.predict([0, 0])
+    print '1 and 0 = %d' % and_perceptron.predict([1, 0])
+    print '0 and 1 = %d' % and_perceptron.predict([0, 1])
