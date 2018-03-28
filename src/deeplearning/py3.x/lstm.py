@@ -319,8 +319,8 @@ def gradient_check():
             err2 = error_function(lstm.h_list[-1])
             expect_grad = (err1 - err2) / (2 * epsilon)
             lstm.Wfh[i,j] += epsilon
-            print 'weights(%d,%d): expected - actural %.4e - %.4e' % (
-                i, j, expect_grad, lstm.Wfh_grad[i,j])
+            print('weights(%d,%d): expected - actural %.4e - %.4e' % (
+                i, j, expect_grad, lstm.Wfh_grad[i,j]))
     return lstm
 
 
@@ -331,3 +331,6 @@ def test():
     l.forward(x[1])
     l.backward(x[1], d, IdentityActivator())
     return l
+
+def test_gradient_check():
+    gradient_check()
