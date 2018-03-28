@@ -85,17 +85,19 @@ def plot(linear_unit):
     # 在 figure 对象中创建 1行1列中的第一个图
     ax = fig.add_subplot(111)
     # scatter(x, y) 绘制散点图，其中的 x,y 是相同长度的数组序列
+    
     ax.scatter(list(map(lambda x: x[0], input_vecs)), labels)
+
     # 设置权重
     weights = linear_unit.weights
     # 设置偏置项
     bias = linear_unit.bias
-    # range(start, stop, step) 从 start 开始，到 stop 结束，步长为 step
-    x = range(0, 12, 1)
-    # 计算感知器对输入计算得到的值
-    y = list(map(lambda x: weights[0] * x + bias, x))
+    
+    y1 = 0*linear_unit.weights[0]+linear_unit.bias
+    y2 = 12*linear_unit.weights[0]+ linear_unit.bias
     # 将图画出来
-    ax.plot(x, y)
+    plt.plot([0,12],[y1,y2])
+
     # 将最终的图展示出来
     plt.show()
 
@@ -119,7 +121,7 @@ if __name__ == '__main__':
     print('Work 1.5 years, monthly salary = %.2f' % linear_unit.predict([1.5]))
     print('Work 6.3 years, monthly salary = %.2f' % linear_unit.predict([6.3]))
     plot(linear_unit)
-=======
+
 from Perceptron import Perceptron
 from matplotlib import  pyplot as plt
 #定义激活函数f

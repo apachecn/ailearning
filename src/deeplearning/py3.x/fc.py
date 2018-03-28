@@ -4,6 +4,7 @@
 
 import random
 import numpy as np
+from functools import reduce
 from activators import SigmoidActivator, IdentityActivator
 
 
@@ -57,7 +58,7 @@ class FullConnectedLayer(object):
         self.b += learning_rate * self.b_grad
 
     def dump(self):
-        print 'W: %s\nb:%s' % (self.W, self.b)
+        print('W: %s\nb:%s' % (self.W, self.b))
 
 
 # 神经网络类
@@ -95,7 +96,7 @@ class Network(object):
         epoch: 训练轮数
         '''
         for i in range(epoch):
-            for d in range(len(data_set)):
+            for d in range(len(list(data_set))):
                 self.train_one_sample(labels[d], 
                     data_set[d], rate)
 
@@ -149,8 +150,8 @@ class Network(object):
                     err2 = self.loss(sample_label, output)
                     expect_grad = (err1 - err2) / (2 * epsilon)
                     fc.W[i,j] += epsilon
-                    print 'weights(%d,%d): expected - actural %.4e - %.4e' % (
-                        i, j, expect_grad, fc.W_grad[i,j])
+                    print('weights(%d,%d): expected - actural %.4e - %.4e' % (
+                        i, j, expect_grad, fc.W_grad[i,j]))
 
 
 from bp import train_data_set
@@ -172,11 +173,11 @@ class Normalizer(object):
         ]
 
     def norm(self, number):
-        data = map(lambda m: 0.9 if number & m else 0.1, self.mask)
+        data = list(map(lambda m: 0.9 if number & m else 0.1, self.mask))
         return np.array(data).reshape(8, 1)
 
     def denorm(self, vec):
-        binary = map(lambda i: 1 if i > 0.5 else 0, vec[:,0])
+        binary = list(map(lambda i: 1 if i > 0.5 else 0, vec[:,0]))
         for i in range(len(self.mask)):
             binary[i] = binary[i] * self.mask[i]
         return reduce(lambda x,y: x + y, binary)
@@ -197,21 +198,23 @@ def correct_ratio(network):
     for i in range(256):
         if normalizer.denorm(network.predict(normalizer.norm(i))) == i:
             correct += 1.0
-    print 'correct_ratio: %.2f%%' % (correct / 256 * 100)
+    print('correct_ratio: %.2f%%' % (correct / 256 * 100))
 
 
 def test():
-    labels, data_set = transpose(train_data_set())
+    labels, data_set = list(transpose(train_data_set()))
+    labels=list(labels)
+    data_set=list(data_set)
     net = Network([8, 3, 8])
     rate = 0.5
     mini_batch = 20
     epoch = 10
     for i in range(epoch):
-        net.train(labels, data_set, rate, mini_batch)
-        print 'after epoch %d loss: %f' % (
+        net.train(labels, list(data_set), rate, mini_batch)
+        print('after epoch %d loss: %f' % (
             (i + 1),
             net.loss(labels[-1], net.predict(data_set[-1]))
-        )
+        ))
         rate /= 2
     correct_ratio(net)
 
