@@ -1,27 +1,30 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-# 神经元 / 感知器
+from functools import reduce
 
-class Perceptron():
-    '''
-    Desc:
-        感知器类
-    Args:
-        None
-    Returns:
-        None
-    '''
+def add(x,y):
+    return  x+y
 
-    def __init__(self, input_num, activator):
+
+class Perceptron(object):
+    '''
+       Desc:
+           感知器类
+       Args:
+           None
+       Returns:
+           None
+       '''
+    def __init__(self,input_num,activator):
         '''
-        Desc:
-            初始化感知器
-        Args:
-            input_num —— 输入参数的个数
-            activator —— 激活函数
-        Returns:
-            None
+              Desc:
+                  初始化感知器
+              Args:
+                  input_num —— 输入参数的个数
+                  activator —— 激活函数
+              Returns:
+                  None
         '''
         # 设置的激活函数
         self.activator = activator
@@ -30,7 +33,6 @@ class Perceptron():
         # 偏置项初始化为 0
         self.bias = 0.0
 
-    
     def __str__(self):
         '''
         Desc:
@@ -40,10 +42,9 @@ class Perceptron():
         Returns:
             None
         '''
-        return('weights\t:%s\nbias\t:%f\n' % (self.weights, self.bias))
+        return  'weights\t:%s\nbias\t:%f\n' % (self.weights, self.bias)
 
-
-    def predict(self, input_vec):
+    def predict(self,input_vec):
         '''
         Desc:
             输入向量，输出感知器的计算结果
@@ -58,10 +59,18 @@ class Perceptron():
         # reduce() 从左到右对一个序列的项累计地应用有两个参数的函数，以此合并序列到一个单一值，例如 reduce(lambda x,y: x+y, [1,2,3,4,5]) 计算的就是 ((((1+2)+3)+4)+5)
         # map() 接收一个函数 f 和一个 list ，并通过把函数 f 依次作用在 list 的每个元素上，得到一个新的 list 返回。比如我们的 f 函数是计算平方， map(f, [1,2,3,4,5]) ===> 返回 [1,4,9,16,25]
         # zip() 接收任意多个（包括 0 个和 1个）序列作为参数，返回一个 tuple 列表。例：x = [1,2,3] y = [4,5,6] z = [7,8,9] xyz = zip(x, y, z) ===> [(1,4,7), (2,5,8), (3,6,9)]
-        return self.activator(reduce(lambda a, b: a + b,map(lambda (x, w): x * w, zip(input_vec, self.weights)), 0.0) + self.bias)
 
+        pack = zip(input_vec,self.weights)
+        multi = []
+        for (x,w) in pack:
+            multi.append(x*w)
+        activtion = reduce(add, multi)
+        # 此处python3 lambda无法传入一个tuple的两个变量，因此将tuple当作一个整体，tp[0]为input_vec,tp[1]为self.weights
+        return self.activator(activtion + self.bias)
+        #还有一种更加简洁明了的写法，很清楚明白
+        # return self.activator(sum([x*w for (x,w) in zip(input_vec,self.weights)])+self.bias) 
 
-    def train(self, input_vecs, labels, iteration, rate):
+    def train(self,input_vecs,labels,iteration,rate):
         '''
         Desc:
             输入训练数据：一组向量、与每个向量对应的 label; 以及训练轮数、学习率
@@ -74,10 +83,9 @@ class Perceptron():
             None
         '''
         for i in range(iteration):
-            self._one_iteration(input_vecs, labels, rate)
+            self._one_iteration(input_vecs,labels,rate)
 
-    
-    def _one_iteration(self, input_vecs, labels, rate):
+    def _one_iteration(self,input_vecs,labels,rate):
         '''
         Desc:
             训练过程的一次迭代过程
@@ -97,7 +105,7 @@ class Perceptron():
             # 更新权重
             output = self._update_weights(input_vec, output, label, rate)
 
-    def _update_weights(self, input_vec, output, label, rate):
+    def _update_weights(self,input_vecs,output,labels,rate):
         '''
         Desc:
             按照感知器规则更新权重
@@ -110,14 +118,18 @@ class Perceptron():
             None
         '''
         # 利用感知器规则更新权重
-        delta = label - output
+        
+        delta = labels -output
         # map() 接收一个函数 f 和一个 list ，并通过把函数 f 依次作用在 list 的每个元素上，得到一个新的 list 返回。比如我们的 f 函数是计算平方， map(f, [1,2,3,4,5]) ===> 返回 [1,4,9,16,25]
         # zip() 接收任意多个（包括 0 个和 1个）序列作为参数，返回一个 tuple 列表。例：x = [1,2,3] y = [4,5,6] z = [7,8,9] xyz = zip(x, y, z) ===> [(1,4,7), (2,5,8), (3,6,9)]
-        self.weights = map(lambda (x, w): w + rate * delta * x, zip(input_vec, self.weights))
+        # 此处python3必须对map函数进行list操作，不然 self.weights为map类型，最后无法打印出具体数值
+        pack  = zip(input_vecs,self.weights)
+        tmp = []
+        for (x,w) in pack:
+            tmp.append(w+x*delta*rate)
+        self.weights = tmp
         # 更新 bias
-        self.bias += rate * delta
-
-    
+        self.bias = self.bias + delta*rate
 
 def f(x):
     '''
@@ -128,8 +140,10 @@ def f(x):
     Returns:
         （实现阶跃函数）大于 0 返回 1，否则返回 0
     '''
-    return 1 if x > 0 else 0
-
+    if x>0:
+        return 1
+    else:
+        return 0
 
 def get_training_dataset():
     '''
@@ -144,11 +158,11 @@ def get_training_dataset():
     # 构建训练数据，输入向量的列表
     input_vecs = [[1,1],[0,0],[1,0],[0,1]]
     # 期望的输出列表，也就是上面的输入向量的列表中数据对应的标签，是一一对应的
-    labels = [1, 0, 0, 0]
-    return input_vecs, labels
+    
+    labels = [1,0,0,0]
+    return input_vecs,labels
 
-
-def train_and_perceptron():
+def train_and_perception():
     '''
     Desc:
         使用 and 真值表来训练我们的感知器
@@ -165,7 +179,6 @@ def train_and_perceptron():
     # 返回训练好的感知器
     return p
 
-
 if __name__ == '__main__':
     '''
     Desc:
@@ -178,9 +191,9 @@ if __name__ == '__main__':
     # 训练 and 感知器
     and_perceptron = train_and_perceptron()
     # 打印训练获得的权重
-    print and_perceptron
+    print(and_perceptron)
     # 测试
-    print '1 and 1 = %d' % and_perceptron.predict([1, 1])
-    print '0 and 0 = %d' % and_perceptron.predict([0, 0])
-    print '1 and 0 = %d' % and_perceptron.predict([1, 0])
-    print '0 and 1 = %d' % and_perceptron.predict([0, 1])
+    print('1 and 1 = %d' % and_perceptron.predict([1, 1]))
+    print('0 and 0 = %d' % and_perceptron.predict([0, 0]))
+    print('1 and 0 = %d' % and_perceptron.predict([1, 0]))
+    print('0 and 1 = %d' % and_perceptron.predict([0, 1]))

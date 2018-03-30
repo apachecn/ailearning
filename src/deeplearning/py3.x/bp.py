@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import random
+from functools import reduce
 from numpy import *
 
 # sigmoid 函数
@@ -273,7 +274,7 @@ class Layer(object):
         '''
         # 遍历层的所有的节点 nodes，将节点信息打印出来
         for node in self.nodes:
-            print node
+            print(node)
 
 
 # Connection 对象类，主要负责记录连接的权重，以及这个连接所关联的上下游的节点
@@ -396,7 +397,7 @@ class Connections(object):
             None
         '''
         for conn in self.connections:
-            print conn
+            print(conn)
 
 
 # Network 对象，提供相应 API
@@ -567,7 +568,7 @@ class Network(object):
             # 计算 output
             self.layers[i].calc_output()
         # 将计算得到的输出，也就是我们的预测值返回
-        return map(lambda node: node.output, self.layers[-1].nodes[:-1])
+        return list(map(lambda node: node.output, self.layers[-1].nodes[:-1]))
 
     def dump(self):
         '''
@@ -674,7 +675,7 @@ class Normalizer(object):
             规范化之后的数据
         '''
         # 此方法就相当于判断一个 8 位的向量，哪一位上有数字，如果有就将这个数设置为  0.9 ，否则，设置为 0.1，通俗比较来说，就是我们这里用 0.9 表示 1，用 0.1 表示 0
-        return map(lambda m: 0.9 if number & m else 0.1, self.mask)
+        return list(map(lambda m: 0.9 if number & m else 0.1, self.mask))
 
     def denorm(self, vec):
         '''
@@ -686,7 +687,7 @@ class Normalizer(object):
             最终的预测结果
         '''
         # 进行二分类，大于 0.5 就设置为 1，小于 0.5 就设置为 0
-        binary = map(lambda i: 1 if i > 0.5 else 0, vec)
+        binary = list(map(lambda i: 1 if i > 0.5 else 0, vec))
         # 遍历 mask
         for i in range(len(self.mask)):
             binary[i] = binary[i] * self.mask[i]
@@ -743,7 +744,7 @@ def gradient_check(network, sample_feature, sample_label):
         expected_gradient = (error2 - error1) / (2 * epsilon)
     
         # 打印
-        print 'expected gradient: \t%f\nactual gradient: \t%f' % (expected_gradient, actual_gradient)
+        print('expected gradient: \t%f\nactual gradient: \t%f' % (expected_gradient, actual_gradient))
 
 
 def train_data_set():
@@ -783,11 +784,15 @@ def train(network):
     '''
     # 获取训练数据集
     labels, data_set = train_data_set()
+    labels = list(labels)
+    data_set = list(labels)
     # 调用 network 中的 train方法来训练我们的神经网络
     network.train(labels, data_set, 0.3, 50)
 
 
-def test(network, data):
+def test(net,data):
+    #此函数不明觉厉，但是传参就有问题，如果跑不通就把这段代码注释掉吧。。。
+
     '''
     Desc:
         对我们的全连接神经网络进行测试
@@ -798,13 +803,15 @@ def test(network, data):
         None
     '''
     # 调用 Normalizer() 类
+
     normalizer = Normalizer()
     # 调用 norm 方法，对数据进行规范化
     norm_data = normalizer.norm(data)
+    norm_data = list(norm_data)
     # 对测试数据进行预测
-    predict_data = network.predict(norm_data)
+    predict_data = net.predict(norm_data)
     # 将结果打印出来
-    print '\ttestdata(%u)\tpredict(%u)' % (data, normalizer.denorm(predict_data))
+    print('\ttestdata(%u)\tpredict(%u)' % (data, normalizer.denorm(predict_data)))
 
 
 def correct_ratio(network):
@@ -821,7 +828,7 @@ def correct_ratio(network):
     for i in range(256):
         if normalizer.denorm(network.predict(normalizer.norm(i))) == i:
             correct += 1.0
-    print 'correct_ratio: %.2f%%' % (correct / 256 * 100)
+    print('correct_ratio: %.2f%%' % (correct / 256 * 100))
 
 
 def gradient_check_test():

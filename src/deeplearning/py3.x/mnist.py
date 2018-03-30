@@ -4,6 +4,9 @@
 import struct
 from fc import *
 from datetime import datetime
+import warnings
+#忽略警告一把梭，忽略了sigmoid函数位数溢出的警告
+warnings.filterwarnings('ignore')
 
 
 # 数据加载器基类
@@ -24,14 +27,14 @@ class Loader(object):
         f = open(self.path, 'rb')
         content = f.read()
         f.close()
-        return content
+        return list(content)
 
     def to_int(self, byte):
         '''
         将unsigned byte字符转换为整数
         '''
-        return struct.unpack('B', byte)[0]
-
+        #return struct.unpack('B', byte)[0]
+        return byte
 
 # 图像数据加载器
 class ImageLoader(Loader):
@@ -100,9 +103,10 @@ class LabelLoader(Loader):
 def get_training_data_set():
     '''
     获得训练数据集
+    原文为60000的数据集，但训练速度过于缓慢，这里
     '''
-    image_loader = ImageLoader('train-images-idx3-ubyte', 60000)
-    label_loader = LabelLoader('train-labels-idx1-ubyte', 60000)
+    image_loader = ImageLoader('./data/train-images-idx3-ubyte', 60000)
+    label_loader = LabelLoader('./data/train-labels-idx1-ubyte', 60000)
     return image_loader.load(), label_loader.load()
 
 
@@ -124,12 +128,13 @@ def show(sample):
             else:
                 str += ' '
         str += '\n'
-    print str
+    print(str)
 
 
 def get_result(vec):
     max_value_index = 0
     max_value = 0
+    vec = list(vec)
     for i in range(len(vec)):
         if vec[i] > max_value:
             max_value = vec[i]
@@ -158,15 +163,19 @@ def train_and_evaluate():
     epoch = 0
     train_data_set, train_labels = transpose(get_training_data_set())
     test_data_set, test_labels = transpose(get_test_data_set())
+    train_data_set =list(train_data_set)
+    train_labels = list(train_labels)
+    test_data_set = list(test_data_set)
+    test_labels = list(test_labels)
     network = Network([784, 100, 10])
     while True:
         epoch += 1
         network.train(train_labels, train_data_set, 0.01, 1)
-        print '%s epoch %d finished, loss %f' % (now(), epoch, 
-            network.loss(train_labels[-1], network.predict(train_data_set[-1])))
+        print('%s epoch %d finished, loss %f' % (now(), epoch,
+            network.loss(train_labels[-1], network.predict(train_data_set[-1]))))
         if epoch % 2 == 0:
             error_ratio = evaluate(network, test_data_set, test_labels)
-            print '%s after epoch %d, error ratio is %f' % (now(), epoch, error_ratio)
+            print('%s after epoch %d, error ratio is %f' % (now(), epoch, error_ratio))
             if error_ratio > last_error_ratio:
                 break
             else:
