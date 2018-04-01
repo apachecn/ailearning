@@ -42,9 +42,14 @@ net = Net(n_feature=1, n_hidden=10, n_output=1)
 print(net)
 
 
-# optimizer 优化器 是训练的工具
+# optimizer 优化器 是训练的工具，lr表示学习率
+'''
+>>> # lr = 0.05     if epoch < 30
+>>> # lr = 0.005    if 30 <= epoch < 80
+>>> # lr = 0.0005   if epoch >= 80
+'''
 # 传入 net 的所有参数, 学习率（例如：学习率<=1, 如果值过高，速度会很快，但容易忽视知识点）
-optimizer = torch.optim.SGD(net.parameters(), lr=0.5)  
+optimizer = torch.optim.SGD(net.parameters(), lr=0.5)
 # 损失函数
 loss_func = torch.nn.MSELoss()      # 预测值和真实值的误差计算公式 (均方误差)
 

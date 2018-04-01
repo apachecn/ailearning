@@ -80,6 +80,7 @@ def restore_params():
     plt.plot(x.data.numpy(), prediction.data.numpy(), 'r-', lw=5)
     plt.show()
 
+
 # save net1
 save()
 
