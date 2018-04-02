@@ -332,7 +332,7 @@ def testGenerateRules():
 
 def main():
     # 测试 Apriori 算法
-    # testApriori()
+    testApriori()
 
     # 生成关联规则
     # testGenerateRules()
@@ -353,17 +353,17 @@ def main():
     # # 项目案例
     # # 发现毒蘑菇的相似特性
     # # 得到全集的数据
-     dataSet = [line.split() for line in open("input/11.Apriori/mushroom.dat").readlines()]
-     L, supportData = apriori(dataSet, minSupport=0.3)
+    # dataSet = [line.split() for line in open("input/11.Apriori/mushroom.dat").readlines()]
+    # L, supportData = apriori(dataSet, minSupport=0.3)
     # # 2表示毒蘑菇，1表示可食用的蘑菇
     # # 找出关于2的频繁子项出来，就知道如果是毒蘑菇，那么出现频繁的也可能是毒蘑菇
-     for item in L[1]:
-         if item.intersection('2'):
-             print (item)
+    # for item in L[1]:
+    #     if item.intersection('2'):
+    #         print (item)
     
-     for item in L[2]:
-         if item.intersection('2'):
-             print (item)
+    # for item in L[2]:
+    #     if item.intersection('2'):
+    #         print (item)
 
 if __name__ == "__main__":
     main()
