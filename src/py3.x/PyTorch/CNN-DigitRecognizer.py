@@ -1,40 +1,22 @@
-import os
+#!/usr/bin/python
+# coding: utf-8
 
-# third-party library
+'''
+Created on 2017-05-18
+Update  on 2017-11-17
+Author: Peter Harrington/1988/片刻
+GitHub: https://github.com/apachecn/MachineLearning
+Score : 98.46%
+'''
+
 import pandas as pd
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
-from torch.utils.data import Dataset, DataLoader, TensorDataset
-import torchvision
+from torch.utils.data import Dataset, DataLoader
 import matplotlib.pyplot as plt
 
 torch.manual_seed(1)  # reproducible
-'''
-1. 加载数据
-'''
-# DOWNLOAD_MNIST = False
-# # Mnist digits dataset
-# if not(os.path.exists('/opt/data/mnist/')) or not os.listdir('/opt/data/mnist/'):
-#     # not mnist dir or mnist is empyt dir
-#     DOWNLOAD_MNIST = True
-
-# print('DOWNLOAD_MNIST', DOWNLOAD_MNIST)
-
-# train_data = torchvision.datasets.MNIST(
-#     root='/opt/data/mnist/',
-#     train=True,                                     # this is training data
-#     transform=torchvision.transforms.ToTensor(),    # Converts a PIL.Image or numpy.ndarray to
-#                                                     # torch.FloatTensor of shape (C x H x W) and normalize in the range [0.0, 1.0]
-#     download=DOWNLOAD_MNIST,
-# )
-
-# # plot one example
-# print(train_data.train_data.size())                 # (60000, 28, 28)
-# print(train_data.train_labels.size())               # (60000)
-# plt.imshow(train_data.train_data[0].numpy(), cmap='gray')
-# plt.title('%i' % train_data.train_labels[0])
-# plt.show()
 
 
 class CustomedDataSet(Dataset):
@@ -54,44 +36,12 @@ class CustomedDataSet(Dataset):
 
     def __getitem__(self, index):
         if self.data_type:
-            return torch.Tensor(
-                self.datalist[index].astype(float)), self.labellist[index]
+            return torch.Tensor(self.datalist[index].astype(float)), self.labellist[index]
         else:
             return torch.Tensor(self.datalist[index].astype(float))
 
     def __len__(self):
         return self.datalist.shape[0]
-
-
-# 先转换成 torch 能识别的 Dataset
-pd_train = pd.read_csv('/opt/data/kaggle/getting-started/digit-recognizer/train.csv', header=0)
-pd_pre = pd.read_csv('/opt/data/kaggle/getting-started/digit-recognizer/test.csv', header=0)
-
-# 找到数据分割点
-training_ratio = 0.8
-row = pd_train.shape[0]
-split_num = int(training_ratio*row)
-
-pd_data_train = pd_train[:split_num]
-pd_data_test = pd_train[split_num:]
-
-data_train = CustomedDataSet(pd_data_train, data_type=True)
-data_test = CustomedDataSet(pd_data_test, data_type=True)
-data_pre = CustomedDataSet(pd_pre, data_type=False)
-
-'''
-2. 数据读取器 (Data Loader)
-'''
-BATCH_SIZE = 400
-# Data Loader for easy mini-batch return in training, the image batch shape will be (50, 1, 28, 28)
-loader_train = DataLoader(dataset=data_train, batch_size=BATCH_SIZE, shuffle=True)
-loader_test = DataLoader(dataset=data_test, batch_size=pd_data_test.shape[0], shuffle=True)
-loader_pre = DataLoader(dataset=data_pre, batch_size=BATCH_SIZE, shuffle=True)
-
-# # convert test data into Variable, pick 2000 samples to speed up testing
-# test_data = torchvision.datasets.MNIST(root='/opt/data/mnist/', train=False)
-# test_x = Variable(torch.unsqueeze(test_data.test_data, dim=1), volatile=True).type(torch.FloatTensor)[:2000]/255.   # shape from (2000, 28, 28) to (2000, 1, 28, 28), value in range(0,1)
-# test_y = test_data.test_labels[:2000]
 
 
 class CNN(nn.Module):
@@ -123,34 +73,72 @@ class CNN(nn.Module):
         return output, x  # return x for visualization
 
 
-cnn = CNN()
-print(cnn)  # net architecture
+def load_data_train():
+    # 先转换成 torch 能识别的 Dataset
+    pd_train = pd.read_csv('/opt/data/kaggle/getting-started/digit-recognizer/train.csv', header=0)
+
+    # 找到数据分割点
+    row = pd_train.shape[0]
+    split_num = int(TRAIN_TATIO*row)
+
+    pd_data_train = pd_train[:split_num]
+    pd_data_test = pd_train[split_num:]
+    data_train = CustomedDataSet(pd_data_train, data_type=True)
+    data_test = CustomedDataSet(pd_data_test, data_type=True)
+
+    # 数据读取器 (Data Loader)
+    # Data Loader for easy mini-batch return in training, the image batch shape will be (50, 1, 28, 28)
+    loader_train = DataLoader(dataset=data_train, batch_size=BATCH_SIZE, shuffle=True)
+    loader_test = DataLoader(dataset=data_test, batch_size=pd_data_test.shape[0], shuffle=True)
+    return loader_train, loader_test
 
 
-LR = 0.005  # learning rate
-# optimizer 优化器 是训练的工具，lr表示学习率
-'''
->>> # lr = 0.05     if epoch < 30
->>> # lr = 0.005    if 30 <= epoch < 80
->>> # lr = 0.0005   if epoch >= 80
-'''
-optimizer = torch.optim.Adam(cnn.parameters(), lr=LR)  # optimize all cnn parameters
-loss_func = nn.CrossEntropyLoss()  # the target label is not one-hotted
+def load_data_pre():
+    pd_pre = pd.read_csv('/opt/data/kaggle/getting-started/digit-recognizer/test.csv', header=0)
+    data_pre = CustomedDataSet(pd_pre, data_type=False)
+    loader_pre = DataLoader(dataset=data_pre, batch_size=BATCH_SIZE, shuffle=True)
+    return loader_pre
 
-# following function (plot_with_labels) is for visualization, can be ignored if not interested
-from matplotlib import cm
-try:
-    from sklearn.manifold import TSNE
-    HAS_SK = True
-except:
-    HAS_SK = False
-    print('Please install sklearn for layer visualization')
+
+def optimizer_lossfunction(cnn):
+    '''
+    3. 设置优化器和损失函数
+    '''
+    # optimizer 优化器 是训练的工具，lr表示学习率
+    '''
+    lr
+    >>> # lr = 0.05     if epoch < 30
+    >>> # lr = 0.005    if 30 <= epoch < 80
+    >>> # lr = 0.0005   if epoch >= 80
+    Adam 好像没这个参数 -> momentum 动量参数： 计算速度更新，优化收敛速度
+    '''
+    optimizer = torch.optim.Adam(cnn.parameters(), lr=LR, betas=(0.9, 0.99))  # optimize all cnn parameters
+    loss_func = nn.CrossEntropyLoss()  # the target label is not one-hotted
+    return optimizer, loss_func
+
+
+def show(last_layer, y_test):
+    try:
+        from sklearn.manifold import TSNE
+        HAS_SK = True
+    except:
+        HAS_SK = False
+        print('Please install sklearn for layer visualization')
+
+    if HAS_SK:
+        # Visualization of trained flatten layer (T-SNE)
+        tsne = TSNE(perplexity=30, n_components=2, init='pca', n_iter=5000)
+        plot_only = 500
+        low_dim_embs = tsne.fit_transform(last_layer.data.numpy()[:plot_only, :])
+        labels = y_test.numpy()[:plot_only]
+        plot_with_labels(low_dim_embs, labels)
 
 
 def plot_with_labels(lowDWeights, labels):
     plt.cla()
     X, Y = lowDWeights[:, 0], lowDWeights[:, 1]
     for x, y, s in zip(X, Y, labels):
+        from matplotlib import cm
         c = cm.rainbow(int(255 * s / 9))
         plt.text(x, y, s, backgroundcolor=c, fontsize=9)
     plt.xlim(X.min(), X.max())
@@ -160,42 +148,79 @@ def plot_with_labels(lowDWeights, labels):
     plt.pause(0.01)
 
 
-plt.ion()
-# Hyper Parameters
-EPOCH = 50  # train the training data n times, to save time, we just train 1 epoch
-# training and testing
-for epoch in range(EPOCH):
-    # gives batch data, normalize x when iterate train_loader
-    for step, (x, y) in enumerate(loader_train):
+def train_model(cnn, optimizer, loss_func, loader_train, loader_test):
+    plt.ion()
+    # Hyper Parameters
+    EPOCH = 10  # train the training data n times, to save time, we just train 1 epoch
+    # training and testing
+    for epoch in range(EPOCH):
+        num = 0
+        # gives batch data, normalize x when iterate train_loader
+        for step, (x, y) in enumerate(loader_train):
+            b_x = Variable(x)  # batch x
+            b_y = Variable(y)  # batch y
+
+            output = cnn(b_x)[0]  # cnn output
+            loss = loss_func(output, b_y)  # cross entropy loss
+            optimizer.zero_grad()  # clear gradients for this training step
+            loss.backward()  # backpropagation, compute gradients
+            optimizer.step()  # apply gradients
+
+            # print('-'*30, step)
+            if step % 50 == 0:
+                num += 1
+                for _, (x_t, y_test) in enumerate(loader_test):
+                    x_test = Variable(x_t)  # batch x
+                    test_output, last_layer = cnn(x_test)
+                    pred_y = torch.max(test_output, 1)[1].data.squeeze()
+                    accuracy = sum(pred_y == y_test) / float(y_test.size(0))
+                    print('Epoch: ', epoch, '| Num: ',  num, '| Step: ',  step, '| train loss: %.4f' % loss.data[0], '| test accuracy: %.4f' % accuracy)
+                    # 可视化展现
+                    show(last_layer, y_test)
+    plt.ioff()
+    return cnn
+
+
+def model_train():
+    # 1.加载数据
+    loader_train, loader_test = load_data_train()
+
+    # 2.创建CNN模型
+    cnn = CNN()
+    print(cnn)  # net architecture
+
+    # 3. 设置优化器和损失函数
+    optimizer, loss_func = optimizer_lossfunction(cnn)
+
+    # 4. 训练模型
+    cnn = train_model(cnn, optimizer, loss_func, loader_train, loader_test)
+    return cnn
+
+
+def prediction(cnn, loader_pre):
+    # print 10 predictions from test data
+    for step, (x, y) in enumerate(loader_pre):
         b_x = Variable(x)  # batch x
-        b_y = Variable(y)  # batch y
+        test_output, _ = cnn(b_x)
 
-        output = cnn(b_x)[0]  # cnn output
-        loss = loss_func(output, b_y)  # cross entropy loss
-        optimizer.zero_grad()  # clear gradients for this training step
-        loss.backward()  # backpropagation, compute gradients
-        optimizer.step()  # apply gradients
+        pred_y = torch.max(test_output, 1)[1].data.numpy().squeeze()
+        print(pred_y, 'prediction number')
 
-        if step % 50 == 0:
-            for step, (x_t, y_test) in enumerate(loader_test):
-                x_test = Variable(x_t)  # batch x
+    return pred_y
 
-                test_output, last_layer = cnn(x_test)
-                pred_y = torch.max(test_output, 1)[1].data.squeeze()
-                accuracy = sum(pred_y == y_test) / float(y_test.size(0))
-                print('Epoch: ', epoch, '| train loss: %.4f' % loss.data[0], '| test accuracy: %.4f' % accuracy)
-                if HAS_SK:
-                    # Visualization of trained flatten layer (T-SNE)
-                    tsne = TSNE(perplexity=30, n_components=2, init='pca', n_iter=5000)
-                    plot_only = 500
-                    low_dim_embs = tsne.fit_transform(
-                        last_layer.data.numpy()[:plot_only, :])
-                    labels = y_test.numpy()[:plot_only]
-                    plot_with_labels(low_dim_embs, labels)
-plt.ioff()
 
-# print 10 predictions from test data
-test_output, _ = cnn(x_test[:100])
-pred_y = torch.max(test_output, 1)[1].data.numpy().squeeze()
-print(pred_y, 'prediction number')
-print(y_test[:100].numpy(), 'real number')
+if __name__ == "__main__":
+    global BATCH_SIZE, TRAIN_TATIO, LR, momentum
+    BATCH_SIZE = 50
+    TRAIN_TATIO = 0.8
+    LR = 0.0001  # learning rate
+
+    # 训练模型
+    file_path = '/opt/data/kaggle/getting-started/digit-recognizer/net.pkl'
+    cnn = model_train()
+    torch.save(cnn, file_path)
+
+    # # 预测数据
+    # loader_pre = load_data_pre()
+    # cnn = torch.load(file_path)
+    # pre_data = prediction(cnn)
