@@ -24,7 +24,7 @@ class IdentityActivator(object):
 
 class SigmoidActivator(object):
     def forward(self, weighted_input):
-        return 1.0 / (1.0 + np.exp(-weighted_input))
+        return np.longfloat(1.0 / (1.0 + np.exp(-weighted_input)))
 
     def backward(self, output):
         return output * (1 - output)
