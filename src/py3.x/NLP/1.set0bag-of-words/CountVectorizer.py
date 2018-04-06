@@ -2,6 +2,7 @@
 
 """
 词集模型：单词构成的集合，集合自然每个元素都只有一个，也即词集中的每个单词都只有一个
+词袋模型：在词集的基础上如果一个单词在文档中出现不止一次，统计其出现的次数（频数）
 """
 
 from sklearn.feature_extraction.text import CountVectorizer
