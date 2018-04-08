@@ -152,8 +152,8 @@ def stoc_grad_ascent1(data_mat, class_labels, num_iter=150):
             # 随机产生一个 0～len()之间的一个值
             # random.uniform(x, y) 方法将随机生成下一个实数，它在[x,y]范围内,x是这个范围内的最小值，y是这个范围内的最大值。
             rand_index = int(np.random.uniform(0, len(data_index)))
-            h = sigmoid(np.sum(data_mat[rand_index] * weights))
-            error = class_labels[rand_index] - h
+            h = sigmoid(np.sum(data_mat[dataIndex[randIndex]] * weights))
+            error = class_labels[dataIndex[randIndex]] - h
             weights = weights + alpha * error * data_mat[dataIndex[randIndex]]
             del(data_index[rand_index])
     return weights
