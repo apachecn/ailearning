@@ -91,13 +91,13 @@ def gradAscent(dataMatIn, classLabels):
     return array(weights)
 
 
-# 随机梯度上升
-# 梯度上升优化算法在每次更新数据集时都需要遍历整个数据集，计算复杂都较高
-# 随机梯度上升一次只用一个样本点来更新回归系数
+# 随机梯度下降
+# 梯度下降优化算法在每次更新数据集时都需要遍历整个数据集，计算复杂都较高
+# 随机梯度下降一次只用一个样本点来更新回归系数
 def stocGradAscent0(dataMatrix, classLabels):
     '''
     Desc:
-        随机梯度上升，只使用一个样本点来更新回归系数
+        随机梯度下降，只使用一个样本点来更新回归系数
     Args:
         dataMatrix -- 输入数据的数据特征（除去最后一列）
         classLabels -- 输入数据的类别标签（最后一列数据）
@@ -116,16 +116,16 @@ def stocGradAscent0(dataMatrix, classLabels):
         # 计算真实类别与预测类别之间的差值，然后按照该差值调整回归系数
         error = classLabels[i] - h
         # 0.01*(1*1)*(1*n)
-        print weights, "*" * 10, dataMatrix[i], "*" * 10, error
+        # print weights, "*" * 10, dataMatrix[i], "*" * 10, error
         weights = weights + alpha * error * dataMatrix[i]
     return weights
 
 
-# 随机梯度上升算法（随机化）
+# 随机梯度下降算法（随机化）
 def stocGradAscent1(dataMatrix, classLabels, numIter=150):
     '''
     Desc:
-        改进版的随机梯度上升，使用随机的一个样本来更新回归系数
+        改进版的随机梯度下降，使用随机的一个样本来更新回归系数
     Args:
         dataMatrix -- 输入数据的数据特征（除去最后一列数据）
         classLabels -- 输入数据的类别标签（最后一列数据）
@@ -148,10 +148,10 @@ def stocGradAscent1(dataMatrix, classLabels, numIter=150):
             # random.uniform(x, y) 方法将随机生成下一个实数，它在[x,y]范围内,x是这个范围内的最小值，y是这个范围内的最大值。
             randIndex = int(random.uniform(0, len(dataIndex)))
             # sum(dataMatrix[i]*weights)为了求 f(x)的值， f(x)=a1*x1+b2*x2+..+nn*xn
-            h = sigmoid(sum(dataMatrix[randIndex] * weights))
-            error = classLabels[randIndex] - h
+            h = sigmoid(sum(dataMatrix[dataIndex[randIndex]] * weights))
+            error = classLabels[dataIndex[randIndex]] - h
             # print weights, '__h=%s' % h, '__'*20, alpha, '__'*20, error, '__'*20, dataMatrix[randIndex]
-            weights = weights + alpha * error * dataMatrix[randIndex]
+            weights = weights + alpha * error * dataMatrix[dataIndex[randIndex]]
             del (dataIndex[randIndex])
     return weights
 
@@ -263,6 +263,7 @@ def colicTest():
         trainingLabels.append(float(currLine[21]))
     # 使用 改进后的 随机梯度下降算法 求得在此数据集上的最佳回归系数 trainWeights
     trainWeights = stocGradAscent1(array(trainingSet), trainingLabels, 500)
+    # trainWeights = stocGradAscent0(array(trainingSet), trainingLabels)
     errorCount = 0
     numTestVec = 0.0
     # 读取 测试数据集 进行测试，计算分类错误的样本条数和最终的错误率
