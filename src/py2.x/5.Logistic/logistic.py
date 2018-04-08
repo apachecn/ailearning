@@ -148,15 +148,11 @@ def stocGradAscent1(dataMatrix, classLabels, numIter=150):
             # random.uniform(x, y) 方法将随机生成下一个实数，它在[x,y]范围内,x是这个范围内的最小值，y是这个范围内的最大值。
             randIndex = int(random.uniform(0, len(dataIndex)))
             # sum(dataMatrix[i]*weights)为了求 f(x)的值， f(x)=a1*x1+b2*x2+..+nn*xn
-            '''
-            的确是随机化了，但是发现错误率还提升了！！（有点意思）
-            '''
-            compare_index = dataIndex[randIndex]
-            h = sigmoid(sum(dataMatrix[compare_index] * weights))
-            error = classLabels[compare_index] - h
+            h = sigmoid(sum(dataMatrix[dataIndex[randIndex]] * weights))
+            error = classLabels[dataIndex[randIndex]] - h
             # print weights, '__h=%s' % h, '__'*20, alpha, '__'*20, error, '__'*20, dataMatrix[randIndex]
-            weights = weights + alpha * error * dataMatrix[compare_index]
-            del(dataIndex[randIndex])
+            weights = weights + alpha * error * dataMatrix[dataIndex[randIndex]]
+            del (dataIndex[randIndex])
     return weights
 
 
