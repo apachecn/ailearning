@@ -95,50 +95,51 @@ sample = data[0]
 # 将文本转化为 Variable 对象
 bow_vector = make_bow_vector(sample[0], word_to_ix)
 print("bow_vector: \n", bow_vector)
-print("autograd: \n", autograd.Variable(bow_vector))
 log_probs = model(autograd.Variable(bow_vector))
 # 将原始数据从 x ⇒ log (x)，无疑会将原始数据的值域进行一定的收缩。
-"""lable目标变量的：最终的分类下所有结果的概率（下面为: SPANISH 和 ENGLISH 的概率分布）
+"""lable目标变量的：最终的分类下所有结果的概率（下面为: SPANISH 和 ENGLISH 的概率分布-暂时还没有定义先后顺序，默认是字母？）
 Variable containing:
 -0.8195 -0.5810
 """
 print(log_probs)
 
 
-# Run on test data before we train, just to see a before-and-after
-for instance, label in test_data:
-    bow_vec = autograd.Variable(make_bow_vector(instance, word_to_ix))
-    log_probs = model(bow_vec)
-    print(log_probs)
+# # 在我们训练之前运行测试数据，只是为了看到前后的变化
+# for instance, label in test_data:
+#     bow_vec = autograd.Variable(make_bow_vector(instance, word_to_ix))
+#     log_probs = model(bow_vec)
+#     print("训练前 ---: \n", log_probs)
 
-# 打印对应于 "creo" 的矩阵列
-print('model.parameters(): \n', next(model.parameters())[:, word_to_ix["creo"]])
+# # 打印对应于 "creo" 的矩阵列的计算值，用于对比训练后的结果变化
+# print('model.parameters(): \n', next(model.parameters())[:, word_to_ix["creo"]])
 
-loss_function = nn.NLLLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.1)
+loss_function = nn.NLLLoss()
 
-# Usually you want to pass over the training data several times.
-# 100 is much bigger than on a real data set, but real datasets have more than
-# two instances.  Usually, somewhere between 5 and 30 epochs is reasonable.
+# 通常你想多次传递训练数据。
+# 100比实际的数据集大得多，但真正的数据集不止
+# 两个实例。通常，5至30个时期是合理的。
 for epoch in range(100):
     for instance, label in data:
-        # Step 1. Remember that Pytorch accumulates gradients.
-        # We need to clear them out before each instance
+        # 步骤1.
+        # 请记住，Pytorch会累积渐变。
+        # 我们需要在每个实例之前清除它们
         model.zero_grad()
 
-        # Step 2. Make our BOW vector and also we must wrap the target in a
-        # Variable as an integer. For example, if the target is SPANISH, then
-        # we wrap the integer 0. The loss function then knows that the 0th
-        # element of the log probabilities is the log probability
-        # corresponding to SPANISH
+        # 第2步.
+        # 制作我们的BOW矢量，并且我们还必须将目标包装在一个
+        # 作为整数变量
+        # 例如: 如果目标是西班牙语，那么我们包装整数0.
+        # 然后，损失函数知道日志概率的第0个元素是对应于西班牙语的日志概率
         bow_vec = autograd.Variable(make_bow_vector(instance, word_to_ix))
         target = autograd.Variable(make_target(label, label_to_ix))
 
-        # Step 3. Run our forward pass.
+        # 第3步.
+        # 开始训练模型
         log_probs = model(bow_vec)
 
-        # Step 4. Compute the loss, gradients, and update the parameters by
-        # calling optimizer.step()
+        # 第4步.
+        # 通过调用optimizer.step（）来计算损失，梯度和更新参数
         loss = loss_function(log_probs, target)
         loss.backward()
         optimizer.step()
@@ -146,7 +147,7 @@ for epoch in range(100):
 for instance, label in test_data:
     bow_vec = autograd.Variable(make_bow_vector(instance, word_to_ix))
     log_probs = model(bow_vec)
-    print(log_probs)
+    print("训练后 ---: \n", log_probs)
 
 # Index corresponding to Spanish goes up, English goes down!
 print(next(model.parameters())[:, word_to_ix["creo"]])
