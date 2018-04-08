@@ -154,7 +154,7 @@ def stoc_grad_ascent1(data_mat, class_labels, num_iter=150):
             rand_index = int(np.random.uniform(0, len(data_index)))
             h = sigmoid(np.sum(data_mat[rand_index] * weights))
             error = class_labels[rand_index] - h
-            weights = weights + alpha * error * data_mat[rand_index]
+            weights = weights + alpha * error * data_mat[dataIndex[randIndex]]
             del(data_index[rand_index])
     return weights
 
