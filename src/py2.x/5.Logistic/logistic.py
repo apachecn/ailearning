@@ -151,7 +151,7 @@ def stocGradAscent1(dataMatrix, classLabels, numIter=150):
             h = sigmoid(sum(dataMatrix[randIndex] * weights))
             error = classLabels[randIndex] - h
             # print weights, '__h=%s' % h, '__'*20, alpha, '__'*20, error, '__'*20, dataMatrix[randIndex]
-            weights = weights + alpha * error * dataMatrix[randIndex]
+            weights = weights + alpha * error * dataMatrix[dataIndex[randIndex]]
             del (dataIndex[randIndex])
     return weights
 
