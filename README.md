@@ -5,82 +5,13 @@
 * **ApacheCN - 学习机器学习群【629470233】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=30e5f1123a79867570f665aa3a483ca404b1c3f77737bc01ec520ed5f078ddef"><img border="0" src="/images/MainPage/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[629470233]" title="ApacheCN - 学习机器学习群[629470233]"></a>**
 * **Machine Learning in Action (机器学习实战) | [ApacheCN(apache中文网)](http://cwiki.apachecn.org/)**
 * 电子版书籍：[【机器学习实战-中文版-带目录版.pdf】](https://github.com/apachecn/MachineLearning/tree/master/books)  
-* -- 感谢 大佬 [Wizard Zhang](https://github.com/wizardforcel) 生成的电子书[《机器学习实战-ApacheCN.pdf》](https://github.com/apachecn/MachineLearning/blob/master/books/机器学习实战-ApacheCN.pdf)
-* **视频已更新完成，如果你觉得有价值，请帮忙点 Star【后续组织学习活动：sklearn、kaggle 和 tensorflow】**
-* -- 视频网站：优酷／bilibili / Acfun ，可直接在线播放。（最下方有相应链接）
-* -- 对于帮忙转发 [MachineLearning(机器学习) 学习路线图](http://www.apachecn.org/map/145.html) 的朋友，可以加群后私聊 瑶妹 企鹅 赠送《机器学习实战》百度云视频一套，谢谢
+* -- 感谢 [群小哥哥：Wizard Zhang](https://github.com/wizardforcel) 生成的电子书[《机器学习实战-ApacheCN.pdf》](https://github.com/apachecn/MachineLearning/blob/master/books/机器学习实战-ApacheCN.pdf)
+* **视频已更新完成，如果你觉得有价值，请帮忙点 Star【后续组织学习活动：sklearn、kaggle、 Pytorch 和 tensorflow】**
+* -- 视频网站：优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
+* -- [群小哥哥：红色石头的机器学习之路](https://github.com/RedstoneWill): [台湾大学林轩田机器学习基石课程 - **系列学习笔记**](https://mp.weixin.qq.com/s/xb0i55zIQVzCiSZALbvncg)
 
 ## 机器学习
-### 第一部分  分类
 
-* 1.) [机器学习基础](./docs/1.机器学习基础.md)
-    * [机器学习实战-复习版（问题汇总）](./faq/1.机器学习实战-复习版.md)
-* 2.) [k-近邻算法](./docs/2.k-近邻算法.md)
-* 3.) [决策树](./docs/3.决策树.md)
-* 4.) [基于概率论的分类方法：朴素贝叶斯](./docs/4.朴素贝叶斯.md)
-* 5.) [Logistic回归](./docs/5.Logistic回归.md)
-* 6.) [支持向量机](./docs/6.支持向量机.md)
-* 7.) [集成方法-随机森林和AdaBoost](./docs/7.集成方法-随机森林和AdaBoost.md)
-
-### 第二部分  回归
-
-* 8.) [预测数值型数据：回归](./docs/8.预测数值型数据：回归.md)
-* 9.) [树回归](./docs/9.树回归.md)
-
-### 第三部分  无监督学习
-
-* 10.) [使用K-均值聚类算法对未标注数据分组:k-means聚类](./docs/10.k-means聚类.md)
-* 11.) [使用Apriori算法进行关联分析](./docs/11.使用Apriori算法进行关联分析.md)
-* 12.) [使用FP-growth算法来高效发现频繁项集](./docs/12.使用FP-growth算法来高效发现频繁项集.md )
-
-### 第四部分  其他工具
-
-* 13.) [利用PCA来简化数据](./docs/13.利用PCA来简化数据.md)
-* 14.) [利用SVD简化数据](./docs/14.利用SVD简化数据.md)
-* 15.) [大数据与MapReduce](./docs/15.大数据与MapReduce.md)
-
-## 第五部分  项目实战(非课本内容)
-
-* 16.) [推荐系统](/docs/16.推荐系统.md)
-
-## 自然语言处理(NLP)
-
-### 第一部分 入门介绍
-
-* 1.) [自然语言处理入门介绍](./docs/nlp/1.自然语言处理入门介绍.md)
-
-### 第二部分 机器翻译
-
-* 2.) [机器翻译](./docs/nlp/2.机器翻译.md)
-
-### 第三部分 篇章分析
-
-* 3.1.) [篇章分析-内容概述](./docs/nlp/3.1.篇章分析-内容概述.md)
-* 3.2.) [篇章分析-内容标签](./docs/nlp/3.2.篇章分析-内容标签.md)
-* 3.3.) [篇章分析-情感分析](./docs/nlp/3.3.篇章分析-情感分析.md)
-* 3.4.) [篇章分析-自动摘要](./docs/nlp/3.4.篇章分析-自动摘要.md)
-
-### 第四部分 UNIT-语言理解与交互技术
-
-* 4.) [UNIT-语言理解与交互技术](./docs/nlp/4.UNIT-语言理解与交互技术.md)
-
-## 深度学习(DeepLearning) —— 正在更新迭代
-
-* 1.) [DeepLearning介绍](./docs/deep-learning/DeepLearning介绍.md)
-
-* 2.） 代码位置：src/deeplearning/py2.x or py3.x
-
-## 阶段性总结
-
-* [2017-04-08_第一期的总结](/report/2017-04-08_第一期的总结.md)
-
-## 联系方式
-
-> 项目负责人
-
-* [@jiangzhonglian](https://github.com/jiangzhonglian)（片刻）
-
-> 模块负责人
 <table>
   <tr>
     <th>模块</th>
@@ -91,110 +22,154 @@
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 1 章: 机器学习基础</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/1.机器学习基础.md"> 第 1 章: 机器学习基础</a></td>
     <td>介绍</td>
     <td><a href="https://github.com/ElmaDavies">@毛红动</a></td>
     <td>1306014226</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 2 章: KNN 近邻算法</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/2.k-近邻算法.md">第 2 章: KNN 近邻算法</a></td>
     <td>分类</td>
     <td><a href="https://github.com/youyj521">@尤永江</a></td>
     <td>279393323</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 3 章: 决策树</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/3.决策树.md">第 3 章: 决策树</a></td>
     <td>分类</td>
     <td><a href="https://github.com/jingwangfei">@景涛</a></td>
     <td>844300439</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 4 章: 朴素贝叶斯</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/4.朴素贝叶斯.md">第 4 章: 朴素贝叶斯</a></td>
     <td>分类</td>
     <td><a href="https://github.com/wnma3mz">@wnma3mz</a><br/><a href="https://github.com/kailian">@分析</a></td>
     <td>1003324213<br/>244970749</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 5 章: Logistic回归</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/5.Logistic回归.md">第 5 章: Logistic回归</td>
     <td>分类</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 6 章: SVM 支持向量机</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/6.支持向量机.md">第 6 章: SVM 支持向量机</a></td>
     <td>分类</td>
     <td><a href="https://github.com/VPrincekin">@王德红</a></td>
     <td>934969547</td>
   </tr>
   <tr>
-    <td>机器学习实战</td>
-    <td>第 7 章: 集成方法（随机森林和 AdaBoost）</td>
+    <td>网上组合内容</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/7.集成方法-随机森林和AdaBoost.md">第 7 章: 集成方法（随机森林和 AdaBoost）</a></td>
     <td>分类</td>
     <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
     <td>529815144</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 8 章: 回归</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/8.回归.md">第 8 章: 回归</td>
     <td>回归</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 9 章: 树回归</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/9.树回归.md">第 9 章: 树回归</a></td>
     <td>回归</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 10 章: K-Means 聚类</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/10.k-means聚类.md">第 10 章: K-Means 聚类</a></td>
     <td>聚类</td>
     <td><a href="https://github.com/xuzhaoqing">@徐昭清</a></td>
     <td>827106588</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 11 章: 利用 Apriori 算法进行关联分析</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/11.使用Apriori算法进行关联分析.md">第 11 章: 利用 Apriori 算法进行关联分析</a></td>
     <td>频繁项集</td>
     <td><a href="https://github.com/WindZQ">@刘海飞</a></td>
     <td>1049498972</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 12 章: FP-growth 高效发现频繁项集</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/12.使用FP-growth算法来高效发现频繁项集.md">第 12 章: FP-growth 高效发现频繁项集</a></td>
     <td>频繁项集</td>
     <td><a href="https://github.com/mikechengwei">@程威</a></td>
     <td>842725815</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 13 章: 利用 PCA 来简化数据</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/13.利用PCA来简化数据.md">第 13 章: 利用 PCA 来简化数据</a></td>
     <td>工具</td>
     <td><a href="https://github.com/lljuan330">@廖立娟</a></td>
     <td>835670618</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 14 章: 利用 SVD 来简化数据</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/14..利用SVD简化数据.md">第 14 章: 利用 SVD 来简化数据</a></td>
     <td>工具</td>
     <td><a href="https://github.com/marsjhao">@张俊皓</a></td>
     <td>714974242</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td>第 15 章: 大数据与 MapReduce</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/15.大数据与MapReduce.md">第 15 章: 大数据与 MapReduce</a></td>
     <td>工具</td>
     <td>空缺 - 有兴趣私聊片刻</td>
     <td>842376188</td>
   </tr>
+  <tr>
+    <td>Ml项目实战</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/16.推荐系统.md">第 16 章: 推荐系统</a></td>
+    <td>项目</td>
+    <td>空缺 - 有兴趣私聊片刻</td>
+    <td>842376188</td>
+  </tr>
 </table>
+
+## 深度学习(DeepLearning) —— 正在更新迭代
+
+* 1.) [入门介绍](./docs/DeepLearning/1.入门介绍.md)
+* 2.） 代码位置：src/deeplearning/py2.x or py3.x
+
+## 自然语言处理(NLP)
+
+### 第一部分 入门介绍
+
+* 1.) [自然语言处理入门介绍](./docs/NLP/1.自然语言处理入门介绍.md)
+* 2.) [Word2Vec 原理介绍](./docs/nlp/Word2Vec.md)
+
+### 第二部分 机器翻译
+
+* 2.) [机器翻译](./docs/NLP/2.机器翻译.md)
+
+### 第三部分 篇章分析
+
+* 3.1.) [篇章分析-内容概述](./docs/NLP/3.1.篇章分析-内容概述.md)
+* 3.2.) [篇章分析-内容标签](./docs/NLP/3.2.篇章分析-内容标签.md)
+* 3.3.) [篇章分析-情感分析](./docs/NLP/3.3.篇章分析-情感分析.md)
+* 3.4.) [篇章分析-自动摘要](./docs/NLP/3.4.篇章分析-自动摘要.md)
+
+### 第四部分 UNIT-语言理解与交互技术
+
+* 4.) [UNIT-语言理解与交互技术](./docs/NLP/4.UNIT-语言理解与交互技术.md)
+
+## 阶段性总结
+
+* [2017-04-08_第一期的总结](/report/2017-04-08_第一期的总结.md)
+
+## 联系方式
+
+> 项目负责人
+
+* [@jiangzhonglian](https://github.com/jiangzhonglian)（片刻）
 
 > 项目贡献者
 
