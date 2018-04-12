@@ -59,7 +59,7 @@ def readLines(filename):
     return [unicodeToAscii(line) for line in lines]
 
 
-for filename in findFiles('/opt/data/nlp/names/*.txt'):
+for filename in findFiles('/opt/data/NLP/names/*.txt'):
     print("文件路径: ", filename)
     category = filename.split('/')[-1].split('.')[0]
     all_categories.append(category)

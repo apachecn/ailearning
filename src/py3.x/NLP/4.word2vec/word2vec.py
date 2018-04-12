@@ -15,7 +15,7 @@ import pandas as pd
 from gensim.models import word2vec
 
 # 加载语料
-sentences = word2vec.Text8Corpus(u"/opt/data/nlp/4.word2vec/text8.txt")
+sentences = word2vec.Text8Corpus(u"/opt/data/NLP/4.word2vec/text8.txt")
 model = word2vec.Word2Vec(sentences, size=200)  # 训练skip-gram模型; 默认window=5
 
 # 计算两个词的相似度/相关程度
