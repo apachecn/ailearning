@@ -113,7 +113,7 @@
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/14..利用SVD简化数据.md">第 14 章: 利用 SVD 来简化数据</a></td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/14.利用SVD简化数据.md">第 14 章: 利用 SVD 来简化数据</a></td>
     <td>工具</td>
     <td><a href="https://github.com/marsjhao">@张俊皓</a></td>
     <td>714974242</td>
