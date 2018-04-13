@@ -290,5 +290,5 @@ def multiTest():
 
 
 if __name__ == "__main__":
-    # simpleTest()
-    multiTest()
+    simpleTest()
+    # multiTest()
