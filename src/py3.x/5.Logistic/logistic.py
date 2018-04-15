@@ -152,9 +152,9 @@ def stoc_grad_ascent1(data_mat, class_labels, num_iter=150):
             # 随机产生一个 0～len()之间的一个值
             # random.uniform(x, y) 方法将随机生成下一个实数，它在[x,y]范围内,x是这个范围内的最小值，y是这个范围内的最大值。
             rand_index = int(np.random.uniform(0, len(data_index)))
-            h = sigmoid(np.sum(data_mat[dataIndex[randIndex]] * weights))
-            error = class_labels[dataIndex[randIndex]] - h
-            weights = weights + alpha * error * data_mat[dataIndex[randIndex]]
+            h = sigmoid(np.sum(data_mat[data_index[rand_index]] * weights))
+            error = class_labels[data_index[rand_index]] - h
+            weights = weights + alpha * error * data_mat[data_index[rand_index]]
             del(data_index[rand_index])
     return weights
 
@@ -202,7 +202,7 @@ def colic_test():
     # trainingSet 中存储训练数据集的特征，trainingLabels 存储训练数据集的样本对应的分类标签
     for line in f_train.readlines():
         curr_line = line.strip().split('\t')
-        line_arr = [float(curr_line[i])　for i in range(21)]
+        line_arr = [float(curr_line[i]) for i in range(21)]
         training_set.append(line_arr)
         training_labels.append(float(curr_line[21]))
     # 使用 改进后的 随机梯度下降算法 求得在此数据集上的最佳回归系数 trainWeights
@@ -213,7 +213,7 @@ def colic_test():
     for line in f_test.readlines():
         num_test_vec += 1
         curr_line = line.strip().split('\t')
-        line_arr = [float(curr_line[i])　for i in range(21)]
+        line_arr = [float(curr_line[i]) for i in range(21)]
         if int(classify_vector(np.array(line_arr), train_weights)) != int(curr_line[21]):
             error_count += 1
     error_rate = error_count / num_test_vec
@@ -235,7 +235,7 @@ def multi_test():
 
 if __name__ == '__main__':
     # 请依次运行下面三个函数做代码测试
-    # test()
+    test()
     # colic_test()
-    multi_test()
+    # multi_test()
 
