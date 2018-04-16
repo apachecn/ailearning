@@ -363,9 +363,6 @@
   </tr>
 </table>
 
-## 阶段性总结
-
-* [2017-04-08_第一期的总结](/report/2017-04-08_第一期的总结.md)
 
 ## 项目负责人
 
@@ -375,6 +372,8 @@
 * [@那伊抹微笑](https://github.com/wangyangting)
 * [@瑶妹](https://github.com/chenyyx)
 
+* [2017-04-08_第一期的总结](/report/2017-04-08_第一期的总结.md)
+
 > Ml 第二期 (2017-08-14)
 
 * [@片刻](https://github.com/jiangzhonglian)
@@ -382,7 +381,8 @@
 * [@瑶妹](https://github.com/chenyyx)
 * [@Mike](https://github.com/mikechengwei)
 
-> Ml 第二期 (2018-04-16)
+> Ml 第三期 (2018-04-16)
+
 
 ## 项目贡献者
 
@@ -399,6 +399,9 @@
 * [@Veyron C](https://github.com/caopeirui)
 * [@Cugtyt](https://github.com/Cugtyt)
 * [@BBruceyuan](https://github.com/hey-bruce)
+
+> Ml 第三期 (2018-04-16)
+
 
 * 欢迎贡献者不断的追加
 
