@@ -50,7 +50,7 @@
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/5.Logistic回归.md">第 5 章: Logistic回归</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/5.Logistic回归.md">第 5 章: Logistic回归</a></td>
     <td>分类</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
@@ -71,7 +71,7 @@
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/8.回归.md">第 8 章: 回归</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/8.回归.md">第 8 章: 回归</a></td>
     <td>回归</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
@@ -144,7 +144,6 @@
 ### 第一部分 入门介绍
 
 * 1.) [自然语言处理入门介绍](./docs/NLP/1.自然语言处理入门介绍.md)
-* 2.) [Word2Vec 原理介绍](./docs/nlp/Word2Vec.md)
 
 ### 第二部分 机器翻译
 
@@ -161,30 +160,247 @@
 
 * 4.) [UNIT-语言理解与交互技术](./docs/NLP/4.UNIT-语言理解与交互技术.md)
 
+## 未来规划样子
+
+<table>
+  <tr align="center">
+    <th>类目</th>
+    <th>类型</th>
+    <th>模块</th>
+    <th>章节</th>
+    <th>负责人</th>
+    <th>QQ</th>
+  </tr> 
+  <tr align="center">
+    <td rowspan="21">机器学习</td>
+    <td colspan="2">基本介绍</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/1.机器学习基础.md">机器学习基础</a></td>
+    <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
+    <td>529815144</td>
+  </tr>
+  <tr align="center">
+    <td rowspan="11">监督学习</td>
+    <td rowspan="8">分类</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/2.k-近邻算法.md">KNN 近邻算法</a></td>
+    <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
+    <td>529925688</td>
+  </tr>
+  <tr align="center">
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/3.决策树.md">决策树</a></td>
+    <td><a href="https://github.com/jingwangfei">@景涛</a></td>
+    <td>844300439</td>
+  </tr>
+  <tr align="center">
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/4.朴素贝叶斯.md">朴素贝叶斯</a></td>
+    <td><a href="https://github.com/friedhelm739
+">@平淡的天</a></td>
+    <td>554650680</td>
+  </tr>
+  <tr align="center">
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/5.Logistic回归.md">Logistic回归</a></td>
+    <td><a href="https://github.com/jingwangfei">@景涛</a></td>
+    <td>844300439</td>
+  </tr>
+  <tr align="center">
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/6.支持向量机.md">SVM 支持向量机</a></td>
+    <td><a href="https://github.com/VPrincekin">@小王子</a><br/><a href="https://github.com/jingwangfei">@景涛</a></td>
+    <td>934969547<br/>844300439</td>
+  </tr>
+  <tr align="center">
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/7.集成方法-随机森林和AdaBoost.md">集成方法</a></td>
+    <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
+    <td>529815144</td>
+  </tr>
+  <tr align="center">
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/7.集成方法-随机森林和AdaBoost.md">随机森林</a></td>
+    <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
+    <td>529815144</td>
+  </tr>
+  <tr align="center">
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/7.集成方法-随机森林和AdaBoost.md">AdaBoost</a></td>
+    <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
+    <td>529815144</td>
+  </tr>
+  <tr align="center">
+    <td rowspan="2">回归</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/8.回归.md">回归</a></td>
+    <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
+    <td>529925688</td>
+  </tr>
+  <tr align="center">
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/9.树回归.md">树回归</a></td>
+    <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
+    <td>529925688</td>
+  </tr>
+  <tr align="center">
+    <td rowspan="1">综合</td>
+    <td>xgboost</td>
+    <td><a href="https://github.com/VPrincekin">@小王子</a></td>
+    <td>934969547</td>
+  </tr>
+  <tr align="center">
+    <td rowspan="3">非监督学习</td>
+    <td rowspan="1">聚类</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/10.k-means聚类.md">K-Means 聚类</a></td>
+    <td><a href="https://github.com/xuzhaoqing">@徐昭清</a></td>
+    <td>827106588</td>
+  </tr>
+  <tr align="center">
+    <td rowspan="1">关联规则</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/11.使用Apriori算法进行关联分析.md">利用 Apriori 算法进行关联分析</a></td>
+    <td><a href="https://github.com/WindZQ">@刘海飞</a></td>
+    <td>1049498972</td>
+  </tr>
+  <tr align="center">
+    <td rowspan="1">频繁项集</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/12.使用FP-growth算法来高效发现频繁项集.md">FP-growth 高效发现频繁项集</a></td>
+    <td><a href="https://github.com/mikechengwei">@程威</a></td>
+    <td>842725815</td>
+  </tr>
+  <tr align="center">
+    <td rowspan="3" colspan="2">降维</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/13.利用PCA来简化数据.md">利用 PCA 来简化数据</a></td>
+    <td><a href="https://github.com/lljuan330">@廖立娟</a></td>
+    <td>835670618</td>
+  </tr>
+  <tr align="center">
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/14.利用SVD简化数据.md">利用 SVD 来简化数据</a></td>
+    <td>空缺</td>
+    <td></td>
+  </tr>
+  <tr align="center">
+    <td>T-SNE</td>
+    <td><a href="https://github.com/jiangzhonglian">@片刻</a><br/><a href="https://github.com/Lisanaaa">@Lisanaaa</a></td>
+    <td>529815144<br/>1369342903</td>
+  </tr>
+  <tr align="center">
+    <td rowspan="1" colspan="2">模型选择</td>
+    <td></td>
+    <td>空缺</td>
+    <td></td>
+  </tr>
+  <tr align="center">
+    <td rowspan="1" colspan="2">预处理</td>
+    <td></td>
+    <td><a href="https://github.com/Watermelon233">@咸鱼</a></td>
+    <td>1034616238</td>
+  </tr>
+  <tr align="center">
+    <td rowspan="1" colspan="2">模型融合</td>
+    <td></td>
+    <td><a href="https://github.com/Watermelon233">@咸鱼</a></td>
+    <td>1034616238</td>
+  </tr>
+
+
+  <tr align="center">
+    <td rowspan="10">深度学习</td>
+    <td rowspan="2" colspan="2">神经网络</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/DeepLearning/1.入门介绍.md">NN</a></td>
+    <td><a href="https://github.com/RedstoneWill">@红色石头</a></td>
+    <td>1024323838</td>
+  </tr>
+  <tr align="center">
+    <td>DNN</td>
+    <td><a href="https://github.com/RedstoneWill">@红色石头</a></td>
+    <td>1024323838</td>
+  </tr>
+  <tr align="center">
+    <td rowspan="1" colspan="2">图像识别</td>
+    <td>CNN</td>
+    <td><a href="https://github.com/chenyyx">@瑶妹</a><br/><a href="https://github.com/Watermelon233">@咸鱼</a></td>
+    <td>190442212<br/>1034616238</td>
+  </tr>
+  <tr align="center">
+    <td rowspan="6" colspan="2">NLP</td>
+    <td>SOW</td>
+    <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
+    <td>529815144</td>
+  </tr>
+  <tr align="center">
+    <td>BOW</td>
+    <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
+    <td>529815144</td>
+  </tr>
+  <tr align="center">
+    <td>TF-IDF</td>
+    <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
+    <td>529815144</td>
+  </tr>
+  <tr align="center">
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/NLP/Word2Vec.md">Word2Vec 原理介绍</a></td>
+    <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
+    <td>529815144</td>
+  </tr>
+  <tr align="center">
+    <td>RNN</td>
+    <td>空缺</td>
+    <td></td>
+  </tr>
+  <tr align="center">
+    <td>LSTM</td>
+    <td>空缺</td>
+    <td></td>
+  </tr>
+  <tr align="center">
+    <td rowspan="1" colspan="2">语音识别</td>
+    <td></td>
+    <td>空缺</td>
+    <td></td>
+  </tr>
+
+  <tr align="center">
+    <td colspan="3">大数据与MapReduce</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/15.大数据与MapReduce.md">大数据与MapReduce</a></td>
+    <td>空缺</td>
+    <td></td>
+  </tr>
+  <tr align="center">
+    <td colspan="3">推荐系统</td>
+    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/16.推荐系统.md">推荐系统</a></td>
+    <td>空缺</td>
+    <td></td>
+  </tr>
+</table>
+
 ## 阶段性总结
 
 * [2017-04-08_第一期的总结](/report/2017-04-08_第一期的总结.md)
 
-## 联系方式
+## 项目负责人
 
-> 项目负责人
+> Ml 第一期 (2017-02-27)
 
-* [@jiangzhonglian](https://github.com/jiangzhonglian)（片刻）
+* [@片刻](https://github.com/jiangzhonglian)
+* [@那伊抹微笑](https://github.com/wangyangting)
+* [@瑶妹](https://github.com/chenyyx)
 
-> 项目贡献者
+> Ml 第二期 (2017-08-14)
 
-* [@jiangzhonglian](https://github.com/jiangzhonglian)（片刻）
-* [@wangyangting](https://github.com/wangyangting)（那伊抹微笑）
-* [@chenyyx](https://github.com/chenyyx)（瑶妹）
-* [@geekidentity](https://github.com/geekidentity)（侯法超）
-* [@mikechengwei](https://github.com/mikechengwei)（Mike）
-* [@hello19883](https://github.com/hello19883)（hello19883）
-* [@sheepmen](https://github.com/sheepmen)（徐鑫）
-* [@highfei2011](https://github.com/highfei2011)（ibe）
-* [@LeeMoonCh](https://github.com/LeeMoonCh)（Arithmetic）
-* [@caopeirui](https://github.com/caopeirui)（Veyron C）
-* [@Cugtyt](https://github.com/Cugtyt)（Cugtyt）
-* [@hey-bruce](https://github.com/hey-bruce) (BBruceyuan)
+* [@片刻](https://github.com/jiangzhonglian)
+* [@那伊抹微笑](https://github.com/wangyangting)
+* [@瑶妹](https://github.com/chenyyx)
+* [@Mike](https://github.com/mikechengwei)
+
+> Ml 第二期 (2018-04-16)
+
+## 项目贡献者
+
+> Ml 第一期 (2017-02-27)
+
+* [@侯法超](https://github.com/geekidentity)
+* [@hello19883](https://github.com/hello19883)
+* [@徐鑫](https://github.com/sheepmen)
+* [@ibe](https://github.com/highfei2011)
+
+> Ml 第二期 (2017-08-14)
+
+* [@Arithmetic](https://github.com/LeeMoonCh)
+* [@Veyron C](https://github.com/caopeirui)
+* [@Cugtyt](https://github.com/Cugtyt)
+* [@BBruceyuan](https://github.com/hey-bruce)
+
+* 欢迎贡献者不断的追加
 
 > 加入方式
 

@@ -14,8 +14,7 @@ import string
 import unicodedata
 from io import open
 
-from sklearn.metrics import (accuracy_score, classification_report,
-                             confusion_matrix)
+from sklearn.metrics import (accuracy_score, classification_report, confusion_matrix)
 
 import torch
 import torch.optim as optim
@@ -32,14 +31,6 @@ def findFiles(path):
     return glob.glob(path)
 
 
-"""
-Vocabulary的组成与官网教程相同。
-   由于所有的名字都是由ASCII码组成，此处的ascii_letters包括所有大小写字母。
-"""
-
-all_letters = string.ascii_letters + " .,;'"
-n_letters = len(all_letters)
-
 
 # 把 Unicode 转换成 ASCII；thanks to http://stackoverflow.com/a/518232/2809427
 def unicodeToAscii(s):
@@ -48,44 +39,15 @@ def unicodeToAscii(s):
         if unicodedata.category(c) != 'Mn' and c in all_letters)
 
 
-# 读取所有的名字文件并将它们按照 [(name,country)...]的方式重组
-category_lines = {}
-all_categories = []
-data = list()
-
-
 def readLines(filename):
     lines = open(filename, encoding='utf-8').read().strip().split('\n')
     return [unicodeToAscii(line) for line in lines]
 
 
-for filename in findFiles('/opt/data/NLP/names/*.txt'):
-    print("文件路径: ", filename)
-    category = filename.split('/')[-1].split('.')[0]
-    all_categories.append(category)
-
-    lines = readLines(filename)
-    for l in lines:
-        data.append((l, category))
-
-data = random.sample(data, len(data))  # 打乱数据
-
-# 获取所有的文本分类 + 分类的数量
-n_categories = len(all_categories)
-print("\n总共: %s 分类 \n %s" % (n_categories, all_categories))
-
-# 打印文件的前5行
-print(data[:5])
-
-TRAIN_BATCH_SIZE = 32
-VALIDATION_BATCH_SIZE = 1
-TEST_BATCH_SIZE = 1
 """
 Dataset class是 pytorch 的特色之一，能够将数据封装起来，方便以 batch 的形式训练数据
 官网的教程中是一个一个(name, country)传进去的，而加入 Dataset class 是为了封装后一次性传进去 batch 个(name, country)
 """
-
-
 class PaddedTensorDataset(Dataset):
     """Dataset wrapping data, target and length tensors.
 
@@ -108,7 +70,8 @@ class PaddedTensorDataset(Dataset):
         self.raw_data = raw_data
 
     def __getitem__(self, index):
-        return self.data_tensor[index], self.target_tensor[index], self.length_tensor[index], self.raw_data[index]
+        return self.data_tensor[index], self.target_tensor[
+            index], self.length_tensor[index], self.raw_data[index]
 
     def __len__(self):
         return self.data_tensor.size(0)
@@ -166,12 +129,13 @@ def train_dev_test_split(data):
     return train, dev, test
 
 
-#tag == target == label == category == country 
+# tag == target == label == category == country 
 def build_vocab_tag_sets(data):
     vocab = set()
     tags = set()
     for name in data:
         chars = set(name[0])
+        # 取并集
         vocab = vocab.union(chars)
         tags.add(name[1])
     return vocab, tags
@@ -185,7 +149,7 @@ def make_to_ix(data, to_ix=None):
     return to_ix
 
 
-#打包模型和所有的输入，最终返回预测结果和loss,要注意所有输入都要从tensor变成variable，
+# 打包模型和所有的输入，最终返回预测结果和loss,要注意所有输入都要从tensor变成variable，
 def apply(model, criterion, batch, targets, lengths):
     pred = model(torch.autograd.Variable(batch), lengths.cpu().numpy())
     loss = criterion(pred, torch.autograd.Variable(targets))
@@ -204,13 +168,14 @@ def train_model(model, optimizer, train, dev, x_to_ix, y_to_ix):
         y_true = list()
         y_pred = list()
         total_loss = 0
-        for batch, targets, lengths, raw_data in create_dataset(
-                train, x_to_ix, y_to_ix, bs=TRAIN_BATCH_SIZE):
+        for batch, targets, lengths, raw_data in create_dataset(train, x_to_ix, y_to_ix, bs=TRAIN_BATCH_SIZE):
             batch, targets, lengths = sort_batch(batch, targets, lengths)
+
             model.zero_grad()
             pred, loss = apply(model, criterion, batch, targets, lengths)
             loss.backward()
             optimizer.step()
+
             pred_idx = torch.max(pred, 1)[1]
             y_true += list(targets.int())
             y_pred += list(pred_idx.data.int())
@@ -229,8 +194,7 @@ def evaluate_validation_set(model, devset, x_to_ix, y_to_ix, criterion):
     y_true = list()
     y_pred = list()
     total_loss = 0
-    for batch, targets, lengths, raw_data in create_dataset(
-            devset, x_to_ix, y_to_ix, bs=VALIDATION_BATCH_SIZE):
+    for batch, targets, lengths, raw_data in create_dataset(devset, x_to_ix, y_to_ix, bs=VALIDATION_BATCH_SIZE):
         batch, targets, lengths = sort_batch(batch, targets, lengths)
         pred, loss = apply(model, criterion, batch, targets, lengths)
         pred_idx = torch.max(pred, 1)[1]
@@ -268,14 +232,11 @@ def evaluate_test_set(model, test, x_to_ix, y_to_ix):
 通过embedding，我们可以将其归一化（所有的值都在-2~2之间）并避免出现0值。
 而实际应用中embedding层的价值更多的表现在它可以降维并能展示词与词之间关联性。      --figure 4
 
-pack在这里也很有趣，但是不是必须的。pack就是将我们填充后的向量全部整合在一起，一次输入就是一个完整的tensor，使得运算速度更快
+pack 在这里也很有趣，但是不是必须的。pack就是将我们填充后的向量全部整合在一起，一次输入就是一个完整的tensor，使得运算速度更快
                                                                                    --figure 5
 还有一点这里加入了一个最大池化层max_pool处理输出，和CNN中的池化没有太多区别，在这里也不是必须的。
                                                                                    --figure 9
-
 """
-
-
 class NamesRNN(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim, output_size):
         super(NamesRNN, self).__init__()
@@ -297,14 +258,12 @@ class NamesRNN(nn.Module):
         self.hidden = self.init_hidden(names.size(-1))
         embeds = self.char_embeds(names)  # Figure 4
         packed_input = pack_padded_sequence(embeds, lengths)  # Figure 5
-        packed_output, (ht, ct) = self.lstm(packed_input,
-                                            self.hidden)  # Figure 6
+        packed_output, (ht, ct) = self.lstm(packed_input, self.hidden)  # Figure 6
         lstm_out, _ = pad_packed_sequence(packed_output)  # Figure 7
         lstm_out = torch.transpose(lstm_out, 0, 1)
         lstm_out = torch.transpose(lstm_out, 1, 2)
         lstm_out = F.tanh(lstm_out)  # Figure 8
-        lstm_out, indices = F.max_pool1d(
-            lstm_out, lstm_out.size(2), return_indices=True)  # Figure 9
+        lstm_out, indices = F.max_pool1d(lstm_out, lstm_out.size(2), return_indices=True)  # Figure 9
         lstm_out = lstm_out.squeeze(2)  #对维度的修正，使其符合输入格式
         lstm_out = F.tanh(lstm_out)
         lstm_feats = self.fully_connected_layer(lstm_out)
@@ -318,8 +277,6 @@ class NamesRNN(nn.Module):
 """
 Method for debugging purpose
 """
-
-
 def filter_for_visual_example(train):
     new_t = list()
     for x in train:
@@ -341,24 +298,63 @@ def filter_for_visual_example(train):
     return new_t
 
 
-"""
-The actual train and evaluation
-"""
-train, dev, test = train_dev_test_split(data)
-# train = filter_for_visual_example(train)
-# print(train)
+def load_data(file_directory):
+    # 文件名，也就是目标变量的值
+    all_categories = []
+    data = list()
 
-vocab, tags = build_vocab_tag_sets(train)
+    for filename in findFiles(file_directory):
+        print("文件路径: ", filename)
+        category = filename.split('/')[-1].split('.')[0]
+        all_categories.append(category)
 
-chars_to_idx = {'PAD': 0, 'UNK': 1}
-chars_to_idx = make_to_ix(
-    sorted(list(vocab)), chars_to_idx
-)  # Really important to sort it if you save your model for later
-tags_to_idx = make_to_ix(sorted(list(tags)))
+        lines = readLines(filename)
+        for l in lines:
+            data.append((l, category))
 
-model = NamesRNN(
-    len(chars_to_idx), 128, 32,
-    len(tags))  #voc_size, embedding_size, lstm的hidden_size, target_size
-optimizer = optim.SGD(model.parameters(), lr=0.01, weight_decay=1e-4)
+    data = random.sample(data, len(data))  # 打乱数据
+    return all_categories, data
 
-model = train_model(model, optimizer, train, dev, chars_to_idx, tags_to_idx)
+
+if __name__ == "__main__":
+
+    """
+    Vocabulary的组成与官网教程相同。
+    由于所有的名字都是由ASCII码组成，此处的ascii_letters包括所有大小写字母。
+    """
+    TRAIN_BATCH_SIZE = 32
+    VALIDATION_BATCH_SIZE = 1
+    TEST_BATCH_SIZE = 1
+
+    all_letters = string.ascii_letters + " .,;'"
+    n_letters = len(all_letters)
+
+    category_lines = {}
+    # 读取所有的名字文件并将它们按照 [(name,country)...]的方式重组
+    all_categories, data = load_data('/opt/data/NLP/names/*.txt')
+    # 打印文件的前5行
+    print(data[:5])
+
+    # 获取所有的文本分类 + 分类的数量
+    n_categories = len(all_categories)
+    print("\n总共: %s 分类 \n %s" % (n_categories, all_categories))
+
+    """
+    data 按照 8:2 拆分 train 和 test(预测) 样本集合
+    train 按照 8:2 拆分 train 和 dev(校验) 样本集合
+    """
+    train, dev, test = train_dev_test_split(data)
+    # train = filter_for_visual_example(train)
+    # print(train)
+
+    vocab, tags = build_vocab_tag_sets(train)
+
+    chars_to_idx = {'PAD': 0, 'UNK': 1}
+    # 给 vocab 和 tags 中的元素加 index
+    chars_to_idx = make_to_ix(sorted(list(vocab)), chars_to_idx)  # Really important to sort it if you save your model for later
+    tags_to_idx = make_to_ix(sorted(list(tags)))
+
+    model = NamesRNN(len(chars_to_idx), 128, 32, len(tags))  #voc_size, embedding_size, lstm的hidden_size, target_size
+    optimizer = optim.SGD(model.parameters(), lr=0.01, weight_decay=1e-4)
+
+    model = train_model(model, optimizer, train, dev, chars_to_idx, tags_to_idx)
