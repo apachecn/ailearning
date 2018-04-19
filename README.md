@@ -192,9 +192,9 @@
   </tr>
   <tr align="center">
     <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/4.朴素贝叶斯.md">朴素贝叶斯</a></td>
-    <td><a href="https://github.com/friedhelm739
+    <td><a href="https://github.com/wnma3mz">@wnma3mz</a><br/><a href="https://github.com/friedhelm739
 ">@平淡的天</a></td>
-    <td>554650680</td>
+    <td>1003324213<br/>554650680</td>
   </tr>
   <tr align="center">
     <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/5.Logistic回归.md">Logistic回归</a></td>
