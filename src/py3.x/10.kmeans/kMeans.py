@@ -95,7 +95,7 @@ def kMeans(dataMat, k, distMeas=distEclud, createCent=randCent):
             for j in range(k):
                 # 计算数据点到质心的距离
                 # 计算距离是使用distMeas参数给出的距离公式,默认距离函数是distEclud
-                distJI = distMeas(centroids[j, :], dataMat[i, :])
+                distJI = distEclud(centroids[j, :], dataMat[i, :])
                 # 如果距离比minDist(最小距离)还小,更新minDist(最小距离)和最小质心的index(索引)
                 if distJI < minDist:
                     minDist = distJI
@@ -131,7 +131,7 @@ def biKmeans(dataMat, k, distMeas=distEclud):
     centList = [centroid0]
     # 遍历数据集中所有点来计算每个点到质心的误差值
     for j in range(m):
-        clusterAssment[j, 1] = distMeas(mat(centroid0), dataMat[j, :]) ** 2
+        clusterAssment[j, 1] = distEclud(mat(centroid0), dataMat[j, :]) ** 2
     # 对簇不停的进行划分,直到得到想要的簇数目为止
     while (len(centList) < k):
         # 初始化最小SSE为无穷大,用于比较划分前后的SSE
