@@ -6,7 +6,11 @@ Update  on 2017-06-20
 @author: Peter/ApacheCN-xy/片刻
 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
+import base64
+import pickle
+
 import numpy
+
 
 def map(key, value):
    # input key= class for one training example, e.g. "-1.0"
@@ -19,16 +23,16 @@ def map(key, value):
 
    # create matrix E and vector e
    e = numpy.matrix(numpy.ones(len(A)).reshape(len(A), 1))
-   E = numpy.matrix(numpy.append(A, -e, axis=1)) 
+   E = numpy.matrix(numpy.append(A, -e, axis=1))
 
    # create a tuple with the values to be used by reducer
    # and encode it with base64 to avoid potential trouble with '\t' and '\n' used
    # as default separators in Hadoop Streaming
-   producedvalue = base64.b64encode(pickle.dumps( (E.T*E, E.T*D*e))    
+   producedvalue = base64.b64encode(pickle.dumps((E.T*E, E.T*D*e)))
 
    # note: a single constant key "producedkey" sends to only one reducer
    # somewhat "atypical" due to low degree of parallism on reducer side
-   print "producedkey\t%s" % (producedvalue)
+   print("producedkey\t%s" % (producedvalue))
 
 def reduce(key, values, mu=0.1):
   sumETE = None
@@ -52,4 +56,4 @@ def reduce(key, values, mu=0.1):
     # note: omega = result[:-1] and gamma = result[-1]
     # but printing entire vector as output
     result = sumETE.I*sumETDe
-    print "%s\t%s" % (key, str(result.tolist()))
+    print("%s\t%s" % (key, str(result.tolist())))
