@@ -109,7 +109,7 @@ def build_stump(data_arr, class_labels, D):
                 if weighted_err < min_err:
                     min_err = weighted_err
                     best_class_est = predicted_vals.copy()
-                    best_stump['dim'] = 1
+                    best_stump['dim'] = i
                     best_stump['thresh'] = thresh_val
                     best_stump['ineq'] = inequal
     # best_stump 表示分类器的结果，在第几个列上，用大于／小于比较，阈值是多少 (单个弱分类器)
