@@ -1,3 +1,6 @@
+import math
+from operator import itemgetter
+
 
 def ItemSimilarity1(train):
     #calculate co-rated users between items
@@ -28,7 +31,7 @@ def ItemSimilarity2(train):
             N[i] += 1
             for j in users:
                 if i == j:
-                continue
+                    continue
             C[i][j] += 1 / math.log(1 + len(items) * 1.0)
 
     #calculate finial similarity matrix W
@@ -60,5 +63,3 @@ def Recommendation2(train, user_id, W, K):
             rank[j].weight += pi * wj
             rank[j].reason[i] = pi * wj
     return rank
-
-
