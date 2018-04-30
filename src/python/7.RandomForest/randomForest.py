@@ -26,12 +26,15 @@ def loadDataSet(filename):
             for featrue in line.split(','):
                 # strip()返回移除字符串头尾指定的字符生成的新字符串
                 str_f = featrue.strip()
-                if str_f.isdigit():   # 判断是否是数字
-                    # 将数据集的第column列转换成float形式
-                    lineArr.append(float(str_f))
-                else:
+
+                # isdigit 如果是浮点型数值，就是 false，所以换成 isalpha() 函数
+                # if str_f.isdigit():   # 判断是否是数字
+                if str_f.isalpha():     # 如果是字母，说明是标签
                     # 添加分类标签
                     lineArr.append(str_f)
+                else:
+                    # 将数据集的第column列转换成float形式
+                    lineArr.append(float(str_f))
             dataset.append(lineArr)
     return dataset
 
@@ -73,6 +76,12 @@ def test_split(index, value, dataset):
     return left, right
 
 
+'''
+Gini指数的计算问题，假如将原始数据集D切割两部分，分别为D1和D2，则
+Gini(D|切割) = (|D1|/|D| ) * Gini(D1) + (|D2|/|D|) * Gini(D2)
+而原文中 计算方式为：
+Gini(D|切割) = Gini(D1) + Gini(D2)
+
 # Calculate the Gini index for a split dataset
 def gini_index(groups, class_values):    # 个人理解：计算代价，分类越准确，则 gini 越小
     gini = 0.0
@@ -83,6 +92,20 @@ def gini_index(groups, class_values):    # 个人理解：计算代价，分类�
                 continue
             proportion = [row[-1] for row in group].count(class_value) / float(size)
             gini += (proportion * (1.0 - proportion))    # 个人理解：计算代价，分类越准确，则 gini 越小
+    return gini
+'''
+
+
+def gini_index(groups, class_values):    # 个人理解：计算代价，分类越准确，则 gini 越小
+    gini = 0.0
+    D = len(groups[0]) + len(groups[1])
+    for class_value in class_values:     # class_values = [0, 1]
+        for group in groups:             # groups = (left, right)
+            size = len(group)
+            if size == 0:
+                continue
+            proportion = [row[-1] for row in group].count(class_value) / float(size)
+            gini += float(size)/D * (proportion * (1.0 - proportion))    # 个人理解：计算代价，分类越准确，则 gini 越小
     return gini
 
 
@@ -311,7 +334,7 @@ if __name__ == '__main__':
     sample_size = 1.0  # 做决策树时候的样本的比例
     # n_features = int((len(dataset[0])-1))
     n_features = 15     # 调参（自己修改） #准确性与多样性之间的权衡
-    for n_trees in [1, 10, 20]:  # 理论上树是越多越好
+    for n_trees in [1, 10, 20, 30, 40, 50]:  # 理论上树是越多越好
         scores = evaluate_algorithm(dataset, random_forest, n_folds, max_depth, min_size, sample_size, n_trees, n_features)
         # 每一次执行本文件时都能产生同一个随机数
         seed(1)

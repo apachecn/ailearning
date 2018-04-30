@@ -1,5 +1,9 @@
 #!/usr/bin/env python
+<<<<<<< HEAD
 # -*- coding: UTF-8 -*-
+=======
+# coding: utf-8
+>>>>>>> origin/master
 '''
 Created on Sep 16, 2010
 Update  on 2017-05-18

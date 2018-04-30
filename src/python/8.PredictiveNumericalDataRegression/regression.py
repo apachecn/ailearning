@@ -575,8 +575,13 @@ def regression5():
     crossValidation(lgX, lgY, 10)
 
 
+<<<<<<< HEAD
 if __name__ == '__main__':
     # regression1()
+=======
+if __name__ == "__main__":
+    regression1()
+>>>>>>> origin/master
     # regression2()
     # abaloneTest()
     # regression3()

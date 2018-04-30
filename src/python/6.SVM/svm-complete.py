@@ -510,6 +510,7 @@ def plotfig_SVM(xArr, yArr, ws, b, alphas):
 
 if __name__ == "__main__":
 
+<<<<<<< HEAD
     # # 无核函数的测试
     # # 获取特征和目标变量
     # dataArr, labelArr = loadDataSet('input/6.SVM/testSet.txt')
@@ -527,15 +528,43 @@ if __name__ == "__main__":
     # # 画图
     # ws = calcWs(alphas, dataArr, labelArr)
     # plotfig_SVM(dataArr, labelArr, ws, b, alphas)
+=======
+    # 无核函数的测试
+    # 获取特征和目标变量
+    dataArr, labelArr = loadDataSet('input/6.SVM/testSet.txt')
+    # print labelArr
+
+    # b是常量值， alphas是拉格朗日乘子
+    b, alphas = smoP(dataArr, labelArr, 0.6, 0.001, 40)
+    print '/n/n/n'
+    print 'b=', b
+    print 'alphas[alphas>0]=', alphas[alphas > 0]
+    print 'shape(alphas[alphas > 0])=', shape(alphas[alphas > 0])
+    for i in range(100):
+        if alphas[i] > 0:
+            print dataArr[i], labelArr[i]
+    # 画图
+    ws = calcWs(alphas, dataArr, labelArr)
+    plotfig_SVM(dataArr, labelArr, ws, b, alphas)
+>>>>>>> origin/master
 
     # 有核函数的测试
     testRbf(0.8)
 
+<<<<<<< HEAD
     # 项目实战
     # 示例：手写识别问题回顾
+=======
+    # # 项目实战
+    # # 示例：手写识别问题回顾
+>>>>>>> origin/master
     # testDigits(('rbf', 0.1))
     # testDigits(('rbf', 5))
     # testDigits(('rbf', 10))
     # testDigits(('rbf', 50))
     # testDigits(('rbf', 100))
+<<<<<<< HEAD
     # testDigits(('lin', 10))
+=======
+    # testDigits(('lin'))
+>>>>>>> origin/master

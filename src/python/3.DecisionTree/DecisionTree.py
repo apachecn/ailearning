@@ -1,6 +1,10 @@
 #!/usr/bin/python
+<<<<<<< HEAD
 # -*- coding: UTF-8 -*-
 
+=======
+# coding:utf-8
+>>>>>>> origin/master
 '''
 Created on Oct 12, 2010
 Update on 2017-05-18
@@ -74,7 +78,7 @@ def calcShannonEnt(dataSet):
     for key in labelCounts:
         # 使用所有类标签的发生频率计算类别出现的概率。
         prob = float(labelCounts[key])/numEntries
-        # log base 2
+        # log base 2 
         # 计算香农熵，以 2 为底求对数
         shannonEnt -= prob * log(prob, 2)
         # print('---', prob, prob * log(prob, 2), shannonEnt)
@@ -400,5 +404,5 @@ def ContactLensesTest():
 
 
 if __name__ == "__main__":
-    # fishTest()
-    ContactLensesTest()
+    fishTest()
+    # ContactLensesTest()

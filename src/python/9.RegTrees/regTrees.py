@@ -2,9 +2,9 @@
 # coding:utf8
 '''
 Created on Feb 4, 2011
-Update on 2017-05-18
+Update on 2017-12-20
 Tree-Based Regression Methods Source Code for Machine Learning in Action Ch. 9
-@author: Peter Harrington/片刻/小瑶
+@author: Peter Harrington/片刻/小瑶/zh0ng
 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
 print(__doc__)
@@ -230,7 +230,7 @@ def prune(tree, testData):
     # 注意返回的结果： 如果可以合并，原来的dict就变为了 数值
     if not isTree(tree['left']) and not isTree(tree['right']):
         lSet, rSet = binSplitDataSet(testData, tree['spInd'], tree['spVal'])
-        # power(x, y)表示x的y次方
+        # power(x, y)表示x的y次方；这时tree['left']和tree['right']都是具体数值
         errorNoMerge = sum(power(lSet[:, -1] - tree['left'], 2)) + sum(power(rSet[:, -1] - tree['right'], 2))
         treeMean = (tree['left'] + tree['right'])/2.0
         errorMerge = sum(power(testData[:, -1] - treeMean, 2))
@@ -238,13 +238,14 @@ def prune(tree, testData):
         if errorMerge < errorNoMerge:
             print("merging")
             return treeMean
+        # 两个return可以简化成一个
         else:
             return tree
     else:
         return tree
 
 
-# 得到模型的ws系数：f(x) = x0 + x1*featrue1+ x3*featrue2 ...
+# 得到模型的ws系数：f(x) = x0 + x1*featrue1+ x2*featrue2 ...
 # create linear model and return coeficients
 def modelLeaf(dataSet):
     """
@@ -328,7 +329,7 @@ def modelTreeEval(model, inDat):
     Desc:
         对 模型树 进行预测
     Args:
-        model -- 输入模型，可选值为 回归树模型 或者 模型树模型，这里为模型树模型
+        model -- 输入模型，可选值为 回归树模型 或者 模型树模型，这里为模型树模型，实则为 回归系数
         inDat -- 输入的测试数据
     Returns:
         float(X * model) -- 将测试数据乘以 回归系数 得到一个预测值 ，转化为 浮点数 返回
@@ -351,19 +352,22 @@ def treeForeCast(tree, inData, modelEval=regTreeEval):
         对特定模型的树进行预测，可以是 回归树 也可以是 模型树
     Args:
         tree -- 已经训练好的树的模型
-        inData -- 输入的测试数据
+        inData -- 输入的测试数据，只有一行
         modelEval -- 预测的树的模型类型，可选值为 regTreeEval（回归树） 或 modelTreeEval（模型树），默认为回归树
     Returns:
         返回预测值
     """
     if not isTree(tree):
         return modelEval(tree, inData)
-    if inData[tree['spInd']] <= tree['spVal']:
+    # 书中写的是inData[tree['spInd']]，只适合inData只有一列的情况，否则会产生异常
+    if inData[0, tree['spInd']] <= tree['spVal']:
+        # 可以把if-else去掉，只留if里面的分支
         if isTree(tree['left']):
             return treeForeCast(tree['left'], inData, modelEval)
         else:
             return modelEval(tree['left'], inData)
     else:
+        # 同上，可以把if-else去掉，只留if里面的分支
         if isTree(tree['right']):
             return treeForeCast(tree['right'], inData, modelEval)
         else:
@@ -377,7 +381,7 @@ def createForeCast(tree, testData, modelEval=regTreeEval):
         调用 treeForeCast ，对特定模型的树进行预测，可以是 回归树 也可以是 模型树
     Args:
         tree -- 已经训练好的树的模型
-        inData -- 输入的测试数据
+        testData -- 输入的测试数据
         modelEval -- 预测的树的模型类型，可选值为 regTreeEval（回归树） 或 modelTreeEval（模型树），默认为回归树
     Returns:
         返回预测值矩阵
@@ -392,12 +396,12 @@ def createForeCast(tree, testData, modelEval=regTreeEval):
 
 
 if __name__ == "__main__":
-    # # 测试数据集
-    # testMat = mat(eye(4))
-    # print testMat
-    # print type(testMat)
-    # mat0, mat1 = binSplitDataSet(testMat, 1, 0.5)
-    # print mat0, '\n-----------\n', mat1
+    # 测试数据集
+    testMat = mat(eye(4))
+    print testMat
+    print type(testMat)
+    mat0, mat1 = binSplitDataSet(testMat, 1, 0.5)
+    print mat0, '\n-----------\n', mat1
 
     # # 回归树
     # myDat = loadDataSet('input/9.RegTrees/data1.txt')
@@ -428,29 +432,30 @@ if __name__ == "__main__":
     # myTree = createTree(myMat, modelLeaf, modelErr)
     # print myTree
 
-    # # 回归树 VS 模型树 VS 线性回归
-    trainMat = mat(loadDataSet('input/9.RegTrees/bikeSpeedVsIq_train.txt'))
-    testMat = mat(loadDataSet('input/9.RegTrees/bikeSpeedVsIq_test.txt'))
-    # # 回归树
-    myTree1 = createTree(trainMat, ops=(1, 20))
-    print(myTree1)
-    yHat1 = createForeCast(myTree1, testMat[:, 0])
-    print("--------------\n")
-    # print yHat1
-    # print "ssss==>", testMat[:, 1]
-    print("回归树:", corrcoef(yHat1, testMat[:, 1],rowvar=0)[0, 1])
+    # # # 回归树 VS 模型树 VS 线性回归
+    # trainMat = mat(loadDataSet('input/9.RegTrees/bikeSpeedVsIq_train.txt'))
+    # testMat = mat(loadDataSet('input/9.RegTrees/bikeSpeedVsIq_test.txt'))
+    # # # 回归树
+    # myTree1 = createTree(trainMat, ops=(1, 20))
+    # print myTree1
+    # yHat1 = createForeCast(myTree1, testMat[:, 0])
+    # print "--------------\n"
+    # # print yHat1
+    # # print "ssss==>", testMat[:, 1]
+    # # corrcoef 返回皮尔森乘积矩相关系数
+    # print "regTree:", corrcoef(yHat1, testMat[:, 1],rowvar=0)[0, 1]
 
-    # 模型树
-    myTree2 = createTree(trainMat, modelLeaf, modelErr, ops=(1, 20))
-    yHat2 = createForeCast(myTree2, testMat[:, 0], modelTreeEval)
-    print(myTree2)
-    print("模型树:", corrcoef(yHat2, testMat[:, 1],rowvar=0)[0, 1])
+    # # 模型树
+    # myTree2 = createTree(trainMat, modelLeaf, modelErr, ops=(1, 20))
+    # yHat2 = createForeCast(myTree2, testMat[:, 0], modelTreeEval)
+    # print myTree2
+    # print "modelTree:", corrcoef(yHat2, testMat[:, 1],rowvar=0)[0, 1]
 
-    # 线性回归
-    ws, X, Y = linearSolve(trainMat)
-    print(ws)
-    m = len(testMat[:, 0])
-    yHat3 = mat(zeros((m, 1)))
-    for i in range(shape(testMat)[0]):
-        yHat3[i] = testMat[i, 0]*ws[1, 0] + ws[0, 0]
-    print("线性回归:", corrcoef(yHat3, testMat[:, 1],rowvar=0)[0, 1])
+    # # 线性回归
+    # ws, X, Y = linearSolve(trainMat)
+    # print ws
+    # m = len(testMat[:, 0])
+    # yHat3 = mat(zeros((m, 1)))
+    # for i in range(shape(testMat)[0]):
+    #     yHat3[i] = testMat[i, 0]*ws[1, 0] + ws[0, 0]
+    # print "lr:", corrcoef(yHat3, testMat[:, 1],rowvar=0)[0, 1]

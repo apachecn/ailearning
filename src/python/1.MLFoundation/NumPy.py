@@ -3,7 +3,7 @@
 
 '''
 Created on 2017-05-18
-Update  on 2017-11-17
+Update  on 2017-05-18
 Author: Peter Harrington/1988/片刻
 GitHub: https://github.com/apachecn/MachineLearning
 '''
@@ -43,11 +43,19 @@ invRandMat = randMat.I
 TraRandMat = randMat.T
 ArrRandMat = randMat.A
 # 输出结果
+<<<<<<< HEAD
 print('randArray=(%s) \n' % type(randArray), randArray)
 print('randMat=(%s) \n' % type(randMat), randMat)
 print('invRandMat=(%s) \n' % type(invRandMat), invRandMat)
 print('TraRandMat=(%s) \n' % type(TraRandMat), TraRandMat)
 print('ArrRandMat=(%s) \n' % type(ArrRandMat), ArrRandMat)
+=======
+print 'randArray=(%s) \n' % type(randArray), randArray
+print 'randMat=(%s) \n' % type(randMat), randMat
+print 'invRandMat=(%s) \n' % type(invRandMat), invRandMat
+print 'TraRandMat=(%s) \n' % type(TraRandMat), TraRandMat
+print 'ArrRandMat=(%s) \n' % type(ArrRandMat), ArrRandMat
+>>>>>>> origin/master
 # 矩阵和逆矩阵 进行求积 (单位矩阵，对角线都为1嘛，理论上4*4的矩阵其他的都为0)
 myEye = randMat*invRandMat
 # 误差
