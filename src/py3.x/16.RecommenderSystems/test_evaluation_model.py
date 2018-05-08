@@ -1,3 +1,6 @@
+import math
+import random
+
 
 def SplitData(data, M, k, seed):
     test = []
@@ -69,4 +72,3 @@ def Popularity(train, test, N):
             n += 1
     ret /= n * 1.0
     return ret
-

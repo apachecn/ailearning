@@ -1,3 +1,6 @@
+import math
+from operator import itemgetter
+
 
 def UserSimilarity1(train):
     W = dict()
@@ -75,4 +78,3 @@ def Recommend(user, train, W):
                 continue
             rank[i] += wuv * rvi
     return rank
-

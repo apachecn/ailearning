@@ -6,7 +6,11 @@ Update  on 2017-06-20
 @author: Peter/ApacheCN-xy/片刻
 《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
 '''
+import base64
+import pickle
+
 import numpy
+
 
 def map(key, value):
    # input key= class for one training example, e.g. "-1.0"
