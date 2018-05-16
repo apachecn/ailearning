@@ -202,6 +202,8 @@ def colic_test():
     # trainingSet 中存储训练数据集的特征，trainingLabels 存储训练数据集的样本对应的分类标签
     for line in f_train.readlines():
         curr_line = line.strip().split('\t')
+        if len(curr_line) == 1:
+            continue    # 这里如果就一个空的元素，则跳过本次循环
         line_arr = [float(curr_line[i]) for i in range(21)]
         training_set.append(line_arr)
         training_labels.append(float(curr_line[21]))
@@ -213,6 +215,8 @@ def colic_test():
     for line in f_test.readlines():
         num_test_vec += 1
         curr_line = line.strip().split('\t')
+        if len(curr_line) == 1: 
+            continue    # 这里如果就一个空的元素，则跳过本次循环
         line_arr = [float(curr_line[i]) for i in range(21)]
         if int(classify_vector(np.array(line_arr), train_weights)) != int(curr_line[21]):
             error_count += 1
