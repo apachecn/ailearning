@@ -49,6 +49,33 @@ print(len(text3)/len(set(text3)))
 print(text3.count("smote"))
 print(100*text4.count('a')/len(text4))
 
+
+# 计算一个文本中，平均一个字出现的次数（词汇多样性）
+def lexical_diversity(text):
+  return len(text) / len(set(text))
+
+
+def percentage(count, total):
+  return 100 * count / total
+
+
+"""
+测试案例
+
+In [32]: ex1 = ['Monty', 'Python', 'and', 'the', 'Holy', 'Grail']
+In [34]: sorted(ex1)
+Out[34]: ['Grail', 'Holy', 'Monty', 'Python', 'and', 'the']
+
+In [35]: len(set(ex1))
+Out[35]: 6
+
+In [36]: ex1.count("the")
+Out[36]: 1
+
+In [37]: ['Monty', 'Python'] + ['and', 'the', 'Holy', 'Grail']
+Out[37]: ['Monty', 'Python', 'and', 'the', 'Holy', 'Grail']
+"""
+
 # # 词的频率分布
 fdist1 = FreqDist(text1)
 # # 输出总的词数
