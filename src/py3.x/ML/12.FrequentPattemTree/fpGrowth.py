@@ -52,7 +52,7 @@ def loadSimpDat():
 def createInitSet(dataSet):
     retDict = {}
     for trans in dataSet:
-        if not retDict.has_key(frozenset(trans)):
+        if frozenset(trans) not in retDict.keys():
             retDict[frozenset(trans)] = 1
         else:
             retDict[frozenset(trans)] += 1
