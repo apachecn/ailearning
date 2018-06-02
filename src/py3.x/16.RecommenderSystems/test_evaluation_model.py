@@ -1,16 +1,15 @@
 import math
 import random
 
-
 def SplitData(data, M, k, seed):
     test = []
     train = []
     random.seed(seed)
     for user, item in data:
-        if random.randint(0,M) == k:
-            test.append([user,item])
+        if random.randint(0, M) == k:
+            test.append([user, item])
         else:
-            train.append([user,item])
+            train.append([user, item])
     return train, test
 
 
@@ -64,7 +63,7 @@ def Popularity(train, test, N):
                 item_popularity[item] = 0
                 item_popularity[item] += 1
     ret = 0
-    n=0
+    n = 0
     for user in train.keys():
         rank = GetRecommendation(user, N)
         for item, pui in rank:
