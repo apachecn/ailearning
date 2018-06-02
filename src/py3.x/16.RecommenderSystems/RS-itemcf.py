@@ -91,7 +91,7 @@ class ItemBasedCF():
         print >> sys.stderr, 'counting movies number and popularity...'
 
         # 统计在所有的用户中，不同电影的总出现次数
-        for user, movies in self.trainset.iteritems():
+        for user, movies in self.trainset.items():
             for movie in movies:
                 # count item popularity
                 if movie not in self.movie_popular:
@@ -108,7 +108,7 @@ class ItemBasedCF():
         itemsim_mat = self.movie_sim_mat
         print >> sys.stderr, 'building co-rated users matrix...'
 
-        for user, movies in self.trainset.iteritems():
+        for user, movies in self.trainset.items():
             for m1 in movies:
                 for m2 in movies:
                     if m1 == m2:
@@ -122,8 +122,8 @@ class ItemBasedCF():
         print >> sys.stderr, 'calculating movie similarity matrix...'
         simfactor_count = 0
         PRINT_STEP = 2000000
-        for m1, related_movies in itemsim_mat.iteritems():
-            for m2, count in related_movies.iteritems():
+        for m1, related_movies in itemsim_mat.items():
+            for m2, count in related_movies.items():
                 # 余弦相似度
                 itemsim_mat[m1][m2] = count / math.sqrt(self.movie_popular[m1] * self.movie_popular[m2])
                 simfactor_count += 1
@@ -152,7 +152,7 @@ class ItemBasedCF():
         # 计算top K 电影的相似度
         # rating=电影评分, w=不同电影出现的次数
         # 耗时分析：98.2%的时间在 line-154行
-        for movie, rating in watched_movies.iteritems():
+        for movie, rating in watched_movies.items():
             for related_movie, w in sorted(self.movie_sim_mat[movie].items(), key=itemgetter(1), reverse=True)[0:K]:
                 if related_movie in watched_movies:
                     continue
