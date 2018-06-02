@@ -28,7 +28,7 @@ def ItemSimilarity2(train):
             N[i] += 1
             for j in users:
                 if i == j:
-                continue
+                    continue
             C[i][j] += 1 / math.log(1 + len(items) * 1.0)
 
     #calculate finial similarity matrix W

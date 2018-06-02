@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # coding:utf8
-
 '''
 Created on 2015-06-22
 Update  on 2017-05-16
@@ -13,13 +12,14 @@ import sys
 import math
 import random
 from operator import itemgetter
-print(__doc__)
+
 # 作用：使得随机数据可预测
 random.seed(0)
 
 
 class ItemBasedCF():
     ''' TopN recommendation - ItemBasedCF '''
+
     def __init__(self):
         self.trainset = {}
         self.testset = {}
@@ -90,8 +90,8 @@ class ItemBasedCF():
 
         print >> sys.stderr, 'counting movies number and popularity...'
 
-        # 统计在所有的用户中，不同电影的总出现次数
-        for user, movies in self.trainset.iteritems():
+        # 统计在所有的用户中，不同电影的总出现次数， user, movies
+        for _, movies in self.trainset.items():
             for movie in movies:
                 # count item popularity
                 if movie not in self.movie_popular:
@@ -107,8 +107,8 @@ class ItemBasedCF():
         # 统计在相同用户时，不同电影同时出现的次数
         itemsim_mat = self.movie_sim_mat
         print >> sys.stderr, 'building co-rated users matrix...'
-
-        for user, movies in self.trainset.iteritems():
+        # user, movies
+        for _, movies in self.trainset.items():
             for m1 in movies:
                 for m2 in movies:
                     if m1 == m2:
@@ -122,10 +122,11 @@ class ItemBasedCF():
         print >> sys.stderr, 'calculating movie similarity matrix...'
         simfactor_count = 0
         PRINT_STEP = 2000000
-        for m1, related_movies in itemsim_mat.iteritems():
+        for m1, related_movies in itemsim_mat.items():
             for m2, count in related_movies.iteritems():
                 # 余弦相似度
-                itemsim_mat[m1][m2] = count / math.sqrt(self.movie_popular[m1] * self.movie_popular[m2])
+                itemsim_mat[m1][m2] = count / math.sqrt(
+                    self.movie_popular[m1] * self.movie_popular[m2])
                 simfactor_count += 1
                 # 打印进度条
                 if simfactor_count % PRINT_STEP == 0:
@@ -153,7 +154,10 @@ class ItemBasedCF():
         # rating=电影评分, w=不同电影出现的次数
         # 耗时分析：98.2%的时间在 line-154行
         for movie, rating in watched_movies.iteritems():
-            for related_movie, w in sorted(self.movie_sim_mat[movie].items(), key=itemgetter(1), reverse=True)[0:K]:
+            for related_movie, w in sorted(
+                    self.movie_sim_mat[movie].items(),
+                    key=itemgetter(1),
+                    reverse=True)[0:K]:
                 if related_movie in watched_movies:
                     continue
                 rank.setdefault(related_movie, 0)
@@ -185,8 +189,8 @@ class ItemBasedCF():
             test_movies = self.testset.get(user, {})
             rec_movies = self.recommend(user)
 
-            # 对比测试集和推荐集的差异
-            for movie, w in rec_movies:
+            # 对比测试集和推荐集的差异 movie, w
+            for movie, _ in rec_movies:
                 if movie in test_movies:
                     hit += 1
                 all_rec_movies.add(movie)
@@ -200,7 +204,8 @@ class ItemBasedCF():
         coverage = len(all_rec_movies) / (1.0 * self.movie_count)
         popularity = popular_sum / (1.0 * rec_count)
 
-        print >> sys.stderr, 'precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (precision, recall, coverage, popularity)
+        print >> sys.stderr, 'precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (
+            precision, recall, coverage, popularity)
 
 
 if __name__ == '__main__':
@@ -217,5 +222,5 @@ if __name__ == '__main__':
     # itemcf.evaluate()
     # 查看推荐结果用户
     user = "2"
-    print "推荐结果", itemcf.recommend(user)
-    print "---", itemcf.testset.get(user, {})
+    print("推荐结果", itemcf.recommend(user))
+    print("---", itemcf.testset.get(user, {}))
