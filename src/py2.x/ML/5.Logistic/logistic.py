@@ -31,6 +31,8 @@ def loadDataSet(file_name):
     fr = open(file_name)
     for line in fr.readlines():
         lineArr = line.strip().split()
+        if len(lineArr) == 1:
+            continue    # 这里如果就一个空的元素，则跳过本次循环
         # 为了方便计算，我们将 X0 的值设为 1.0 ，也就是在每一行的开头添加一个 1.0 作为 X0
         dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])
         labelMat.append(int(lineArr[2]))

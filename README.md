@@ -10,6 +10,8 @@
 * -- 视频网站：优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
 * -- [群小哥哥：红色石头的机器学习之路](https://github.com/RedstoneWill): [台湾大学林轩田机器学习基石课程 - **系列学习笔记**](https://mp.weixin.qq.com/s/xb0i55zIQVzCiSZALbvncg)
 
+**<font color=red>ApacheCN 网友捐赠页面</font>：http://www.apachecn.org/organization/664.html**
+
 ## 机器学习
 
 <table>
@@ -137,7 +139,7 @@
 ## 深度学习(DeepLearning) —— 正在更新迭代
 
 * 1.) [入门介绍](./docs/DeepLearning/1.入门介绍.md)
-* 2.） 代码位置：src/deeplearning/py2.x or py3.x
+* 2.） 代码位置：src/py2.x or py3.x/DL
 
 ## 自然语言处理(NLP)
 
@@ -192,9 +194,9 @@
   </tr>
   <tr align="center">
     <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/4.朴素贝叶斯.md">朴素贝叶斯</a></td>
-    <td><a href="https://github.com/friedhelm739
+    <td><a href="https://github.com/wnma3mz">@wnma3mz</a><br/><a href="https://github.com/friedhelm739
 ">@平淡的天</a></td>
-    <td>554650680</td>
+    <td>1003324213<br/>554650680</td>
   </tr>
   <tr align="center">
     <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/5.Logistic回归.md">Logistic回归</a></td>
@@ -450,6 +452,11 @@
 | 优酷 | 网易云课堂 |
 | <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="images/MainPage/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="images/MainPage/ApacheCM-ML-WangYiYunKeTang.png"></a> |
 
+## 免责声明
+
+ApacheCN 纯粹出于学习目的与个人兴趣翻译本书。
+
+本译文只供学习研究参考之用。ApacheCN 保留对此版本译文的署名权及其它相关权利。
 
 ## [ApacheCN 组织资源](http://www.apachecn.org/)
 

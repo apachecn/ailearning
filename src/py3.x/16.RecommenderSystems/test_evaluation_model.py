@@ -1,5 +1,6 @@
 import math
 import random
+
 def SplitData(data, M, k, seed):
     test = []
     train = []
