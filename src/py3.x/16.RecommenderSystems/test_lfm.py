@@ -1,3 +1,4 @@
+import random
 
 
 # 负样本采样过程
