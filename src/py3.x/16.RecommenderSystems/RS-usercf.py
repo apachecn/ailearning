@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # coding:utf8
-
 '''
 Created on 2015-06-22
 Update  on 2017-05-16
@@ -20,6 +19,7 @@ random.seed(0)
 
 class UserBasedCF():
     ''' TopN recommendation - UserBasedCF '''
+
     def __init__(self):
         self.trainset = {}
         self.testset = {}
@@ -64,9 +64,9 @@ class UserBasedCF():
         testset_len = 0
 
         for line in self.loadfile(filename):
-            # 用户ID，电影名称，评分，时间戳
+            # 用户ID，电影名称，评分，时间戳timestamp
             # user, movie, rating, timestamp = line.split('::')
-            user, movie, rating, timestamp = line.split('\t')
+            user, movie, rating, _ = line.split('\t')
             # 通过pivot和随机函数比较，然后初始化用户和对应的值
             if (random.random() < pivot):
 
@@ -95,7 +95,7 @@ class UserBasedCF():
 
         # 同一个电影中，收集用户的集合
         # 统计在所有的用户中，不同电影的总出现次数
-        for user, movies in self.trainset.iteritems():
+        for user, movies in self.trainset.items():
             for movie in movies:
                 # inverse table for item-users
                 if movie not in movie2users:
@@ -116,7 +116,7 @@ class UserBasedCF():
         # 统计在相同电影时，不同用户同时出现的次数
         print >> sys.stderr, 'building user co-rated movies matrix...'
 
-        for movie, users in movie2users.iteritems():
+        for movie, users in movie2users.items():
             for u in users:
                 for v in users:
                     if u == v:
@@ -130,10 +130,11 @@ class UserBasedCF():
         print >> sys.stderr, 'calculating user similarity matrix...'
         simfactor_count = 0
         PRINT_STEP = 2000000
-        for u, related_users in usersim_mat.iteritems():
+        for u, related_users in usersim_mat.items():
             for v, count in related_users.iteritems():
                 # 余弦相似度
-                usersim_mat[u][v] = count / math.sqrt(len(self.trainset[u]) * len(self.trainset[v]))
+                usersim_mat[u][v] = count / math.sqrt(
+                    len(self.trainset[u]) * len(self.trainset[v]))
                 simfactor_count += 1
                 # 打印进度条
                 if simfactor_count % PRINT_STEP == 0:
@@ -160,7 +161,9 @@ class UserBasedCF():
         # 计算top K 用户的相似度
         # v=similar user, wuv=不同用户同时出现的次数，根据wuv倒序从大到小选出K个用户进行排列
         # 耗时分析：50.4%的时间在 line-160行
-        for v, wuv in sorted(self.user_sim_mat[user].items(), key=itemgetter(1), reverse=True)[0:K]:
+        for v, wuv in sorted(
+                self.user_sim_mat[user].items(), key=itemgetter(1),
+                reverse=True)[0:K]:
             for movie, rating in self.trainset[v].iteritems():
                 if movie in watched_movies:
                     continue
@@ -168,7 +171,6 @@ class UserBasedCF():
                 rank.setdefault(movie, 0)
                 rank[movie] += wuv * rating
         # return the N best movies
-
         """
         wuv
         precision=0.3766         recall=0.0759   coverage=0.3183         popularity=6.9194
@@ -202,8 +204,8 @@ class UserBasedCF():
             test_movies = self.testset.get(user, {})
             rec_movies = self.recommend(user)
 
-            # 对比测试集和推荐集的差异
-            for movie, w in rec_movies:
+            # 对比测试集和推荐集的差异 movie, w
+            for movie, _ in rec_movies:
                 if movie in test_movies:
                     hit += 1
                 all_rec_movies.add(movie)
@@ -212,12 +214,13 @@ class UserBasedCF():
             rec_count += N
             test_count += len(test_movies)
 
-        precision = hit / (1.0*rec_count)
-        recall = hit / (1.0*test_count)
-        coverage = len(all_rec_movies) / (1.0*self.movie_count)
-        popularity = popular_sum / (1.0*rec_count)
+        precision = hit / (1.0 * rec_count)
+        recall = hit / (1.0 * test_count)
+        coverage = len(all_rec_movies) / (1.0 * self.movie_count)
+        popularity = popular_sum / (1.0 * rec_count)
 
-        print >> sys.stderr, 'precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (precision, recall, coverage, popularity)
+        print >> sys.stderr, 'precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (
+            precision, recall, coverage, popularity)
 
 
 if __name__ == '__main__':

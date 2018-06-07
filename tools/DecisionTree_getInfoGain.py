@@ -16,7 +16,7 @@ def calcShannonEnt(dataSet):
     """
     # 求list的长度，表示计算参与训练的数据量
     numEntries = len(dataSet)
-    # print type(dataSet), 'numEntries: ', numEntries
+    # print(type(dataSet), 'numEntries: ', numEntries)
 
     # 计算分类标签label出现的次数
     labelCounts = {}
@@ -26,7 +26,7 @@ def calcShannonEnt(dataSet):
         if currentLabel not in labelCounts.keys():
             labelCounts[currentLabel] = 0
         labelCounts[currentLabel] += 1
-        # print '-----', featVec, labelCounts
+        # print('-----', featVec, labelCounts)
 
     # 对于label标签的占比，求出label标签的香农熵
     shannonEnt = 0.0
@@ -34,7 +34,7 @@ def calcShannonEnt(dataSet):
         prob = float(labelCounts[key])/numEntries
         # log base 2
         shannonEnt -= prob * log(prob, 2)
-        # print '---', prob, prob * log(prob, 2), shannonEnt
+        # print('---', prob, prob * log(prob, 2), shannonEnt)
     return shannonEnt
 
 
@@ -100,7 +100,7 @@ def getFeatureShannonEnt(dataSet, labels):
         # gain[信息增益]=0, 表示与类别相同，无需其他的分类
         # gain[信息增益]=baseEntropy, 表示分类和没分类没有区别
         infoGain = baseEntropy - newEntropy
-        # print infoGain
+        # print(infoGain)
         if (infoGain > bestInfoGain):
             endEntropy = newEntropy
             bestInfoGain = infoGain
@@ -120,5 +120,5 @@ if __name__ == '__main__':
     infoGain1 = getFeatureShannonEnt(dataSet1, labels)
     infoGain2 = getFeatureShannonEnt(dataSet2, labels)
     infoGain3 = getFeatureShannonEnt(dataSet3, labels)
-    print '信息增益: \n\t%s, \n\t%s, \n\t%s' % (infoGain1, infoGain2, infoGain3)
+    print('信息增益: \n\t%s, \n\t%s, \n\t%s' % (infoGain1, infoGain2, infoGain3))
 

@@ -10,6 +10,8 @@
 * -- 视频网站：优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
 * -- [群小哥哥：红色石头的机器学习之路](https://github.com/RedstoneWill): [台湾大学林轩田机器学习基石课程 - **系列学习笔记**](https://mp.weixin.qq.com/s/xb0i55zIQVzCiSZALbvncg)
 
+**<font color=red>ApacheCN 网友捐赠页面</font>：http://www.apachecn.org/organization/664.html**
+
 ## 机器学习
 
 <table>
@@ -450,6 +452,11 @@
 | 优酷 | 网易云课堂 |
 | <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="images/MainPage/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="images/MainPage/ApacheCM-ML-WangYiYunKeTang.png"></a> |
 
+## 免责声明
+
+ApacheCN 纯粹出于学习目的与个人兴趣翻译本书。
+
+本译文只供学习研究参考之用。ApacheCN 保留对此版本译文的署名权及其它相关权利。
 
 ## [ApacheCN 组织资源](http://www.apachecn.org/)
 
