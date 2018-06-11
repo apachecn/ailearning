@@ -15,7 +15,7 @@ print(__doc__)
 def loadDataSet(fileName, delim='\t'):
     fr = open(fileName)
     stringArr = [line.strip().split(delim) for line in fr.readlines()]
-    datArr = [list(map(float, line) for line in stringArr)]
+    datArr = [list(map(float, line)) for line in stringArr]
     #注意这里和python2的区别，需要在map函数外加一个list（），否则显示结果为 map at 0x3fed1d0
     return mat(datArr)
 
