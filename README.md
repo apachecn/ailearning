@@ -373,7 +373,6 @@
 * [@片刻](https://github.com/jiangzhonglian)
 * [@那伊抹微笑](https://github.com/wangyangting)
 * [@瑶妹](https://github.com/chenyyx)
-
 * [2017-04-08_第一期的总结](/report/2017-04-08_第一期的总结.md)
 
 > Ml 第二期 (2017-08-14)
@@ -404,8 +403,36 @@
 
 > Ml 第三期 (2018-04-16)
 
+## ApacheCN社区-ML群换届
 
-* 欢迎贡献者不断的追加
+* [@瑶妹](https://github.com/chenyyx)
+* [@飞龙](https://github.com/wizardforcel)
+* [@片刻](https://github.com/jiangzhonglian)
+* [@伪文艺.](https://github.com/Watermelon233)
+* [@那伊抹微笑](https://github.com/wangyangting)
+* [@LAMDA-健忘症]()  永久留任-非常感谢对群的贡献
+
+> Ml 第一届 (2017-07-04 结束)
+
+* [@易漠]()
+* [@Mike](https://github.com/mikechengwei)
+* [@Books]()
+* [@李孟禹]()
+* [@张假飞]()
+* [@Glassy]()
+* [@红色石头]()
+* [@微光同尘]()
+
+> Ml 第二届 (刚开始)
+
+* [@张假飞]()
+* [@李孟禹]()
+* [@小明教主]()
+* [@平淡的天]()
+* [@凌少skierゞ]()
+* [@じ☆νЁ坐看云起]()
+
+**欢迎贡献者不断的追加**
 
 > 加入方式
 
