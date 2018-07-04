@@ -191,14 +191,13 @@
 
 干货内容实际操作：[MachineLearning(机器学习) 学习路线图](http://www.apachecn.org/map/145.html)
 
-> 机器学习视频 - 可汗学院 入门篇
+> 【免费】数学教学视频 - 可汗学院 入门篇
 
 * [@于振梓]() 推荐: 可汗学院-网易公开课 
 
 | 概率 | 统计 | 线性代数 |
 | - | - | - |
 | [可汗学院(概率)](http://open.163.com/special/Khan/probability.html)  | [可汗学院(统计学)](http://open.163.com/special/Khan/khstatistics.html)| [可汗学院(线性代数)](http://open.163.com/special/Khan/linearalgebra.html)
-
 
 > 机器学习视频 - ApacheCN 教学版
 
@@ -209,11 +208,11 @@
 | 优酷 | 网易云课堂 |
 | <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="images/MainPage/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="images/MainPage/ApacheCM-ML-WangYiYunKeTang.png"></a> |
 
-> 机器/深度学习视频 - 吴恩达
+> 【免费】机器/深度学习视频 - 吴恩达
 
 | 机器学习 | 深度学习 |
 | - | - |
-| [吴恩达机器学习 - 免费](http://study.163.com/course/courseMain.htm?courseId=1004570029) | [神经网络和深度学习 - 免费](http://mooc.study.163.com/course/2001281002?tid=2001392029) |
+| [吴恩达机器学习](http://study.163.com/course/courseMain.htm?courseId=1004570029) | [神经网络和深度学习](http://mooc.study.163.com/course/2001281002?tid=2001392029) |
 
 ## 项目负责人
 
@@ -286,16 +285,12 @@
 > 加入方式
 
 * 企鹅: 529815144(片刻) 1042658081(那伊抹微笑) 190442212(瑶妹)
+* [ApacheCN(apache中文网) 维护更新](http://www.apachecn.org) : [关于我们](http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887240) && [加入我们](http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887239)
 
-* [ApacheCN(apache中文网) 维护更新](http://www.apachecn.org)
-    * [关于我们](http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887240)
-    * [加入我们](http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887239)
+## 免责声明 - 【只供学习参考】
 
-## 免责声明
-
-ApacheCN 纯粹出于学习目的与个人兴趣翻译本书。
-
-本译文只供学习研究参考之用。ApacheCN 保留对此版本译文的署名权及其它相关权利。
+* ApacheCN 纯粹出于学习目的与个人兴趣翻译本书
+* ApacheCN 保留对此版本译文的署名权及其它相关权利
 
 ## [ApacheCN 组织资源](http://www.apachecn.org/)
 
