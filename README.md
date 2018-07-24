@@ -173,7 +173,21 @@
 * 动态规划查找，综合正反向（正向加权反向输出）求得DAG最大概率路径
 * 使用了SBME语料训练了一套 HMM + Viterbi 模型，解决未登录词问题
 
-### 情感分析
+
+### 1.文本分类（Text Classification）
+
+文本分类是指标记句子或文档，例如电子邮件垃圾邮件分类和情感分析。
+
+下面是一些很好的初学者文本分类数据集。
+
+1. [路透社Newswire主题分类](http://kdd.ics.uci.edu/databases/reuters21578/reuters21578.html)（路透社-21578）。1987年路透社出现的一系列新闻文件，按类别编制索引。[另见RCV1，RCV2和TRC2](http://trec.nist.gov/data/reuters/reuters.html)。
+2. [IMDB电影评论情感分类]（斯坦福）（[http://ai.stanford.edu/~amaas/data/sentiment/](http://ai.stanford.edu/~amaas/data/sentiment/)）。来自网站imdb.com的一系列电影评论及其积极或消极的情绪。
+3. [新闻组电影评论情感分类（康奈尔）](http://www.cs.cornell.edu/people/pabo/movie-review-data/)。来自网站imdb.com的一系列电影评论及其积极或消极的情绪。
+
+有关更多信息，请参阅帖子：
+[单标签文本分类的数据集](http://ana.cachopo.org/datasets-for-single-label-text-categorization)。
+
+> 情感分析
 
 比赛地址: https://www.kaggle.com/c/word2vec-nlp-tutorial
 
@@ -186,17 +200,110 @@
 
 **通过AUC 来评估模型的效果**
 
-### 文本纠错
+
+### 2.语言模型（Language Modeling）
+
+语言建模涉及开发一种统计模型，用于预测句子中的下一个单词或一个单词中的下一个单词。它是语音识别和机器翻译等任务中的前置任务。
+
+它是语音识别和机器翻译等任务中的前置任务。
+
+下面是一些很好的初学者语言建模数据集。
+
+1. [古腾堡项目](https://www.gutenberg.org/)，一系列免费书籍，可以用纯文本检索各种语言。
+2. 还有更多正式的语料库得到了很好的研究; 例如：
+    [布朗大学现代美国英语标准语料库](https://en.wikipedia.org/wiki/Brown_Corpus)。大量英语单词样本。
+    [谷歌10亿字语料库](https://github.com/ciprian-chelba/1-billion-word-language-modeling-benchmark)。
+
+> 文本纠错
 
 * bi-gram + levenshtein
 
-### 文本摘要
+
+
+### 3.图像字幕（Image Captioning）
+
+mage字幕是为给定图像生成文本描述的任务。
+
+下面是一些很好的初学者图像字幕数据集。
+
+1. [上下文中的公共对象（COCO）](http://mscoco.org/dataset/#overview)。包含超过12万张带描述的图像的集合
+2. [Flickr 8K](http://nlp.cs.illinois.edu/HockenmaierGroup/8k-pictures.html)。从flickr.com获取的8千个描述图像的集合。
+3. [Flickr 30K](http://shannon.cs.illinois.edu/DenotationGraph/)。从flickr.com获取的3万个描述图像的集合。
+    欲了解更多，请看帖子：
+
+[探索图像字幕数据集，2016年](http://sidgan.me/technical/2016/01/09/Exploring-Datasets)
+
+### 4.机器翻译（Machine Translation）
+
+* Encoder + Decoder(Attention)
+* 参考案例: http://pytorch.apachecn.org/cn/tutorials/intermediate/seq2seq_translation_tutorial.html
+
+机器翻译是将文本从一种语言翻译成另一种语言的任务。
+
+下面是一些很好的初学者机器翻译数据集。
+
+1. [加拿大第36届议会的协调国会议员](https://www.isi.edu/natural-language/download/hansard/)。成对的英语和法语句子。
+2. [欧洲议会诉讼平行语料库1996-2011](http://www.statmt.org/europarl/)。句子对一套欧洲语言。
+    有大量标准数据集用于年度机器翻译挑战; 看到：
+
+[统计机器翻译](http://www.statmt.org/)
+
+### 5.问答系统（Question Answering）
+
+问答是一项任务，其中提供了一个句子或文本样本，从中提出问题并且必须回答问题。
+
+下面是一些很好的初学者问题回答数据集。
+
+1. [斯坦福问题回答数据集（SQuAD）](https://rajpurkar.github.io/SQuAD-explorer/)。回答有关维基百科文章的问题。
+2. [Deepmind问题回答语料库](https://github.com/deepmind/rc-data)。从每日邮报回答有关新闻文章的问题。
+3. [亚马逊问答数据](http://jmcauley.ucsd.edu/data/amazon/qa/)。回答有关亚马逊产品的问题。
+    有关更多信息，请参阅帖子：
+
+[数据集：我如何获得问答网站的语料库，如Quora或Yahoo Answers或Stack Overflow来分析答案质量？](https://www.quora.com/Datasets-How-can-I-get-corpus-of-a-question-answering-website-like-Quora-or-Yahoo-Answers-or-Stack-Overflow-for-analyzing-answer-quality)
+
+### 6.语音识别（Speech Recognition）
+
+语音识别是将口语的音频转换为人类可读文本的任务。
+
+下面是一些很好的初学者语音识别数据集。
+
+1. [TIMIT声学 - 语音连续语音语料库](https://catalog.ldc.upenn.edu/LDC93S1)。不是免费的，但因其广泛使用而上市。口语美国英语和相关的转录。
+2. [VoxForge](http://voxforge.org/)。用于构建用于语音识别的开源数据库的项目。
+3. [LibriSpeech ASR语料库](http://www.openslr.org/12/)。从LibriVox收集的大量英语有声读物。
+
+### 7.自动文摘（Document Summarization）
 
 * textrank
 
-### 机器翻译(Seq2Seq)
+文档摘要是创建较大文档的简短有意义描述的任务。
 
-* Encoder + Decoder(Attention)
+下面是一些很好的初学者文档摘要数据集。
+
+1. [法律案例报告数据集](https://archive.ics.uci.edu/ml/datasets/Legal+Case+Reports)。收集了4000份法律案件及其摘要。
+2. [TIPSTER文本摘要评估会议语料库](http://www-nlpir.nist.gov/related_projects/tipster_summac/cmp_lg.html)。收集了近200份文件及其摘要。
+3. [英语新闻文本的AQUAINT语料库](https://catalog.ldc.upenn.edu/LDC2002T31)。不是免费的，而是广泛使用的。新闻文章的语料库。
+    欲了解更多信息：
+
+[文档理解会议（DUC）任务](http://www-nlpir.nist.gov/projects/duc/data.html)。
+[在哪里可以找到用于文本摘要的良好数据集？](https://www.quora.com/Where-can-I-find-good-data-sets-for-text-summarization)
+
+> 命名实体识别
+
+* Bi-LSTM CRF
+* 参考案例: http://pytorch.apachecn.org/cn/tutorials/beginner/nlp/advanced_tutorial.html
+
+### 进一步阅读
+
+如果您希望更深入，本节提供了其他数据集列表。
+
+1. [维基百科研究中使用的文本数据集](https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research#Text_data)
+2. [数据集：计算语言学家和自然语言处理研究人员使用的主要文本语料库是什么？](https://www.quora.com/Datasets-What-are-the-major-text-corpora-used-by-computational-linguists-and-natural-language-processing-researchers-and-what-are-the-characteristics-biases-of-each-corpus)
+3. [斯坦福统计自然语言处理语料库](https://nlp.stanford.edu/links/statnlp.html#Corpora)
+4. [按字母顺序排列的NLP数据集列表](https://github.com/niderhoff/nlp-datasets)
+5. [该机构NLTK](http://www.nltk.org/nltk_data/)
+6. [在DL4J上打开深度学习数据](https://deeplearning4j.org/opendata)
+7. [NLP数据集](https://github.com/caesar0301/awesome-public-datasets#natural-language)
+8. 国内开放数据集: https://bosonnlp.com/dev/resource
 
 ## 网站视频
 
