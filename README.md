@@ -165,7 +165,9 @@
 
 ## 自然语言处理(NLP) - 相关项目
 
-* 入门教程需看资料: https://github.com/apachecn/MachineLearning/tree/dev/docs/NLP 
+![](images/NLP/F94581F64C21A1094A473397DFA42F9C.jpg)
+
+* 入门教程需看资料【添加比赛链接】: https://github.com/apachecn/MachineLearning/tree/dev/docs/NLP
 
 ### 中文分词：
 
