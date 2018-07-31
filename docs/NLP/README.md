@@ -1,11 +1,11 @@
 # 入门教程需看资料
 
-## NLP 学习书籍：
+## nlp 学习书籍：
 
 * 百度搜索：Python自然语言处理
 * 读书笔记：https://wnma3mz.github.io/hexo_blog/2018/05/13/《Python自然语言处理》阅读笔记（一）
 
-## NLP 全局介绍视频：（简单做了解就行）
+## nlp 全局介绍视频：（简单做了解就行）
 
 地址链接： http://bit.baidu.com/Course/detail/id/56.html
  
@@ -14,7 +14,7 @@
 3. 篇章分析
 4. UNIT：语言理解与交互技术
  
-## 中文nlp词向量
+## 中文 nlp 词向量
 
 https://github.com/Embedding/Chinese-Word-Vectors
 
@@ -25,7 +25,7 @@ https://github.com/Embedding/Chinese-Word-Vectors
 3.RNN原理： https://blog.csdn.net/qq_39422642/article/details/78676567
 4.LSTM深入浅出的好文： https://blog.csdn.net/roslei/article/details/61912618
 
-## NLP的一般操作流程
+## nlp 操作流程
 
 [本项目](http://pytorch.apachecn.org/cn/tutorials/intermediate/char_rnn_classification_tutorial.html) 试图通过名字分类问题给大家描述一个基础的深度学习中自然语言处理模型，同时也向大家展示了Pytorch的基本玩法。 其实对于大部分基础的NLP工作，都是类似的套路： 
 
@@ -50,3 +50,28 @@ https://github.com/Embedding/Chinese-Word-Vectors
 * Pytorch官方文档：http://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html 
 * Ngarneau小哥的博文：https://github.com/ngarneau/understanding-pytorch-batching-lstm
 * 另外，本项目搭配Sung Kim的Pytorch Zero To All的第13讲rnn_classification会更加方便食用喔，视频可以在油管和b站中找到。
+
+## nlp - 比赛链接
+
+* https://competitions.codalab.org/competitions/12731
+* https://sites.ualberta.ca/%7Emiyoung2/COLIEE2018/
+* https://visualdialog.org/challenge/2018
++ 人机对话 NLP
+    - http://jddc.jd.com 
++ 司法数据文本的 NLP
+    - http://cail.cipsc.org.cn
++ “达观杯” 文本智能处理挑战赛   
+    - http://www.dcjingsai.com/common/cmpt/%E2%80%9C%E8%BE%BE%E8%A7%82%E6%9D%AF%E2%80%9D%E6%96%87%E6%9C%AC%E6%99%BA%E8%83%BD%E5%A4%84%E7%90%86%E6%8C%91%E6%88%98%E8%B5%9B_%E7%AB%9E%E8%B5%9B%E4%BF%A1%E6%81%AF.html
++ 中文论文摘要数据
+    - https://biendata.com/competition/smpetst2018
++ 中文问答任务
+    - https://biendata.com/competition/CCKS2018_4/
++ 第二届讯飞杯中文机器阅读理解评测 
+    - http://www.hfl-tek.com/cmrc2018
++ 2018机器阅读理解技术竞赛  这也是结束了的 NLP
+    - http://mrc2018.cipsc.org.cn
+
+
+* * * 
+
+【比赛收集平台】: https://github.com/iphysresearch/DataSciComp
