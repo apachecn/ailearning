@@ -175,7 +175,6 @@
 * 动态规划查找，综合正反向（正向加权反向输出）求得DAG最大概率路径
 * 使用了SBME语料训练了一套 HMM + Viterbi 模型，解决未登录词问题
 
-
 ### 1.文本分类（Text Classification）
 
 文本分类是指标记句子或文档，例如电子邮件垃圾邮件分类和情感分析。
@@ -183,7 +182,7 @@
 下面是一些很好的初学者文本分类数据集。
 
 1. [路透社Newswire主题分类](http://kdd.ics.uci.edu/databases/reuters21578/reuters21578.html)（路透社-21578）。1987年路透社出现的一系列新闻文件，按类别编制索引。[另见RCV1，RCV2和TRC2](http://trec.nist.gov/data/reuters/reuters.html)。
-2. [IMDB电影评论情感分类]（斯坦福）（[http://ai.stanford.edu/~amaas/data/sentiment/](http://ai.stanford.edu/~amaas/data/sentiment/)）。来自网站imdb.com的一系列电影评论及其积极或消极的情绪。
+2. [IMDB电影评论情感分类（斯坦福）](http://ai.stanford.edu/~amaas/data/sentiment)。来自网站imdb.com的一系列电影评论及其积极或消极的情绪。
 3. [新闻组电影评论情感分类（康奈尔）](http://www.cs.cornell.edu/people/pabo/movie-review-data/)。来自网站imdb.com的一系列电影评论及其积极或消极的情绪。
 
 有关更多信息，请参阅帖子：
@@ -215,6 +214,11 @@
 2. 还有更多正式的语料库得到了很好的研究; 例如：
     [布朗大学现代美国英语标准语料库](https://en.wikipedia.org/wiki/Brown_Corpus)。大量英语单词样本。
     [谷歌10亿字语料库](https://github.com/ciprian-chelba/1-billion-word-language-modeling-benchmark)。
+
+> 句子相似度识别
+
+* 项目地址: https://www.kaggle.com/c/quora-question-pairs
+* 解决方案: word2vec + Bi-GRU
 
 > 文本纠错
 
@@ -441,4 +445,5 @@ mage字幕是为给定图像生成文本描述的任务。
 资料来源:
 
 * https://machinelearningmastery.com/datasets-natural-language-processing
+* 【比赛收集平台】: https://github.com/iphysresearch/DataSciComp
 
