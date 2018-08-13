@@ -70,7 +70,8 @@ https://github.com/Embedding/Chinese-Word-Vectors
     - http://www.hfl-tek.com/cmrc2018
 + 2018机器阅读理解技术竞赛  这也是结束了的 NLP
     - http://mrc2018.cipsc.org.cn
-
++ 句子文本相似度计算
+    - https://www.kaggle.com/c/quora-question-pairs
 
 * * * 
 
