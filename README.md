@@ -165,9 +165,29 @@
 
 ## 自然语言处理(NLP) - 相关项目
 
+学习过程中-内心复杂的变化！！！
+
+```
+自从学习NLP以后，才发现国内与国外的典型区别:
+1. 对资源的态度是完全相反的:
+  1) 国内：就好像为了名气，举办工作装逼的会议，就是没有干货，全部都是象征性的PPT介绍，不是针对在做的各位
+  2）国外：就好像是为了推动nlp进步一样，分享者各种干货资料和具体的实现。（特别是: python自然语言处理）
+2. 论文的实现：
+  1) 各种高大上的论文实现，却还是没看到一个像样的GitHub项目！（可能我的搜索能力差了点，一直没找到）
+  2）国外就不举例了，我看不懂！
+3. 开源的框架
+  1）国外的开源框架： tensorflow/pytorch 文档+教程+视频（官方提供）
+  2) 国内的开源框架: 额额，还真举例不出来！但是牛逼吹得不比国外差！（好像 MXNet 是沐神弄的？？ 文档+教程+视频）
+每一次深入都要去翻墙，每一次深入都要Google，每一次看着国内的说：哈工大、讯飞、中科大、百度、阿里 多牛逼，但是资料还是得国外去找！
+有时候真的挺狠的！真的有点瞧不起自己国内的技术环境！
+
+当然谢谢国内很多博客大佬，特别是一些入门的Demo和基本概念。【深入的水平有限，没看懂】
+```
+
 ![](images/NLP/F94581F64C21A1094A473397DFA42F9C.jpg)
 
 * 入门教程需看资料【添加比赛链接】: https://github.com/apachecn/MachineLearning/tree/dev/docs/NLP
+* Python 自然语言处理 第二版: https://usyiyi.github.io/nlp-py-2e-zh
 
 ### 中文分词：
 
@@ -241,9 +261,6 @@ mage字幕是为给定图像生成文本描述的任务。
 
 ### 4.机器翻译（Machine Translation）
 
-* Encoder + Decoder(Attention)
-* 参考案例: http://pytorch.apachecn.org/cn/tutorials/intermediate/seq2seq_translation_tutorial.html
-
 机器翻译是将文本从一种语言翻译成另一种语言的任务。
 
 下面是一些很好的初学者机器翻译数据集。
@@ -253,6 +270,11 @@ mage字幕是为给定图像生成文本描述的任务。
     有大量标准数据集用于年度机器翻译挑战; 看到：
 
 [统计机器翻译](http://www.statmt.org/)
+
+> 机器翻译
+
+* Encoder + Decoder(Attention)
+* 参考案例: http://pytorch.apachecn.org/cn/tutorials/intermediate/seq2seq_translation_tutorial.html
 
 ### 5.问答系统（Question Answering）
 
@@ -279,8 +301,6 @@ mage字幕是为给定图像生成文本描述的任务。
 
 ### 7.自动文摘（Document Summarization）
 
-* textrank
-
 文档摘要是创建较大文档的简短有意义描述的任务。
 
 下面是一些很好的初学者文档摘要数据集。
@@ -297,6 +317,11 @@ mage字幕是为给定图像生成文本描述的任务。
 
 * Bi-LSTM CRF
 * 参考案例: http://pytorch.apachecn.org/cn/tutorials/beginner/nlp/advanced_tutorial.html
+
+
+> 文本摘要
+
+* word2vec + textrank
 
 ### 进一步阅读
 
