@@ -317,11 +317,14 @@ mage字幕是为给定图像生成文本描述的任务。
 
 * Bi-LSTM CRF
 * 参考案例: http://pytorch.apachecn.org/cn/tutorials/beginner/nlp/advanced_tutorial.html
-
+* CRF推荐文档: https://www.jianshu.com/p/55755fc649b1
 
 > 文本摘要
 
+* **抽取式**
 * word2vec + textrank
+* word2vec推荐文档: https://www.zhihu.com/question/44832436/answer/266068967
+* textrank推荐文档: https://blog.csdn.net/BaiHuaXiu123/article/details/77847232
 
 ### 进一步阅读
 
