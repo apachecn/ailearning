@@ -1,6 +1,6 @@
 # 机器学习 MachineLearning
 
-* [ApacheCN 组织资源整理项目](https://github.com/apachecn/home): https://github.com/apachecn/home
+* [ApacheCN 组织资源](https://github.com/apachecn/home): https://github.com/apachecn/home
 
 > **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
 
