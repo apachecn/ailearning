@@ -1,6 +1,6 @@
-# MachineLearning
+# 机器学习 MachineLearning
 
-* [ApacheCN 开源组织](https://github.com/apachecn/organization): https://github.com/apachecn/organization
+* [ApacheCN 组织资源](https://github.com/apachecn/home): https://github.com/apachecn/home
 
 > **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
 
@@ -12,8 +12,6 @@
 * -- 视频网站：优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
 * -- [群小哥哥：红色石头的机器学习之路](https://github.com/RedstoneWill): [台湾大学林轩田机器学习基石课程 - **系列学习笔记**](https://mp.weixin.qq.com/s/xb0i55zIQVzCiSZALbvncg)
 * 推荐一个[机器学习笔记](https://feisky.xyz/machine-learning): https://feisky.xyz/machine-learning
-
-## 机器学习
 
 <table>
   <tr>
@@ -137,12 +135,14 @@
   </tr>
 </table>
 
-## 深度学习(DeepLearning) —— 正在更新迭代
+# 深度学习 DeepLearning
 
 * 1.) [入门介绍](./docs/DeepLearning/1.入门介绍.md)
 * 2.） 代码位置：src/py2.x or py3.x/DL
 
-## 自然语言处理(NLP) - 百度公开课（使用场景了解）
+# 自然语言处理 NLP
+
+## 百度公开课（使用场景了解）
 
 > 第一部分 入门介绍
 
@@ -167,7 +167,7 @@
 
 学习过程中-内心复杂的变化！！！
 
-```
+```python
 自从学习NLP以后，才发现国内与国外的典型区别:
 1. 对资源的态度是完全相反的:
   1) 国内：就好像为了名气，举办工作装逼的会议，就是没有干货，全部都是象征性的PPT介绍，不是针对在做的各位
@@ -221,7 +221,6 @@
 
 **通过AUC 来评估模型的效果**
 
-
 ### 2.语言模型（Language Modeling）
 
 语言建模涉及开发一种统计模型，用于预测句子中的下一个单词或一个单词中的下一个单词。它是语音识别和机器翻译等任务中的前置任务。
@@ -243,8 +242,6 @@
 > 文本纠错
 
 * bi-gram + levenshtein
-
-
 
 ### 3.图像字幕（Image Captioning）
 
@@ -408,7 +405,6 @@ mage字幕是为给定图像生成文本描述的任务。
 
 > Ml 第三期 (2018-04-16)
 
-
 ## 项目贡献者
 
 > Ml 第一期 (2017-02-27)
@@ -434,9 +430,9 @@ mage字幕是为给定图像生成文本描述的任务。
 * [@片刻](https://github.com/jiangzhonglian)
 * [@伪文艺.](https://github.com/Watermelon233)
 * [@那伊抹微笑](https://github.com/wangyangting)
-* [@LAMDA-健忘症]()  永久留任-非常感谢对群的贡献
+* [@LAMDA-健忘症]() 永久留任-非常感谢对群的贡献
 
-> Ml 第一届 (2017-07-04 结束)
+> Ml 第一届 (2017-09-01)
 
 * [@易漠]()
 * [@Mike](https://github.com/mikechengwei)
@@ -447,7 +443,7 @@ mage字幕是为给定图像生成文本描述的任务。
 * [@红色石头]()
 * [@微光同尘]()
 
-> Ml 第二届 (刚开始)
+> Ml 第二届 (2018-07-04)
 
 * [@张假飞]()
 * [@李孟禹]()
@@ -468,10 +464,9 @@ mage字幕是为给定图像生成文本描述的任务。
 * ApacheCN 纯粹出于学习目的与个人兴趣翻译本书
 * ApacheCN 保留对此版本译文的署名权及其它相关权利
 
-* * * 
+---
 
 资料来源:
 
 * https://machinelearningmastery.com/datasets-natural-language-processing
 * 【比赛收集平台】: https://github.com/iphysresearch/DataSciComp
-
