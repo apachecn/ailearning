@@ -137,7 +137,7 @@
 
 # 深度学习 DeepLearning
 
-* 1.) [入门介绍](./docs/DeepLearning/1.入门介绍.md)
+* 1.) [入门介绍](/blog/dl/1.入门介绍.md)
 * 2.） 代码位置：src/py2.x or py3.x/DL
 
 # 自然语言处理 NLP
