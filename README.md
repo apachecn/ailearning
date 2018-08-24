@@ -4,7 +4,7 @@
 
 > **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
 
-* **ApacheCN - 学习机器学习群【629470233】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=30e5f1123a79867570f665aa3a483ca404b1c3f77737bc01ec520ed5f078ddef"><img border="0" src="img/ml/MainPage/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[629470233]" title="ApacheCN - 学习机器学习群[629470233]"></a>**
+* **ApacheCN - 学习机器学习群【629470233】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=30e5f1123a79867570f665aa3a483ca404b1c3f77737bc01ec520ed5f078ddef"><img border="0" src="img/MainPage/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[629470233]" title="ApacheCN - 学习机器学习群[629470233]"></a>**
 * **Machine Learning in Action (机器学习实战) | [ApacheCN(apache中文网)](http://cwiki.apachecn.org/)**
 * 电子版书籍：[【机器学习实战-中文版-带目录版.pdf】](https://github.com/apachecn/AiLearning/tree/master/books)  
 * -- 感谢 [群小哥哥：Wizard Zhang](https://github.com/wizardforcel) 生成的电子书[《机器学习实战-ApacheCN.pdf》](https://github.com/apachecn/AiLearning/blob/master/books/机器学习实战-ApacheCN.pdf)
