@@ -4,7 +4,7 @@
 Created on 2018-03-13
 Updated on 2018-03-13
 Author: 片刻
-GitHub: https://github.com/apachecn/MachineLearning
+GitHub: https://github.com/apachecn/AiLearning
 Coding: http://blog.csdn.net/github_36299736/article/details/54966460
 """
 

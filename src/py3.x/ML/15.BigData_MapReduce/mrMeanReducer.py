@@ -5,7 +5,7 @@
 Created on 2017-04-06
 Update  on 2017-11-17
 Author: Peter/ApacheCN-xy/片刻
-GitHub: https://github.com/apachecn/MachineLearning
+GitHub: https://github.com/apachecn/AiLearning
 '''
 
 import sys

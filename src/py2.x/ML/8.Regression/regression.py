@@ -4,7 +4,7 @@
 Created on Jan 8, 2011
 Update  on 2017-05-18
 Author: Peter Harrington/小瑶
-GitHub: https://github.com/apachecn/MachineLearning
+GitHub: https://github.com/apachecn/AiLearning
 '''
 
 from numpy import *

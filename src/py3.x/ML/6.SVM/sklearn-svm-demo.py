@@ -6,7 +6,7 @@ Created on 2017-06-28
 Updated on 2017-06-28
 SVM：最大边距分离超平面
 @author: 片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 sklearn-SVM译文链接: http://cwiki.apachecn.org/pages/viewpage.action?pageId=10031359
 """
 import matplotlib.pyplot as plt

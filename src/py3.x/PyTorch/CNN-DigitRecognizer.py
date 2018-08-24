@@ -5,7 +5,7 @@
 Created on 2017-05-18
 Update  on 2017-11-17
 Author: Peter Harrington/1988/片刻
-GitHub: https://github.com/apachecn/MachineLearning
+GitHub: https://github.com/apachecn/AiLearning
 Score : 98.46%
 '''
 

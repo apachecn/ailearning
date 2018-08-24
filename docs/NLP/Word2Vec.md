@@ -21,7 +21,7 @@
 * CBOW 模型: 能够根据输入周围n-1个词来预测出这个词本身.
     * 也就是说，CBOW模型的输入是某个词A周围的n个单词的词向量之和，输出是词A本身的词向量.
 
-![CBoW 模型](/images/NLP/Word2Vce/CBoW.png)
+![CBoW 模型/img/NLP/Word2Vce/CBoW.png)
 
 ## Skip-gram 模型
 
@@ -29,7 +29,7 @@
 * Skip-gram 模型: 能够根据词本身来预测周围有哪些词.
     * 也就是说，Skip-gram模型的输入是词A本身，输出是词A周围的n个单词的词向量.
 
-![Skip-gram 模型](/images/NLP/Word2Vce/Skip-gram.png)
+![Skip-gram 模型/img/NLP/Word2Vce/Skip-gram.png)
 
 
 明天看看这个案例：https://blog.csdn.net/lyb3b3b/article/details/72897952

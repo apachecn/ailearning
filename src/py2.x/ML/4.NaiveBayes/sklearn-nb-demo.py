@@ -6,7 +6,7 @@ Created on 2017-06-28
 Updated on 2017-06-28
 NaiveBayes：朴素贝叶斯
 @author: 小瑶
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 """
 
 

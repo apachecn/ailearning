@@ -6,7 +6,7 @@ Created on Nov 4, 2010
 Update on 2017-05-18
 Chapter 5 source file for Machine Learing in Action
 @author: Peter/geekidentity/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 """
 from numpy import *
 import matplotlib.pyplot as plt

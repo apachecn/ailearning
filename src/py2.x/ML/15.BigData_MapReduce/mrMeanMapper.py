@@ -6,7 +6,7 @@ Update  on 2017-06-20
 Machine Learning in Action Chapter 18
 Map Reduce Job for Hadoop Streaming
 @author: Peter/ApacheCN-xy/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 '''
 import sys
 from numpy import mat, mean, power

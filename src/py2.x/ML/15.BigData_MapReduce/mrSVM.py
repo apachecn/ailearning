@@ -6,7 +6,7 @@ Update  on 2017-06-20
 MapReduce version of Pegasos SVM
 Using mrjob to automate job flow
 @author: Peter/ApacheCN-xy/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 '''
 from mrjob.job import MRJob
 

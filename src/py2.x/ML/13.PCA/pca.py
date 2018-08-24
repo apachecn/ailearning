@@ -5,7 +5,7 @@
 Created on Jun 1, 2011
 Update  on 2017-05-18
 Author: Peter Harrington/片刻
-GitHub：https://github.com/apachecn/MachineLearning
+GitHub：https://github.com/apachecn/AiLearning
 '''
 from numpy import *
 import matplotlib.pyplot as plt

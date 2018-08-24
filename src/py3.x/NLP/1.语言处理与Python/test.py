@@ -5,7 +5,7 @@
 Created on 2018-05-09
 Updated on 2017-05-09
 Author: /片刻
-GitHub: https://github.com/apachecn/MachineLearning
+GitHub: https://github.com/apachecn/AiLearning
 """
 
 

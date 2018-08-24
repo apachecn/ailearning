@@ -5,7 +5,7 @@
 Created on Jun 1, 2011
 Update  on 2017-12-20
 @author: Peter Harrington/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 '''
 from numpy import *
 import matplotlib.pyplot as plt

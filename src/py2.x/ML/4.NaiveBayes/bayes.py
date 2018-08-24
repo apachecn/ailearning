@@ -4,7 +4,7 @@
 Created on Oct 19, 2010
 Update  on 2017-05-18
 @author: Peter Harrington/羊三/小瑶
-《机器学习实战》更新地址：https://github.com/apachecn/MachineLearning
+《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 '''
 from numpy import *
 """

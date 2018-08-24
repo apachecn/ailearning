@@ -4,10 +4,10 @@
 
 > **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
 
-* **ApacheCN - 学习机器学习群【629470233】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=30e5f1123a79867570f665aa3a483ca404b1c3f77737bc01ec520ed5f078ddef"><img border="0" src="/images/MainPage/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[629470233]" title="ApacheCN - 学习机器学习群[629470233]"></a>**
+* **ApacheCN - 学习机器学习群【629470233】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=30e5f1123a79867570f665aa3a483ca404b1c3f77737bc01ec520ed5f078ddef"><img border="0" src/img/MainPage/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[629470233]" title="ApacheCN - 学习机器学习群[629470233]"></a>**
 * **Machine Learning in Action (机器学习实战) | [ApacheCN(apache中文网)](http://cwiki.apachecn.org/)**
-* 电子版书籍：[【机器学习实战-中文版-带目录版.pdf】](https://github.com/apachecn/MachineLearning/tree/master/books)  
-* -- 感谢 [群小哥哥：Wizard Zhang](https://github.com/wizardforcel) 生成的电子书[《机器学习实战-ApacheCN.pdf》](https://github.com/apachecn/MachineLearning/blob/master/books/机器学习实战-ApacheCN.pdf)
+* 电子版书籍：[【机器学习实战-中文版-带目录版.pdf】](https://github.com/apachecn/AiLearning/tree/master/books)  
+* -- 感谢 [群小哥哥：Wizard Zhang](https://github.com/wizardforcel) 生成的电子书[《机器学习实战-ApacheCN.pdf》](https://github.com/apachecn/AiLearning/blob/master/books/机器学习实战-ApacheCN.pdf)
 * **视频已更新完成，如果你觉得有价值，请帮忙点 Star【后续组织学习活动：sklearn、kaggle、 Pytorch 和 tensorflow】**
 * -- 视频网站：优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
 * -- [群小哥哥：红色石头的机器学习之路](https://github.com/RedstoneWill): [台湾大学林轩田机器学习基石课程 - **系列学习笔记**](https://mp.weixin.qq.com/s/xb0i55zIQVzCiSZALbvncg)
@@ -23,112 +23,112 @@
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/1.机器学习基础.md"> 第 1 章: 机器学习基础</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/1.机器学习基础.md"> 第 1 章: 机器学习基础</a></td>
     <td>介绍</td>
     <td><a href="https://github.com/ElmaDavies">@毛红动</a></td>
     <td>1306014226</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/2.k-近邻算法.md">第 2 章: KNN 近邻算法</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/2.k-近邻算法.md">第 2 章: KNN 近邻算法</a></td>
     <td>分类</td>
     <td><a href="https://github.com/youyj521">@尤永江</a></td>
     <td>279393323</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/3.决策树.md">第 3 章: 决策树</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/3.决策树.md">第 3 章: 决策树</a></td>
     <td>分类</td>
     <td><a href="https://github.com/jingwangfei">@景涛</a></td>
     <td>844300439</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/4.朴素贝叶斯.md">第 4 章: 朴素贝叶斯</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/4.朴素贝叶斯.md">第 4 章: 朴素贝叶斯</a></td>
     <td>分类</td>
     <td><a href="https://github.com/wnma3mz">@wnma3mz</a><br/><a href="https://github.com/kailian">@分析</a></td>
     <td>1003324213<br/>244970749</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/5.Logistic回归.md">第 5 章: Logistic回归</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/5.Logistic回归.md">第 5 章: Logistic回归</a></td>
     <td>分类</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/6.支持向量机.md">第 6 章: SVM 支持向量机</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/6.支持向量机.md">第 6 章: SVM 支持向量机</a></td>
     <td>分类</td>
     <td><a href="https://github.com/VPrincekin">@王德红</a></td>
     <td>934969547</td>
   </tr>
   <tr>
     <td>网上组合内容</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/7.集成方法-随机森林和AdaBoost.md">第 7 章: 集成方法（随机森林和 AdaBoost）</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/7.集成方法-随机森林和AdaBoost.md">第 7 章: 集成方法（随机森林和 AdaBoost）</a></td>
     <td>分类</td>
     <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
     <td>529815144</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/8.回归.md">第 8 章: 回归</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/8.回归.md">第 8 章: 回归</a></td>
     <td>回归</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/9.树回归.md">第 9 章: 树回归</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/9.树回归.md">第 9 章: 树回归</a></td>
     <td>回归</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/10.k-means聚类.md">第 10 章: K-Means 聚类</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/10.k-means聚类.md">第 10 章: K-Means 聚类</a></td>
     <td>聚类</td>
     <td><a href="https://github.com/xuzhaoqing">@徐昭清</a></td>
     <td>827106588</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/11.使用Apriori算法进行关联分析.md">第 11 章: 利用 Apriori 算法进行关联分析</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/11.使用Apriori算法进行关联分析.md">第 11 章: 利用 Apriori 算法进行关联分析</a></td>
     <td>频繁项集</td>
     <td><a href="https://github.com/WindZQ">@刘海飞</a></td>
     <td>1049498972</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/12.使用FP-growth算法来高效发现频繁项集.md">第 12 章: FP-growth 高效发现频繁项集</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/12.使用FP-growth算法来高效发现频繁项集.md">第 12 章: FP-growth 高效发现频繁项集</a></td>
     <td>频繁项集</td>
     <td><a href="https://github.com/mikechengwei">@程威</a></td>
     <td>842725815</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/13.利用PCA来简化数据.md">第 13 章: 利用 PCA 来简化数据</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/13.利用PCA来简化数据.md">第 13 章: 利用 PCA 来简化数据</a></td>
     <td>工具</td>
     <td><a href="https://github.com/lljuan330">@廖立娟</a></td>
     <td>835670618</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/14.利用SVD简化数据.md">第 14 章: 利用 SVD 来简化数据</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/14.利用SVD简化数据.md">第 14 章: 利用 SVD 来简化数据</a></td>
     <td>工具</td>
     <td><a href="https://github.com/marsjhao">@张俊皓</a></td>
     <td>714974242</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/15.大数据与MapReduce.md">第 15 章: 大数据与 MapReduce</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/15.大数据与MapReduce.md">第 15 章: 大数据与 MapReduce</a></td>
     <td>工具</td>
     <td>空缺 - 有兴趣私聊片刻</td>
     <td>842376188</td>
   </tr>
   <tr>
     <td>Ml项目实战</td>
-    <td><a href="https://github.com/apachecn/MachineLearning/blob/master/docs/16.推荐系统.md">第 16 章: 推荐系统</a></td>
+    <td><a href="https://github.com/apachecn/AiLearning/blob/master/docs/16.推荐系统.md">第 16 章: 推荐系统</a></td>
     <td>项目</td>
     <td>空缺 - 有兴趣私聊片刻</td>
     <td>842376188</td>
@@ -186,7 +186,7 @@
 
 ![](images/NLP/F94581F64C21A1094A473397DFA42F9C.jpg)
 
-* 入门教程需看资料【添加比赛链接】: https://github.com/apachecn/MachineLearning/tree/dev/docs/NLP
+* 入门教程需看资料【添加比赛链接】: https://github.com/apachecn/AiLearning/tree/dev/docs/NLP
 * Python 自然语言处理 第二版: https://usyiyi.github.io/nlp-py-2e-zh
 
 ### 中文分词：
