@@ -6,7 +6,7 @@ Update  on 2017-05-16
 @author: Lockvictor/片刻
 《推荐系统实践》协同过滤算法源代码
 参考地址：https://github.com/Lockvictor/MovieLens-RecSys
-更新地址：https://github.com/apachecn/MachineLearning
+更新地址：https://github.com/apachecn/AiLearning
 '''
 import math
 import random
