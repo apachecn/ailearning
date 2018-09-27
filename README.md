@@ -451,6 +451,9 @@ mage字幕是为给定图像生成文本描述的任务。
 * [@平淡的天]()
 * [@凌少skierゞ]()
 * [@じ☆νЁ坐看云起]()
+* [古柳-DesertsX]()
+* [woodchuck]()
+* [自由精灵]()
 
 **欢迎贡献者不断的追加**
 
@@ -468,7 +471,8 @@ mage字幕是为给定图像生成文本描述的任务。
 
 资料来源:
 
-* https://machinelearningmastery.com/datasets-natural-language-processing
 * 【比赛收集平台】: https://github.com/iphysresearch/DataSciComp
+* https://github.com/pbharrin/machinelearninginaction
+* https://machinelearningmastery.com/datasets-natural-language-processing
 
 ![](https://apachecn.github.io/home/img/about/donate.jpg)
