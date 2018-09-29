@@ -475,4 +475,6 @@ mage字幕是为给定图像生成文本描述的任务。
 * https://github.com/pbharrin/machinelearninginaction
 * https://machinelearningmastery.com/datasets-natural-language-processing
 
-![](https://apachecn.github.io/home/img/about/donate.jpg)
+## 赞助我们
+
+![](http://www.apachecn.org/img/about/donate.jpg)
