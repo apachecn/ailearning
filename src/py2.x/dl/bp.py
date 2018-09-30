@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+from __future__ import print_function
 import random
 from numpy import *
 
@@ -273,7 +274,7 @@ class Layer(object):
         '''
         # 遍历层的所有的节点 nodes，将节点信息打印出来
         for node in self.nodes:
-            print node
+            print(node)
 
 
 # Connection 对象类，主要负责记录连接的权重，以及这个连接所关联的上下游的节点
@@ -396,7 +397,7 @@ class Connections(object):
             None
         '''
         for conn in self.connections:
-            print conn
+            print(conn)
 
 
 # Network 对象，提供相应 API
@@ -743,7 +744,7 @@ def gradient_check(network, sample_feature, sample_label):
         expected_gradient = (error2 - error1) / (2 * epsilon)
     
         # 打印
-        print 'expected gradient: \t%f\nactual gradient: \t%f' % (expected_gradient, actual_gradient)
+        print('expected gradient: \t%f\nactual gradient: \t%f' % (expected_gradient, actual_gradient))
 
 
 def train_data_set():
@@ -804,7 +805,7 @@ def test(network, data):
     # 对测试数据进行预测
     predict_data = network.predict(norm_data)
     # 将结果打印出来
-    print '\ttestdata(%u)\tpredict(%u)' % (data, normalizer.denorm(predict_data))
+    print('\ttestdata(%u)\tpredict(%u)' % (data, normalizer.denorm(predict_data)))
 
 
 def correct_ratio(network):
@@ -821,7 +822,7 @@ def correct_ratio(network):
     for i in range(256):
         if normalizer.denorm(network.predict(normalizer.norm(i))) == i:
             correct += 1.0
-    print 'correct_ratio: %.2f%%' % (correct / 256 * 100)
+    print('correct_ratio: %.2f%%' % (correct / 256 * 100))
 
 
 def gradient_check_test():

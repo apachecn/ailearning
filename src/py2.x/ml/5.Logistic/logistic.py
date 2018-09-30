@@ -7,6 +7,7 @@ Logistic Regression Working Module
 Author: Peter Harrington/羊三/小瑶
 GitHub: https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 from numpy import *
 import matplotlib.pyplot as plt
 
@@ -279,7 +280,7 @@ def colicTest():
                 currLine[21]):
             errorCount += 1
     errorRate = (float(errorCount) / numTestVec)
-    print "the error rate of this test is: %f" % errorRate
+    print("the error rate of this test is: %f" % errorRate)
     return errorRate
 
 
@@ -289,7 +290,7 @@ def multiTest():
     errorSum = 0.0
     for k in range(numTests):
         errorSum += colicTest()
-    print "after %d iterations the average error rate is: %f" % (numTests, errorSum / float(numTests))
+    print("after %d iterations the average error rate is: %f" % (numTests, errorSum / float(numTests)))
 
 
 if __name__ == "__main__":

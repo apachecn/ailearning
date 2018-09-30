@@ -6,6 +6,7 @@ Update  on 2017-05-18
 @author: Peter Harrington/羊三/小瑶
 《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 from numpy import *
 """
 p(xy)=p(x|y)p(y)=p(y|x)p(x)
@@ -57,7 +58,7 @@ def setOfWords2Vec(vocabList, inputSet):
         if word in vocabList:
             returnVec[vocabList.index(word)] = 1
         else:
-            print "the word: %s is not in my Vocabulary!" % word
+            print("the word: %s is not in my Vocabulary!" % word)
     return returnVec
 
 
@@ -191,10 +192,10 @@ def testingNB():
     # 5. 测试数据
     testEntry = ['love', 'my', 'dalmation']
     thisDoc = array(setOfWords2Vec(myVocabList, testEntry))
-    print testEntry, 'classified as: ', classifyNB(thisDoc, p0V, p1V, pAb)
+    print(testEntry, 'classified as: ', classifyNB(thisDoc, p0V, p1V, pAb))
     testEntry = ['stupid', 'garbage']
     thisDoc = array(setOfWords2Vec(myVocabList, testEntry))
-    print testEntry, 'classified as: ', classifyNB(thisDoc, p0V, p1V, pAb)
+    print(testEntry, 'classified as: ', classifyNB(thisDoc, p0V, p1V, pAb))
 
 
 # ------------------------------------------------------------------------------------------
@@ -259,13 +260,13 @@ def spamTest():
         wordVector = setOfWords2Vec(vocabList, docList[docIndex])
         if classifyNB(array(wordVector), p0V, p1V, pSpam) != classList[docIndex]:
             errorCount += 1
-    print 'the errorCount is: ', errorCount
-    print 'the testSet length is :', len(testSet)
-    print 'the error rate is :', float(errorCount)/len(testSet)
+    print('the errorCount is: ', errorCount)
+    print('the testSet length is :', len(testSet))
+    print('the error rate is :', float(errorCount)/len(testSet))
 
 
 def testParseTest():
-    print textParse(open('input/4.NaiveBayes/email/ham/1.txt').read())
+    print(textParse(open('input/4.NaiveBayes/email/ham/1.txt').read()))
 
 
 # -----------------------------------------------------------------------------------
@@ -327,7 +328,7 @@ def localWords(feed1,feed0):
         wordVector=bagOfWords2VecMN(vocabList,docList[docIndex])
         if classifyNB(array(wordVector),p0V,p1V,pSpam)!=classList[docIndex]:
             errorCount+=1
-    print 'the error rate is:',float(errorCount)/len(testSet)
+    print('the error rate is:',float(errorCount)/len(testSet))
     return vocabList,p0V,p1V
 
 
@@ -340,13 +341,13 @@ def getTopWords(ny,sf):
         if p0V[i]>-6.0:topSF.append((vocabList[i],p0V[i]))
         if p1V[i]>-6.0:topNY.append((vocabList[i],p1V[i]))
     sortedSF=sorted(topSF,key=lambda pair:pair[1],reverse=True)
-    print "SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**"
+    print("SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**")
     for item in sortedSF:
-        print item[0]
+        print(item[0])
     sortedNY=sorted(topNY,key=lambda pair:pair[1],reverse=True)
-    print "NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**"
+    print("NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**")
     for item in sortedNY:
-        print item[0]
+        print(item[0])
 
 
 if __name__ == "__main__":

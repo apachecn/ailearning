@@ -7,6 +7,7 @@ Tree-Based Regression Methods Source Code for Machine Learning in Action Ch. 9
 Author: Peter Harrington/片刻/小瑶/zh0ng
 GitHub: https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 print(__doc__)
 from numpy import *
 
@@ -242,7 +243,7 @@ def prune(tree, testData):
         errorMerge = sum(power(testData[:, -1] - treeMean, 2))
         # 如果 合并的总方差 < 不合并的总方差，那么就进行合并
         if errorMerge < errorNoMerge:
-            print "merging"
+            print("merging")
             return treeMean
         # 两个return可以简化成一个
         else:
@@ -404,10 +405,10 @@ def createForeCast(tree, testData, modelEval=regTreeEval):
 if __name__ == "__main__":
     # 测试数据集
     testMat = mat(eye(4))
-    print testMat
-    print type(testMat)
+    print(testMat)
+    print(type(testMat))
     mat0, mat1 = binSplitDataSet(testMat, 1, 0.5)
-    print mat0, '\n-----------\n', mat1
+    print(mat0, '\n-----------\n', mat1)
 
     # # 回归树
     # myDat = loadDataSet('input/9.RegTrees/data1.txt')

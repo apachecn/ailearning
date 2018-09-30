@@ -8,6 +8,8 @@ Author: Peter/ApacheCN-xy/片刻
 GitHub: https://github.com/apachecn/AiLearning
 '''
 
+from __future__ import print_function
+
 import sys
 from numpy import mat, mean, power
 

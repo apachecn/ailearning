@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 
+from __future__ import print_function
 import random
 import numpy as np
 from activators import SigmoidActivator, IdentityActivator
@@ -57,7 +58,7 @@ class FullConnectedLayer(object):
         self.b += learning_rate * self.b_grad
 
     def dump(self):
-        print 'W: %s\nb:%s' % (self.W, self.b)
+        print('W: %s\nb:%s' % (self.W, self.b))
 
 
 # 神经网络类
@@ -149,8 +150,8 @@ class Network(object):
                     err2 = self.loss(sample_label, output)
                     expect_grad = (err1 - err2) / (2 * epsilon)
                     fc.W[i,j] += epsilon
-                    print 'weights(%d,%d): expected - actural %.4e - %.4e' % (
-                        i, j, expect_grad, fc.W_grad[i,j])
+                    print('weights(%d,%d): expected - actural %.4e - %.4e' % (
+                        i, j, expect_grad, fc.W_grad[i,j]))
 
 
 from bp import train_data_set
@@ -197,7 +198,7 @@ def correct_ratio(network):
     for i in range(256):
         if normalizer.denorm(network.predict(normalizer.norm(i))) == i:
             correct += 1.0
-    print 'correct_ratio: %.2f%%' % (correct / 256 * 100)
+    print('correct_ratio: %.2f%%' % (correct / 256 * 100))
 
 
 def test():
@@ -208,10 +209,10 @@ def test():
     epoch = 10
     for i in range(epoch):
         net.train(labels, data_set, rate, mini_batch)
-        print 'after epoch %d loss: %f' % (
+        print('after epoch %d loss: %f' % (
             (i + 1),
             net.loss(labels[-1], net.predict(data_set[-1]))
-        )
+        ))
         rate /= 2
     correct_ratio(net)
 

@@ -8,6 +8,7 @@ Adaboost is short for Adaptive Boosting
 @author: Peter/片刻
 《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 from numpy import *
 
 
@@ -210,8 +211,8 @@ def plotROC(predStrengths, classLabels):
         predStrengths  最终预测结果的权重值
         classLabels    原始数据的分类结果集
     """
-    print 'predStrengths=', predStrengths
-    print 'classLabels=', classLabels
+    print('predStrengths=', predStrengths)
+    print('classLabels=', classLabels)
 
     import matplotlib.pyplot as plt
     # variable to calculate AUC
@@ -226,7 +227,7 @@ def plotROC(predStrengths, classLabels):
     # get sorted index, it's reverse
     sortedIndicies = predStrengths.argsort()
     # 测试结果是否是从小到大排列
-    print 'sortedIndicies=', sortedIndicies, predStrengths[0, 176], predStrengths.min(), predStrengths[0, 293], predStrengths.max()
+    print('sortedIndicies=', sortedIndicies, predStrengths[0, 176], predStrengths.min(), predStrengths[0, 293], predStrengths.max())
 
     # 开始创建模版对象
     fig = plt.figure()
@@ -245,7 +246,7 @@ def plotROC(predStrengths, classLabels):
             ySum += cur[1]
         # draw line from cur to (cur[0]-delX, cur[1]-delY)
         # 画点连线 (x1, x2, y1, y2)
-        print cur[0], cur[0]-delX, cur[1], cur[1]-delY
+        print(cur[0], cur[0]-delX, cur[1], cur[1]-delY)
         ax.plot([cur[0], cur[0]-delX], [cur[1], cur[1]-delY], c='b')
         cur = (cur[0]-delX, cur[1]-delY)
     # 画对角的虚线线
@@ -262,7 +263,7 @@ def plotROC(predStrengths, classLabels):
     这些小矩形的宽度是xStep，因此可以先对所有矩形的高度进行累加，最后再乘以xStep得到其总面积。
     所有高度的和(ySum)随着x轴的每次移动而渐次增加。
     '''
-    print "the Area Under the Curve is: ", ySum*xStep
+    print("the Area Under the Curve is: ", ySum*xStep)
 
 
 if __name__ == "__main__":
@@ -299,7 +300,7 @@ if __name__ == "__main__":
     # 训练集合
     dataArr, labelArr = loadDataSet("input/7.AdaBoost/horseColicTraining2.txt")
     weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 40)
-    print weakClassArr, '\n-----\n', aggClassEst.T
+    print(weakClassArr, '\n-----\n', aggClassEst.T)
     # 计算ROC下面的AUC的面积大小
     plotROC(aggClassEst.T, labelArr)
     # 测试集合
@@ -308,4 +309,4 @@ if __name__ == "__main__":
     predicting10 = adaClassify(dataArrTest, weakClassArr)
     errArr = mat(ones((m, 1)))
     # 测试：计算总样本数，错误样本数，错误率
-    print m, errArr[predicting10 != mat(labelArrTest).T].sum(), errArr[predicting10 != mat(labelArrTest).T].sum()/m
+    print(m, errArr[predicting10 != mat(labelArrTest).T].sum(), errArr[predicting10 != mat(labelArrTest).T].sum()/m)

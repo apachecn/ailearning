@@ -12,6 +12,8 @@ GitHub: https://github.com/apachecn/AiLearning
 """
 the first example for nltk book
 """
+from __future__ import print_function
+
 from nltk.book import *
 
 

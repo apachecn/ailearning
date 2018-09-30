@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 
+from __future__ import print_function
 import numpy as np
 from activators import IdentityActivator
 
@@ -114,11 +115,11 @@ class RecursiveLayer(object):
         return W_grad, b_grad
 
     def dump(self, **kwArgs):
-        print 'root.data: %s' % self.root.data
-        print 'root.children_data: %s' % self.root.children_data
+        print('root.data: %s' % self.root.data)
+        print('root.children_data: %s' % self.root.children_data)
         if kwArgs.has_key('dump_grad'):
-            print 'W_grad: %s' % self.W_grad
-            print 'b_grad: %s' % self.b_grad
+            print('W_grad: %s' % self.W_grad)
+            print('b_grad: %s' % self.b_grad)
 
 
 def data_set():
@@ -167,8 +168,8 @@ def gradient_check():
             err2 = error_function(rnn.root.data)
             expect_grad = (err1 - err2) / (2 * epsilon)
             rnn.W[i,j] += epsilon
-            print 'weights(%d,%d): expected - actural %.4e - %.4e' % (
-                i, j, expect_grad, rnn.W_grad[i,j])
+            print('weights(%d,%d): expected - actural %.4e - %.4e' % (
+                i, j, expect_grad, rnn.W_grad[i,j]))
     return rnn
 
 

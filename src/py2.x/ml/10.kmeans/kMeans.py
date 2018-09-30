@@ -7,6 +7,7 @@ k Means Clustering for Ch10 of Machine Learning in Action
 @author: Peter Harrington/那伊抹微笑
 《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 from numpy import *
 
 
@@ -62,7 +63,7 @@ def kMeans(dataMat, k, distMeas=distEclud, createCent=randCent):
                 clusterChanged = True  # 簇改变
                 clusterAssment[
                     i, :] = minIndex, minDist**2  # 更新簇分配结果为最小质心的 index（索引），minDist（最小距离）的平方
-        print centroids
+        print(centroids)
         for cent in range(k):  # 更新质心
             ptsInClust = dataMat[nonzero(
                 clusterAssment[:, 0].A == cent)[0]]  # 获取该簇中的所有点
@@ -90,7 +91,7 @@ def biKMeans(dataMat, k, distMeas=distEclud):
             sseNotSplit = sum(
                 clusterAssment[nonzero(clusterAssment[:, 0].A != i)[0],
                                1])  # 将未参与二分 kMeans 分配结果中的平方和的距离进行求和
-            print "sseSplit, and notSplit: ", sseSplit, sseNotSplit
+            print("sseSplit, and notSplit: ", sseSplit, sseNotSplit)
             if (sseSplit + sseNotSplit) < lowestSSE:
                 bestCentToSplit = i
                 bestNewCents = centroidMat
@@ -101,8 +102,8 @@ def biKMeans(dataMat, k, distMeas=distEclud):
             centList)  # 调用二分 kMeans 的结果，默认簇是 0,1. 当然也可以改成其它的数字
         bestClustAss[nonzero(bestClustAss[:, 0].A == 0)[0],
                      0] = bestCentToSplit  # 更新为最佳质心
-        print 'the bestCentToSplit is: ', bestCentToSplit
-        print 'the len of bestClustAss is: ', len(bestClustAss)
+        print('the bestCentToSplit is: ', bestCentToSplit)
+        print('the len of bestClustAss is: ', len(bestClustAss))
         # 更新质心列表
         centList[bestCentToSplit] = bestNewCents[0, :].tolist()[
             0]  # 更新原质心 list 中的第 i 个质心为使用二分 kMeans 后 bestNewCents 的第一个质心
@@ -119,16 +120,16 @@ def testBasicFunc():
 
     # 测试 randCent() 函数是否正常运行。
     # 首先，先看一下矩阵中的最大值与最小值
-    print 'min(dataMat[:, 0])=', min(dataMat[:, 0])
-    print 'min(dataMat[:, 1])=', min(dataMat[:, 1])
-    print 'max(dataMat[:, 1])=', max(dataMat[:, 1])
-    print 'max(dataMat[:, 0])=', max(dataMat[:, 0])
+    print('min(dataMat[:, 0])=', min(dataMat[:, 0]))
+    print('min(dataMat[:, 1])=', min(dataMat[:, 1]))
+    print('max(dataMat[:, 1])=', max(dataMat[:, 1]))
+    print('max(dataMat[:, 0])=', max(dataMat[:, 0]))
 
     # 然后看看 randCent() 函数能否生成 min 到 max 之间的值
-    print 'randCent(dataMat, 2)=', randCent(dataMat, 2)
+    print('randCent(dataMat, 2)=', randCent(dataMat, 2))
 
     # 最后测试一下距离计算方法
-    print ' distEclud(dataMat[0], dataMat[1])=', distEclud(dataMat[0], dataMat[1])
+    print(' distEclud(dataMat[0], dataMat[1])=', distEclud(dataMat[0], dataMat[1]))
 
 
 def testKMeans():
@@ -140,7 +141,7 @@ def testKMeans():
     # 运行结果（多次运行结果可能会不一样，可以试试，原因为随机质心的影响，但总的结果是对的， 因为数据足够相似）
     myCentroids, clustAssing = kMeans(dataMat, 4)
 
-    print 'centroids=', myCentroids
+    print('centroids=', myCentroids)
 
 
 def testBiKMeans():
@@ -149,7 +150,7 @@ def testBiKMeans():
 
     centList, myNewAssments = biKMeans(dataMat, 3)
 
-    print 'centList=', centList
+    print('centList=', centList)
 
 
 if __name__ == "__main__":
