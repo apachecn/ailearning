@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+from __future__ import print_function
 import struct
 from fc import *
 from datetime import datetime
@@ -124,7 +125,7 @@ def show(sample):
             else:
                 str += ' '
         str += '\n'
-    print str
+    print(str)
 
 
 def get_result(vec):
@@ -162,11 +163,11 @@ def train_and_evaluate():
     while True:
         epoch += 1
         network.train(train_labels, train_data_set, 0.01, 1)
-        print '%s epoch %d finished, loss %f' % (now(), epoch, 
-            network.loss(train_labels[-1], network.predict(train_data_set[-1])))
+        print('%s epoch %d finished, loss %f' % (now(), epoch, 
+            network.loss(train_labels[-1], network.predict(train_data_set[-1]))))
         if epoch % 2 == 0:
             error_ratio = evaluate(network, test_data_set, test_labels)
-            print '%s after epoch %d, error ratio is %f' % (now(), epoch, error_ratio)
+            print('%s after epoch %d, error ratio is %f' % (now(), epoch, error_ratio))
             if error_ratio > last_error_ratio:
                 break
             else:

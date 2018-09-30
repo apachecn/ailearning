@@ -7,6 +7,7 @@ Update  on 2017-05-18
 @author: Peter Harrington/小瑶
 《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 
 
 # Isotonic Regression 等式回归
