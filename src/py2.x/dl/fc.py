@@ -7,6 +7,11 @@ import random
 import numpy as np
 from activators import SigmoidActivator, IdentityActivator
 
+try:
+    reduce         # Python 2
+except NameError:  # Python 3
+    from functools import reduce
+
 
 # 全连接层实现类
 class FullConnectedLayer(object):
