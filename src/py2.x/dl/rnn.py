@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-
 from __future__ import print_function
 import numpy as np
 from cnn import element_wise_op
 from activators import ReluActivator, IdentityActivator
+
+try:
+    reduce         # Python 2
+except NameError:  # Python 3
+    from functools import reduce
 
 
 class RecurrentLayer(object):
