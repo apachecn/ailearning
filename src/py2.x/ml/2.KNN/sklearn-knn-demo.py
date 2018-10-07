@@ -8,6 +8,7 @@ KNN：k近邻算法
 @author: 小瑶
 《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 """
+from __future__ import print_function
 print(__doc__)
 
 import numpy as np

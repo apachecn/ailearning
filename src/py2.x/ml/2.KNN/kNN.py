@@ -6,6 +6,7 @@ Update  on 2017-05-18
 @author: Peter Harrington/羊三/小瑶
 《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 from numpy import *
 # 导入科学计算包numpy和运算符模块operator
 import operator
@@ -149,9 +150,9 @@ def test1():
     第一个例子演示
     """
     group, labels = createDataSet()
-    print str(group)
-    print str(labels)
-    print classify0([0.1, 0.1], group, labels, 3)
+    print(str(group))
+    print(str(labels))
+    print(classify0([0.1, 0.1], group, labels, 3))
 
 
 # ----------------------------------------------------------------------------------------
@@ -229,15 +230,15 @@ def datingClassTest():
     m = normMat.shape[0]
     # 设置测试的样本数量， numTestVecs:m表示训练样本的数量
     numTestVecs = int(m * hoRatio)
-    print 'numTestVecs=', numTestVecs
+    print('numTestVecs=', numTestVecs)
     errorCount = 0.0
     for i in range(numTestVecs):
         # 对数据测试
         classifierResult = classify0(normMat[i, :], normMat[numTestVecs:m, :], datingLabels[numTestVecs:m], 3)
-        print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, datingLabels[i])
+        print("the classifier came back with: %d, the real answer is: %d" % (classifierResult, datingLabels[i]))
         if (classifierResult != datingLabels[i]): errorCount += 1.0
-    print "the total error rate is: %f" % (errorCount / float(numTestVecs))
-    print errorCount
+    print("the total error rate is: %f" % (errorCount / float(numTestVecs)))
+    print(errorCount)
 
 
 def img2vector(filename):
@@ -282,10 +283,10 @@ def handwritingClassTest():
         classNumStr = int(fileStr.split('_')[0])
         vectorUnderTest = img2vector('input/2.KNN/testDigits/%s' % fileNameStr)
         classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)
-        print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, classNumStr)
+        print("the classifier came back with: %d, the real answer is: %d" % (classifierResult, classNumStr))
         if (classifierResult != classNumStr): errorCount += 1.0
-    print "\nthe total number of errors is: %d" % errorCount
-    print "\nthe total error rate is: %f" % (errorCount / float(mTest))
+    print("\nthe total number of errors is: %d" % errorCount)
+    print("\nthe total error rate is: %f" % (errorCount / float(mTest)))
 
 
 if __name__ == '__main__':

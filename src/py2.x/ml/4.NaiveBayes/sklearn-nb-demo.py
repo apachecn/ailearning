@@ -8,6 +8,7 @@ NaiveBayes：朴素贝叶斯
 @author: 小瑶
 《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 """
+from __future__ import print_function
 
 
 # GaussianNB_高斯朴素贝叶斯
@@ -17,10 +18,10 @@ Y = np.array([1, 1, 1, 2, 2, 2])
 from sklearn.naive_bayes import GaussianNB
 clf = GaussianNB()
 clf.fit(X, Y)
-print clf.predict([[-0.8, -1]])
+print(clf.predict([[-0.8, -1]]))
 clf_pf = GaussianNB()
 clf_pf.partial_fit(X, Y, np.unique(Y))
-print clf_pf.predict([[-0.8, -1]])
+print(clf_pf.predict([[-0.8, -1]]))
 
 # MultinomialNB_多项朴素贝叶斯
 '''

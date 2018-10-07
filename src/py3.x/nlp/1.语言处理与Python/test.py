@@ -12,6 +12,8 @@ GitHub: https://github.com/apachecn/AiLearning
 """
 the first example for nltk book
 """
+from __future__ import print_function
+
 from nltk.book import *
 
 
@@ -29,10 +31,11 @@ text4.dispersion_plot(["citizens", "democracy", "freedom", "duties", "America"])
 
 # 产生随机文本
 text3.generate()
-Traceback (most recent call last):
-  File "E:/nlp/eg1.py", line 25, in <module>
-    text3.generate()
-TypeError: generate() missing 1 required positional argument: 'words'
+# TOTO: Clean up the following
+# Traceback (most recent call last):
+#   File "E:/nlp/eg1.py", line 25, in <module>
+#     text3.generate()
+# TypeError: generate() missing 1 required positional argument: 'words'
 
 # 单词数量 标识符总数
 print(len(text3))
