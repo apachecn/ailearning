@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 # 引入 Perceptron 类
+from __future__ import print_function
 from perceptron import Perceptron
 
 # 定义激活函数 f
@@ -112,10 +113,10 @@ if __name__ == '__main__':
     # 首先训练我们的线性单元
     linear_unit = train_linear_unit()
     # 打印训练获得的权重 和 偏置
-    print linear_unit
+    print(linear_unit)
     # 测试
-    print 'Work 3.4 years, monthly salary = %.2f' % linear_unit.predict([3.4])
-    print 'Work 15 years, monthly salary = %.2f' % linear_unit.predict([15])
-    print 'Work 1.5 years, monthly salary = %.2f' % linear_unit.predict([1.5])
-    print 'Work 6.3 years, monthly salary = %.2f' % linear_unit.predict([6.3])
+    print('Work 3.4 years, monthly salary = %.2f' % linear_unit.predict([3.4]))
+    print('Work 15 years, monthly salary = %.2f' % linear_unit.predict([15]))
+    print('Work 1.5 years, monthly salary = %.2f' % linear_unit.predict([1.5]))
+    print('Work 6.3 years, monthly salary = %.2f' % linear_unit.predict([6.3]))
     plot(linear_unit)

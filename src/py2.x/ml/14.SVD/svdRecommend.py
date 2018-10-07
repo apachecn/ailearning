@@ -7,6 +7,7 @@ Update  on 2017-05-18
 @author: Peter Harrington/山上有课树/片刻
 《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 from numpy import linalg as la
 from numpy import *
 
@@ -165,11 +166,11 @@ def svdEst(dataMat, user, simMeas, item):
 
     # 利用U矩阵将物品转换到低维空间中，构建转换后的物品(物品+4个主要的特征)
     xformedItems = dataMat.T * U[:, :4] * Sig4.I
-    print 'dataMat', shape(dataMat)
-    print 'U[:, :4]', shape(U[:, :4])
-    print 'Sig4.I', shape(Sig4.I)
-    print 'VT[:4, :]', shape(VT[:4, :])
-    print 'xformedItems', shape(xformedItems)
+    print('dataMat', shape(dataMat))
+    print('U[:, :4]', shape(U[:, :4]))
+    print('Sig4.I', shape(Sig4.I))
+    print('VT[:4, :]', shape(VT[:4, :]))
+    print('xformedItems', shape(xformedItems))
 
     # 对于给定的用户，for循环在用户对应行的元素上进行遍历
     # 这和standEst()函数中的for循环的目的一样，只不过这里的相似度计算时在低维空间下进行的。
@@ -180,7 +181,7 @@ def svdEst(dataMat, user, simMeas, item):
         # 相似度的计算方法也会作为一个参数传递给该函数
         similarity = simMeas(xformedItems[item, :].T, xformedItems[j, :].T)
         # for 循环中加入了一条print语句，以便了解相似度计算的进展情况。如果觉得累赘，可以去掉
-        print 'the %d and %d similarity is: %f' % (item, j, similarity)
+        print('the %d and %d similarity is: %f' % (item, j, similarity))
         # 对相似度不断累加求和
         simTotal += similarity
         # 对相似度及对应评分值的乘积求和
@@ -239,7 +240,7 @@ def analyse_data(Sigma, loopNum=20):
 
         通常保留矩阵 80% ～ 90% 的能量，就可以得到重要的特征并取出噪声。
         '''
-        print '主成分：%s, 方差占比：%s%%' % (format(i+1, '2.0f'), format(SigmaI/SigmaSum*100, '4.2f'))
+        print('主成分：%s, 方差占比：%s%%' % (format(i+1, '2.0f'), format(SigmaI/SigmaSum*100, '4.2f')))
 
 
 # 图像压缩函数
@@ -263,10 +264,10 @@ def printMat(inMat, thresh=0.8):
     for i in range(32):
         for k in range(32):
             if float(inMat[i, k]) > thresh:
-                print 1,
+                print(1, end=' ')
             else:
-                print 0,
-        print ''
+                print(0, end=' ')
+        print('')
 
 
 # 实现图像压缩，允许基于任意给定的奇异值数目来重构图像
@@ -280,7 +281,7 @@ def imgCompress(numSV=3, thresh=0.8):
     # 构建一个列表
     myMat = imgLoadData('input/14.SVD/0_5.txt')
 
-    print "****original matrix****"
+    print("****original matrix****")
     # 对原始图像进行SVD分解并重构图像e
     printMat(myMat, thresh)
 
@@ -296,7 +297,7 @@ def imgCompress(numSV=3, thresh=0.8):
 
     SigRecon = mat(eye(numSV) * Sigma[: numSV])
     reconMat = U[:, :numSV] * SigRecon * VT[:numSV, :]
-    print "****reconstructed matrix using %d singular values *****" % numSV
+    print("****reconstructed matrix using %d singular values *****" % numSV)
     printMat(reconMat, thresh)
 
 
@@ -338,12 +339,12 @@ if __name__ == "__main__":
     myMat = mat(loadExData3())
     # print myMat
     # 计算相似度的第一种方式
-    print recommend(myMat, 1, estMethod=svdEst)
+    print(recommend(myMat, 1, estMethod=svdEst))
     # 计算相似度的第二种方式
-    print recommend(myMat, 1, estMethod=svdEst, simMeas=pearsSim)
+    print(recommend(myMat, 1, estMethod=svdEst, simMeas=pearsSim))
 
     # 默认推荐（菜馆菜肴推荐示例）
-    print recommend(myMat, 2)
+    print(recommend(myMat, 2))
 
     """
     # 利用SVD提高推荐效果

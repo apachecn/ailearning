@@ -6,6 +6,7 @@ Update  on 2017-06-20
 @author: Peter/ApacheCN-xy/片刻
 《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 import base64
 import pickle
 
@@ -32,7 +33,7 @@ def map(key, value):
 
    # note: a single constant key "producedkey" sends to only one reducer
    # somewhat "atypical" due to low degree of parallism on reducer side
-   print "producedkey\t%s" % (producedvalue)
+   print("producedkey\t%s" % (producedvalue))
 
 def reduce(key, values, mu=0.1):
   sumETE = None
@@ -56,4 +57,4 @@ def reduce(key, values, mu=0.1):
     # note: omega = result[:-1] and gamma = result[-1]
     # but printing entire vector as output
     result = sumETE.I*sumETDe
-    print "%s\t%s" % (key, str(result.tolist()))
+    print("%s\t%s" % (key, str(result.tolist())))

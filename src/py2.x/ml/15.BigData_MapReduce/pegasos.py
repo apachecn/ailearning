@@ -6,6 +6,7 @@ Sequential Pegasos
 the input T is k*T in Batch Pegasos
 @author: Peter/ApacheCN-xy
 '''
+from __future__ import print_function
 from numpy import *
 
 
@@ -32,7 +33,7 @@ def seqPegasos(dataSet, labels, lam, T):
             w = (1.0 - 1/t)*w + eta*labels[i]*dataSet[i, :]
         else:
             w = (1.0 - 1/t)*w
-        print w
+        print(w)
     return w
 
 
@@ -81,7 +82,7 @@ datArr, labelList = loadDataSet('input/15.BigData_MapReduce/testSet.txt')
 datMat = mat(datArr)
 # finalWs = seqPegasos(datMat, labelList, 2, 5000)
 finalWs = batchPegasos(datMat, labelList, 2, 50, 100)
-print finalWs
+print(finalWs)
 
 import matplotlib
 import matplotlib.pyplot as plt

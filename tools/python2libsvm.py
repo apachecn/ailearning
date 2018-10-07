@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # coding:utf8
 
+from __future__ import print_function
 import os
 import sklearn.datasets as datasets
 
@@ -46,7 +47,7 @@ if __name__ == "__main__":
 
     # 获取数据集
     x, y = get_data(file_input, separator='\t')
-    print x[3, :]
-    print y
+    print(x[3, :])
+    print(y)
     # 导出数据为 libsvm
     dump_data(x, y, file_output)
