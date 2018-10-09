@@ -5,8 +5,8 @@
 Created 2017-04-25
 Update  on 2017-05-18
 Random Forest Algorithm on Sonar Dataset
-@author: Flying_sfeng/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Flying_sfeng/片刻
+GitHub: https://github.com/apachecn/AiLearning
 ---
 源代码网址：http://www.tuicool.com/articles/iiUfeim
 Flying_sfeng博客地址：http://blog.csdn.net/flying_sfeng/article/details/64133822

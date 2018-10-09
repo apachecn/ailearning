@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding: utf8
 # 原始链接： http://blog.csdn.net/lsldd/article/details/41223147
-# 《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+# GitHub: https://github.com/apachecn/AiLearning
 from __future__ import print_function
 import numpy as np
 from sklearn import tree

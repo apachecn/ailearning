@@ -3,8 +3,8 @@
 """
 Created on 2017-07-10
 Updated on 2017-07-10
-@author: 片刻／Noel Dawe
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: 片刻／Noel Dawe
+GitHub: https://github.com/apachecn/AiLearning
 sklearn-AdaBoost译文链接: http://cwiki.apachecn.org/pages/viewpage.action?pageId=10813457
 """
 

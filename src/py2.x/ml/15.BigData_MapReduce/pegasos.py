@@ -4,7 +4,7 @@
 Created on 2017-04-07
 Sequential Pegasos 
 the input T is k*T in Batch Pegasos
-@author: Peter/ApacheCN-xy
+Author: Peter/ApacheCN-xy
 '''
 from __future__ import print_function
 from numpy import *

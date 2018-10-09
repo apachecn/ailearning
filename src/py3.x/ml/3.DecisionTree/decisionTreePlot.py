@@ -5,7 +5,7 @@
 Created on Oct 14, 2010
 Update on 2017-02-27
 Decision Tree Source Code for Machine Learning in Action Ch. 3
-@author: Peter Harrington/jiangzhonglian
+Author: Peter Harrington/jiangzhonglian
 '''
 import matplotlib.pyplot as plt
 

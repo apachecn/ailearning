@@ -4,8 +4,8 @@
 Created on Nov 28, 2010
 Update  on 2017-05-18
 Adaboost is short for Adaptive Boosting
-@author: Peter/片刻/BBruceyuan
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter/片刻/BBruceyuan
+GitHub: https://github.com/apachecn/AiLearning
 """
 import numpy as np
 

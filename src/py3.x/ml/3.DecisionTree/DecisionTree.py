@@ -5,8 +5,8 @@
 Created on Oct 12, 2010
 Update on 2017-05-18
 Decision Tree Source Code for Machine Learning in Action Ch. 3
-@author: Peter Harrington/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter Harrington/片刻
+GitHub: https://github.com/apachecn/AiLearning
 '''
 print(__doc__)
 import operator

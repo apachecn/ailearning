@@ -5,8 +5,8 @@
 Created on Mar 24, 2011
 Update  on 2017-05-18
 Ch 11 code
-@author: Peter/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter/片刻
+GitHub: https://github.com/apachecn/AiLearning
 '''
 from __future__ import print_function
 print(__doc__)

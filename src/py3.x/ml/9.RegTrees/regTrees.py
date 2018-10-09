@@ -4,8 +4,8 @@
 Created on Feb 4, 2011
 Update on 2017-05-18
 Tree-Based Regression Methods Source Code for Machine Learning in Action Ch. 9
-@author: Peter Harrington/片刻/小瑶
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter Harrington/片刻/小瑶
+GitHub: https://github.com/apachecn/AiLearning
 '''
 print(__doc__)
 from numpy import *

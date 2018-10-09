@@ -5,8 +5,8 @@
 Created on 2017-07-13
 Updated on 2017-07-13
 RegressionTree：树回归
-@author: 小瑶
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: 小瑶
+GitHub: https://github.com/apachecn/AiLearning
 """
 
 print(__doc__)

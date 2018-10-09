@@ -4,8 +4,8 @@
 '''
 Created on Mar 8, 2011
 Update  on 2017-05-18
-@author: Peter Harrington/山上有课树/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter Harrington/山上有课树/片刻
+GitHub: https://github.com/apachecn/AiLearning
 '''
 from __future__ import print_function
 from numpy import linalg as la
