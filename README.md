@@ -1,6 +1,11 @@
-# 机器学习 MachineLearning
+# AI Learning
 
-* [ApacheCN 组织资源](https://github.com/apachecn/home): https://github.com/apachecn/home
+> 组织介绍
+
+* 首页地址: <http://www.apachecn.org>
+* 关于我们: <http://www.apachecn.org/about>
+* 我们与Apache没关系，只是Apache狂热的粉丝，才成立中文开源组织！
+* 如有侵权，请联系邮箱: 【片刻】 <jiang-s@163.com>  (如果需要合作，也可以私聊我)
 
 > **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
 
@@ -12,6 +17,7 @@
 * -- 视频网站：优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
 * -- [群小哥哥：红色石头的机器学习之路](https://github.com/RedstoneWill): [台湾大学林轩田机器学习基石课程 - **系列学习笔记**](https://mp.weixin.qq.com/s/xb0i55zIQVzCiSZALbvncg)
 * 推荐一个[机器学习笔记](https://feisky.xyz/machine-learning): https://feisky.xyz/machine-learning
+* 推荐一个[liuhuanyong大佬](https://github.com/liuhuanyong)整理的nlp全面知识体系: <https://liuhuanyong.github.io>
 
 <table>
   <tr>
@@ -240,6 +246,12 @@
 2. 还有更多正式的语料库得到了很好的研究; 例如：
     [布朗大学现代美国英语标准语料库](https://en.wikipedia.org/wiki/Brown_Corpus)。大量英语单词样本。
     [谷歌10亿字语料库](https://github.com/ciprian-chelba/1-billion-word-language-modeling-benchmark)。
+
+> 新词发现
+
+* 中文分词新词发现
+* python3利用互信息和左右信息熵的中文分词新词发现
+* <https://github.com/zhanzecheng/Chinese_segment_augment>
 
 > 句子相似度识别
 
@@ -485,3 +497,13 @@ mage字幕是为给定图像生成文本描述的任务。
 ## 赞助我们
 
 ![](http://www.apachecn.org/img/about/donate.jpg)
+
+## License
+
+GPL-3.0 © [ApacheCN](https://github.com/apachecn)
+
+## Organization
+
+* ApacheCN 组织资源: <https://github.com/apachecn/home>
+
+> 欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远
