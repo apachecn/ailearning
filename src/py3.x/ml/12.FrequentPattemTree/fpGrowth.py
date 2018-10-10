@@ -129,7 +129,7 @@ def createTree(dataSet, minSup=1):
             # 例如： {'ababa': 3}  count(a)=3+3+3=9   count(b)=3+3=6
             headerTable[item] = headerTable.get(item, 0) + dataSet[trans]
     # 删除 headerTable中，元素次数<最小支持度的元素
-    for k in list(headerTable.keys()): #python3中.keys()返回的是迭代器不是list,不能在遍历时对其改变。
+    for k in list(headerTable.keys()):  # python3中.keys()返回的是迭代器不是list,不能在遍历时对其改变。
         if headerTable[k] < minSup:
             del(headerTable[k])
 
@@ -155,6 +155,8 @@ def createTree(dataSet, minSup=1):
                 # print('headerTable[item][0]=', headerTable[item][0], headerTable[item])
                 localD[item] = headerTable[item][0]
         # print('localD=', localD)
+        # 对每一行的key 进行排序，然后开始往树添加枝丫，直到丰满
+        # 第二次，如果在同一个排名下出现，那么就对该枝丫的值进行追加，继续递归调用！
         if len(localD) > 0:
             # p=key,value; 所以是通过value值的大小，进行从大到小进行排序
             # orderedItems 表示取出元组的key值，也就是字母本身，但是字母本身是大到小的顺序
@@ -193,7 +195,7 @@ def findPrefixPath(basePat, treeNode):
         prefixPath = []
         # 寻找改节点的父节点，相当于找到了该节点的频繁项集
         ascendTree(treeNode, prefixPath)
-        # 避免 单独`Z`一个元素，添加了空节点
+        # 排除自身这个元素，判断是否存在父元素（所以要>1, 说明存在父元素）
         if len(prefixPath) > 1:
             # 对非basePat的倒叙值作为key,赋值为count数
             # prefixPath[1:] 变frozenset后，字母就变无序了
@@ -322,7 +324,7 @@ if __name__ == "__main__":
     # 创建条件模式基
     freqItemList = []
     mineTree(myFPtree, myHeaderTab, 3, set([]), freqItemList)
-    print(freqItemList)
+    print("freqItemList: \n", freqItemList)
 
     # # 项目实战
     # # 1.twitter项目案例
