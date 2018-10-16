@@ -219,7 +219,7 @@ def mineTree(inTree, headerTable, minSup, preFix, freqItemList):
     """
     # 通过value进行从小到大的排序， 得到频繁项集的key
     # 最小支持项集的key的list集合
-    bigL = [v[0] for v in sorted(headerTable.items(), key=lambda p: p[1])]
+    bigL = [v[0] for v in sorted(headerTable.items(), key=lambda p: p[1][0])]
     print('-----', sorted(headerTable.items(), key=lambda p: p[1][0]))
     print('bigL=', bigL)
     # 循环遍历 最频繁项集的key，从小到大的递归寻找对应的频繁项集
