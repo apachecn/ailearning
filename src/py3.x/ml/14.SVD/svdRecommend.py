@@ -4,8 +4,8 @@
 '''
 Created on Mar 8, 2011
 Update  on 2017-12-12
-@author: Peter Harrington/山上有课树/片刻/marsjhao
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter Harrington/山上有课树/片刻/marsjhao
+GitHub: https://github.com/apachecn/AiLearning
 '''
 from numpy import linalg as la
 from numpy import *
@@ -272,7 +272,7 @@ def imgCompress(numSV=3, thresh=0.8):
         thresh      判断的阈值
     """
     # 构建一个列表
-    myMat = imgLoadData('input/14.SVD/0_5.txt')
+    myMat = imgLoadData('db/14.SVD/0_5.txt')
 
     print("****original matrix****")
     # 对原始图像进行SVD分解并重构图像e

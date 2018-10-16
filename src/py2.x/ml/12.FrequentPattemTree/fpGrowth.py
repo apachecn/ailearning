@@ -9,8 +9,8 @@ the FP-Growth algorithm needs:
 1. FP-tree (class treeNode)
 2. header table (use dict)
 This finds frequent itemsets similar to apriori but does not find association rules.
-@author: Peter/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter/片刻
+GitHub: https://github.com/apachecn/AiLearning
 '''
 from __future__ import print_function
 print(__doc__)
@@ -335,7 +335,7 @@ if __name__ == "__main__":
     #     print t
 
     # # 2.新闻网站点击流中挖掘，例如：文章1阅读过的人，还阅读过什么？
-    # parsedDat = [line.split() for line in open('input/12.FPGrowth/kosarak.dat').readlines()]
+    # parsedDat = [line.split() for line in open('db/12.FPGrowth/kosarak.dat').readlines()]
     # initSet = createInitSet(parsedDat)
     # myFPtree, myHeaderTab = createTree(initSet, 100000)
 

@@ -5,8 +5,8 @@ Created on 2017-04-07
 Update  on 2017-06-20
 MapReduce version of Pegasos SVM
 Using mrjob to automate job flow
-@author: Peter/ApacheCN-xy/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter/ApacheCN-xy/片刻
+GitHub: https://github.com/apachecn/AiLearning
 '''
 from mrjob.job import MRJob
 
@@ -19,7 +19,7 @@ class MRsvm(MRJob):
 
     def __init__(self, *args, **kwargs):
         super(MRsvm, self).__init__(*args, **kwargs)
-        self.data = pickle.load(open('/opt/git/MachineLearning/input/15.BigData_MapReduce/svmDat27'))
+        self.data = pickle.load(open('/opt/git/MachineLearnidb/15.BigData_MapReduce/svmDat27'))
         self.w = 0
         self.eta = 0.69
         self.dataList = []

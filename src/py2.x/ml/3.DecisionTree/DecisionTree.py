@@ -4,8 +4,8 @@
 Created on Oct 12, 2010
 Update on 2017-05-18
 Decision Tree Source Code for Machine Learning in Action Ch. 3
-@author: Peter Harrington/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter Harrington/片刻
+GitHub: https://github.com/apachecn/AiLearning
 '''
 from __future__ import print_function
 print(__doc__)
@@ -347,7 +347,7 @@ def ContactLensesTest():
     """
 
     # 加载隐形眼镜相关的 文本文件 数据
-    fr = open('input/3.DecisionTree/lenses.txt')
+    fr = open('db/3.DecisionTree/lenses.txt')
     # 解析数据，获得 features 数据
     lenses = [inst.strip().split('\t') for inst in fr.readlines()]
     # 得到数据的对应的 Labels

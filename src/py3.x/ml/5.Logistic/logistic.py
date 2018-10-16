@@ -5,8 +5,8 @@
 Created on Oct 27, 2010
 Update  on 2017-05-18
 Logistic Regression Working Module
-@author: Peter Harrington/羊三/小瑶/BBruceyuan
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter Harrington/羊三/小瑶/BBruceyuan
+GitHub: https://github.com/apachecn/AiLearning
 """
 
 import numpy as np
@@ -23,7 +23,7 @@ def load_data_set():
     """
     data_arr = []
     label_arr = []
-    f = open('../../../input/5.Logistic/TestSet.txt', 'r')
+    f = open('db/5.Logistic/TestSet.txt', 'r')
     for line in f.readlines():
         line_arr = line.strip().split()
         # 为了方便计算，我们将 X0 的值设为 1.0 ，也就是在每一行的开头添加一个 1.0 作为 X0
@@ -194,8 +194,8 @@ def colic_test():
     打开测试集和训练集，并对数据进行格式化处理,其实最主要的的部分，比如缺失值的补充（真的需要学会的），人家已经做了
     :return: 
     """
-    f_train = open('../../../input/5.Logistic/HorseColicTraining.txt', 'r')
-    f_test = open('../../../input/5.Logistic/HorseColicTest.txt', 'r')
+    f_train = open('db/5.Logistic/HorseColicTraining.txt', 'r')
+    f_test = open('db/5.Logistic/HorseColicTest.txt', 'r')
     training_set = []
     training_labels = []
     # 解析训练数据集中的数据特征和Labels

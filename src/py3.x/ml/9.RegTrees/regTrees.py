@@ -4,8 +4,8 @@
 Created on Feb 4, 2011
 Update on 2017-05-18
 Tree-Based Regression Methods Source Code for Machine Learning in Action Ch. 9
-@author: Peter Harrington/片刻/小瑶
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter Harrington/片刻/小瑶
+GitHub: https://github.com/apachecn/AiLearning
 '''
 print(__doc__)
 from numpy import *
@@ -400,8 +400,8 @@ if __name__ == "__main__":
     # print mat0, '\n-----------\n', mat1
 
     # # 回归树
-    # myDat = loadDataSet('input/9.RegTrees/data1.txt')
-    # # myDat = loadDataSet('input/9.RegTrees/data2.txt')
+    # myDat = loadDataSet('db/9.RegTrees/data1.txt')
+    # # myDat = loadDataSet('db/9.RegTrees/data2.txt')
     # # print 'myDat=', myDat
     # myMat = mat(myDat)
     # # print 'myMat=',  myMat
@@ -409,13 +409,13 @@ if __name__ == "__main__":
     # print myTree
 
     # # 1. 预剪枝就是：提起设置最大误差数和最少元素数
-    # myDat = loadDataSet('input/9.RegTrees/data3.txt')
+    # myDat = loadDataSet('db/9.RegTrees/data3.txt')
     # myMat = mat(myDat)
     # myTree = createTree(myMat, ops=(0, 1))
     # print myTree
 
     # # 2. 后剪枝就是：通过测试数据，对预测模型进行合并判断
-    # myDatTest = loadDataSet('input/9.RegTrees/data3test.txt')
+    # myDatTest = loadDataSet('db/9.RegTrees/data3test.txt')
     # myMat2Test = mat(myDatTest)
     # myFinalTree = prune(myTree, myMat2Test)
     # print '\n\n\n-------------------'
@@ -423,14 +423,14 @@ if __name__ == "__main__":
 
     # # --------
     # # 模型树求解
-    # myDat = loadDataSet('input/9.RegTrees/data4.txt')
+    # myDat = loadDataSet('db/9.RegTrees/data4.txt')
     # myMat = mat(myDat)
     # myTree = createTree(myMat, modelLeaf, modelErr)
     # print myTree
 
     # # 回归树 VS 模型树 VS 线性回归
-    trainMat = mat(loadDataSet('input/9.RegTrees/bikeSpeedVsIq_train.txt'))
-    testMat = mat(loadDataSet('input/9.RegTrees/bikeSpeedVsIq_test.txt'))
+    trainMat = mat(loadDataSet('db/9.RegTrees/bikeSpeedVsIq_train.txt'))
+    testMat = mat(loadDataSet('db/9.RegTrees/bikeSpeedVsIq_test.txt'))
     # # 回归树
     myTree1 = createTree(trainMat, ops=(1, 20))
     print(myTree1)

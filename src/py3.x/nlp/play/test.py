@@ -2,7 +2,7 @@
 """ 
 Created on Mon Jun  5 09:04:16 2017 
  
-@author: Owner 
+Author: Owner 
 """  
   
 from os import path  

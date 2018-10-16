@@ -4,8 +4,8 @@
 Created on Nov 28, 2010
 Update  on 2017-05-18
 Adaboost is short for Adaptive Boosting
-@author: Peter/片刻/BBruceyuan
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter/片刻/BBruceyuan
+GitHub: https://github.com/apachecn/AiLearning
 """
 import numpy as np
 
@@ -253,12 +253,12 @@ def test():
     # print(result)
     # classifier_array, agg_class_est = ada_boost_train_ds(data_mat, class_labels, 9)
     # print(classifier_array, agg_class_est)
-    data_mat, class_labels = load_data_set('../../../input/7.AdaBoost/horseColicTraining2.txt')
+    data_mat, class_labels = load_data_set('db/7.AdaBoost/horseColicTraining2.txt')
     print(data_mat.shape, len(class_labels))
     weak_class_arr, agg_class_est = ada_boost_train_ds(data_mat, class_labels, 40)
     print(weak_class_arr, '\n-----\n', agg_class_est.T)
     plot_roc(agg_class_est, class_labels)
-    data_arr_test, label_arr_test = load_data_set("../../../input/7.AdaBoost/horseColicTest2.txt")
+    data_arr_test, label_arr_test = load_data_set("db/7.AdaBoost/horseColicTest2.txt")
     m = np.shape(data_arr_test)[0]
     predicting10 = ada_classify(data_arr_test, weak_class_arr)
     err_arr = np.mat(np.ones((m, 1)))
