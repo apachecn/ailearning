@@ -3,8 +3,8 @@
 """
 Created on 2017-07-10
 Updated on 2017-07-10
-@author: 片刻／Noel Dawe
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: 片刻／Noel Dawe
+GitHub: https://github.com/apachecn/AiLearning
 sklearn-AdaBoost译文链接: http://cwiki.apachecn.org/pages/viewpage.action?pageId=10813457
 """
 from __future__ import print_function
@@ -23,7 +23,7 @@ print(__doc__)
 rng = np.random.RandomState(1)
 X = np.linspace(0, 6, 100)[:, np.newaxis]
 y = np.sin(X).ravel() + np.sin(6 * X).ravel() + rng.normal(0, 0.1, X.shape[0])
-# dataArr, labelArr = loadDataSet("input/7.AdaBoost/horseColicTraining2.txt")
+# dataArr, labelArr = loadDataSet("db/7.AdaBoost/horseColicTraining2.txt")
 
 
 # Fit regression model

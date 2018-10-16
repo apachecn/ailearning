@@ -3,7 +3,7 @@
 '''
 Created on 2015-06-22
 Update  on 2017-05-16
-@author: Lockvictor/片刻
+Author: Lockvictor/片刻
 《推荐系统实践》协同过滤算法源代码
 参考地址：https://github.com/Lockvictor/MovieLens-RecSys
 更新地址：https://github.com/apachecn/AiLearning
@@ -185,7 +185,7 @@ class ItemBasedCF():
 
 
 if __name__ == '__main__':
-    dataFile = 'input/16.RecommenderSystems/ml-100k/u.data'
+    dataFile = 'db/16.RecommenderSystems/ml-100k/u.data'
 
     # 创建ItemCF对象
     itemcf = ItemBasedCF()

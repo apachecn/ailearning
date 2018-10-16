@@ -1,7 +1,7 @@
 '''
 Created on Feb 27, 2011
 
-@author: Peter
+Author: Peter
 '''
 from mrjob.protocol import JSONProtocol
 from numpy import *

@@ -3,8 +3,8 @@
 '''
 Created on 2017-04-07
 Update  on 2017-06-20
-@author: Peter/ApacheCN-xy/片刻
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter/ApacheCN-xy/片刻
+GitHub: https://github.com/apachecn/AiLearning
 '''
 from mrjob.job import MRJob
 

@@ -4,7 +4,7 @@
 Created on 2017-04-07
 Sequential Pegasos 
 the input T is k*T in Batch Pegasos
-@author: Peter/ApacheCN-xy
+Author: Peter/ApacheCN-xy
 '''
 from __future__ import print_function
 from numpy import *
@@ -78,7 +78,7 @@ def batchPegasos(dataSet, labels, lam, T, k):
     return w
 
 
-datArr, labelList = loadDataSet('input/15.BigData_MapReduce/testSet.txt')
+datArr, labelList = loadDataSet('db/15.BigData_MapReduce/testSet.txt')
 datMat = mat(datArr)
 # finalWs = seqPegasos(datMat, labelList, 2, 5000)
 finalWs = batchPegasos(datMat, labelList, 2, 50, 100)

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 # 原始链接： http://blog.csdn.net/lsldd/article/details/41223147
-# 《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+# GitHub: https://github.com/apachecn/AiLearning
 import numpy as np
 from sklearn import tree
 from sklearn.metrics import precision_recall_curve
@@ -13,7 +13,7 @@ def createDataSet():
     ''' 数据读入 '''
     data = []
     labels = []
-    with open("../../../input/3.DecisionTree/data.txt") as ifile:
+    with open("db/3.DecisionTree/data.txt") as ifile:
         for line in ifile:
             # 特征： 身高 体重   label： 胖瘦
             tokens = line.strip().split(' ')

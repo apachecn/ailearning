@@ -3,8 +3,8 @@
 """
 Created on Oct 19, 2010
 Update  on 2017-05-18
-@author: Peter Harrington/羊三/小瑶/BBruceyuan
-《机器学习实战》更新地址：https://github.com/apachecn/AiLearning
+Author: Peter Harrington/羊三/小瑶/BBruceyuan
+GitHub: https://github.com/apachecn/AiLearning
 """
 
 # 我个人非常不喜欢 from numpy import *
@@ -246,17 +246,17 @@ def spam_test():
         # 如果正常能读返回的都是：　ASCII text
         # 对于except需要处理的都是返回： Non-ISO extended-ASCII text, with very long lines
         try:
-            words = text_parse(open('../../../input/4.NaiveBayes/email/spam/{}.txt'.format(i)).read())
+            words = text_parse(open('db/4.NaiveBayes/email/spam/{}.txt'.format(i)).read())
         except:
-            words = text_parse(open('../../../input/4.NaiveBayes/email/spam/{}.txt'.format(i), encoding='Windows 1252').read())
+            words = text_parse(open('db/4.NaiveBayes/email/spam/{}.txt'.format(i), encoding='Windows 1252').read())
         doc_list.append(words)
         full_text.extend(words)
         class_list.append(1)
         try:
             # 添加非垃圾邮件
-            words = text_parse(open('../../../input/4.NaiveBayes/email/ham/{}.txt'.format(i)).read())
+            words = text_parse(open('db/4.NaiveBayes/email/ham/{}.txt'.format(i)).read())
         except:
-            words = text_parse(open('../../../input/4.NaiveBayes/email/ham/{}.txt'.format(i), encoding='Windows 1252').read())
+            words = text_parse(open('db/4.NaiveBayes/email/ham/{}.txt'.format(i), encoding='Windows 1252').read())
         doc_list.append(words)
         full_text.extend(words)
         class_list.append(0)
