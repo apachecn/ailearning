@@ -41,7 +41,7 @@ def loadDataSet(fileName):
     return dataMat, labelMat
 
 
-X, Y = loadDataSet('../../../input/6.SVM/testSet.txt')
+X, Y = loadDataSet('db/6.SVM/testSet.txt')
 X = np.mat(X)
 
 print("X=", X)

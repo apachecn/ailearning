@@ -144,7 +144,7 @@ if __name__ == "__main__":
     # ...
     # 拆分数据集
     # http://files.grouplens.org/datasets/movielens/ml-100k.zip
-    dataFile = 'input/16.RecommenderSystems/ml-100k/u.data'
+    dataFile = 'db/16.RecommenderSystems/ml-100k/u.data'
     df, n_users, n_items, train_data, test_data = splitData(
         dataFile, test_size=0.25)
 

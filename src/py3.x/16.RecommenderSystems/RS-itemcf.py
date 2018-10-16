@@ -209,8 +209,8 @@ class ItemBasedCF():
 
 
 if __name__ == '__main__':
-    # ratingfile = 'input/16.RecommenderSystems/ml-1m/ratings.dat'
-    ratingfile = 'input/16.RecommenderSystems/ml-100k/u.data'
+    # ratingfile = 'db/16.RecommenderSystems/ml-1m/ratings.dat'
+    ratingfile = 'db/16.RecommenderSystems/ml-100k/u.data'
 
     # 创建ItemCF对象
     itemcf = ItemBasedCF()
