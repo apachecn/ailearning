@@ -136,8 +136,8 @@
     <td>Ml项目实战</td>
     <td><a href="blog/ml/16.推荐系统.md">第 16 章: 推荐系统</a></td>
     <td>项目</td>
-    <td>空缺 - 有兴趣私聊片刻</td>
-    <td>529815144</td>
+    <td><a href="https://github.com/Yao544303">@喵十八</a></td>
+    <td>544303963</td>
   </tr>
   <tr>
     <td>第一期的总结</td>

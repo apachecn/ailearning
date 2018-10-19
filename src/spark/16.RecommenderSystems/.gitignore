@@ -1,0 +1,8 @@
+/target/*
+/.idea/*
+/spark-warehouse/*
+*.iml
+/target/
+/.settings/*
+*.project
+*.classpath
