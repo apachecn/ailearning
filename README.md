@@ -15,7 +15,7 @@
 * -- 感谢 [群小哥哥：Wizard Zhang](https://github.com/wizardforcel) 生成的电子书[《机器学习实战-ApacheCN.pdf》](https://github.com/apachecn/AiLearning/blob/master/books/机器学习实战-ApacheCN.pdf)
 * **视频已更新完成，如果你觉得有价值，请帮忙点 Star【后续组织学习活动：sklearn、kaggle、 Pytorch 和 tensorflow】**
 * -- 视频网站：优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
-* -- [群小哥哥：红色石头的机器学习之路](https://github.com/RedstoneWill): [台湾大学林轩田机器学习基石课程 - **系列学习笔记**](https://mp.weixin.qq.com/s/xb0i55zIQVzCiSZALbvncg)
+* -- [群小哥哥：红色石头](https://github.com/RedstoneWill): [台湾大学林轩田机器学习笔记](https://github.com/apachecn/ntu-hsuantienlin-ml)
 * 推荐一个[机器学习笔记](https://feisky.xyz/machine-learning): https://feisky.xyz/machine-learning
 * 推荐一个[liuhuanyong大佬](https://github.com/liuhuanyong)整理的nlp全面知识体系: <https://liuhuanyong.github.io>
 
