@@ -1,0 +1,1576 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ApacheCN 专注于优秀项目维护的开源组织">
+      
+      
+        <link rel="canonical" href="http://ailearning.apachecn.org/ml/5.Logistic/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>第5章_逻辑回归 - ApacheCN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#5-logistic" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                ApacheCN
+              </span>
+              <span class="md-header-nav__topic">
+                第5章_逻辑回归
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    ApacheCN
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1.MLFoundation/" title="第1章_基础知识" class="md-nav__link">
+      第1章_基础知识
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2.KNN/" title="第2章_K近邻算法" class="md-nav__link">
+      第2章_K近邻算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3.DecisionTree/" title="第3章_决策树算法" class="md-nav__link">
+      第3章_决策树算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4.NaiveBayesian/" title="第4章_朴素贝叶斯" class="md-nav__link">
+      第4章_朴素贝叶斯
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        第5章_逻辑回归
+      </label>
+    
+    <a href="./" title="第5章_逻辑回归" class="md-nav__link md-nav__link--active">
+      第5章_逻辑回归
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#logistic" title="Logistic 回归 概述" class="md-nav__link">
+    Logistic 回归 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="须知概念" class="md-nav__link">
+    须知概念
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sigmoid" title="Sigmoid 函数" class="md-nav__link">
+    Sigmoid 函数
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="回归 概念" class="md-nav__link">
+    回归 概念
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="二值型输出分类函数" class="md-nav__link">
+    二值型输出分类函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="基于最优化方法的回归系数确定" class="md-nav__link">
+    基于最优化方法的回归系数确定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="梯度上升法" class="md-nav__link">
+    梯度上升法
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="梯度的介绍" class="md-nav__link">
+    梯度的介绍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="梯度上升法的思想" class="md-nav__link">
+    梯度上升法的思想
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logistic_1" title="Logistic 回归 原理" class="md-nav__link">
+    Logistic 回归 原理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logistic_2" title="Logistic 回归 工作原理" class="md-nav__link">
+    Logistic 回归 工作原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logistic_3" title="Logistic 回归 开发流程" class="md-nav__link">
+    Logistic 回归 开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logistic_4" title="Logistic 回归 算法特点" class="md-nav__link">
+    Logistic 回归 算法特点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="附加 方向导数与梯度" class="md-nav__link">
+    附加 方向导数与梯度
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logistic_5" title="Logistic 回归 项目案例" class="md-nav__link">
+    Logistic 回归 项目案例
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-logistic" title="项目案例1: 使用 Logistic 回归在简单数据集上的分类" class="md-nav__link">
+    项目案例1: 使用 Logistic 回归在简单数据集上的分类
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="注意" class="md-nav__link">
+    注意
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" title="项目案例2: 从疝气病症预测病马的死亡率" class="md-nav__link">
+    项目案例2: 从疝气病症预测病马的死亡率
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6.SVM/" title="第6章_支持向量机" class="md-nav__link">
+      第6章_支持向量机
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7.Ensemble/" title="第7章_集成方法" class="md-nav__link">
+      第7章_集成方法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8.Regression/" title="第8章_回归" class="md-nav__link">
+      第8章_回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9.TreeRegression/" title="第9章_树回归" class="md-nav__link">
+      第9章_树回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10.KMeans/" title="第10章_KMeans聚类" class="md-nav__link">
+      第10章_KMeans聚类
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11.Apriori/" title="第11章_Apriori算法" class="md-nav__link">
+      第11章_Apriori算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12.FP-growth/" title="第12章_FP-growth算法" class="md-nav__link">
+      第12章_FP-growth算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13.PCA/" title="第13章_PCA降维" class="md-nav__link">
+      第13章_PCA降维
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14.SVD/" title="第14章_SVD简化数据" class="md-nav__link">
+      第14章_SVD简化数据
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15.BigData_MapReduce/" title="第15章_大数据与MapReduce" class="md-nav__link">
+      第15章_大数据与MapReduce
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16.RecommendedSystem/" title="第16章_推荐系统" class="md-nav__link">
+      第16章_推荐系统
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../why-to-record-study-ml-video/" title="为何录制教学版视频" class="md-nav__link">
+      为何录制教学版视频
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../join-us/" title="加入我们" class="md-nav__link">
+      加入我们
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#logistic" title="Logistic 回归 概述" class="md-nav__link">
+    Logistic 回归 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="须知概念" class="md-nav__link">
+    须知概念
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sigmoid" title="Sigmoid 函数" class="md-nav__link">
+    Sigmoid 函数
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="回归 概念" class="md-nav__link">
+    回归 概念
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="二值型输出分类函数" class="md-nav__link">
+    二值型输出分类函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="基于最优化方法的回归系数确定" class="md-nav__link">
+    基于最优化方法的回归系数确定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="梯度上升法" class="md-nav__link">
+    梯度上升法
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="梯度的介绍" class="md-nav__link">
+    梯度的介绍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="梯度上升法的思想" class="md-nav__link">
+    梯度上升法的思想
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logistic_1" title="Logistic 回归 原理" class="md-nav__link">
+    Logistic 回归 原理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logistic_2" title="Logistic 回归 工作原理" class="md-nav__link">
+    Logistic 回归 工作原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logistic_3" title="Logistic 回归 开发流程" class="md-nav__link">
+    Logistic 回归 开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logistic_4" title="Logistic 回归 算法特点" class="md-nav__link">
+    Logistic 回归 算法特点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="附加 方向导数与梯度" class="md-nav__link">
+    附加 方向导数与梯度
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logistic_5" title="Logistic 回归 项目案例" class="md-nav__link">
+    Logistic 回归 项目案例
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-logistic" title="项目案例1: 使用 Logistic 回归在简单数据集上的分类" class="md-nav__link">
+    项目案例1: 使用 Logistic 回归在简单数据集上的分类
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="注意" class="md-nav__link">
+    注意
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" title="项目案例2: 从疝气病症预测病马的死亡率" class="md-nav__link">
+    项目案例2: 从疝气病症预测病马的死亡率
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/AiLearning/edit/master/docs/ml/5.Logistic.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="5-logistic">第5章 Logistic回归</h1>
+<p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
+<p><img alt="朴素贝叶斯_首页" src="../../img/ml/5.Logistic/LogisticRegression_headPage_xy.png" title="Logistic回归首页" /></p>
+<h2 id="logistic">Logistic 回归 概述</h2>
+<p><code>Logistic 回归 或者叫逻辑回归 虽然名字有回归，但是它是用来做分类的。其主要思想是: 根据现有数据对分类边界线(Decision Boundary)建立回归公式，以此进行分类。</code></p>
+<h2 id="_1">须知概念</h2>
+<h3 id="sigmoid">Sigmoid 函数</h3>
+<h4 id="_2">回归 概念</h4>
+<p>假设现在有一些数据点，我们用一条直线对这些点进行拟合（这条直线称为最佳拟合直线），这个拟合的过程就叫做回归。进而可以得到对这些点的拟合直线方程，那么我们根据这个回归方程，怎么进行分类呢？请看下面。</p>
+<h4 id="_3">二值型输出分类函数</h4>
+<p>我们想要的函数应该是: 能接受所有的输入然后预测出类别。例如，在两个类的情况下，上述函数输出 0 或 1.或许你之前接触过具有这种性质的函数，该函数称为 <code>海维塞得阶跃函数(Heaviside step function)</code>，或者直接称为 <code>单位阶跃函数</code>。然而，海维塞得阶跃函数的问题在于: 该函数在跳跃点上从 0 瞬间跳跃到 1，这个瞬间跳跃过程有时很难处理。幸好，另一个函数也有类似的性质（可以输出 0 或者 1 的性质），且数学上更易处理，这就是 Sigmoid 函数。 Sigmoid 函数具体的计算公式如下: </p>
+<p><img alt="Sigmoid 函数计算公式" src="../../img/ml/5.Logistic/LR_1.png" /></p>
+<p>下图给出了 Sigmoid 函数在不同坐标尺度下的两条曲线图。当 x 为 0 时，Sigmoid 函数值为 0.5 。随着 x 的增大，对应的 Sigmoid 值将逼近于 1 ; 而随着 x 的减小， Sigmoid 值将逼近于 0 。如果横坐标刻度足够大， Sigmoid 函数看起来很像一个阶跃函数。</p>
+<p><img alt="Sigmoid 函数在不同坐标下的图片" src="../../img/ml/5.Logistic/LR_3.png" /></p>
+<p>因此，为了实现 Logistic 回归分类器，我们可以在每个特征上都乘以一个回归系数（如下公式所示），然后把所有结果值相加，将这个总和代入 Sigmoid 函数中，进而得到一个范围在 0~1 之间的数值。任何大于 0.5 的数据被分入 1 类，小于 0.5 即被归入 0 类。所以，Logistic 回归也是一种概率估计，比如这里Sigmoid 函数得出的值为0.5，可以理解为给定数据和参数，数据被分入 1 类的概率为0.5。想对Sigmoid 函数有更多了解，可以点开<a href="https://www.desmos.com/calculator/bgontvxotm">此链接</a>跟此函数互动。</p>
+<h3 id="_4">基于最优化方法的回归系数确定</h3>
+<p>Sigmoid 函数的输入记为 z ，由下面公式得到: </p>
+<p><img alt="Sigmoid 函数计算公式" src="../../img/ml/5.Logistic/LR_2.png" /></p>
+<p>如果采用向量的写法，上述公式可以写成 <img alt="Sigmoid 函数计算公式向量形式" src="../../img/ml/5.Logistic/LR_4.png" /> ，它表示将这两个数值向量对应元素相乘然后全部加起来即得到 z 值。其中的向量 x 是分类器的输入数据，向量 w 也就是我们要找到的最佳参数（系数），从而使得分类器尽可能地精确。为了寻找该最佳参数，需要用到最优化理论的一些知识。我们这里使用的是——梯度上升法（Gradient Ascent）。</p>
+<h3 id="_5">梯度上升法</h3>
+<h4 id="_6">梯度的介绍</h4>
+<p>需要一点点向量方面的数学知识</p>
+<pre><code>向量 = 值 + 方向  
+梯度 = 向量
+梯度 = 梯度值 + 梯度方向
+</code></pre>
+
+<h4 id="_7">梯度上升法的思想</h4>
+<p>要找到某函数的最大值，最好的方法是沿着该函数的梯度方向探寻。如果梯度记为 ▽ ，则函数 f(x, y) 的梯度由下式表示: </p>
+<p><img alt="梯度上升计算公式" src="../../img/ml/5.Logistic/LR_5.png" /></p>
+<p>这个梯度意味着要沿 x 的方向移动 <img alt="f(x, y)对x求偏导" src="../../img/ml/5.Logistic/LR_6.png" /> ，沿 y 的方向移动 <img alt="f(x, y)对y求偏导" src="../../img/ml/5.Logistic/LR_7.png" /> 。其中，函数f(x, y) 必须要在待计算的点上有定义并且可微。下图是一个具体的例子。</p>
+<p><img alt="梯度上升" src="../../img/ml/5.Logistic/LR_8.png" /></p>
+<p>上图展示的，梯度上升算法到达每个点后都会重新估计移动的方向。从 P0 开始，计算完该点的梯度，函数就根据梯度移动到下一点 P1。在 P1 点，梯度再次被重新计算，并沿着新的梯度方向移动到 P2 。如此循环迭代，直到满足停止条件。迭代过程中，梯度算子总是保证我们能选取到最佳的移动方向。</p>
+<p>上图中的梯度上升算法沿梯度方向移动了一步。可以看到，梯度算子总是指向函数值增长最快的方向。这里所说的是移动方向，而未提到移动量的大小。该量值称为步长，记作 α 。用向量来表示的话，梯度上升算法的迭代公式如下: </p>
+<p><img alt="梯度上升迭代公式" src="../../img/ml/5.Logistic/LR_9.png" /></p>
+<p>该公式将一直被迭代执行，直至达到某个停止条件为止，比如迭代次数达到某个指定值或者算法达到某个可以允许的误差范围。</p>
+<p>介绍一下几个相关的概念：</p>
+<pre><code>例如：y = w0 + w1x1 + w2x2 + ... + wnxn
+梯度：参考上图的例子，二维图像，x方向代表第一个系数，也就是 w1，y方向代表第二个系数也就是 w2，这样的向量就是梯度。
+α：上面的梯度算法的迭代公式中的阿尔法，这个代表的是移动步长（step length）。移动步长会影响最终结果的拟合程度，最好的方法就是随着迭代次数更改移动步长。
+步长通俗的理解，100米，如果我一步走10米，我需要走10步；如果一步走20米，我只需要走5步。这里的一步走多少米就是步长的意思。
+▽f(w)：代表沿着梯度变化的方向。
+</code></pre>
+
+<p>问：有人会好奇为什么有些书籍上说的是梯度下降法（Gradient Decent）?</p>
+<p>答： 其实这个两个方法在此情况下本质上是相同的。关键在于代价函数（cost function）或者叫目标函数（objective function）。如果目标函数是损失函数，那就是最小化损失函数来求函数的最小值，就用梯度下降。 如果目标函数是似然函数（Likelihood function），就是要最大化似然函数来求函数的最大值，那就用梯度上升。在逻辑回归中， 损失函数和似然函数无非就是互为正负关系。</p>
+<p>只需要在迭代公式中的加法变成减法。因此，对应的公式可以写成</p>
+<p><img alt="梯度下降迭代公式" src="../../img/ml/5.Logistic/LR_10.png" /></p>
+<p><strong>局部最优现象 （Local Optima）</strong></p>
+<p><img alt="梯度下降图_4" src="../../img/ml/5.Logistic/LR_20.png" /></p>
+<p>上图表示参数 θ 与误差函数 J(θ) 的关系图 (这里的误差函数是损失函数，所以我们要最小化损失函数)，红色的部分是表示 J(θ) 有着比较高的取值，我们需要的是，能够让 J(θ) 的值尽量的低。也就是深蓝色的部分。θ0，θ1 表示 θ 向量的两个维度（此处的θ0，θ1是x0和x1的系数，也对应的是上文w0和w1）。</p>
+<p>可能梯度下降的最终点并非是全局最小点，可能是一个局部最小点，如我们上图中的右边的梯度下降曲线，描述的是最终到达一个局部最小点，这是我们重新选择了一个初始点得到的。</p>
+<p>看来我们这个算法将会在很大的程度上被初始点的选择影响而陷入局部最小点。</p>
+<h2 id="logistic_1">Logistic 回归 原理</h2>
+<h3 id="logistic_2">Logistic 回归 工作原理</h3>
+<pre><code>每个回归系数初始化为 1
+重复 R 次:
+    计算整个数据集的梯度
+    使用 步长 x 梯度 更新回归系数的向量
+返回回归系数
+</code></pre>
+
+<h3 id="logistic_3">Logistic 回归 开发流程</h3>
+<pre><code>收集数据: 采用任意方法收集数据
+准备数据: 由于需要进行距离计算，因此要求数据类型为数值型。另外，结构化数据格式则最佳。
+分析数据: 采用任意方法对数据进行分析。
+训练算法: 大部分时间将用于训练，训练的目的是为了找到最佳的分类回归系数。
+测试算法: 一旦训练步骤完成，分类将会很快。
+使用算法: 首先，我们需要输入一些数据，并将其转换成对应的结构化数值；接着，基于训练好的回归系数就可以对这些数值进行简单的回归计算，判定它们属于哪个类别；在这之后，我们就可以在输出的类别上做一些其他分析工作。
+</code></pre>
+
+<h3 id="logistic_4">Logistic 回归 算法特点</h3>
+<pre><code>优点: 计算代价不高，易于理解和实现。
+缺点: 容易欠拟合，分类精度可能不高。
+适用数据类型: 数值型和标称型数据。
+</code></pre>
+
+<h3 id="_8">附加 方向导数与梯度</h3>
+<p><img alt="方向导数与梯度" src="../../img/ml/5.Logistic/方向导数和梯度.png" /></p>
+<h2 id="logistic_5">Logistic 回归 项目案例</h2>
+<h3 id="1-logistic">项目案例1: 使用 Logistic 回归在简单数据集上的分类</h3>
+<p><a href="/src/py2.x/ml/5.Logistic/logistic.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/5.Logistic/logistic.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/5.Logistic/logistic.py</a></p>
+<h4 id="_9">项目概述</h4>
+<p>在一个简单的数据集上，采用梯度上升法找到 Logistic 回归分类器在此数据集上的最佳回归系数</p>
+<h4 id="_10">开发流程</h4>
+<pre><code>收集数据: 可以使用任何方法
+准备数据: 由于需要进行距离计算，因此要求数据类型为数值型。另外，结构化数据格式则最佳
+分析数据: 画出决策边界
+训练算法: 使用梯度上升找到最佳参数
+测试算法: 使用 Logistic 回归进行分类
+使用算法: 对简单数据集中数据进行分类
+</code></pre>
+
+<blockquote>
+<p>收集数据: 可以使用任何方法</p>
+</blockquote>
+<p>我们采用存储在 TestSet.txt 文本文件中的数据，存储格式如下: </p>
+<pre><code>-0.017612   14.053064   0
+-1.395634   4.662541    1
+-0.752157   6.538620    0
+-1.322371   7.152853    0
+0.423363    11.054677   0
+</code></pre>
+
+<p>绘制在图中，如下图所示: </p>
+<p><img alt="简单数据集绘制在图上" src="../../img/ml/5.Logistic/LR_11.png" /></p>
+<blockquote>
+<p>准备数据: 由于需要进行距离计算，因此要求数据类型为数值型。另外，结构化数据格式则最佳</p>
+</blockquote>
+<pre><code class="python"># 解析数据
+def loadDataSet(file_name):
+    '''
+    Desc: 
+        加载并解析数据
+    Args:
+        file_name -- 要解析的文件路径
+    Returns:
+        dataMat -- 原始数据的特征
+        labelMat -- 原始数据的标签，也就是每条样本对应的类别。即目标向量
+    '''
+    # dataMat为原始数据， labelMat为原始数据的标签
+    dataMat = []
+    labelMat = []
+    fr = open(file_name)
+    for line in fr.readlines():
+        lineArr = line.strip().split()
+        # 为了方便计算，我们将 X0 的值设为 1.0 ，也就是在每一行的开头添加一个 1.0 作为 X0
+        dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])
+        labelMat.append(int(lineArr[2]))
+    return dataMat, labelMat
+</code></pre>
+
+<blockquote>
+<p>分析数据: 采用任意方法对数据进行分析，此处不需要</p>
+<p>训练算法: 使用梯度上升找到最佳参数</p>
+</blockquote>
+<p>定义sigmoid阶跃函数</p>
+<pre><code class="python"># sigmoid阶跃函数
+def sigmoid(inX):
+    # return 1.0 / (1 + exp(-inX))
+
+    # Tanh是Sigmoid的变形，与 sigmoid 不同的是，tanh 是0均值的。因此，实际应用中，tanh 会比 sigmoid 更好。
+    return 2 * 1.0/(1+exp(-2*inX)) - 1
+</code></pre>
+
+<p>Logistic 回归梯度上升优化算法</p>
+<pre><code class="python"># 正常的处理方案
+# 两个参数：第一个参数==&gt; dataMatIn 是一个2维NumPy数组，每列分别代表每个不同的特征，每行则代表每个训练样本。
+# 第二个参数==&gt; classLabels 是类别标签，它是一个 1*100 的行向量。为了便于矩阵计算，需要将该行向量转换为列向量，做法是将原向量转置，再将它赋值给labelMat。
+def gradAscent(dataMatIn, classLabels):
+    # 转化为矩阵[[1,1,2],[1,1,2]....]
+    dataMatrix = mat(dataMatIn)             # 转换为 NumPy 矩阵
+    # 转化为矩阵[[0,1,0,1,0,1.....]]，并转制[[0],[1],[0].....]
+    # transpose() 行列转置函数
+    # 将行向量转化为列向量   =&gt;  矩阵的转置
+    labelMat = mat(classLabels).transpose() # 首先将数组转换为 NumPy 矩阵，然后再将行向量转置为列向量
+    # m-&gt;数据量，样本数 n-&gt;特征数
+    m,n = shape(dataMatrix)
+    # print m, n, '__'*10, shape(dataMatrix.transpose()), '__'*100
+    # alpha代表向目标移动的步长
+    alpha = 0.001
+    # 迭代次数
+    maxCycles = 500
+    # 生成一个长度和特征数相同的矩阵，此处n为3 -&gt; [[1],[1],[1]]
+    # weights 代表回归系数， 此处的 ones((n,1)) 创建一个长度和特征数相同的矩阵，其中的数全部都是 1
+    weights = ones((n,1))
+    for k in range(maxCycles):              #heavy on matrix operations
+        # m*3 的矩阵 * 3*1 的矩阵 ＝ m*1的矩阵
+        # 那么乘上矩阵的意义，就代表：通过公式得到的理论值
+        # 参考地址： 矩阵乘法的本质是什么？ https://www.zhihu.com/question/21351965/answer/31050145
+        # print 'dataMatrix====', dataMatrix 
+        # print 'weights====', weights
+        # n*3   *  3*1  = n*1
+        h = sigmoid(dataMatrix*weights)     # 矩阵乘法
+        # print 'hhhhhhh====', h
+        # labelMat是实际值
+        error = (labelMat - h)              # 向量相减
+        # 0.001* (3*m)*(m*1) 表示在每一个列上的一个误差情况，最后得出 x1,x2,xn的系数的偏移量
+        weights = weights + alpha * dataMatrix.transpose() * error # 矩阵乘法，最后得到回归系数
+    return array(weights)
+</code></pre>
+
+<p>大家看到这儿可能会有一些疑惑，就是，我们在迭代中更新我们的回归系数，后边的部分是怎么计算出来的？为什么会是 alpha * dataMatrix.transpose() * error ?因为这就是我们所求的梯度，也就是对 f(w) 对 w 求一阶导数。具体推导如下:</p>
+<p><img alt="f(w)对w求一阶导数" src="../../img/ml/5.Logistic/LR_21.png" />
+可参考http://blog.csdn.net/achuo/article/details/51160101</p>
+<p>画出数据集和 Logistic 回归最佳拟合直线的函数</p>
+<pre><code class="python">def plotBestFit(dataArr, labelMat, weights):
+    '''
+        Desc:
+            将我们得到的数据可视化展示出来
+        Args:
+            dataArr:样本数据的特征
+            labelMat:样本数据的类别标签，即目标变量
+            weights:回归系数
+        Returns:
+            None
+    '''
+
+    n = shape(dataArr)[0]
+    xcord1 = []; ycord1 = []
+    xcord2 = []; ycord2 = []
+    for i in range(n):
+        if int(labelMat[i])== 1:
+            xcord1.append(dataArr[i,1]); ycord1.append(dataArr[i,2])
+        else:
+            xcord2.append(dataArr[i,1]); ycord2.append(dataArr[i,2])
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(xcord1, ycord1, s=30, c='red', marker='s')
+    ax.scatter(xcord2, ycord2, s=30, c='green')
+    x = arange(-3.0, 3.0, 0.1)
+    &quot;&quot;&quot;
+    y的由来，卧槽，是不是没看懂？
+    首先理论上是这个样子的。
+    dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])
+    w0*x0+w1*x1+w2*x2=f(x)
+    x0最开始就设置为1叻， x2就是我们画图的y值，而f(x)被我们磨合误差给算到w0,w1,w2身上去了
+    所以： w0+w1*x+w2*y=0 =&gt; y = (-w0-w1*x)/w2   
+    &quot;&quot;&quot;
+    y = (-weights[0]-weights[1]*x)/weights[2]
+    ax.plot(x, y)
+    plt.xlabel('X'); plt.ylabel('Y')
+    plt.show()
+</code></pre>
+
+<blockquote>
+<p>测试算法: 使用 Logistic 回归进行分类</p>
+</blockquote>
+<pre><code class="python">def testLR():
+    # 1.收集并准备数据
+    dataMat, labelMat = loadDataSet(&quot;db/5.Logistic/TestSet.txt&quot;)
+
+    # print dataMat, '---\n', labelMat
+    # 2.训练模型，  f(x)=a1*x1+b2*x2+..+nn*xn中 (a1,b2, .., nn).T的矩阵值
+    # 因为数组没有是复制n份， array的乘法就是乘法
+    dataArr = array(dataMat)
+    # print dataArr
+    weights = gradAscent(dataArr, labelMat)
+    # weights = stocGradAscent0(dataArr, labelMat)
+    # weights = stocGradAscent1(dataArr, labelMat)
+    # print '*'*30, weights
+
+    # 数据可视化
+    plotBestFit(dataArr, labelMat, weights)
+</code></pre>
+
+<blockquote>
+<p>使用算法: 对简单数据集中数据进行分类</p>
+</blockquote>
+<h4 id="_11">注意</h4>
+<p>梯度上升算法在每次更新回归系数时都需要遍历整个数据集，该方法在处理 100 个左右的数据集时尚可，但如果有数十亿样本和成千上万的特征，那么该方法的计算复杂度就太高了。一种改进方法是一次仅用一个样本点来更新回归系数，该方法称为 <code>随机梯度上升算法</code>。由于可以在新样本到来时对分类器进行增量式更新，因而随机梯度上升算法是一个在线学习(online learning)算法。与 “在线学习” 相对应，一次处理所有数据被称作是 “批处理” （batch） 。</p>
+<p>随机梯度上升算法可以写成如下的伪代码: </p>
+<pre><code>所有回归系数初始化为 1
+对数据集中每个样本
+    计算该样本的梯度
+    使用 alpha x gradient 更新回归系数值
+返回回归系数值
+</code></pre>
+
+<p>以下是随机梯度上升算法的实现代码: </p>
+<pre><code class="python"># 随机梯度上升
+# 梯度上升优化算法在每次更新数据集时都需要遍历整个数据集，计算复杂都较高
+# 随机梯度上升一次只用一个样本点来更新回归系数
+def stocGradAscent0(dataMatrix, classLabels):
+    m,n = shape(dataMatrix)
+    alpha = 0.01
+    # n*1的矩阵
+    # 函数ones创建一个全1的数组
+    weights = ones(n)   # 初始化长度为n的数组，元素全部为 1
+    for i in range(m):
+        # sum(dataMatrix[i]*weights)为了求 f(x)的值， f(x)=a1*x1+b2*x2+..+nn*xn,此处求出的 h 是一个具体的数值，而不是一个矩阵
+        h = sigmoid(sum(dataMatrix[i]*weights))
+        # print 'dataMatrix[i]===', dataMatrix[i]
+        # 计算真实类别与预测类别之间的差值，然后按照该差值调整回归系数
+        error = classLabels[i] - h
+        # 0.01*(1*1)*(1*n)
+        print weights, &quot;*&quot;*10 , dataMatrix[i], &quot;*&quot;*10 , error
+        weights = weights + alpha * error * dataMatrix[i]
+    return weights
+</code></pre>
+
+<p>可以看到，随机梯度上升算法与梯度上升算法在代码上很相似，但也有一些区别: 第一，后者的变量 h 和误差 error 都是向量，而前者则全是数值；第二，前者没有矩阵的转换过程，所有变量的数据类型都是 NumPy 数组。</p>
+<p>判断优化算法优劣的可靠方法是看它是否收敛，也就是说参数是否达到了稳定值，是否还会不断地变化？下图展示了随机梯度上升算法在 200 次迭代过程中回归系数的变化情况。其中的系数2，也就是 X2 只经过了 50 次迭代就达到了稳定值，但系数 1 和 0 则需要更多次的迭代。如下图所示: </p>
+<p><img alt="回归系数与迭代次数的关系图" src="../../img/ml/5.Logistic/LR_12.png" /></p>
+<p>针对这个问题，我们改进了之前的随机梯度上升算法，如下: </p>
+<pre><code class="python"># 随机梯度上升算法（随机化）
+def stocGradAscent1(dataMatrix, classLabels, numIter=150):
+    m,n = shape(dataMatrix)
+    weights = ones(n)   # 创建与列数相同的矩阵的系数矩阵，所有的元素都是1
+    # 随机梯度, 循环150,观察是否收敛
+    for j in range(numIter):
+        # [0, 1, 2 .. m-1]
+        dataIndex = range(m)
+        for i in range(m):
+            # i和j的不断增大，导致alpha的值不断减少，但是不为0
+            alpha = 4/(1.0+j+i)+0.0001    # alpha 会随着迭代不断减小，但永远不会减小到0，因为后边还有一个常数项0.0001
+            # 随机产生一个 0～len()之间的一个值
+            # random.uniform(x, y) 方法将随机生成下一个实数，它在[x,y]范围内,x是这个范围内的最小值，y是这个范围内的最大值。
+            randIndex = int(random.uniform(0,len(dataIndex)))
+            # sum(dataMatrix[i]*weights)为了求 f(x)的值， f(x)=a1*x1+b2*x2+..+nn*xn
+            h = sigmoid(sum(dataMatrix[dataIndex[randIndex]]*weights))
+            error = classLabels[dataIndex[randIndex]] - h
+            # print weights, '__h=%s' % h, '__'*20, alpha, '__'*20, error, '__'*20, dataMatrix[randIndex]
+            weights = weights + alpha * error * dataMatrix[dataIndex[randIndex]]
+            del(dataIndex[randIndex])
+    return weights
+</code></pre>
+
+<p>上面的改进版随机梯度上升算法，我们修改了两处代码。</p>
+<p>第一处改进为 alpha 的值。alpha 在每次迭代的时候都会调整，这回缓解上面波动图的数据波动或者高频波动。另外，虽然 alpha 会随着迭代次数不断减少，但永远不会减小到 0，因为我们在计算公式中添加了一个常数项。</p>
+<p>第二处修改为 randIndex 更新，这里通过随机选取样本拉来更新回归系数。这种方法将减少周期性的波动。这种方法每次随机从列表中选出一个值，然后从列表中删掉该值（再进行下一次迭代）。</p>
+<p>程序运行之后能看到类似于下图的结果图。</p>
+<p><img alt="改进随机梯度下降结果图" src="../../img/ml/5.Logistic/LR_13.png" /></p>
+<h3 id="2">项目案例2: 从疝气病症预测病马的死亡率</h3>
+<p><a href="/src/py2.x/ml/5.Logistic/logistic.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/5.Logistic/logistic.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/5.Logistic/logistic.py</a></p>
+<h4 id="_12">项目概述</h4>
+<p>使用 Logistic 回归来预测患有疝病的马的存活问题。疝病是描述马胃肠痛的术语。然而，这种病不一定源自马的胃肠问题，其他问题也可能引发马疝病。这个数据集中包含了医院检测马疝病的一些指标，有的指标比较主观，有的指标难以测量，例如马的疼痛级别。</p>
+<h4 id="_13">开发流程</h4>
+<pre><code>收集数据: 给定数据文件
+准备数据: 用 Python 解析文本文件并填充缺失值
+分析数据: 可视化并观察数据
+训练算法: 使用优化算法，找到最佳的系数
+测试算法: 为了量化回归的效果，需要观察错误率。根据错误率决定是否回退到训练阶段，
+         通过改变迭代的次数和步长的参数来得到更好的回归系数
+使用算法: 实现一个简单的命令行程序来收集马的症状并输出预测结果并非难事，
+         这可以作为留给大家的一道习题
+</code></pre>
+
+<blockquote>
+<p>收集数据: 给定数据文件</p>
+</blockquote>
+<p>病马的训练数据已经给出来了，如下形式存储在文本文件中:</p>
+<pre><code>1.000000    1.000000    39.200000   88.000000   20.000000   0.000000    0.000000    4.000000    1.000000    3.000000    4.000000    2.000000    0.000000    0.000000    0.000000    4.000000    2.000000    50.000000   85.000000   2.000000    2.000000    0.000000
+2.000000    1.000000    38.300000   40.000000   24.000000   1.000000    1.000000    3.000000    1.000000    3.000000    3.000000    1.000000    0.000000    0.000000    0.000000    1.000000    1.000000    33.000000   6.700000    0.000000    0.000000    1.000000
+</code></pre>
+
+<blockquote>
+<p>准备数据: 用 Python 解析文本文件并填充缺失值</p>
+</blockquote>
+<p>处理数据中的缺失值</p>
+<p>假设有100个样本和20个特征，这些数据都是机器收集回来的。若机器上的某个传感器损坏导致一个特征无效时该怎么办？此时是否要扔掉整个数据？这种情况下，另外19个特征怎么办？
+它们是否还可以用？答案是肯定的。因为有时候数据相当昂贵，扔掉和重新获取都是不可取的，所以必须采用一些方法来解决这个问题。</p>
+<p>下面给出了一些可选的做法：
+<em> 使用可用特征的均值来填补缺失值；
+</em> 使用特殊值来填补缺失值，如 -1；
+<em> 忽略有缺失值的样本；
+</em> 使用有相似样本的均值添补缺失值；
+* 使用另外的机器学习算法预测缺失值。</p>
+<p>现在，我们对下一节要用的数据集进行预处理，使其可以顺利地使用分类算法。在预处理需要做两件事: 
+* 所有的缺失值必须用一个实数值来替换，因为我们使用的 NumPy 数据类型不允许包含缺失值。我们这里选择实数 0 来替换所有缺失值，恰好能适用于 Logistic 回归。这样做的直觉在于，我们需要的是一个在更新时不会影响系数的值。回归系数的更新公式如下:</p>
+<pre><code>weights = weights + alpha * error * dataMatrix[dataIndex[randIndex]]
+
+如果 dataMatrix 的某个特征对应值为 0，那么该特征的系数将不做更新，即:
+
+weights = weights
+
+另外，由于 Sigmoid(0) = 0.5 ，即它对结果的预测不具有任何倾向性，因此我们上述做法也不会对误差造成任何影响。基于上述原因，将缺失值用 0 代替既可以保留现有数据，也不需要对优化算法进行修改。此外，该数据集中的特征取值一般不为 0，因此在某种意义上说它也满足 “特殊值” 这个要求。
+</code></pre>
+<ul>
+<li>如果在测试数据集中发现了一条数据的类别标签已经缺失，那么我们的简单做法是将该条数据丢弃。这是因为类别标签与特征不同，很难确定采用某个合适的值来替换。采用 Logistic 回归进行分类时这种做法是合理的，而如果采用类似 kNN 的方法，则保留该条数据显得更加合理。</li>
+</ul>
+<p>原始的数据集经过预处理后，保存成两个文件: horseColicTest.txt 和 horseColicTraining.txt 。 </p>
+<blockquote>
+<p>分析数据: 可视化并观察数据</p>
+</blockquote>
+<p>将数据使用 MatPlotlib 打印出来，观察数据是否是我们想要的格式</p>
+<blockquote>
+<p>训练算法: 使用优化算法，找到最佳的系数</p>
+</blockquote>
+<p>下面给出 原始的梯度上升算法，随机梯度上升算法，改进版随机梯度上升算法 的代码: </p>
+<pre><code class="python"># 正常的处理方案
+# 两个参数：第一个参数==&gt; dataMatIn 是一个2维NumPy数组，每列分别代表每个不同的特征，每行则代表每个训练样本。
+# 第二个参数==&gt; classLabels 是类别标签，它是一个 1*100 的行向量。为了便于矩阵计算，需要将该行向量转换为列向量，做法是将原向量转置，再将它赋值给labelMat。
+def gradAscent(dataMatIn, classLabels):
+    # 转化为矩阵[[1,1,2],[1,1,2]....]
+    dataMatrix = mat(dataMatIn)             # 转换为 NumPy 矩阵
+    # 转化为矩阵[[0,1,0,1,0,1.....]]，并转制[[0],[1],[0].....]
+    # transpose() 行列转置函数
+    # 将行向量转化为列向量   =&gt;  矩阵的转置
+    labelMat = mat(classLabels).transpose() # 首先将数组转换为 NumPy 矩阵，然后再将行向量转置为列向量
+    # m-&gt;数据量，样本数 n-&gt;特征数
+    m,n = shape(dataMatrix)
+    # print m, n, '__'*10, shape(dataMatrix.transpose()), '__'*100
+    # alpha代表向目标移动的步长
+    alpha = 0.001
+    # 迭代次数
+    maxCycles = 500
+    # 生成一个长度和特征数相同的矩阵，此处n为3 -&gt; [[1],[1],[1]]
+    # weights 代表回归系数， 此处的 ones((n,1)) 创建一个长度和特征数相同的矩阵，其中的数全部都是 1
+    weights = ones((n,1))
+    for k in range(maxCycles):              #heavy on matrix operations
+        # m*3 的矩阵 * 3*1 的单位矩阵 ＝ m*1的矩阵
+        # 那么乘上单位矩阵的意义，就代表：通过公式得到的理论值
+        # 参考地址： 矩阵乘法的本质是什么？ https://www.zhihu.com/question/21351965/answer/31050145
+        # print 'dataMatrix====', dataMatrix 
+        # print 'weights====', weights
+        # n*3   *  3*1  = n*1
+        h = sigmoid(dataMatrix*weights)     # 矩阵乘法
+        # print 'hhhhhhh====', h
+        # labelMat是实际值
+        error = (labelMat - h)              # 向量相减
+        # 0.001* (3*m)*(m*1) 表示在每一个列上的一个误差情况，最后得出 x1,x2,xn的系数的偏移量
+        weights = weights + alpha * dataMatrix.transpose() * error # 矩阵乘法，最后得到回归系数
+    return array(weights)
+
+
+# 随机梯度上升
+# 梯度上升优化算法在每次更新数据集时都需要遍历整个数据集，计算复杂都较高
+# 随机梯度上升一次只用一个样本点来更新回归系数
+def stocGradAscent0(dataMatrix, classLabels):
+    m,n = shape(dataMatrix)
+    alpha = 0.01
+    # n*1的矩阵
+    # 函数ones创建一个全1的数组
+    weights = ones(n)   # 初始化长度为n的数组，元素全部为 1
+    for i in range(m):
+        # sum(dataMatrix[i]*weights)为了求 f(x)的值， f(x)=a1*x1+b2*x2+..+nn*xn,此处求出的 h 是一个具体的数值，而不是一个矩阵
+        h = sigmoid(sum(dataMatrix[i]*weights))
+        # print 'dataMatrix[i]===', dataMatrix[i]
+        # 计算真实类别与预测类别之间的差值，然后按照该差值调整回归系数
+        error = classLabels[i] - h
+        # 0.01*(1*1)*(1*n)
+        print weights, &quot;*&quot;*10 , dataMatrix[i], &quot;*&quot;*10 , error
+        weights = weights + alpha * error * dataMatrix[i]
+    return weights
+
+
+# 随机梯度上升算法（随机化）
+def stocGradAscent1(dataMatrix, classLabels, numIter=150):
+    m,n = shape(dataMatrix)
+    weights = ones(n)   # 创建与列数相同的矩阵的系数矩阵，所有的元素都是1
+    # 随机梯度, 循环150,观察是否收敛
+    for j in range(numIter):
+        # [0, 1, 2 .. m-1]
+        dataIndex = range(m)
+        for i in range(m):
+            # i和j的不断增大，导致alpha的值不断减少，但是不为0
+            alpha = 4/(1.0+j+i)+0.0001    # alpha 会随着迭代不断减小，但永远不会减小到0，因为后边还有一个常数项0.0001
+            # 随机产生一个 0～len()之间的一个值
+            # random.uniform(x, y) 方法将随机生成下一个实数，它在[x,y]范围内,x是这个范围内的最小值，y是这个范围内的最大值。
+            randIndex = int(random.uniform(0,len(dataIndex)))
+            # sum(dataMatrix[i]*weights)为了求 f(x)的值， f(x)=a1*x1+b2*x2+..+nn*xn
+            h = sigmoid(sum(dataMatrix[dataIndex[randIndex]]*weights))
+            error = classLabels[dataIndex[randIndex]] - h
+            # print weights, '__h=%s' % h, '__'*20, alpha, '__'*20, error, '__'*20, dataMatrix[randIndex]
+            weights = weights + alpha * error * dataMatrix[dataIndex[randIndex]]
+            del(dataIndex[randIndex])
+    return weights
+
+</code></pre>
+
+<blockquote>
+<p>测试算法: 为了量化回归的效果，需要观察错误率。根据错误率决定是否回退到训练阶段，通过改变迭代的次数和步长的参数来得到更好的回归系数</p>
+</blockquote>
+<p>Logistic 回归分类函数</p>
+<pre><code class="python"># 分类函数，根据回归系数和特征向量来计算 Sigmoid的值
+def classifyVector(inX, weights):
+    '''
+    Desc: 
+        最终的分类函数，根据回归系数和特征向量来计算 Sigmoid 的值，大于0.5函数返回1，否则返回0
+    Args:
+        inX -- 特征向量，features
+        weights -- 根据梯度下降/随机梯度下降 计算得到的回归系数
+    Returns:
+        如果 prob 计算大于 0.5 函数返回 1
+        否则返回 0
+    '''
+    prob = sigmoid(sum(inX*weights))
+    if prob &gt; 0.5: return 1.0
+    else: return 0.0
+
+# 打开测试集和训练集,并对数据进行格式化处理
+def colicTest():
+    '''
+    Desc:
+        打开测试集和训练集，并对数据进行格式化处理
+    Args:
+        None
+    Returns:
+        errorRate -- 分类错误率
+    '''
+    frTrain = open('db/5.Logistic/horseColicTraining.txt')
+    frTest = open('db/5.Logistic/horseColicTest.txt')
+    trainingSet = []
+    trainingLabels = []
+    # 解析训练数据集中的数据特征和Labels
+    # trainingSet 中存储训练数据集的特征，trainingLabels 存储训练数据集的样本对应的分类标签
+    for line in frTrain.readlines():
+        currLine = line.strip().split('\t')
+        lineArr = []
+        for i in range(21):
+            lineArr.append(float(currLine[i]))
+        trainingSet.append(lineArr)
+        trainingLabels.append(float(currLine[21]))
+    # 使用 改进后的 随机梯度下降算法 求得在此数据集上的最佳回归系数 trainWeights
+    trainWeights = stocGradAscent1(array(trainingSet), trainingLabels, 500)
+    errorCount = 0
+    numTestVec = 0.0
+    # 读取 测试数据集 进行测试，计算分类错误的样本条数和最终的错误率
+    for line in frTest.readlines():
+        numTestVec += 1.0
+        currLine = line.strip().split('\t')
+        lineArr = []
+        for i in range(21):
+            lineArr.append(float(currLine[i]))
+        if int(classifyVector(array(lineArr), trainWeights)) != int(currLine[21]):
+            errorCount += 1
+    errorRate = (float(errorCount) / numTestVec)
+    print &quot;the error rate of this test is: %f&quot; % errorRate
+    return errorRate
+
+
+# 调用 colicTest() 10次并求结果的平均值
+def multiTest():
+    numTests = 10
+    errorSum = 0.0
+    for k in range(numTests):
+        errorSum += colicTest()
+    print &quot;after %d iterations the average error rate is: %f&quot; % (numTests, errorSum/float(numTests)) 
+</code></pre>
+
+<blockquote>
+<p>使用算法: 实现一个简单的命令行程序来收集马的症状并输出预测结果并非难事，这可以作为留给大家的一道习题</p>
+</blockquote>
+<h1 id="_14">额外内容(可选读)</h1>
+<p>在上文中，当Sigmoid函数大于 0.5 的数据被分入 1 类，小于 0.5 即被归入 0 类。其实0.5也是可以改动的。 比如大于 0.9 的数据被分入 1 类，小于 0.9 即被归入 0 类。</p>
+<h2 id="logistic_6">Logistic回归 和 最大熵模型</h2>
+<p>Logistic回归和最大熵模型 都属于对数线性模型 （log linear model）。 当类标签（class label）只有两个的时候，最大熵模型就是 logistic 回归模型。 学习它们的模型一般采用极大似然估计或者正则化的极大似然估计。Logistic 回归和最大熵模型学习可以形式化为无约束最优化问题。（关于最大熵模型，可以阅读《统计学习方法》 第六章。）</p>
+<h2 id="_15">其他算法</h2>
+<p>除了梯度下降，随机梯度下降，还有Conjugate Gradient，BFGS，L-BFGS，他们不需要指定alpha值（步长），而且比梯度下降更快，在现实中应用的也比较多。 当然这些算法相比随机梯度要复杂。</p>
+<p>综上这些算法都有一个共通的缺点就是他们都是不断去逼近真实值，永远只是一个真实值的近似值而已。</p>
+<h2 id="_16">多标签分类</h2>
+<p>逻辑回归也可以用作于多标签分类。 思路如下：</p>
+<p>假设我们标签A中有a0,a1,a2....an个标签，对于每个标签 ai (ai 是标签A之一)，我们训练一个逻辑回归分类器。</p>
+<p>即，训练该标签的逻辑回归分类器的时候，将ai看作一类标签，非ai的所有标签看作一类标签。那么相当于整个数据集里面只有两类标签：ai 和其他。</p>
+<p>剩下步骤就跟我们训练正常的逻辑回归分类器一样了。</p>
+<p>测试数据的时候，将查询点套用在每个逻辑回归分类器中的Sigmoid 函数，取值最高的对应标签为查询点的标签。</p>
+<hr />
+<ul>
+<li><strong>作者：<a href="http://cwiki.apachecn.org/display/~xuxin">羊三</a> <a href="http://cwiki.apachecn.org/display/~chenyao">小瑶</a></strong></li>
+<li><a href="https://github.com/apachecn/AiLearning">GitHub地址</a>: <a href="https://github.com/apachecn/AiLearning">https://github.com/apachecn/AiLearning</a></li>
+<li><strong>版权声明：欢迎转载学习 =&gt; 请标注信息来源于 <a href="http://www.apachecn.org/">ApacheCN</a></strong></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/AiLearning/" target="_blank">apachecn/AiLearning</a></p>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'AiLearning',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../4.NaiveBayesian/" title="第4章_朴素贝叶斯" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                第4章_朴素贝叶斯
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../6.SVM/" title="第6章_支持向量机" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                第6章_支持向量机
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

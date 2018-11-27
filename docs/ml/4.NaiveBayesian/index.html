@@ -1,0 +1,1686 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ApacheCN 专注于优秀项目维护的开源组织">
+      
+      
+        <link rel="canonical" href="http://ailearning.apachecn.org/ml/4.NaiveBayesian/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>第4章_朴素贝叶斯 - ApacheCN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#4" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                ApacheCN
+              </span>
+              <span class="md-header-nav__topic">
+                第4章_朴素贝叶斯
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    ApacheCN
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1.MLFoundation/" title="第1章_基础知识" class="md-nav__link">
+      第1章_基础知识
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2.KNN/" title="第2章_K近邻算法" class="md-nav__link">
+      第2章_K近邻算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3.DecisionTree/" title="第3章_决策树算法" class="md-nav__link">
+      第3章_决策树算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        第4章_朴素贝叶斯
+      </label>
+    
+    <a href="./" title="第4章_朴素贝叶斯" class="md-nav__link md-nav__link--active">
+      第4章_朴素贝叶斯
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="朴素贝叶斯 概述" class="md-nav__link">
+    朴素贝叶斯 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="贝叶斯理论 &amp; 条件概率" class="md-nav__link">
+    贝叶斯理论 &amp; 条件概率
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="贝叶斯理论" class="md-nav__link">
+    贝叶斯理论
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="条件概率" class="md-nav__link">
+    条件概率
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="使用条件概率来分类" class="md-nav__link">
+    使用条件概率来分类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="朴素贝叶斯 场景" class="md-nav__link">
+    朴素贝叶斯 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" title="朴素贝叶斯 原理" class="md-nav__link">
+    朴素贝叶斯 原理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="朴素贝叶斯 工作原理" class="md-nav__link">
+    朴素贝叶斯 工作原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="朴素贝叶斯 开发流程" class="md-nav__link">
+    朴素贝叶斯 开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="朴素贝叶斯 算法特点" class="md-nav__link">
+    朴素贝叶斯 算法特点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="朴素贝叶斯 项目案例" class="md-nav__link">
+    朴素贝叶斯 项目案例
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" title="项目案例1: 屏蔽社区留言板的侮辱性言论" class="md-nav__link">
+    项目案例1: 屏蔽社区留言板的侮辱性言论
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" title="项目案例2: 使用朴素贝叶斯过滤垃圾邮件" class="md-nav__link">
+    项目案例2: 使用朴素贝叶斯过滤垃圾邮件
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" title="项目案例3: 使用朴素贝叶斯分类器从个人广告中获取区域倾向" class="md-nav__link">
+    项目案例3: 使用朴素贝叶斯分类器从个人广告中获取区域倾向
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5.Logistic/" title="第5章_逻辑回归" class="md-nav__link">
+      第5章_逻辑回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6.SVM/" title="第6章_支持向量机" class="md-nav__link">
+      第6章_支持向量机
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7.Ensemble/" title="第7章_集成方法" class="md-nav__link">
+      第7章_集成方法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8.Regression/" title="第8章_回归" class="md-nav__link">
+      第8章_回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9.TreeRegression/" title="第9章_树回归" class="md-nav__link">
+      第9章_树回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10.KMeans/" title="第10章_KMeans聚类" class="md-nav__link">
+      第10章_KMeans聚类
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11.Apriori/" title="第11章_Apriori算法" class="md-nav__link">
+      第11章_Apriori算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12.FP-growth/" title="第12章_FP-growth算法" class="md-nav__link">
+      第12章_FP-growth算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13.PCA/" title="第13章_PCA降维" class="md-nav__link">
+      第13章_PCA降维
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14.SVD/" title="第14章_SVD简化数据" class="md-nav__link">
+      第14章_SVD简化数据
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15.BigData_MapReduce/" title="第15章_大数据与MapReduce" class="md-nav__link">
+      第15章_大数据与MapReduce
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16.RecommendedSystem/" title="第16章_推荐系统" class="md-nav__link">
+      第16章_推荐系统
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../why-to-record-study-ml-video/" title="为何录制教学版视频" class="md-nav__link">
+      为何录制教学版视频
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../join-us/" title="加入我们" class="md-nav__link">
+      加入我们
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="朴素贝叶斯 概述" class="md-nav__link">
+    朴素贝叶斯 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="贝叶斯理论 &amp; 条件概率" class="md-nav__link">
+    贝叶斯理论 &amp; 条件概率
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="贝叶斯理论" class="md-nav__link">
+    贝叶斯理论
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="条件概率" class="md-nav__link">
+    条件概率
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="使用条件概率来分类" class="md-nav__link">
+    使用条件概率来分类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="朴素贝叶斯 场景" class="md-nav__link">
+    朴素贝叶斯 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" title="朴素贝叶斯 原理" class="md-nav__link">
+    朴素贝叶斯 原理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="朴素贝叶斯 工作原理" class="md-nav__link">
+    朴素贝叶斯 工作原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="朴素贝叶斯 开发流程" class="md-nav__link">
+    朴素贝叶斯 开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="朴素贝叶斯 算法特点" class="md-nav__link">
+    朴素贝叶斯 算法特点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="朴素贝叶斯 项目案例" class="md-nav__link">
+    朴素贝叶斯 项目案例
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" title="项目案例1: 屏蔽社区留言板的侮辱性言论" class="md-nav__link">
+    项目案例1: 屏蔽社区留言板的侮辱性言论
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" title="项目案例2: 使用朴素贝叶斯过滤垃圾邮件" class="md-nav__link">
+    项目案例2: 使用朴素贝叶斯过滤垃圾邮件
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" title="项目案例3: 使用朴素贝叶斯分类器从个人广告中获取区域倾向" class="md-nav__link">
+    项目案例3: 使用朴素贝叶斯分类器从个人广告中获取区域倾向
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/AiLearning/edit/master/docs/ml/4.NaiveBayesian.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="4">第4章 基于概率论的分类方法：朴素贝叶斯</h1>
+<p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
+<p><img alt="朴素贝叶斯_首页" src="../../img/ml/4.NaiveBayesian/NavieBayesian_headPage_xy.png" title="朴素贝叶斯首页" /></p>
+<h2 id="_1">朴素贝叶斯 概述</h2>
+<p><code>贝叶斯分类是一类分类算法的总称，这类算法均以贝叶斯定理为基础，故统称为贝叶斯分类。本章首先介绍贝叶斯分类算法的基础——贝叶斯定理。最后，我们通过实例来讨论贝叶斯分类的中最简单的一种: 朴素贝叶斯分类。</code></p>
+<h2 id="_2">贝叶斯理论 &amp; 条件概率</h2>
+<h3 id="_3">贝叶斯理论</h3>
+<p>我们现在有一个数据集，它由两类数据组成，数据分布如下图所示：</p>
+<p><img alt="朴素贝叶斯示例数据分布" src="../../img/ml/4.NaiveBayesian/朴素贝叶斯示例数据分布.png" title="参数已知的概率分布" /></p>
+<p>我们现在用 p1(x,y) 表示数据点 (x,y) 属于类别 1（图中用圆点表示的类别）的概率，用 p2(x,y) 表示数据点 (x,y) 属于类别 2（图中三角形表示的类别）的概率，那么对于一个新数据点 (x,y)，可以用下面的规则来判断它的类别：
+<em> 如果 p1(x,y) &gt; p2(x,y) ，那么类别为1
+</em> 如果 p2(x,y) &gt; p1(x,y) ，那么类别为2</p>
+<p>也就是说，我们会选择高概率对应的类别。这就是贝叶斯决策理论的核心思想，即选择具有最高概率的决策。</p>
+<h3 id="_4">条件概率</h3>
+<p>如果你对 p(x,y|c1) 符号很熟悉，那么可以跳过本小节。</p>
+<p>有一个装了 7 块石头的罐子，其中 3 块是白色的，4 块是黑色的。如果从罐子中随机取出一块石头，那么是白色石头的可能性是多少？由于取石头有 7 种可能，其中 3 种为白色，所以取出白色石头的概率为 3/7 。那么取到黑色石头的概率又是多少呢？很显然，是 4/7 。我们使用 P(white) 来表示取到白色石头的概率，其概率值可以通过白色石头数目除以总的石头数目来得到。</p>
+<p><img alt="包含 7 块石头的集合" src="../../img/ml/4.NaiveBayesian/NB_2.png" /></p>
+<p>如果这 7 块石头如下图所示，放在两个桶中，那么上述概率应该如何计算？</p>
+<p><img alt="7块石头放入两个桶中" src="../../img/ml/4.NaiveBayesian/NB_3.png" /></p>
+<p>计算 P(white) 或者 P(black) ，如果事先我们知道石头所在桶的信息是会改变结果的。这就是所谓的条件概率（conditional probablity）。假定计算的是从 B 桶取到白色石头的概率，这个概率可以记作 P(white|bucketB) ，我们称之为“在已知石头出自 B 桶的条件下，取出白色石头的概率”。很容易得到，P(white|bucketA) 值为 2/4 ，P(white|bucketB) 的值为 1/3 。</p>
+<p>条件概率的计算公式如下：</p>
+<p>P(white|bucketB) = P(white and bucketB) / P(bucketB)</p>
+<p>首先，我们用 B 桶中白色石头的个数除以两个桶中总的石头数，得到 P(white and bucketB) = 1/7 .其次，由于 B 桶中有 3 块石头，而总石头数为 7 ，于是 P(bucketB) 就等于 3/7 。于是又 P(white|bucketB) = P(white and bucketB) / P(bucketB) = (1/7) / (3/7) = 1/3 。</p>
+<p>另外一种有效计算条件概率的方法称为贝叶斯准则。贝叶斯准则告诉我们如何交换条件概率中的条件与结果，即如果已知 P(x|c)，要求 P(c|x)，那么可以使用下面的计算方法：</p>
+<p>![计算p(c|x)的方法/img/ml/4.NaiveBayesian/NB_4.png)</p>
+<h3 id="_5">使用条件概率来分类</h3>
+<p>上面我们提到贝叶斯决策理论要求计算两个概率 p1(x, y) 和 p2(x, y):
+<em> 如果 p1(x, y) &gt; p2(x, y), 那么属于类别 1;
+</em> 如果 p2(x, y) &gt; p1(X, y), 那么属于类别 2.</p>
+<p>这并不是贝叶斯决策理论的所有内容。使用 p1() 和 p2() 只是为了尽可能简化描述，而真正需要计算和比较的是 p(c1|x, y) 和 p(c2|x, y) .这些符号所代表的具体意义是: 给定某个由 x、y 表示的数据点，那么该数据点来自类别 c1 的概率是多少？数据点来自类别 c2 的概率又是多少？注意这些概率与概率 p(x, y|c1) 并不一样，不过可以使用贝叶斯准则来交换概率中条件与结果。具体地，应用贝叶斯准则得到: </p>
+<p><img alt="应用贝叶斯准则" src="../../img/ml/4.NaiveBayesian/NB_5.png" /></p>
+<p>使用上面这些定义，可以定义贝叶斯分类准则为:
+<em> 如果 P(c1|x, y) &gt; P(c2|x, y), 那么属于类别 c1;
+</em> 如果 P(c2|x, y) &gt; P(c1|x, y), 那么属于类别 c2.</p>
+<p>在文档分类中，整个文档（如一封电子邮件）是实例，而电子邮件中的某些元素则构成特征。我们可以观察文档中出现的词，并把每个词作为一个特征，而每个词的出现或者不出现作为该特征的值，这样得到的特征数目就会跟词汇表中的词的数目一样多。</p>
+<p>我们假设特征之间  <strong>相互独立</strong> 。所谓 <b>独立(independence)</b> 指的是统计意义上的独立，即一个特征或者单词出现的可能性与它和其他单词相邻没有关系，比如说，“我们”中的“我”和“们”出现的概率与这两个字相邻没有任何关系。这个假设正是朴素贝叶斯分类器中 朴素(naive) 一词的含义。朴素贝叶斯分类器中的另一个假设是，<b>每个特征同等重要</b>。</p>
+<p><b>Note:</b> 朴素贝叶斯分类器通常有两种实现方式: 一种基于伯努利模型实现，一种基于多项式模型实现。这里采用前一种实现方式。该实现方式中并不考虑词在文档中出现的次数，只考虑出不出现，因此在这个意义上相当于假设词是等权重的。</p>
+<h2 id="_6">朴素贝叶斯 场景</h2>
+<p>机器学习的一个重要应用就是文档的自动分类。</p>
+<p>在文档分类中，整个文档（如一封电子邮件）是实例，而电子邮件中的某些元素则构成特征。我们可以观察文档中出现的词，并把每个词作为一个特征，而每个词的出现或者不出现作为该特征的值，这样得到的特征数目就会跟词汇表中的词的数目一样多。</p>
+<p>朴素贝叶斯是上面介绍的贝叶斯分类器的一个扩展，是用于文档分类的常用算法。下面我们会进行一些朴素贝叶斯分类的实践项目。</p>
+<h2 id="_7">朴素贝叶斯 原理</h2>
+<h3 id="_8">朴素贝叶斯 工作原理</h3>
+<pre><code>提取所有文档中的词条并进行去重
+获取文档的所有类别
+计算每个类别中的文档数目
+对每篇训练文档: 
+    对每个类别: 
+        如果词条出现在文档中--&gt;增加该词条的计数值（for循环或者矩阵相加）
+        增加所有词条的计数值（此类别下词条总数）
+对每个类别: 
+    对每个词条: 
+        将该词条的数目除以总词条数目得到的条件概率（P(词条|类别)）
+返回该文档属于每个类别的条件概率（P(类别|文档的所有词条)）
+</code></pre>
+
+<h3 id="_9">朴素贝叶斯 开发流程</h3>
+<pre><code>收集数据: 可以使用任何方法。
+准备数据: 需要数值型或者布尔型数据。
+分析数据: 有大量特征时，绘制特征作用不大，此时使用直方图效果更好。
+训练算法: 计算不同的独立特征的条件概率。
+测试算法: 计算错误率。
+使用算法: 一个常见的朴素贝叶斯应用是文档分类。可以在任意的分类场景中使用朴素贝叶斯分类器，不一定非要是文本。
+</code></pre>
+
+<h3 id="_10">朴素贝叶斯 算法特点</h3>
+<pre><code>优点: 在数据较少的情况下仍然有效，可以处理多类别问题。
+缺点: 对于输入数据的准备方式较为敏感。
+适用数据类型: 标称型数据。
+</code></pre>
+
+<h2 id="_11">朴素贝叶斯 项目案例</h2>
+<h3 id="1">项目案例1: 屏蔽社区留言板的侮辱性言论</h3>
+<p><a href="/src/py2.x/ml/4.NaiveBayes/bayes.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/4.NaiveBayes/bayes.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/4.NaiveBayes/bayes.py</a></p>
+<h4 id="_12">项目概述</h4>
+<p>构建一个快速过滤器来屏蔽在线社区留言板上的侮辱性言论。如果某条留言使用了负面或者侮辱性的语言，那么就将该留言标识为内容不当。对此问题建立两个类别: 侮辱类和非侮辱类，使用 1 和 0 分别表示。</p>
+<h4 id="_13">开发流程</h4>
+<pre><code>收集数据: 可以使用任何方法
+准备数据: 从文本中构建词向量
+分析数据: 检查词条确保解析的正确性
+训练算法: 从词向量计算概率
+测试算法: 根据现实情况修改分类器
+使用算法: 对社区留言板言论进行分类
+</code></pre>
+
+<blockquote>
+<p>收集数据: 可以使用任何方法</p>
+</blockquote>
+<p>本例是我们自己构造的词表:</p>
+<pre><code class="python">def loadDataSet():
+    &quot;&quot;&quot;
+    创建数据集
+    :return: 单词列表postingList, 所属类别classVec
+    &quot;&quot;&quot;
+    postingList = [['my', 'dog', 'has', 'flea', 'problems', 'help', 'please'], #[0,0,1,1,1......]
+                   ['maybe', 'not', 'take', 'him', 'to', 'dog', 'park', 'stupid'],
+                   ['my', 'dalmation', 'is', 'so', 'cute', 'I', 'love', 'him'],
+                   ['stop', 'posting', 'stupid', 'worthless', 'garbage'],
+                   ['mr', 'licks', 'ate', 'my', 'steak', 'how', 'to', 'stop', 'him'],
+                   ['quit', 'buying', 'worthless', 'dog', 'food', 'stupid']]
+    classVec = [0, 1, 0, 1, 0, 1]  # 1 is abusive, 0 not
+    return postingList, classVec
+</code></pre>
+
+<blockquote>
+<p>准备数据: 从文本中构建词向量</p>
+</blockquote>
+<pre><code class="python">def createVocabList(dataSet):
+    &quot;&quot;&quot;
+    获取所有单词的集合
+    :param dataSet: 数据集
+    :return: 所有单词的集合(即不含重复元素的单词列表)
+    &quot;&quot;&quot;
+    vocabSet = set([])  # create empty set
+    for document in dataSet:
+        # 操作符 | 用于求两个集合的并集
+        vocabSet = vocabSet | set(document)  # union of the two sets
+    return list(vocabSet)
+
+
+def setOfWords2Vec(vocabList, inputSet):
+    &quot;&quot;&quot;
+    遍历查看该单词是否出现，出现该单词则将该单词置1
+    :param vocabList: 所有单词集合列表
+    :param inputSet: 输入数据集
+    :return: 匹配列表[0,1,0,1...]，其中 1与0 表示词汇表中的单词是否出现在输入的数据集中
+    &quot;&quot;&quot;
+    # 创建一个和词汇表等长的向量，并将其元素都设置为0
+    returnVec = [0] * len(vocabList)# [0,0......]
+    # 遍历文档中的所有单词，如果出现了词汇表中的单词，则将输出的文档向量中的对应值设为1
+    for word in inputSet:
+        if word in vocabList:
+            returnVec[vocabList.index(word)] = 1
+        else:
+            print &quot;the word: %s is not in my Vocabulary!&quot; % word
+    return returnVec
+</code></pre>
+
+<blockquote>
+<p>分析数据: 检查词条确保解析的正确性</p>
+</blockquote>
+<p>检查函数执行情况，检查词表，不出现重复单词，需要的话，可以对其进行排序。</p>
+<pre><code class="python">&gt;&gt;&gt; listOPosts, listClasses = bayes.loadDataSet()
+&gt;&gt;&gt; myVocabList = bayes.createVocabList(listOPosts)
+&gt;&gt;&gt; myVocabList
+['cute', 'love', 'help', 'garbage', 'quit', 'I', 'problems', 'is', 'park', 
+'stop', 'flea', 'dalmation', 'licks', 'food', 'not', 'him', 'buying', 'posting', 'has', 'worthless', 'ate', 'to', 'maybe', 'please', 'dog', 'how', 
+'stupid', 'so', 'take', 'mr', 'steak', 'my']
+</code></pre>
+
+<p>检查函数有效性。例如：myVocabList 中索引为 2 的元素是什么单词？应该是是 help 。该单词在第一篇文档中出现了，现在检查一下看看它是否出现在第四篇文档中。</p>
+<pre><code class="python">&gt;&gt;&gt; bayes.setOfWords2Vec(myVocabList, listOPosts[0])
+[0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1]
+
+&gt;&gt;&gt; bayes.setOfWords2Vec(myVocabList, listOPosts[3])
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+</code></pre>
+
+<blockquote>
+<p>训练算法: 从词向量计算概率</p>
+</blockquote>
+<p>现在已经知道了一个词是否出现在一篇文档中，也知道该文档所属的类别。接下来我们重写贝叶斯准则，将之前的 x, y 替换为 <b>w</b>. 粗体的 <b>w</b> 表示这是一个向量，即它由多个值组成。在这个例子中，数值个数与词汇表中的词个数相同。</p>
+<p><img alt="重写贝叶斯准则" src="../../img/ml/4.NaiveBayesian/NB_6.png" /></p>
+<p>我们使用上述公式，对每个类计算该值，然后比较这两个概率值的大小。</p>
+<p>问: 上述代码实现中，为什么没有计算P(w)？</p>
+<p>答：根据上述公式可知，我们右边的式子等同于左边的式子，由于对于每个ci，P(w)是固定的。并且我们只需要比较左边式子值的大小来决策分类，那么我们就可以简化为通过比较右边分子值得大小来做决策分类。</p>
+<p>首先可以通过类别 i (侮辱性留言或者非侮辱性留言)中的文档数除以总的文档数来计算概率 p(ci) 。接下来计算 p(<b>w</b> | ci) ，这里就要用到朴素贝叶斯假设。如果将 w 展开为一个个独立特征，那么就可以将上述概率写作 p(w0, w1, w2...wn | ci) 。这里假设所有词都互相独立，该假设也称作条件独立性假设（例如 A 和 B 两个人抛骰子，概率是互不影响的，也就是相互独立的，A 抛 2点的同时 B 抛 3 点的概率就是 1/6 * 1/6），它意味着可以使用 p(w0 | ci)p(w1 | ci)p(w2 | ci)...p(wn | ci) 来计算上述概率，这样就极大地简化了计算的过程。</p>
+<p>朴素贝叶斯分类器训练函数</p>
+<pre><code class="python">def _trainNB0(trainMatrix, trainCategory):
+    &quot;&quot;&quot;
+    训练数据原版
+    :param trainMatrix: 文件单词矩阵 [[1,0,1,1,1....],[],[]...]
+    :param trainCategory: 文件对应的类别[0,1,1,0....]，列表长度等于单词矩阵数，其中的1代表对应的文件是侮辱性文件，0代表不是侮辱性矩阵
+    :return:
+    &quot;&quot;&quot;
+    # 文件数
+    numTrainDocs = len(trainMatrix)
+    # 单词数
+    numWords = len(trainMatrix[0])
+    # 侮辱性文件的出现概率，即trainCategory中所有的1的个数，
+    # 代表的就是多少个侮辱性文件，与文件的总数相除就得到了侮辱性文件的出现概率
+    pAbusive = sum(trainCategory) / float(numTrainDocs)
+    # 构造单词出现次数列表
+    p0Num = zeros(numWords) # [0,0,0,.....]
+    p1Num = zeros(numWords) # [0,0,0,.....]
+
+    # 整个数据集单词出现总数
+    p0Denom = 0.0
+    p1Denom = 0.0
+    for i in range(numTrainDocs):
+        # 是否是侮辱性文件
+        if trainCategory[i] == 1:
+            # 如果是侮辱性文件，对侮辱性文件的向量进行加和
+            p1Num += trainMatrix[i] #[0,1,1,....] + [0,1,1,....]-&gt;[0,2,2,...]
+            # 对向量中的所有元素进行求和，也就是计算所有侮辱性文件中出现的单词总数
+            p1Denom += sum(trainMatrix[i])
+        else:
+            p0Num += trainMatrix[i]
+            p0Denom += sum(trainMatrix[i])
+    # 类别1，即侮辱性文档的[P(F1|C1),P(F2|C1),P(F3|C1),P(F4|C1),P(F5|C1)....]列表
+    # 即 在1类别下，每个单词出现的概率
+    p1Vect = p1Num / p1Denom# [1,2,3,5]/90-&gt;[1/90,...]
+    # 类别0，即正常文档的[P(F1|C0),P(F2|C0),P(F3|C0),P(F4|C0),P(F5|C0)....]列表
+    # 即 在0类别下，每个单词出现的概率
+    p0Vect = p0Num / p0Denom
+    return p0Vect, p1Vect, pAbusive
+</code></pre>
+
+<blockquote>
+<p>测试算法: 根据现实情况修改分类器</p>
+</blockquote>
+<p>在利用贝叶斯分类器对文档进行分类时，要计算多个概率的乘积以获得文档属于某个类别的概率，即计算 p(w0|1) * p(w1|1) * p(w2|1)。如果其中一个概率值为 0，那么最后的乘积也为 0。为降低这种影响，可以将所有词的出现数初始化为 1，并将分母初始化为 2 （取1 或 2 的目的主要是为了保证分子和分母不为0，大家可以根据业务需求进行更改）。</p>
+<p>另一个遇到的问题是下溢出，这是由于太多很小的数相乘造成的。当计算乘积 p(w0|ci) * p(w1|ci) * p(w2|ci)... p(wn|ci) 时，由于大部分因子都非常小，所以程序会下溢出或者得到不正确的答案。（用 Python 尝试相乘许多很小的数，最后四舍五入后会得到 0）。一种解决办法是对乘积取自然对数。在代数中有 ln(a * b) = ln(a) + ln(b), 于是通过求对数可以避免下溢出或者浮点数舍入导致的错误。同时，采用自然对数进行处理不会有任何损失。</p>
+<p>下图给出了函数 f(x) 与 ln(f(x)) 的曲线。可以看出，它们在相同区域内同时增加或者减少，并且在相同点上取到极值。它们的取值虽然不同，但不影响最终结果。</p>
+<p><img alt="函数图像" src="../../img/ml/4.NaiveBayesian/NB_7.png" /></p>
+<pre><code class="python">def trainNB0(trainMatrix, trainCategory):
+    &quot;&quot;&quot;
+    训练数据优化版本
+    :param trainMatrix: 文件单词矩阵
+    :param trainCategory: 文件对应的类别
+    :return:
+    &quot;&quot;&quot;
+    # 总文件数
+    numTrainDocs = len(trainMatrix)
+    # 总单词数
+    numWords = len(trainMatrix[0])
+    # 侮辱性文件的出现概率
+    pAbusive = sum(trainCategory) / float(numTrainDocs)
+    # 构造单词出现次数列表
+    # p0Num 正常的统计
+    # p1Num 侮辱的统计
+    p0Num = ones(numWords)#[0,0......]-&gt;[1,1,1,1,1.....]
+    p1Num = ones(numWords)
+
+    # 整个数据集单词出现总数，2.0根据样本/实际调查结果调整分母的值（2主要是避免分母为0，当然值可以调整）
+    # p0Denom 正常的统计
+    # p1Denom 侮辱的统计
+    p0Denom = 2.0
+    p1Denom = 2.0
+    for i in range(numTrainDocs):
+        if trainCategory[i] == 1:
+            # 累加辱骂词的频次
+            p1Num += trainMatrix[i]
+            # 对每篇文章的辱骂的频次 进行统计汇总
+            p1Denom += sum(trainMatrix[i])
+        else:
+            p0Num += trainMatrix[i]
+            p0Denom += sum(trainMatrix[i])
+    # 类别1，即侮辱性文档的[log(P(F1|C1)),log(P(F2|C1)),log(P(F3|C1)),log(P(F4|C1)),log(P(F5|C1))....]列表
+    p1Vect = log(p1Num / p1Denom)
+    # 类别0，即正常文档的[log(P(F1|C0)),log(P(F2|C0)),log(P(F3|C0)),log(P(F4|C0)),log(P(F5|C0))....]列表
+    p0Vect = log(p0Num / p0Denom)
+    return p0Vect, p1Vect, pAbusive
+
+</code></pre>
+
+<blockquote>
+<p>使用算法: 对社区留言板言论进行分类</p>
+</blockquote>
+<p>朴素贝叶斯分类函数</p>
+<pre><code class="python">def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):
+    &quot;&quot;&quot;
+    使用算法：
+        # 将乘法转换为加法
+        乘法：P(C|F1F2...Fn) = P(F1F2...Fn|C)P(C)/P(F1F2...Fn)
+        加法：P(F1|C)*P(F2|C)....P(Fn|C)P(C) -&gt; log(P(F1|C))+log(P(F2|C))+....+log(P(Fn|C))+log(P(C))
+    :param vec2Classify: 待测数据[0,1,1,1,1...]，即要分类的向量
+    :param p0Vec: 类别0，即正常文档的[log(P(F1|C0)),log(P(F2|C0)),log(P(F3|C0)),log(P(F4|C0)),log(P(F5|C0))....]列表
+    :param p1Vec: 类别1，即侮辱性文档的[log(P(F1|C1)),log(P(F2|C1)),log(P(F3|C1)),log(P(F4|C1)),log(P(F5|C1))....]列表
+    :param pClass1: 类别1，侮辱性文件的出现概率
+    :return: 类别1 or 0
+    &quot;&quot;&quot;
+    # 计算公式  log(P(F1|C))+log(P(F2|C))+....+log(P(Fn|C))+log(P(C))
+    # 大家可能会发现，上面的计算公式，没有除以贝叶斯准则的公式的分母，也就是 P(w) （P(w) 指的是此文档在所有的文档中出现的概率）就进行概率大小的比较了，
+    # 因为 P(w) 针对的是包含侮辱和非侮辱的全部文档，所以 P(w) 是相同的。
+    # 使用 NumPy 数组来计算两个向量相乘的结果，这里的相乘是指对应元素相乘，即先将两个向量中的第一个元素相乘，然后将第2个元素相乘，以此类推。
+    # 我的理解是：这里的 vec2Classify * p1Vec 的意思就是将每个词与其对应的概率相关联起来
+    p1 = sum(vec2Classify * p1Vec) + log(pClass1) # P(w|c1) * P(c1) ，即贝叶斯准则的分子
+    p0 = sum(vec2Classify * p0Vec) + log(1.0 - pClass1) # P(w|c0) * P(c0) ，即贝叶斯准则的分子·
+    if p1 &gt; p0:
+        return 1
+    else:
+        return 0
+
+
+def testingNB():
+    &quot;&quot;&quot;
+    测试朴素贝叶斯算法
+    &quot;&quot;&quot;
+    # 1. 加载数据集
+    listOPosts, listClasses = loadDataSet()
+    # 2. 创建单词集合
+    myVocabList = createVocabList(listOPosts)
+    # 3. 计算单词是否出现并创建数据矩阵
+    trainMat = []
+    for postinDoc in listOPosts:
+        # 返回m*len(myVocabList)的矩阵， 记录的都是0，1信息
+        trainMat.append(setOfWords2Vec(myVocabList, postinDoc))
+    # 4. 训练数据
+    p0V, p1V, pAb = trainNB0(array(trainMat), array(listClasses))
+    # 5. 测试数据
+    testEntry = ['love', 'my', 'dalmation']
+    thisDoc = array(setOfWords2Vec(myVocabList, testEntry))
+    print testEntry, 'classified as: ', classifyNB(thisDoc, p0V, p1V, pAb)
+    testEntry = ['stupid', 'garbage']
+    thisDoc = array(setOfWords2Vec(myVocabList, testEntry))
+    print testEntry, 'classified as: ', classifyNB(thisDoc, p0V, p1V, pAb)
+</code></pre>
+
+<h3 id="2">项目案例2: 使用朴素贝叶斯过滤垃圾邮件</h3>
+<p><a href="/src/py2.x/ml/4.NaiveBayes/bayes.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/4.NaiveBayes/bayes.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/4.NaiveBayes/bayes.py</a></p>
+<h4 id="_14">项目概述</h4>
+<p>完成朴素贝叶斯的一个最著名的应用: 电子邮件垃圾过滤。</p>
+<h4 id="_15">开发流程</h4>
+<p>使用朴素贝叶斯对电子邮件进行分类</p>
+<pre><code>收集数据: 提供文本文件
+准备数据: 将文本文件解析成词条向量
+分析数据: 检查词条确保解析的正确性
+训练算法: 使用我们之前建立的 trainNB() 函数
+测试算法: 使用朴素贝叶斯进行交叉验证
+使用算法: 构建一个完整的程序对一组文档进行分类，将错分的文档输出到屏幕上
+</code></pre>
+
+<blockquote>
+<p>收集数据: 提供文本文件</p>
+</blockquote>
+<p>文本文件内容如下: </p>
+<pre><code>Hi Peter,
+
+With Jose out of town, do you want to
+meet once in a while to keep things
+going and do some interesting stuff?
+
+Let me know
+Eugene
+</code></pre>
+
+<blockquote>
+<p>准备数据: 将文本文件解析成词条向量</p>
+</blockquote>
+<p>使用正则表达式来切分文本</p>
+<pre><code class="python">&gt;&gt;&gt; mySent = 'This book is the best book on Python or M.L. I have ever laid eyes upon.'
+&gt;&gt;&gt; import re
+&gt;&gt;&gt; regEx = re.compile('\\W*')
+&gt;&gt;&gt; listOfTokens = regEx.split(mySent)
+&gt;&gt;&gt; listOfTokens
+['This', 'book', 'is', 'the', 'best', 'book', 'on', 'Python', 'or', 'M.L.', 'I', 'have', 'ever', 'laid', 'eyes', 'upon', '']
+</code></pre>
+
+<blockquote>
+<p>分析数据: 检查词条确保解析的正确性</p>
+<p>训练算法: 使用我们之前建立的 trainNB0() 函数</p>
+</blockquote>
+<pre><code class="python">def trainNB0(trainMatrix, trainCategory):
+    &quot;&quot;&quot;
+    训练数据优化版本
+    :param trainMatrix: 文件单词矩阵
+    :param trainCategory: 文件对应的类别
+    :return:
+    &quot;&quot;&quot;
+    # 总文件数
+    numTrainDocs = len(trainMatrix)
+    # 总单词数
+    numWords = len(trainMatrix[0])
+    # 侮辱性文件的出现概率
+    pAbusive = sum(trainCategory) / float(numTrainDocs)
+    # 构造单词出现次数列表
+    # p0Num 正常的统计
+    # p1Num 侮辱的统计
+    p0Num = ones(numWords)#[0,0......]-&gt;[1,1,1,1,1.....]
+    p1Num = ones(numWords)
+
+    # 整个数据集单词出现总数，2.0根据样本/实际调查结果调整分母的值（2主要是避免分母为0，当然值可以调整）
+    # p0Denom 正常的统计
+    # p1Denom 侮辱的统计
+    p0Denom = 2.0
+    p1Denom = 2.0
+    for i in range(numTrainDocs):
+        if trainCategory[i] == 1:
+            # 累加辱骂词的频次
+            p1Num += trainMatrix[i]
+            # 对每篇文章的辱骂的频次 进行统计汇总
+            p1Denom += sum(trainMatrix[i])
+        else:
+            p0Num += trainMatrix[i]
+            p0Denom += sum(trainMatrix[i])
+    # 类别1，即侮辱性文档的[log(P(F1|C1)),log(P(F2|C1)),log(P(F3|C1)),log(P(F4|C1)),log(P(F5|C1))....]列表
+    p1Vect = log(p1Num / p1Denom)
+    # 类别0，即正常文档的[log(P(F1|C0)),log(P(F2|C0)),log(P(F3|C0)),log(P(F4|C0)),log(P(F5|C0))....]列表
+    p0Vect = log(p0Num / p0Denom)
+    return p0Vect, p1Vect, pAbusive
+</code></pre>
+
+<blockquote>
+<p>测试算法: 使用朴素贝叶斯进行交叉验证</p>
+</blockquote>
+<p>文件解析及完整的垃圾邮件测试函数</p>
+<pre><code class="python"># 切分文本
+def textParse(bigString):
+    '''
+    Desc:
+        接收一个大字符串并将其解析为字符串列表
+    Args:
+        bigString -- 大字符串
+    Returns:
+        去掉少于 2 个字符的字符串，并将所有字符串转换为小写，返回字符串列表
+    '''
+    import re
+    # 使用正则表达式来切分句子，其中分隔符是除单词、数字外的任意字符串
+    listOfTokens = re.split(r'\W*', bigString)
+    return [tok.lower() for tok in listOfTokens if len(tok) &gt; 2]
+
+def spamTest():
+    '''
+    Desc:
+        对贝叶斯垃圾邮件分类器进行自动化处理。
+    Args:
+        none
+    Returns:
+        对测试集中的每封邮件进行分类，若邮件分类错误，则错误数加 1，最后返回总的错误百分比。
+    '''
+    docList = []
+    classList = []
+    fullText = []
+    for i in range(1, 26):
+        # 切分，解析数据，并归类为 1 类别
+        wordList = textParse(open('db/4.NaiveBayes/email/spam/%d.txt' % i).read())
+        docList.append(wordList)
+        classList.append(1)
+        # 切分，解析数据，并归类为 0 类别
+        wordList = textParse(open('db/4.NaiveBayes/email/ham/%d.txt' % i).read())
+        docList.append(wordList)
+        fullText.extend(wordList)
+        classList.append(0)
+    # 创建词汇表    
+    vocabList = createVocabList(docList)
+    trainingSet = range(50)
+    testSet = []
+    # 随机取 10 个邮件用来测试
+    for i in range(10):
+        # random.uniform(x, y) 随机生成一个范围为 x ~ y 的实数
+        randIndex = int(random.uniform(0, len(trainingSet)))
+        testSet.append(trainingSet[randIndex])
+        del(trainingSet[randIndex])
+    trainMat = []
+    trainClasses = []
+    for docIndex in trainingSet:
+        trainMat.append(setOfWords2Vec(vocabList, docList[docIndex]))
+        trainClasses.append(classList[docIndex])
+    p0V, p1V, pSpam = trainNB0(array(trainMat), array(trainClasses))
+    errorCount = 0
+    for docIndex in testSet:
+        wordVector = setOfWords2Vec(vocabList, docList[docIndex])
+        if classifyNB(array(wordVector), p0V, p1V, pSpam) != classList[docIndex]:
+            errorCount += 1
+    print 'the errorCount is: ', errorCount
+    print 'the testSet length is :', len(testSet)
+    print 'the error rate is :', float(errorCount)/len(testSet)
+</code></pre>
+
+<blockquote>
+<p>使用算法: 构建一个完整的程序对一组文档进行分类，将错分的文档输出到屏幕上</p>
+</blockquote>
+<h3 id="3">项目案例3: 使用朴素贝叶斯分类器从个人广告中获取区域倾向</h3>
+<p><a href="/src/py2.x/ml/4.NaiveBayes/bayes.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/4.NaiveBayes/bayes.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/4.NaiveBayes/bayes.py</a></p>
+<h4 id="_16">项目概述</h4>
+<p>广告商往往想知道关于一个人的一些特定人口统计信息，以便能更好地定向推销广告。</p>
+<p>我们将分别从美国的两个城市中选取一些人，通过分析这些人发布的信息，来比较这两个城市的人们在广告用词上是否不同。如果结论确实不同，那么他们各自常用的词是哪些，从人们的用词当中，我们能否对不同城市的人所关心的内容有所了解。</p>
+<h4 id="_17">开发流程</h4>
+<pre><code>收集数据: 从 RSS 源收集内容，这里需要对 RSS 源构建一个接口
+准备数据: 将文本文件解析成词条向量
+分析数据: 检查词条确保解析的正确性
+训练算法: 使用我们之前建立的 trainNB0() 函数
+测试算法: 观察错误率，确保分类器可用。可以修改切分程序，以降低错误率，提高分类结果
+使用算法: 构建一个完整的程序，封装所有内容。给定两个 RSS 源，改程序会显示最常用的公共词
+</code></pre>
+
+<blockquote>
+<p>收集数据: 从 RSS 源收集内容，这里需要对 RSS 源构建一个接口</p>
+</blockquote>
+<p>也就是导入 RSS 源，我们使用 python 下载文本，在http://code.google.com/p/feedparser/ 下浏览相关文档，安装 feedparse，首先解压下载的包，并将当前目录切换到解压文件所在的文件夹，然后在 python 提示符下输入：</p>
+<pre><code class="python">&gt;&gt;&gt; python setup.py install
+</code></pre>
+
+<blockquote>
+<p>准备数据: 将文本文件解析成词条向量</p>
+</blockquote>
+<p>文档词袋模型</p>
+<p>我们将每个词的出现与否作为一个特征，这可以被描述为 <b>词集模型(set-of-words model)</b>。如果一个词在文档中出现不止一次，这可能意味着包含该词是否出现在文档中所不能表达的某种信息，这种方法被称为 <b>词袋模型(bag-of-words model)</b>。在词袋中，每个单词可以出现多次，而在词集中，每个词只能出现一次。为适应词袋模型，需要对函数 setOfWords2Vec() 稍加修改，修改后的函数为 bagOfWords2Vec() 。</p>
+<p>如下给出了基于词袋模型的朴素贝叶斯代码。它与函数 setOfWords2Vec() 几乎完全相同，唯一不同的是每当遇到一个单词时，它会增加词向量中的对应值，而不只是将对应的数值设为 1 。</p>
+<pre><code class="python">def bagOfWords2VecMN(vocaList, inputSet):
+    returnVec = [0] * len(vocabList)
+    for word in inputSet:
+        if word in vocaList:
+            returnVec[vocabList.index(word)] += 1
+    return returnVec
+</code></pre>
+
+<pre><code class="python">#创建一个包含在所有文档中出现的不重复词的列表
+def createVocabList(dataSet):
+    vocabSet=set([])    #创建一个空集
+    for document in dataSet:
+        vocabSet=vocabSet|set(document)   #创建两个集合的并集
+    return list(vocabSet)
+def setOfWords2VecMN(vocabList,inputSet):
+    returnVec=[0]*len(vocabList)  #创建一个其中所含元素都为0的向量
+    for word in inputSet:
+        if word in vocabList:
+                returnVec[vocabList.index(word)]+=1
+    return returnVec
+
+#文件解析
+def textParse(bigString):
+    import re
+    listOfTokens=re.split(r'\W*',bigString)
+    return [tok.lower() for tok in listOfTokens if len(tok)&gt;2]
+</code></pre>
+
+<blockquote>
+<p>分析数据: 检查词条确保解析的正确性</p>
+<p>训练算法: 使用我们之前建立的 trainNB0() 函数</p>
+</blockquote>
+<pre><code class="python">def trainNB0(trainMatrix, trainCategory):
+    &quot;&quot;&quot;
+    训练数据优化版本
+    :param trainMatrix: 文件单词矩阵
+    :param trainCategory: 文件对应的类别
+    :return:
+    &quot;&quot;&quot;
+    # 总文件数
+    numTrainDocs = len(trainMatrix)
+    # 总单词数
+    numWords = len(trainMatrix[0])
+    # 侮辱性文件的出现概率
+    pAbusive = sum(trainCategory) / float(numTrainDocs)
+    # 构造单词出现次数列表
+    # p0Num 正常的统计
+    # p1Num 侮辱的统计 
+    # 避免单词列表中的任何一个单词为0，而导致最后的乘积为0，所以将每个单词的出现次数初始化为 1
+    p0Num = ones(numWords)#[0,0......]-&gt;[1,1,1,1,1.....]
+    p1Num = ones(numWords)
+
+    # 整个数据集单词出现总数，2.0根据样本/实际调查结果调整分母的值（2主要是避免分母为0，当然值可以调整）
+    # p0Denom 正常的统计
+    # p1Denom 侮辱的统计
+    p0Denom = 2.0
+    p1Denom = 2.0
+    for i in range(numTrainDocs):
+        if trainCategory[i] == 1:
+            # 累加辱骂词的频次
+            p1Num += trainMatrix[i]
+            # 对每篇文章的辱骂的频次 进行统计汇总
+            p1Denom += sum(trainMatrix[i])
+        else:
+            p0Num += trainMatrix[i]
+            p0Denom += sum(trainMatrix[i])
+    # 类别1，即侮辱性文档的[log(P(F1|C1)),log(P(F2|C1)),log(P(F3|C1)),log(P(F4|C1)),log(P(F5|C1))....]列表
+    p1Vect = log(p1Num / p1Denom)
+    # 类别0，即正常文档的[log(P(F1|C0)),log(P(F2|C0)),log(P(F3|C0)),log(P(F4|C0)),log(P(F5|C0))....]列表
+    p0Vect = log(p0Num / p0Denom)
+    return p0Vect, p1Vect, pAbusive
+</code></pre>
+
+<blockquote>
+<p>测试算法: 观察错误率，确保分类器可用。可以修改切分程序，以降低错误率，提高分类结果</p>
+</blockquote>
+<pre><code class="python">#RSS源分类器及高频词去除函数
+def calcMostFreq(vocabList,fullText):
+    import operator
+    freqDict={}
+    for token in vocabList:  #遍历词汇表中的每个词
+        freqDict[token]=fullText.count(token)  #统计每个词在文本中出现的次数
+    sortedFreq=sorted(freqDict.iteritems(),key=operator.itemgetter(1),reverse=True)  #根据每个词出现的次数从高到底对字典进行排序
+    return sortedFreq[:30]   #返回出现次数最高的30个单词
+def localWords(feed1,feed0):
+    import feedparser
+    docList=[];classList=[];fullText=[]
+    minLen=min(len(feed1['entries']),len(feed0['entries']))
+    for i in range(minLen):
+        wordList=textParse(feed1['entries'][i]['summary'])   #每次访问一条RSS源
+        docList.append(wordList)
+        fullText.extend(wordList)
+        classList.append(1)
+        wordList=textParse(feed0['entries'][i]['summary'])
+        docList.append(wordList)
+        fullText.extend(wordList)
+        classList.append(0)
+    vocabList=createVocabList(docList)
+    top30Words=calcMostFreq(vocabList,fullText)
+    for pairW in top30Words:
+        if pairW[0] in vocabList:vocabList.remove(pairW[0])    #去掉出现次数最高的那些词
+    trainingSet=range(2*minLen);testSet=[]
+    for i in range(20):
+        randIndex=int(random.uniform(0,len(trainingSet)))
+        testSet.append(trainingSet[randIndex])
+        del(trainingSet[randIndex])
+    trainMat=[];trainClasses=[]
+    for docIndex in trainingSet:
+        trainMat.append(bagOfWords2VecMN(vocabList,docList[docIndex]))
+        trainClasses.append(classList[docIndex])
+    p0V,p1V,pSpam=trainNBO(array(trainMat),array(trainClasses))
+    errorCount=0
+    for docIndex in testSet:
+        wordVector=bagOfWords2VecMN(vocabList,docList[docIndex])
+        if classifyNB(array(wordVector),p0V,p1V,pSpam)!=classList[docIndex]:
+            errorCount+=1
+    print 'the error rate is:',float(errorCount)/len(testSet)
+    return vocabList,p0V,p1V
+
+#朴素贝叶斯分类函数
+def classifyNB(vec2Classify,p0Vec,p1Vec,pClass1):
+    p1=sum(vec2Classify*p1Vec)+log(pClass1)
+    p0=sum(vec2Classify*p0Vec)+log(1.0-pClass1)
+    if p1&gt;p0:
+        return 1
+    else:
+        return 0
+</code></pre>
+
+<blockquote>
+<p>使用算法: 构建一个完整的程序，封装所有内容。给定两个 RSS 源，改程序会显示最常用的公共词</p>
+</blockquote>
+<p>函数 localWords() 使用了两个 RSS 源作为参数，RSS 源要在函数外导入，这样做的原因是 RSS 源会随时间而改变，重新加载 RSS 源就会得到新的数据</p>
+<pre><code class="python">&gt;&gt;&gt; reload(bayes)
+&lt;module 'bayes' from 'bayes.pyc'&gt;
+&gt;&gt;&gt; import feedparser
+&gt;&gt;&gt; ny=feedparser.parse('http://newyork.craigslist.org/stp/index.rss')
+&gt;&gt;&gt; sy=feedparser.parse('http://sfbay.craigslist.org/stp/index.rss')
+&gt;&gt;&gt; vocabList,pSF,pNY=bayes.localWords(ny,sf)
+the error rate is: 0.2
+&gt;&gt;&gt; vocabList,pSF,pNY=bayes.localWords(ny,sf)
+the error rate is: 0.3
+&gt;&gt;&gt; vocabList,pSF,pNY=bayes.localWords(ny,sf)
+the error rate is: 0.55
+</code></pre>
+
+<p>为了得到错误率的精确估计，应该多次进行上述实验，然后取平均值</p>
+<p>接下来，我们要分析一下数据，显示地域相关的用词</p>
+<p>可以先对向量pSF与pNY进行排序，然后按照顺序打印出来，将下面的代码添加到文件中：</p>
+<pre><code class="python">#最具表征性的词汇显示函数
+def getTopWords(ny,sf):
+    import operator
+    vocabList,p0V,p1V=localWords(ny,sf)
+    topNY=[];topSF=[]
+    for i in range(len(p0V)):
+        if p0V[i]&gt;-6.0:topSF.append((vocabList[i],p0V[i]))
+        if p1V[i]&gt;-6.0:topNY.append((vocabList[i],p1V[i]))
+    sortedSF=sorted(topSF,key=lambda pair:pair[1],reverse=True)
+    print &quot;SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**&quot;
+    for item in sortedSF:
+        print item[0]
+    sortedNY=sorted(topNY,key=lambda pair:pair[1],reverse=True)
+    print &quot;NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**&quot;
+    for item in sortedNY:
+        print item[0]
+</code></pre>
+
+<p>函数 getTopWords() 使用两个 RSS 源作为输入，然后训练并测试朴素贝叶斯分类器，返回使用的概率值。然后创建两个列表用于元组的存储，与之前返回排名最高的 X 个单词不同，这里可以返回大于某个阈值的所有词，这些元组会按照它们的条件概率进行排序。</p>
+<p>保存 bayes.py 文件，在python提示符下输入：</p>
+<pre><code class="python">&gt;&gt;&gt; reload(bayes)
+&lt;module 'bayes' from 'bayes.pyc'&gt;
+&gt;&gt;&gt; bayes.getTopWords(ny,sf)
+the error rate is: 0.55
+SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**SF**
+how
+last
+man
+...
+veteran
+still
+ends
+late
+off
+own
+know
+NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**
+someone
+meet
+...
+apparel
+recalled
+starting
+strings
+</code></pre>
+
+<p>当注释掉用于移除高频词的三行代码，然后比较注释前后的分类性能，去掉这几行代码之后，错误率为54%，，而保留这些代码得到的错误率为70%。这里观察到，这些留言中出现次数最多的前30个词涵盖了所有用词的30%，vocabList的大小约为3000个词，也就是说，词汇表中的一小部分单词却占据了所有文本用词的一大部分。产生这种现象的原因是因为语言中大部分都是冗余和结构辅助性内容。另一个常用的方法是不仅移除高频词，同时从某个预定高频词中移除结构上的辅助词，该词表称为停用词表。</p>
+<p>从最后输出的单词，可以看出程序输出了大量的停用词，可以移除固定的停用词看看结果如何，这样做的话，分类错误率也会降低。</p>
+<hr />
+<ul>
+<li><strong>作者：<a href="http://www.apache.wiki/display/~xuxin">羊三</a> <a href="http://www.apache.wiki/display/~chenyao">小瑶</a></strong></li>
+<li><a href="https://github.com/apachecn/AiLearning">GitHub地址</a>: <a href="https://github.com/apachecn/AiLearning">https://github.com/apachecn/AiLearning</a></li>
+<li><strong>版权声明：欢迎转载学习 =&gt; 请标注信息来源于 <a href="http://www.apachecn.org/">ApacheCN</a></strong></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/AiLearning/" target="_blank">apachecn/AiLearning</a></p>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'AiLearning',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../3.DecisionTree/" title="第3章_决策树算法" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                第3章_决策树算法
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../5.Logistic/" title="第5章_逻辑回归" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                第5章_逻辑回归
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

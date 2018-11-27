@@ -1,0 +1,1275 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ApacheCN 专注于优秀项目维护的开源组织">
+      
+      
+        <link rel="canonical" href="http://ailearning.apachecn.org/ml/3.DecisionTree/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>第3章_决策树算法 - ApacheCN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#3" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                ApacheCN
+              </span>
+              <span class="md-header-nav__topic">
+                第3章_决策树算法
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    ApacheCN
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1.MLFoundation/" title="第1章_基础知识" class="md-nav__link">
+      第1章_基础知识
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2.KNN/" title="第2章_K近邻算法" class="md-nav__link">
+      第2章_K近邻算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        第3章_决策树算法
+      </label>
+    
+    <a href="./" title="第3章_决策树算法" class="md-nav__link md-nav__link--active">
+      第3章_决策树算法
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="决策树 概述" class="md-nav__link">
+    决策树 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="决策树 场景" class="md-nav__link">
+    决策树 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="决策树 原理" class="md-nav__link">
+    决策树 原理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="决策树 须知概念" class="md-nav__link">
+    决策树 须知概念
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="信息熵 &amp; 信息增益" class="md-nav__link">
+    信息熵 &amp; 信息增益
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="决策树 工作原理" class="md-nav__link">
+    决策树 工作原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="决策树 开发流程" class="md-nav__link">
+    决策树 开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="决策树 算法特点" class="md-nav__link">
+    决策树 算法特点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="决策树 项目案例" class="md-nav__link">
+    决策树 项目案例
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" title="项目案例1: 判定鱼类和非鱼类" class="md-nav__link">
+    项目案例1: 判定鱼类和非鱼类
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" title="项目案例2: 使用决策树预测隐形眼镜类型" class="md-nav__link">
+    项目案例2: 使用决策树预测隐形眼镜类型
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4.NaiveBayesian/" title="第4章_朴素贝叶斯" class="md-nav__link">
+      第4章_朴素贝叶斯
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5.Logistic/" title="第5章_逻辑回归" class="md-nav__link">
+      第5章_逻辑回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6.SVM/" title="第6章_支持向量机" class="md-nav__link">
+      第6章_支持向量机
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7.Ensemble/" title="第7章_集成方法" class="md-nav__link">
+      第7章_集成方法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8.Regression/" title="第8章_回归" class="md-nav__link">
+      第8章_回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9.TreeRegression/" title="第9章_树回归" class="md-nav__link">
+      第9章_树回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10.KMeans/" title="第10章_KMeans聚类" class="md-nav__link">
+      第10章_KMeans聚类
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11.Apriori/" title="第11章_Apriori算法" class="md-nav__link">
+      第11章_Apriori算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12.FP-growth/" title="第12章_FP-growth算法" class="md-nav__link">
+      第12章_FP-growth算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13.PCA/" title="第13章_PCA降维" class="md-nav__link">
+      第13章_PCA降维
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14.SVD/" title="第14章_SVD简化数据" class="md-nav__link">
+      第14章_SVD简化数据
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15.BigData_MapReduce/" title="第15章_大数据与MapReduce" class="md-nav__link">
+      第15章_大数据与MapReduce
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16.RecommendedSystem/" title="第16章_推荐系统" class="md-nav__link">
+      第16章_推荐系统
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../why-to-record-study-ml-video/" title="为何录制教学版视频" class="md-nav__link">
+      为何录制教学版视频
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../join-us/" title="加入我们" class="md-nav__link">
+      加入我们
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="决策树 概述" class="md-nav__link">
+    决策树 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="决策树 场景" class="md-nav__link">
+    决策树 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="决策树 原理" class="md-nav__link">
+    决策树 原理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="决策树 须知概念" class="md-nav__link">
+    决策树 须知概念
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="信息熵 &amp; 信息增益" class="md-nav__link">
+    信息熵 &amp; 信息增益
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="决策树 工作原理" class="md-nav__link">
+    决策树 工作原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="决策树 开发流程" class="md-nav__link">
+    决策树 开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="决策树 算法特点" class="md-nav__link">
+    决策树 算法特点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="决策树 项目案例" class="md-nav__link">
+    决策树 项目案例
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" title="项目案例1: 判定鱼类和非鱼类" class="md-nav__link">
+    项目案例1: 判定鱼类和非鱼类
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" title="项目案例2: 使用决策树预测隐形眼镜类型" class="md-nav__link">
+    项目案例2: 使用决策树预测隐形眼镜类型
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/AiLearning/edit/master/docs/ml/3.DecisionTree.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="3">第3章 决策树</h1>
+<p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
+<p><img alt="决策树_首页" src="../../img/ml/3.DecisionTree/DecisionTree_headPage_xy.png" title="决策树首页" /></p>
+<h2 id="_1">决策树 概述</h2>
+<p><code>决策树（Decision Tree）算法是一种基本的分类与回归方法，是最经常使用的数据挖掘算法之一。我们这章节只讨论用于分类的决策树。</code></p>
+<p><code>决策树模型呈树形结构，在分类问题中，表示基于特征对实例进行分类的过程。它可以认为是 if-then 规则的集合，也可以认为是定义在特征空间与类空间上的条件概率分布。</code></p>
+<p><code>决策树学习通常包括 3 个步骤：特征选择、决策树的生成和决策树的修剪。</code></p>
+<h2 id="_2">决策树 场景</h2>
+<p>一个叫做 "二十个问题" 的游戏，游戏的规则很简单：参与游戏的一方在脑海中想某个事物，其他参与者向他提问，只允许提 20 个问题，问题的答案也只能用对或错回答。问问题的人通过推断分解，逐步缩小待猜测事物的范围，最后得到游戏的答案。</p>
+<p>一个邮件分类系统，大致工作流程如下：</p>
+<p><img alt="决策树-流程图" src="../../img/ml/3.DecisionTree/决策树-流程图.jpg" title="决策树示例流程图" /></p>
+<pre><code>首先检测发送邮件域名地址。如果地址为 myEmployer.com, 则将其放在分类 &quot;无聊时需要阅读的邮件&quot;中。
+如果邮件不是来自这个域名，则检测邮件内容里是否包含单词 &quot;曲棍球&quot; , 如果包含则将邮件归类到 &quot;需要及时处理的朋友邮件&quot;, 
+如果不包含则将邮件归类到 &quot;无需阅读的垃圾邮件&quot; 。
+</code></pre>
+
+<p>决策树的定义：</p>
+<p>分类决策树模型是一种描述对实例进行分类的树形结构。决策树由结点（node）和有向边（directed edge）组成。结点有两种类型：内部结点（internal node）和叶结点（leaf node）。内部结点表示一个特征或属性(features)，叶结点表示一个类(labels)。</p>
+<p>用决策树对需要测试的实例进行分类：从根节点开始，对实例的某一特征进行测试，根据测试结果，将实例分配到其子结点；这时，每一个子结点对应着该特征的一个取值。如此递归地对实例进行测试并分配，直至达到叶结点。最后将实例分配到叶结点的类中。</p>
+<h2 id="_3">决策树 原理</h2>
+<h3 id="_4">决策树 须知概念</h3>
+<h4 id="_5">信息熵 &amp; 信息增益</h4>
+<p>熵（entropy）：
+熵指的是体系的混乱的程度，在不同的学科中也有引申出的更为具体的定义，是各领域十分重要的参量。</p>
+<p>信息论（information theory）中的熵（香农熵）：
+是一种信息的度量方式，表示信息的混乱程度，也就是说：信息越有序，信息熵越低。例如：火柴有序放在火柴盒里，熵值很低，相反，熵值很高。</p>
+<p>信息增益（information gain）：
+在划分数据集前后信息发生的变化称为信息增益。</p>
+<h3 id="_6">决策树 工作原理</h3>
+<p>如何构造一个决策树?<br/>
+我们使用 createBranch() 方法，如下所示：</p>
+<pre><code>def createBranch():
+'''
+此处运用了迭代的思想。 感兴趣可以搜索 迭代 recursion， 甚至是 dynamic programing。
+'''
+    检测数据集中的所有数据的分类标签是否相同:
+        If so return 类标签
+        Else:
+            寻找划分数据集的最好特征（划分之后信息熵最小，也就是信息增益最大的特征）
+            划分数据集
+            创建分支节点
+                for 每个划分的子集
+                    调用函数 createBranch （创建分支的函数）并增加返回结果到分支节点中
+            return 分支节点
+</code></pre>
+
+<h3 id="_7">决策树 开发流程</h3>
+<pre><code>收集数据：可以使用任何方法。
+准备数据：树构造算法 (这里使用的是ID3算法，只适用于标称型数据，这就是为什么数值型数据必须离散化。 还有其他的树构造算法，比如CART)
+分析数据：可以使用任何方法，构造树完成之后，我们应该检查图形是否符合预期。
+训练算法：构造树的数据结构。
+测试算法：使用训练好的树计算错误率。
+使用算法：此步骤可以适用于任何监督学习任务，而使用决策树可以更好地理解数据的内在含义。
+</code></pre>
+
+<h3 id="_8">决策树 算法特点</h3>
+<pre><code>优点：计算复杂度不高，输出结果易于理解，数据有缺失也能跑，可以处理不相关特征。
+缺点：容易过拟合。
+适用数据类型：数值型和标称型。
+</code></pre>
+
+<h2 id="_9">决策树 项目案例</h2>
+<h3 id="1">项目案例1: 判定鱼类和非鱼类</h3>
+<h4 id="_10">项目概述</h4>
+<p>根据以下 2 个特征，将动物分成两类：鱼类和非鱼类。</p>
+<p>特征：
+1. 不浮出水面是否可以生存
+2. 是否有脚蹼</p>
+<h4 id="_11">开发流程</h4>
+<p><a href="/src/py2.x/ml/3.DecisionTree/DecisionTree.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/3.DecisionTree/DecisionTree.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/3.DecisionTree/DecisionTree.py</a></p>
+<pre><code>收集数据：可以使用任何方法
+准备数据：树构造算法（这里使用的是ID3算法，因此数值型数据必须离散化。）
+分析数据：可以使用任何方法，构造树完成之后，我们可以将树画出来。
+训练算法：构造树结构
+测试算法：使用习得的决策树执行分类
+使用算法：此步骤可以适用于任何监督学习任务，而使用决策树可以更好地理解数据的内在含义
+</code></pre>
+
+<blockquote>
+<p>收集数据：可以使用任何方法</p>
+</blockquote>
+<p><img alt="海洋生物数据" src="../../img/ml/3.DecisionTree/DT_海洋生物数据.png" /></p>
+<p>我们利用 createDataSet() 函数输入数据</p>
+<pre><code class="python">def createDataSet():
+    dataSet = [[1, 1, 'yes'],
+            [1, 1, 'yes'],
+            [1, 0, 'no'],
+            [0, 1, 'no'],
+            [0, 1, 'no']]
+    labels = ['no surfacing', 'flippers']
+    return dataSet, labels
+</code></pre>
+
+<blockquote>
+<p>准备数据：树构造算法</p>
+</blockquote>
+<p>此处，由于我们输入的数据本身就是离散化数据，所以这一步就省略了。</p>
+<blockquote>
+<p>分析数据：可以使用任何方法，构造树完成之后，我们可以将树画出来。</p>
+</blockquote>
+<p><img alt="熵的计算公式" src="../../img/ml/3.DecisionTree/熵的计算公式.jpg" /></p>
+<p>计算给定数据集的香农熵的函数</p>
+<pre><code class="python">def calcShannonEnt(dataSet):
+    # 求list的长度，表示计算参与训练的数据量
+    numEntries = len(dataSet)
+    # 计算分类标签label出现的次数
+    labelCounts = {}
+    # the the number of unique elements and their occurrence
+    for featVec in dataSet:
+        # 将当前实例的标签存储，即每一行数据的最后一个数据代表的是标签
+        currentLabel = featVec[-1]
+        # 为所有可能的分类创建字典，如果当前的键值不存在，则扩展字典并将当前键值加入字典。每个键值都记录了当前类别出现的次数。
+        if currentLabel not in labelCounts.keys():
+            labelCounts[currentLabel] = 0
+        labelCounts[currentLabel] += 1
+
+    # 对于 label 标签的占比，求出 label 标签的香农熵
+    shannonEnt = 0.0
+    for key in labelCounts:
+        # 使用所有类标签的发生频率计算类别出现的概率。
+        prob = float(labelCounts[key])/numEntries
+        # 计算香农熵，以 2 为底求对数
+        shannonEnt -= prob * log(prob, 2)
+    return shannonEnt
+</code></pre>
+
+<p>按照给定特征划分数据集</p>
+<p><code>将指定特征的特征值等于 value 的行剩下列作为子数据集。</code></p>
+<pre><code class="python">def splitDataSet(dataSet, index, value):
+    &quot;&quot;&quot;splitDataSet(通过遍历dataSet数据集，求出index对应的colnum列的值为value的行)
+        就是依据index列进行分类，如果index列的数据等于 value的时候，就要将 index 划分到我们创建的新的数据集中
+    Args:
+        dataSet 数据集                 待划分的数据集
+        index 表示每一行的index列        划分数据集的特征
+        value 表示index列对应的value值   需要返回的特征的值。
+    Returns:
+        index列为value的数据集【该数据集需要排除index列】
+    &quot;&quot;&quot;
+    retDataSet = []
+    for featVec in dataSet: 
+        # index列为value的数据集【该数据集需要排除index列】
+        # 判断index列的值是否为value
+        if featVec[index] == value:
+            # chop out index used for splitting
+            # [:index]表示前index行，即若 index 为2，就是取 featVec 的前 index 行
+            reducedFeatVec = featVec[:index]
+            '''
+            请百度查询一下： extend和append的区别
+            music_media.append(object) 向列表中添加一个对象object
+            music_media.extend(sequence) 把一个序列seq的内容添加到列表中 (跟 += 在list运用类似， music_media += sequence)
+            1、使用append的时候，是将object看作一个对象，整体打包添加到music_media对象中。
+            2、使用extend的时候，是将sequence看作一个序列，将这个序列和music_media序列合并，并放在其后面。
+            music_media = []
+            music_media.extend([1,2,3])
+            print music_media
+            #结果：
+            #[1, 2, 3]
+
+            music_media.append([4,5,6])
+            print music_media
+            #结果：
+            #[1, 2, 3, [4, 5, 6]]
+
+            music_media.extend([7,8,9])
+            print music_media
+            #结果：
+            #[1, 2, 3, [4, 5, 6], 7, 8, 9]
+            '''
+            reducedFeatVec.extend(featVec[index+1:])
+            # [index+1:]表示从跳过 index 的 index+1行，取接下来的数据
+            # 收集结果值 index列为value的行【该行需要排除index列】
+            retDataSet.append(reducedFeatVec)
+    return retDataSet
+</code></pre>
+
+<p>选择最好的数据集划分方式</p>
+<pre><code class="python">def chooseBestFeatureToSplit(dataSet):
+    &quot;&quot;&quot;chooseBestFeatureToSplit(选择最好的特征)
+
+    Args:
+        dataSet 数据集
+    Returns:
+        bestFeature 最优的特征列
+    &quot;&quot;&quot;
+    # 求第一行有多少列的 Feature, 最后一列是label列嘛
+    numFeatures = len(dataSet[0]) - 1
+    # 数据集的原始信息熵
+    baseEntropy = calcShannonEnt(dataSet)
+    # 最优的信息增益值, 和最优的Featurn编号
+    bestInfoGain, bestFeature = 0.0, -1
+    # iterate over all the features
+    for i in range(numFeatures):
+        # create a list of all the examples of this feature
+        # 获取对应的feature下的所有数据
+        featList = [example[i] for example in dataSet]
+        # get a set of unique values
+        # 获取剔重后的集合，使用set对list数据进行去重
+        uniqueVals = set(featList)
+        # 创建一个临时的信息熵
+        newEntropy = 0.0
+        # 遍历某一列的value集合，计算该列的信息熵 
+        # 遍历当前特征中的所有唯一属性值，对每个唯一属性值划分一次数据集，计算数据集的新熵值，并对所有唯一特征值得到的熵求和。
+        for value in uniqueVals:
+            subDataSet = splitDataSet(dataSet, i, value)
+            # 计算概率
+            prob = len(subDataSet)/float(len(dataSet))
+            # 计算信息熵
+            newEntropy += prob * calcShannonEnt(subDataSet)
+        # gain[信息增益]: 划分数据集前后的信息变化， 获取信息熵最大的值
+        # 信息增益是熵的减少或者是数据无序度的减少。最后，比较所有特征中的信息增益，返回最好特征划分的索引值。
+        infoGain = baseEntropy - newEntropy
+        print 'infoGain=', infoGain, 'bestFeature=', i, baseEntropy, newEntropy
+        if (infoGain &gt; bestInfoGain):
+            bestInfoGain = infoGain
+            bestFeature = i
+    return bestFeature
+</code></pre>
+
+<pre><code>问：上面的 newEntropy 为什么是根据子集计算的呢？
+答：因为我们在根据一个特征计算香农熵的时候，该特征的分类值是相同，这个特征这个分类的香农熵为 0；
+这就是为什么计算新的香农熵的时候使用的是子集。
+</code></pre>
+
+<blockquote>
+<p>训练算法：构造树的数据结构</p>
+</blockquote>
+<p>创建树的函数代码如下：</p>
+<pre><code class="python">def createTree(dataSet, labels):
+    classList = [example[-1] for example in dataSet]
+    # 如果数据集的最后一列的第一个值出现的次数=整个集合的数量，也就说只有一个类别，就只直接返回结果就行
+    # 第一个停止条件：所有的类标签完全相同，则直接返回该类标签。
+    # count() 函数是统计括号中的值在list中出现的次数
+    if classList.count(classList[0]) == len(classList):
+        return classList[0]
+    # 如果数据集只有1列，那么最初出现label次数最多的一类，作为结果
+    # 第二个停止条件：使用完了所有特征，仍然不能将数据集划分成仅包含唯一类别的分组。
+    if len(dataSet[0]) == 1:
+        return majorityCnt(classList)
+
+    # 选择最优的列，得到最优列对应的label含义
+    bestFeat = chooseBestFeatureToSplit(dataSet)
+    # 获取label的名称
+    bestFeatLabel = labels[bestFeat]
+    # 初始化myTree
+    myTree = {bestFeatLabel: {}}
+    # 注：labels列表是可变对象，在PYTHON函数中作为参数时传址引用，能够被全局修改
+    # 所以这行代码导致函数外的同名变量被删除了元素，造成例句无法执行，提示'no surfacing' is not in list
+    del(labels[bestFeat])
+    # 取出最优列，然后它的branch做分类
+    featValues = [example[bestFeat] for example in dataSet]
+    uniqueVals = set(featValues)
+    for value in uniqueVals:
+        # 求出剩余的标签label
+        subLabels = labels[:]
+        # 遍历当前选择特征包含的所有属性值，在每个数据集划分上递归调用函数createTree()
+        myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value), subLabels)
+        # print 'myTree', value, myTree
+    return myTree
+</code></pre>
+
+<blockquote>
+<p>测试算法：使用决策树执行分类</p>
+</blockquote>
+<pre><code class="python">def classify(inputTree, featLabels, testVec):
+    &quot;&quot;&quot;classify(给输入的节点，进行分类)
+
+    Args:
+        inputTree  决策树模型
+        featLabels Feature标签对应的名称
+        testVec    测试输入的数据
+    Returns:
+        classLabel 分类的结果值，需要映射label才能知道名称
+    &quot;&quot;&quot;
+    # 获取tree的根节点对于的key值
+    firstStr = inputTree.keys()[0]
+    # 通过key得到根节点对应的value
+    secondDict = inputTree[firstStr]
+    # 判断根节点名称获取根节点在label中的先后顺序，这样就知道输入的testVec怎么开始对照树来做分类
+    featIndex = featLabels.index(firstStr)
+    # 测试数据，找到根节点对应的label位置，也就知道从输入的数据的第几位来开始分类
+    key = testVec[featIndex]
+    valueOfFeat = secondDict[key]
+    print '+++', firstStr, 'xxx', secondDict, '---', key, '&gt;&gt;&gt;', valueOfFeat
+    # 判断分枝是否结束: 判断valueOfFeat是否是dict类型
+    if isinstance(valueOfFeat, dict):
+        classLabel = classify(valueOfFeat, featLabels, testVec)
+    else:
+        classLabel = valueOfFeat
+    return classLabel
+</code></pre>
+
+<blockquote>
+<p>使用算法：此步骤可以适用于任何监督学习任务，而使用决策树可以更好地理解数据的内在含义。</p>
+</blockquote>
+<h3 id="2">项目案例2: 使用决策树预测隐形眼镜类型</h3>
+<p><a href="/src/py2.x/ml/3.DecisionTree/DecisionTree.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/3.DecisionTree/DecisionTree.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/3.DecisionTree/DecisionTree.py</a></p>
+<h4 id="_12">项目概述</h4>
+<p>隐形眼镜类型包括硬材质、软材质以及不适合佩戴隐形眼镜。我们需要使用决策树预测患者需要佩戴的隐形眼镜类型。</p>
+<h4 id="_13">开发流程</h4>
+<ol>
+<li>收集数据: 提供的文本文件。</li>
+<li>解析数据: 解析 tab 键分隔的数据行</li>
+<li>分析数据: 快速检查数据，确保正确地解析数据内容，使用 createPlot() 函数绘制最终的树形图。</li>
+<li>训练算法: 使用 createTree() 函数。</li>
+<li>测试算法: 编写测试函数验证决策树可以正确分类给定的数据实例。</li>
+<li>使用算法: 存储树的数据结构，以便下次使用时无需重新构造树。</li>
+</ol>
+<blockquote>
+<p>收集数据：提供的文本文件</p>
+</blockquote>
+<p>文本文件数据格式如下：</p>
+<pre><code>young   myope   no  reduced no lenses
+pre myope   no  reduced no lenses
+presbyopic  myope   no  reduced no lenses
+</code></pre>
+
+<blockquote>
+<p>解析数据：解析 tab 键分隔的数据行</p>
+</blockquote>
+<pre><code class="python">lecses = [inst.strip().split('\t') for inst in fr.readlines()]
+lensesLabels = ['age', 'prescript', 'astigmatic', 'tearRate']
+</code></pre>
+
+<blockquote>
+<p>分析数据：快速检查数据，确保正确地解析数据内容，使用 createPlot() 函数绘制最终的树形图。</p>
+</blockquote>
+<pre><code class="python">&gt;&gt;&gt; treePlotter.createPlot(lensesTree)
+</code></pre>
+
+<blockquote>
+<p>训练算法：使用 createTree() 函数</p>
+</blockquote>
+<pre><code class="python">&gt;&gt;&gt; lensesTree = trees.createTree(lenses, lensesLabels)
+&gt;&gt;&gt; lensesTree
+{'tearRate': {'reduced': 'no lenses', 'normal': {'astigmatic':{'yes':
+{'prescript':{'hyper':{'age':{'pre':'no lenses', 'presbyopic':
+'no lenses', 'young':'hard'}}, 'myope':'hard'}}, 'no':{'age':{'pre':
+'soft', 'presbyopic':{'prescript': {'hyper':'soft', 'myope':
+'no lenses'}}, 'young':'soft'}}}}}
+</code></pre>
+
+<blockquote>
+<p>测试算法: 编写测试函数验证决策树可以正确分类给定的数据实例。</p>
+<p>使用算法: 存储树的数据结构，以便下次使用时无需重新构造树。</p>
+</blockquote>
+<p>使用 pickle 模块存储决策树</p>
+<pre><code class="python">def storeTree(inputTree, filename):
+    import pickle
+    fw = open(filename, 'wb')
+    pickle.dump(inputTree, fw)
+    fw.close()
+
+def grabTree(filename):
+    import pickle
+    fr = open(filename, 'rb')
+    return pickle.load(fr)
+</code></pre>
+
+<hr />
+<ul>
+<li><strong>作者：<a href="http://www.apache.wiki/display/~jiangzhonglian">片刻</a> <a href="http://www.apache.wiki/display/~chenyao">小瑶</a></strong></li>
+<li><a href="https://github.com/apachecn/AiLearning">GitHub地址</a>: <a href="https://github.com/apachecn/AiLearning">https://github.com/apachecn/AiLearning</a></li>
+<li><strong>版权声明：欢迎转载学习 =&gt; 请标注信息来源于 <a href="http://www.apachecn.org/">ApacheCN</a></strong>        </li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/AiLearning/" target="_blank">apachecn/AiLearning</a></p>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'AiLearning',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../2.KNN/" title="第2章_K近邻算法" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                第2章_K近邻算法
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../4.NaiveBayesian/" title="第4章_朴素贝叶斯" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                第4章_朴素贝叶斯
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

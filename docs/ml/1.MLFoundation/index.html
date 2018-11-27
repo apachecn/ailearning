@@ -1,0 +1,1245 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ApacheCN 专注于优秀项目维护的开源组织">
+      
+      
+        <link rel="canonical" href="http://ailearning.apachecn.org/ml/1.MLFoundation/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>第1章_基础知识 - ApacheCN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                ApacheCN
+              </span>
+              <span class="md-header-nav__topic">
+                第1章_基础知识
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    ApacheCN
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        第1章_基础知识
+      </label>
+    
+    <a href="./" title="第1章_基础知识" class="md-nav__link md-nav__link--active">
+      第1章_基础知识
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="机器学习 概述" class="md-nav__link">
+    机器学习 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="机器学习 研究意义" class="md-nav__link">
+    机器学习 研究意义
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="机器学习 场景" class="md-nav__link">
+    机器学习 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="机器学习 组成" class="md-nav__link">
+    机器学习 组成
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="主要任务" class="md-nav__link">
+    主要任务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervised-learning" title="监督学习（supervised learning）" class="md-nav__link">
+    监督学习（supervised learning）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unsupervised-learing" title="非监督学习（unsupervised learing）" class="md-nav__link">
+    非监督学习（unsupervised learing）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="强化学习" class="md-nav__link">
+    强化学习
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="训练过程" class="md-nav__link">
+    训练过程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="算法汇总" class="md-nav__link">
+    算法汇总
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="机器学习 使用" class="md-nav__link">
+    机器学习 使用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="机器学习 数学基础" class="md-nav__link">
+    机器学习 数学基础
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="机器学习 工具" class="md-nav__link">
+    机器学习 工具
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python" title="Python语言" class="md-nav__link">
+    Python语言
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="数学工具" class="md-nav__link">
+    数学工具
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" title="附：机器学习专业术语" class="md-nav__link">
+    附：机器学习专业术语
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" title="机器学习基础补充" class="md-nav__link">
+    机器学习基础补充
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" title="数据集的划分" class="md-nav__link">
+    数据集的划分
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" title="模型拟合程度" class="md-nav__link">
+    模型拟合程度
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" title="常见的模型指标" class="md-nav__link">
+    常见的模型指标
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" title="模型" class="md-nav__link">
+    模型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" title="特征工程的一些小东西" class="md-nav__link">
+    特征工程的一些小东西
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" title="其他" class="md-nav__link">
+    其他
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2.KNN/" title="第2章_K近邻算法" class="md-nav__link">
+      第2章_K近邻算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3.DecisionTree/" title="第3章_决策树算法" class="md-nav__link">
+      第3章_决策树算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4.NaiveBayesian/" title="第4章_朴素贝叶斯" class="md-nav__link">
+      第4章_朴素贝叶斯
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5.Logistic/" title="第5章_逻辑回归" class="md-nav__link">
+      第5章_逻辑回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6.SVM/" title="第6章_支持向量机" class="md-nav__link">
+      第6章_支持向量机
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7.Ensemble/" title="第7章_集成方法" class="md-nav__link">
+      第7章_集成方法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8.Regression/" title="第8章_回归" class="md-nav__link">
+      第8章_回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9.TreeRegression/" title="第9章_树回归" class="md-nav__link">
+      第9章_树回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10.KMeans/" title="第10章_KMeans聚类" class="md-nav__link">
+      第10章_KMeans聚类
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11.Apriori/" title="第11章_Apriori算法" class="md-nav__link">
+      第11章_Apriori算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12.FP-growth/" title="第12章_FP-growth算法" class="md-nav__link">
+      第12章_FP-growth算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13.PCA/" title="第13章_PCA降维" class="md-nav__link">
+      第13章_PCA降维
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14.SVD/" title="第14章_SVD简化数据" class="md-nav__link">
+      第14章_SVD简化数据
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15.BigData_MapReduce/" title="第15章_大数据与MapReduce" class="md-nav__link">
+      第15章_大数据与MapReduce
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16.RecommendedSystem/" title="第16章_推荐系统" class="md-nav__link">
+      第16章_推荐系统
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../why-to-record-study-ml-video/" title="为何录制教学版视频" class="md-nav__link">
+      为何录制教学版视频
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../join-us/" title="加入我们" class="md-nav__link">
+      加入我们
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="机器学习 概述" class="md-nav__link">
+    机器学习 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="机器学习 研究意义" class="md-nav__link">
+    机器学习 研究意义
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="机器学习 场景" class="md-nav__link">
+    机器学习 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="机器学习 组成" class="md-nav__link">
+    机器学习 组成
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="主要任务" class="md-nav__link">
+    主要任务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervised-learning" title="监督学习（supervised learning）" class="md-nav__link">
+    监督学习（supervised learning）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unsupervised-learing" title="非监督学习（unsupervised learing）" class="md-nav__link">
+    非监督学习（unsupervised learing）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="强化学习" class="md-nav__link">
+    强化学习
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="训练过程" class="md-nav__link">
+    训练过程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="算法汇总" class="md-nav__link">
+    算法汇总
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="机器学习 使用" class="md-nav__link">
+    机器学习 使用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="机器学习 数学基础" class="md-nav__link">
+    机器学习 数学基础
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="机器学习 工具" class="md-nav__link">
+    机器学习 工具
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python" title="Python语言" class="md-nav__link">
+    Python语言
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="数学工具" class="md-nav__link">
+    数学工具
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" title="附：机器学习专业术语" class="md-nav__link">
+    附：机器学习专业术语
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" title="机器学习基础补充" class="md-nav__link">
+    机器学习基础补充
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" title="数据集的划分" class="md-nav__link">
+    数据集的划分
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" title="模型拟合程度" class="md-nav__link">
+    模型拟合程度
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" title="常见的模型指标" class="md-nav__link">
+    常见的模型指标
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" title="模型" class="md-nav__link">
+    模型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" title="特征工程的一些小东西" class="md-nav__link">
+    特征工程的一些小东西
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" title="其他" class="md-nav__link">
+    其他
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/AiLearning/edit/master/docs/ml/1.MLFoundation.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="1">第1章 机器学习基础</h1>
+<p><img alt="机器学习基础_首页" src="../../img/ml/1.MLFoundation/机器学习基础-首页.jpg" /></p>
+<h2 id="_1">机器学习 概述</h2>
+<p><code>机器学习(Machine Learning,ML)</code> 是使用计算机来彰显数据背后的真实含义，它为了把无序的数据转换成有用的信息。是一门多领域交叉学科，涉及概率论、统计学、逼近论、凸分析、算法复杂度理论等多门学科。专门研究计算机怎样模拟或实现人类的学习行为，以获取新的知识或技能，重新组织已有的知识结构使之不断改善自身的性能。
+它是人工智能的核心，是使计算机具有智能的根本途径，其应用遍及人工智能的各个领域，它主要使用归纳、综合而不是演绎。</p>
+<ol>
+<li>海量的数据</li>
+<li>获取有用的信息</li>
+</ol>
+<h2 id="_2">机器学习 研究意义</h2>
+<p>机器学习是一门人工智能的科学，该领域的主要研究对象是人工智能，特别是如何在经验学习中改善具体算法的性能”。 “机器学习是对能通过经验自动改进的计算机算法的研究”。 “机器学习是用数据或以往的经验，以此优化计算机程序的性能标准。” 一种经常引用的英文定义是：A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E.</p>
+<p>机器学习已经有了十分广泛的应用，例如：数据挖掘、计算机视觉、自然语言处理、生物特征识别、搜索引擎、医学诊断、检测信用卡欺诈、证券市场分析、DNA序列测序、语音和手写识别、战略游戏和机器人运用。</p>
+<h2 id="_3">机器学习 场景</h2>
+<ul>
+<li>例如：识别动物猫</li>
+<li>模式识别（官方标准）：人们通过大量的经验，得到结论，从而判断它就是猫。</li>
+<li>机器学习（数据学习）：人们通过阅读进行学习，观察它会叫、小眼睛、两只耳朵、四条腿、一条尾巴，得到结论，从而判断它就是猫。</li>
+<li>
+<p>深度学习（深入数据）：人们通过深入了解它，发现它会'喵喵'的叫、与同类的猫科动物很类似，得到结论，从而判断它就是猫。（深度学习常用领域：语音识别、图像识别）</p>
+</li>
+<li>
+<p>模式识别（pattern recognition）: 模式识别是最古老的（作为一个术语而言，可以说是很过时的）。</p>
+<ul>
+<li>我们把环境与客体统称为“模式”，识别是对模式的一种认知，是如何让一个计算机程序去做一些看起来很“智能”的事情。</li>
+<li>通过融于智慧和直觉后，通过构建程序，识别一些事物，而不是人，例如: 识别数字。</li>
+</ul>
+</li>
+<li>机器学习（machine learning）: 机器学习是最基础的（当下初创公司和研究实验室的热点领域之一）。<ul>
+<li>在90年代初，人们开始意识到一种可以更有效地构建模式识别算法的方法，那就是用数据（可以通过廉价劳动力采集获得）去替换专家（具有很多图像方面知识的人）。</li>
+<li>“机器学习”强调的是，在给计算机程序（或者机器）输入一些数据后，它必须做一些事情，那就是学习这些数据，而这个学习的步骤是明确的。</li>
+<li>机器学习（Machine Learning）是一门专门研究计算机怎样模拟或实现人类的学习行为，以获取新的知识或技能，重新组织已有的知识结构使之不断改善自身性能的学科。</li>
+</ul>
+</li>
+<li>
+<p>深度学习（deep learning）: 深度学习是非常崭新和有影响力的前沿领域，我们甚至不会去思考-后深度学习时代。</p>
+<ul>
+<li>深度学习是机器学习研究中的一个新的领域，其动机在于建立、模拟人脑进行分析学习的神经网络，它模仿人脑的机制来解释数据，例如图像，声音和文本。</li>
+</ul>
+</li>
+<li>
+<p>参考地址： </p>
+<ul>
+<li><a href="http://www.csdn.net/article/2015-03-24/2824301">深度学习 vs 机器学习 vs 模式识别</a></li>
+<li><a href="http://baike.baidu.com/link?url=76P-uA4EBrC3G-I__P1tqeO7eoDS709Kp4wYuHxc7GNkz_xn0NxuAtEohbpey7LUa2zUQLJxvIKUx4bnrEfOmsWLKbDmvG1PCoRkJisMTQka6-QReTrIxdYY3v93f55q">深度学习 百科资料</a></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>机器学习已应用于多个领域，远远超出大多数人的想象，横跨：计算机科学、工程技术和统计学等多个学科。</p>
+</blockquote>
+<ul>
+<li>搜索引擎: 根据你的搜索点击，优化你下次的搜索结果,是机器学习来帮助搜索引擎判断哪个结果更适合你（也判断哪个广告更适合你）。</li>
+<li>垃圾邮件: 会自动的过滤垃圾广告邮件到垃圾箱内。</li>
+<li>超市优惠券: 你会发现，你在购买小孩子尿布的时候，售货员会赠送你一张优惠券可以兑换6罐啤酒。</li>
+<li>邮局邮寄: 手写软件自动识别寄送贺卡的地址。</li>
+<li>申请贷款: 通过你最近的金融活动信息进行综合评定，决定你是否合格。</li>
+</ul>
+<h2 id="_4">机器学习 组成</h2>
+<h3 id="_5">主要任务</h3>
+<ul>
+<li>分类（classification）：将实例数据划分到合适的类别中。</li>
+<li>应用实例：判断网站是否被黑客入侵（二分类 ），手写数字的自动识别（多分类）</li>
+<li>回归（regression）：主要用于预测数值型数据。</li>
+<li>应用实例：股票价格波动的预测，房屋价格的预测等。</li>
+</ul>
+<h3 id="supervised-learning">监督学习（supervised learning）</h3>
+<ul>
+<li>必须确定目标变量的值，以便机器学习算法可以发现特征和目标变量之间的关系。在监督学习中，给定一组数据，我们知道正确的输出结果应该是什么样子，并且知道在输入和输出之间有着一个特定的关系。 (包括：分类和回归)</li>
+<li>样本集：训练数据 + 测试数据<ul>
+<li>训练样本 = 特征(feature) + 目标变量(label: 分类-离散值/回归-连续值)</li>
+<li>特征通常是训练样本集的列，它们是独立测量得到的。</li>
+<li>目标变量: 目标变量是机器学习预测算法的测试结果。<ul>
+<li>在分类算法中目标变量的类型通常是标称型(如：真与假)，而在回归算法中通常是连续型(如：1~100)。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>监督学习需要注意的问题：<ul>
+<li>偏置方差权衡</li>
+<li>功能的复杂性和数量的训练数据</li>
+<li>输入空间的维数</li>
+<li>噪声中的输出值</li>
+</ul>
+</li>
+<li><code>知识表示</code>：<ul>
+<li>可以采用规则集的形式【例如：数学成绩大于90分为优秀】</li>
+<li>可以采用概率分布的形式【例如：通过统计分布发现，90%的同学数学成绩，在70分以下，那么大于70分定为优秀】</li>
+<li>可以使用训练样本集中的一个实例【例如：通过样本集合，我们训练出一个模型实例，得出 年轻，数学成绩中高等，谈吐优雅，我们认为是优秀】</li>
+</ul>
+</li>
+</ul>
+<h3 id="unsupervised-learing">非监督学习（unsupervised learing）</h3>
+<ul>
+<li>在机器学习，无监督学习的问题是，在未加标签的数据中，试图找到隐藏的结构。因为提供给学习者的实例是未标记的，因此没有错误或报酬信号来评估潜在的解决方案。</li>
+<li>无监督学习是密切相关的统计数据密度估计的问题。然而无监督学习还包括寻求，总结和解释数据的主要特点等诸多技术。在无监督学习使用的许多方法是基于用于处理数据的数据挖掘方法。</li>
+<li>数据没有类别信息，也不会给定目标值。</li>
+<li>非监督学习包括的类型：</li>
+<li>聚类：在无监督学习中，将数据集分成由类似的对象组成多个类的过程称为聚类。</li>
+<li>密度估计：通过样本分布的紧密程度，来估计与分组的相似性。</li>
+<li>此外，无监督学习还可以减少数据特征的维度，以便我们可以使用二维或三维图形更加直观地展示数据信息。</li>
+</ul>
+<h3 id="_6">强化学习</h3>
+<p>这个算法可以训练程序做出某一决定。程序在某一情况下尝试所有的可能行动，记录不同行动的结果并试着找出最好的一次尝试来做决定。 属于这一类算法的有马尔可夫决策过程。</p>
+<h3 id="_7">训练过程</h3>
+<p><img alt="机器学习训练过程图" src="../../img/ml/1.MLFoundation/机器学习基础训练过程.jpg" /></p>
+<h3 id="_8">算法汇总</h3>
+<p><img alt="算法汇总" src="../../img/ml/1.MLFoundation/ml_algorithm.jpg" /></p>
+<h2 id="_9">机器学习 使用</h2>
+<blockquote>
+<p>选择算法需要考虑的两个问题</p>
+</blockquote>
+<ol>
+<li>算法场景<ul>
+<li>预测明天是否下雨，因为可以用历史的天气情况做预测，所以选择监督学习算法</li>
+<li>给一群陌生的人进行分组，但是我们并没有这些人的类别信息，所以选择无监督学习算法、通过他们身高、体重等特征进行处理。</li>
+</ul>
+</li>
+<li>需要收集或分析的数据是什么</li>
+</ol>
+<blockquote>
+<p>举例</p>
+</blockquote>
+<p><img alt="选择算法图" src="../../img/ml/1.MLFoundation/机器学习基础-选择算法.jpg" /></p>
+<blockquote>
+<p>机器学习 开发流程</p>
+</blockquote>
+<ol>
+<li>收集数据: 收集样本数据</li>
+<li>准备数据: 注意数据的格式</li>
+<li>分析数据: 为了确保数据集中没有垃圾数据；<ul>
+<li>如果是算法可以处理的数据格式或可信任的数据源，则可以跳过该步骤；</li>
+<li>另外该步骤需要人工干预，会降低自动化系统的价值。</li>
+</ul>
+</li>
+<li>训练算法: [机器学习算法核心]如果使用无监督学习算法，由于不存在目标变量值，则可以跳过该步骤</li>
+<li>测试算法: [机器学习算法核心]评估算法效果</li>
+<li>使用算法: 将机器学习算法转为应用程序</li>
+</ol>
+<h2 id="_10">机器学习 数学基础</h2>
+<ul>
+<li>微积分</li>
+<li>统计学/概率论</li>
+<li>线性代数</li>
+</ul>
+<h2 id="_11">机器学习 工具</h2>
+<h3 id="python">Python语言</h3>
+<ol>
+<li>可执行伪代码</li>
+<li>Python比较流行：使用广泛、代码范例多、丰富模块库，开发周期短</li>
+<li>Python语言的特色：清晰简练、易于理解</li>
+<li>Python语言的缺点：唯一不足的是性能问题</li>
+<li>Python相关的库<ul>
+<li>科学函数库：<code>SciPy</code>、<code>NumPy</code>(底层语言：C和Fortran)</li>
+<li>绘图工具库：<code>Matplotlib</code></li>
+<li>数据分析库 <code>Pandas</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="_12">数学工具</h3>
+<ul>
+<li>Matlab</li>
+</ul>
+<h2 id="_13">附：机器学习专业术语</h2>
+<ul>
+<li>模型（model）：计算机层面的认知</li>
+<li>学习算法（learning algorithm），从数据中产生模型的方法</li>
+<li>数据集（data set）：一组记录的合集</li>
+<li>示例（instance）：对于某个对象的描述</li>
+<li>样本（sample）：也叫示例</li>
+<li>属性（attribute）：对象的某方面表现或特征</li>
+<li>特征（feature）：同属性</li>
+<li>属性值（attribute value）：属性上的取值</li>
+<li>属性空间（attribute space）：属性张成的空间</li>
+<li>样本空间/输入空间（samplespace）：同属性空间</li>
+<li>特征向量（feature vector）：在属性空间里每个点对应一个坐标向量，把一个示例称作特征向量</li>
+<li>维数（dimensionality）：描述样本参数的个数（也就是空间是几维的）</li>
+<li>学习（learning）/训练（training）：从数据中学得模型</li>
+<li>训练数据（training data）：训练过程中用到的数据</li>
+<li>训练样本（training sample）:训练用到的每个样本</li>
+<li>训练集（training set）：训练样本组成的集合</li>
+<li>假设（hypothesis）：学习模型对应了关于数据的某种潜在规则</li>
+<li>真相（ground-truth）:真正存在的潜在规律</li>
+<li>学习器（learner）：模型的另一种叫法，把学习算法在给定数据和参数空间的实例化</li>
+<li>预测（prediction）：判断一个东西的属性</li>
+<li>标记（label）：关于示例的结果信息，比如我是一个“好人”。</li>
+<li>样例（example）：拥有标记的示例</li>
+<li>标记空间/输出空间（label space）：所有标记的集合</li>
+<li>分类（classification）：预测时离散值，比如把人分为好人和坏人之类的学习任务</li>
+<li>回归（regression）：预测值时连续值，比如你的好人程度达到了0.9，0.6之类的</li>
+<li>二分类（binary classification）：只涉及两个类别的分类任务</li>
+<li>正类（positive class）：二分类里的一个</li>
+<li>反类（negative class）：二分类里的另外一个</li>
+<li>多分类（multi-class classification）：涉及多个类别的分类</li>
+<li>测试（testing）：学习到模型之后对样本进行预测的过程</li>
+<li>测试样本（testing sample）：被预测的样本</li>
+<li>聚类（clustering）：把训练集中的对象分为若干组</li>
+<li>簇（cluster）：每一个组叫簇</li>
+<li>监督学习（supervised learning）：典范--分类和回归</li>
+<li>无监督学习（unsupervised learning）：典范--聚类</li>
+<li>未见示例（unseen instance）：“新样本“，没训练过的样本</li>
+<li>泛化（generalization）能力：学得的模型适用于新样本的能力</li>
+<li>分布（distribution）：样本空间的全体样本服从的一种规律</li>
+<li>独立同分布（independent and identically distributed，简称i,i,d.）:获得的每个样本都是独立地从这个分布上采样获得的。</li>
+</ul>
+<h2 id="_14">机器学习基础补充</h2>
+<h3 id="_15">数据集的划分</h3>
+<ul>
+<li>训练集（Training set） —— 学习样本数据集，通过匹配一些参数来建立一个模型，主要用来训练模型。类比考研前做的解题大全。</li>
+<li>验证集（validation set） —— 对学习出来的模型，调整模型的参数，如在神经网络中选择隐藏单元数。验证集还用来确定网络结构或者控制模型复杂程度的参数。类比 考研之前做的模拟考试。</li>
+<li>测试集（Test set） —— 测试训练好的模型的分辨能力。类比 考研。这次真的是一考定终身。</li>
+</ul>
+<h3 id="_16">模型拟合程度</h3>
+<ul>
+<li>欠拟合（Underfitting）：模型没有很好地捕捉到数据特征，不能够很好地拟合数据，对训练样本的一般性质尚未学好。类比，光看书不做题觉得自己什么都会了，上了考场才知道自己啥都不会。</li>
+<li>过拟合（Overfitting）：模型把训练样本学习“太好了”，可能把一些训练样本自身的特性当做了所有潜在样本都有的一般性质，导致泛化能力下降。类比，做课后题全都做对了，超纲题也都认为是考试必考题目，上了考场还是啥都不会。 </li>
+</ul>
+<p>通俗来说，欠拟合和过拟合都可以用一句话来说，欠拟合就是：“你太天真了！”，过拟合就是：“你想太多了！”。</p>
+<h3 id="_17">常见的模型指标</h3>
+<ul>
+<li>正确率 —— 提取出的正确信息条数 / 提取出的信息条数</li>
+<li>召回率 —— 提取出的正确信息条数 / 样本中的信息条数</li>
+<li>F 值 —— 正确率 * 召回率 * 2 / （正确率 + 召回率）（F值即为正确率和召回率的调和平均值）</li>
+</ul>
+<p>举个例子如下：</p>
+<p>举个例子如下：
+某池塘有 1400 条鲤鱼，300 只虾，300 只乌龟。现在以捕鲤鱼为目的。撒了一张网，逮住了 700 条鲤鱼，200 只
+虾， 100 只乌龟。那么这些指标分别如下：
+正确率 = 700 / (700 + 200 + 100) = 70%
+召回率 = 700 / 1400 = 50%
+F 值 = 70% * 50% * 2 / (70% + 50%) = 58.3%</p>
+<h3 id="_18">模型</h3>
+<ul>
+<li>分类问题 —— 说白了就是将一些未知类别的数据分到现在已知的类别中去。比如，根据你的一些信息，判断你是高富帅，还是穷屌丝。评判分类效果好坏的三个指标就是上面介绍的三个指标：正确率，召回率，F值。</li>
+<li>回归问题 —— 对数值型连续随机变量进行预测和建模的监督学习算法。回归往往会通过计算 误差（Error）来确定模型的精确性。</li>
+<li>聚类问题 —— 聚类是一种无监督学习任务，该算法基于数据的内部结构寻找观察样本的自然族群（即集群）。聚类问题的标准一般基于距离：簇内距离（Intra-cluster Distance） 和 簇间距离（Inter-cluster Distance） 。簇内距离是越小越好，也就是簇内的元素越相似越好；而簇间距离越大越好，也就是说簇间（不同簇）元素越不相同越好。一般的，衡量聚类问题会给出一个结合簇内距离和簇间距离的公式。</li>
+</ul>
+<p>下面这个图可以比较直观地展示出来：</p>
+<p><img alt="" src="../../img/ml/1.MLFoundation/ml_add_1.jpg" /></p>
+<h3 id="_19">特征工程的一些小东西</h3>
+<ul>
+<li>
+<p>特征选择 —— 也叫特征子集选择（FSS，Feature Subset Selection）。是指从已有的 M 个特征（Feature）中选择 N 个特征使得系统的特定指标最优化，是从原始特征中选择出一些最有效特征以降低数据集维度的过程，是提高算法性能的一个重要手段，也是模式识别中关键的数据预处理步骤。</p>
+</li>
+<li>
+<p>特征提取 —— 特征提取是计算机视觉和图像处理中的一个概念。它指的是使用计算机提取图像信息，决定每个图像的点是否属于一个图像特征。特征提取的结果是把图像上的点分为不同的子集，这些子集往往属于孤立的点，连续的曲线或者连续的区域。</p>
+</li>
+</ul>
+<p>下面给出一个特征工程的图：</p>
+<p><img alt="" src="../../img/ml/1.MLFoundation/ml_add_2.jpg" /></p>
+<h3 id="_20">其他</h3>
+<ul>
+<li>Learning rate —— 学习率，通俗地理解，可以理解为步长，步子大了，很容易错过最佳结果。就是本来目标尽在咫尺，可是因为我迈的步子很大，却一下子走过了。步子小了呢，就是同样的距离，我却要走很多很多步，这样导致训练的耗时费力还不讨好。</li>
+<li>一个总结的知识点很棒的链接 ：https://zhuanlan.zhihu.com/p/25197792</li>
+</ul>
+<hr />
+<ul>
+<li><strong>作者：<a href="http://cwiki.apachecn.org/display/~jiangzhonglian">片刻</a> <a href="http://cwiki.apachecn.org/display/~lihuisong">1988</a></strong></li>
+<li><a href="https://github.com/apachecn/AiLearning">GitHub地址</a>: <a href="https://github.com/apachecn/AiLearning">https://github.com/apachecn/AiLearning</a></li>
+<li><strong>版权声明：欢迎转载学习 =&gt; 请标注信息来源于 <a href="http://www.apachecn.org/">ApacheCN</a></strong></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/AiLearning/" target="_blank">apachecn/AiLearning</a></p>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'AiLearning',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+        
+          <a href="../2.KNN/" title="第2章_K近邻算法" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                第2章_K近邻算法
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

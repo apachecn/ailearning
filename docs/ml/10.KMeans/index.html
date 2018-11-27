@@ -1,0 +1,1138 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ApacheCN 专注于优秀项目维护的开源组织">
+      
+      
+        <link rel="canonical" href="http://ailearning.apachecn.org/ml/10.KMeans/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>第10章_KMeans聚类 - ApacheCN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#10-k-meansk-" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                ApacheCN
+              </span>
+              <span class="md-header-nav__topic">
+                第10章_KMeans聚类
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    ApacheCN
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1.MLFoundation/" title="第1章_基础知识" class="md-nav__link">
+      第1章_基础知识
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2.KNN/" title="第2章_K近邻算法" class="md-nav__link">
+      第2章_K近邻算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3.DecisionTree/" title="第3章_决策树算法" class="md-nav__link">
+      第3章_决策树算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4.NaiveBayesian/" title="第4章_朴素贝叶斯" class="md-nav__link">
+      第4章_朴素贝叶斯
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5.Logistic/" title="第5章_逻辑回归" class="md-nav__link">
+      第5章_逻辑回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6.SVM/" title="第6章_支持向量机" class="md-nav__link">
+      第6章_支持向量机
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7.Ensemble/" title="第7章_集成方法" class="md-nav__link">
+      第7章_集成方法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8.Regression/" title="第8章_回归" class="md-nav__link">
+      第8章_回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9.TreeRegression/" title="第9章_树回归" class="md-nav__link">
+      第9章_树回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        第10章_KMeans聚类
+      </label>
+    
+    <a href="./" title="第10章_KMeans聚类" class="md-nav__link md-nav__link--active">
+      第10章_KMeans聚类
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="聚类" class="md-nav__link">
+    聚类
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k-means" title="K-Means 算法" class="md-nav__link">
+    K-Means 算法
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k-means_1" title="K-Means 场景" class="md-nav__link">
+    K-Means 场景
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_2" title="K-Means 术语" class="md-nav__link">
+    K-Means 术语
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_3" title="K-Means 工作流程" class="md-nav__link">
+    K-Means 工作流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_4" title="K-Means 开发流程" class="md-nav__link">
+    K-Means 开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_5" title="K-Means 的评价标准" class="md-nav__link">
+    K-Means 的评价标准
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_6" title="K-Means 聚类算法函数" class="md-nav__link">
+    K-Means 聚类算法函数
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="从文件加载数据集" class="md-nav__link">
+    从文件加载数据集
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="计算两个向量的欧氏距离" class="md-nav__link">
+    计算两个向量的欧氏距离
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k" title="构建一个包含 K 个随机质心的集合" class="md-nav__link">
+    构建一个包含 K 个随机质心的集合
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_7" title="K-Means 聚类算法" class="md-nav__link">
+    K-Means 聚类算法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="测试函数" class="md-nav__link">
+    测试函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_8" title="K-Means 聚类算法的缺陷" class="md-nav__link">
+    K-Means 聚类算法的缺陷
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_9" title="二分 K-Means 聚类算法" class="md-nav__link">
+    二分 K-Means 聚类算法
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k-means_10" title="二分 K-Means 聚类算法伪代码" class="md-nav__link">
+    二分 K-Means 聚类算法伪代码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_11" title="二分 K-Means 聚类算法代码" class="md-nav__link">
+    二分 K-Means 聚类算法代码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kmeans" title="测试二分 KMeans 聚类算法" class="md-nav__link">
+    测试二分 KMeans 聚类算法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11.Apriori/" title="第11章_Apriori算法" class="md-nav__link">
+      第11章_Apriori算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12.FP-growth/" title="第12章_FP-growth算法" class="md-nav__link">
+      第12章_FP-growth算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13.PCA/" title="第13章_PCA降维" class="md-nav__link">
+      第13章_PCA降维
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14.SVD/" title="第14章_SVD简化数据" class="md-nav__link">
+      第14章_SVD简化数据
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15.BigData_MapReduce/" title="第15章_大数据与MapReduce" class="md-nav__link">
+      第15章_大数据与MapReduce
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16.RecommendedSystem/" title="第16章_推荐系统" class="md-nav__link">
+      第16章_推荐系统
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../why-to-record-study-ml-video/" title="为何录制教学版视频" class="md-nav__link">
+      为何录制教学版视频
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../join-us/" title="加入我们" class="md-nav__link">
+      加入我们
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="聚类" class="md-nav__link">
+    聚类
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k-means" title="K-Means 算法" class="md-nav__link">
+    K-Means 算法
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k-means_1" title="K-Means 场景" class="md-nav__link">
+    K-Means 场景
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_2" title="K-Means 术语" class="md-nav__link">
+    K-Means 术语
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_3" title="K-Means 工作流程" class="md-nav__link">
+    K-Means 工作流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_4" title="K-Means 开发流程" class="md-nav__link">
+    K-Means 开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_5" title="K-Means 的评价标准" class="md-nav__link">
+    K-Means 的评价标准
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_6" title="K-Means 聚类算法函数" class="md-nav__link">
+    K-Means 聚类算法函数
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="从文件加载数据集" class="md-nav__link">
+    从文件加载数据集
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="计算两个向量的欧氏距离" class="md-nav__link">
+    计算两个向量的欧氏距离
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k" title="构建一个包含 K 个随机质心的集合" class="md-nav__link">
+    构建一个包含 K 个随机质心的集合
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_7" title="K-Means 聚类算法" class="md-nav__link">
+    K-Means 聚类算法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="测试函数" class="md-nav__link">
+    测试函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_8" title="K-Means 聚类算法的缺陷" class="md-nav__link">
+    K-Means 聚类算法的缺陷
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_9" title="二分 K-Means 聚类算法" class="md-nav__link">
+    二分 K-Means 聚类算法
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k-means_10" title="二分 K-Means 聚类算法伪代码" class="md-nav__link">
+    二分 K-Means 聚类算法伪代码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-means_11" title="二分 K-Means 聚类算法代码" class="md-nav__link">
+    二分 K-Means 聚类算法代码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kmeans" title="测试二分 KMeans 聚类算法" class="md-nav__link">
+    测试二分 KMeans 聚类算法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/AiLearning/edit/master/docs/ml/10.KMeans.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="10-k-meansk-">第 10 章 K-Means（K-均值）聚类算法</h1>
+<p><img alt="K-Means（K-均值）聚类算法_首页" src="../../img/ml/10.KMeans/K-Means_首页.jpg" /></p>
+<h2 id="_1">聚类</h2>
+<p>聚类，简单来说，就是将一个庞杂数据集中具有相似特征的数据自动归类到一起，称为一个簇，簇内的对象越相似，聚类的效果越好。它是一种无监督的学习(Unsupervised Learning)方法,不需要预先标注好的训练集。聚类与分类最大的区别就是分类的目标事先已知，例如猫狗识别，你在分类之前已经预先知道要将它分为猫、狗两个种类；而在你聚类之前，你对你的目标是未知的，同样以动物为例，对于一个动物集来说，你并不清楚这个数据集内部有多少种类的动物，你能做的只是利用聚类方法将它自动按照特征分为多类，然后人为给出这个聚类结果的定义（即簇识别）。例如，你将一个动物集分为了三簇（类），然后通过观察这三类动物的特征，你为每一个簇起一个名字，如大象、狗、猫等，这就是聚类的基本思想。     </p>
+<p>至于“相似”这一概念，是利用距离这个评价标准来衡量的，我们通过计算对象与对象之间的距离远近来判断它们是否属于同一类别，即是否是同一个簇。至于距离如何计算，科学家们提出了许多种距离的计算方法，其中欧式距离是最为简单和常用的，除此之外还有曼哈顿距离和余弦相似性距离等。</p>
+<p>欧式距离，我想大家再熟悉不过了，但为免有一些基础薄弱的同学，在此再说明一下，它的定义为：<br />
+对于x点(坐标为(x1,x2,x3,...,xn))和 y点（坐标为(y1,y2,y3,...,yn)），两者的欧式距离为
+<img alt="d(x,y)={\sqrt  {(x_{1}-y_{1})^{2}+(x_{2}-y_{2})^{2}+\cdots +(x_{n}-y_{n})^{2}}}={\sqrt  {\sum _{{i=1}}^{n}(x_{i}-y_{i})^{2}}}" src="https://wikimedia.org/api/rest_v1/media/math/render/svg/bfa1815838113388d78c9402bba7308d734a4af2" /><br />
+在二维平面，它就是我们初中时就学过的两点距离公式</p>
+<h2 id="k-means">K-Means 算法</h2>
+<p>K-Means 是发现给定数据集的 K 个簇的聚类算法, 之所以称之为 <code>K-均值</code> 是因为它可以发现 K 个不同的簇, 且每个簇的中心采用簇中所含值的均值计算而成.<br />
+簇个数 K 是用户指定的, 每一个簇通过其质心（centroid）, 即簇中所有点的中心来描述.<br />
+聚类与分类算法的最大区别在于, 分类的目标类别已知, 而聚类的目标类别是未知的.  </p>
+<p><strong>优点</strong>:
+<em> 属于无监督学习，无须准备训练集
+</em> 原理简单，实现起来较为容易
+* 结果可解释性较好</p>
+<p><strong>缺点</strong>:
+<em> <strong>需手动设置k值</strong>。 在算法开始预测之前，我们需要手动设置k值，即估计数据大概的类别个数，不合理的k值会使结果缺乏解释性
+</em> 可能收敛到局部最小值, 在大规模数据集上收敛较慢
+* 对于异常点、离群点敏感</p>
+<p>使用数据类型 : 数值型数据</p>
+<h3 id="k-means_1">K-Means 场景</h3>
+<p>kmeans，如前所述，用于数据集内种类属性不明晰，希望能够通过数据挖掘出或自动归类出有相似特点的对象的场景。其商业界的应用场景一般为挖掘出具有相似特点的潜在客户群体以便公司能够重点研究、对症下药。  </p>
+<p>例如，在2000年和2004年的美国总统大选中，候选人的得票数比较接近或者说非常接近。任一候选人得到的普选票数的最大百分比为50.7%而最小百分比为47.9% 如果1%的选民将手中的选票投向另外的候选人，那么选举结果就会截然不同。 实际上，如果妥善加以引导与吸引，少部分选民就会转换立场。尽管这类选举者占的比例较低，但当候选人的选票接近时，这些人的立场无疑会对选举结果产生非常大的影响。如何找出这类选民，以及如何在有限的预算下采取措施来吸引他们？ 答案就是聚类（Clustering)。</p>
+<p>那么，具体如何实施呢？首先，收集用户的信息，可以同时收集用户满意或不满意的信息，这是因为任何对用户重要的内容都可能影响用户的投票结果。然后，将这些信息输入到某个聚类算法中。接着，对聚类结果中的每一个簇（最好选择最大簇 ）， 精心构造能够吸引该簇选民的消息。最后， 开展竞选活动并观察上述做法是否有效。</p>
+<p>另一个例子就是产品部门的市场调研了。为了更好的了解自己的用户，产品部门可以采用聚类的方法得到不同特征的用户群体，然后针对不同的用户群体可以对症下药，为他们提供更加精准有效的服务。</p>
+<h3 id="k-means_2">K-Means 术语</h3>
+<ul>
+<li>簇: 所有数据的点集合，簇中的对象是相似的。</li>
+<li>质心: 簇中所有点的中心（计算所有点的均值而来）.</li>
+<li>SSE: Sum of Sqared Error（误差平方和）, 它被用来评估模型的好坏，SSE 值越小，表示越接近它们的质心. 聚类效果越好。由于对误差取了平方，因此更加注重那些远离中心的点（一般为边界点或离群点）。详情见kmeans的评价标准。</li>
+</ul>
+<p>有关 <code>簇</code> 和 <code>质心</code> 术语更形象的介绍, 请参考下图:</p>
+<p><img alt="K-Means 术语图" src="../../img/ml/10.KMeans/apachecn-k-means-term-1.jpg" /></p>
+<h3 id="k-means_3">K-Means 工作流程</h3>
+<ol>
+<li>首先, 随机确定 K 个初始点作为质心（<strong>不必是数据中的点</strong>）。</li>
+<li>然后将数据集中的每个点分配到一个簇中, 具体来讲, 就是为每个点找到距其最近的质心, 并将其分配该质心所对应的簇. 这一步完成之后, 每个簇的质心更新为该簇所有点的平均值.
+3.重复上述过程直到数据集中的所有点都距离它所对应的质心最近时结束。</li>
+</ol>
+<p>上述过程的 <code>伪代码</code> 如下:</p>
+<ul>
+<li>创建 k 个点作为起始质心（通常是随机选择）</li>
+<li>当任意一个点的簇分配结果发生改变时（不改变时算法结束）<ul>
+<li>对数据集中的每个数据点<ul>
+<li>对每个质心<ul>
+<li>计算质心与数据点之间的距离</li>
+</ul>
+</li>
+<li>将数据点分配到距其最近的簇</li>
+</ul>
+</li>
+<li>对每一个簇, 计算簇中所有点的均值并将均值作为质心</li>
+</ul>
+</li>
+</ul>
+<h3 id="k-means_4">K-Means 开发流程</h3>
+<pre><code>收集数据：使用任意方法
+准备数据：需要数值型数据类计算距离, 也可以将标称型数据映射为二值型数据再用于距离计算
+分析数据：使用任意方法
+训练算法：不适用于无监督学习，即无监督学习不需要训练步骤
+测试算法：应用聚类算法、观察结果.可以使用量化的误差指标如误差平方和（后面会介绍）来评价算法的结果.
+使用算法：可以用于所希望的任何应用.通常情况下, 簇质心可以代表整个簇的数据来做出决策.
+</code></pre>
+
+<h3 id="k-means_5">K-Means 的评价标准</h3>
+<p>k-means算法因为手动选取k值和初始化随机质心的缘故，每一次的结果不会完全一样，而且由于手动选取k值，我们需要知道我们选取的k值是否合理，聚类效果好不好，那么如何来评价某一次的聚类效果呢？也许将它们画在图上直接观察是最好的办法，但现实是，我们的数据不会仅仅只有两个特征，一般来说都有十几个特征，而观察十几维的空间对我们来说是一个无法完成的任务。因此，我们需要一个公式来帮助我们判断聚类的性能，这个公式就是<strong>SSE</strong> (Sum of Squared Error, 误差平方和 ），它其实就是每一个点到其簇内质心的距离的平方值的总和，这个数值对应kmeans函数中<strong>clusterAssment</strong>矩阵的第一列之和。 <strong>SSE</strong>值越小表示数据点越接近于它们的质心，聚类效果也越好。 因为对误差取了平方，因此更加重视那些远离中心的点。一种肯定可以降低<strong>SSE</strong>值的方法是增加簇的个数，但这违背了聚类的目标。聚类的目标是在保持簇数目不变的情况下提高簇的质量。</p>
+<h3 id="k-means_6">K-Means 聚类算法函数</h3>
+<h4 id="_2">从文件加载数据集</h4>
+<pre><code class="python"># 从文本中构建矩阵，加载文本文件，然后处理
+def loadDataSet(fileName):    # 通用函数，用来解析以 tab 键分隔的 floats（浮点数），例如: 1.658985    4.285136
+    dataMat = []
+    fr = open(fileName)
+    for line in fr.readlines():
+        curLine = line.strip().split('\t')
+        fltLine = map(float,curLine)    # 映射所有的元素为 float（浮点数）类型
+        dataMat.append(fltLine)
+    return dataMat
+</code></pre>
+
+<h4 id="_3">计算两个向量的欧氏距离</h4>
+<pre><code class="python"># 计算两个向量的欧式距离（可根据场景选择其他距离公式）
+def distEclud(vecA, vecB):
+    return sqrt(sum(power(vecA - vecB, 2))) # la.norm(vecA-vecB)
+</code></pre>
+
+<h4 id="k">构建一个包含 K 个随机质心的集合</h4>
+<pre><code class="python"># 为给定数据集构建一个包含 k 个随机质心的集合。随机质心必须要在整个数据集的边界之内，这可以通过找到数据集每一维的最小和最大值来完成。然后生成 0~1.0 之间的随机数并通过取值范围和最小值，以便确保随机点在数据的边界之内。
+def randCent(dataSet, k):
+    n = shape(dataSet)[1] # 列的数量，即数据的特征个数
+    centroids = mat(zeros((k,n))) # 创建k个质心矩阵
+    for j in range(n): # 创建随机簇质心，并且在每一维的边界内
+        minJ = min(dataSet[:,j])    # 最小值
+        rangeJ = float(max(dataSet[:,j]) - minJ)    # 范围 = 最大值 - 最小值
+        centroids[:,j] = mat(minJ + rangeJ * random.rand(k,1))    # 随机生成，mat为numpy函数，需要在最开始写上 from numpy import *
+    return centroids
+</code></pre>
+
+<h4 id="k-means_7">K-Means 聚类算法</h4>
+<pre><code class="python"># k-means 聚类算法
+# 该算法会创建k个质心，然后将每个点分配到最近的质心，再重新计算质心。
+# 这个过程重复数次，直到数据点的簇分配结果不再改变位置。
+# 运行结果（多次运行结果可能会不一样，可以试试，原因为随机质心的影响，但总的结果是对的， 因为数据足够相似，也可能会陷入局部最小值）
+def kMeans(dataSet, k, distMeas=distEclud, createCent=randCent):
+    m = shape(dataSet)[0]    # 行数，即数据个数
+    clusterAssment = mat(zeros((m, 2)))    # 创建一个与 dataSet 行数一样，但是有两列的矩阵，用来保存簇分配结果
+    centroids = createCent(dataSet, k)    # 创建质心，随机k个质心
+    clusterChanged = True
+    while clusterChanged:
+        clusterChanged = False
+        for i in range(m):    # 循环每一个数据点并分配到最近的质心中去
+            minDist = inf; minIndex = -1
+            for j in range(k):
+                distJI = distMeas(centroids[j,:],dataSet[i,:])    # 计算数据点到质心的距离
+                if distJI &lt; minDist:    # 如果距离比 minDist（最小距离）还小，更新 minDist（最小距离）和最小质心的 index（索引）
+                    minDist = distJI; minIndex = j
+            if clusterAssment[i, 0] != minIndex:    # 簇分配结果改变
+                clusterChanged = True    # 簇改变
+                clusterAssment[i, :] = minIndex,minDist**2    # 更新簇分配结果为最小质心的 index（索引），minDist（最小距离）的平方
+        print centroids
+        for cent in range(k): # 更新质心
+            ptsInClust = dataSet[nonzero(clusterAssment[:, 0].A==cent)[0]] # 获取该簇中的所有点
+            centroids[cent,:] = mean(ptsInClust, axis=0) # 将质心修改为簇中所有点的平均值，mean 就是求平均值的
+    return centroids, clusterAssment
+</code></pre>
+
+<h4 id="_4">测试函数</h4>
+<ol>
+<li>测试一下以上的基础函数是否可以如预期运行, 请看: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/10.kmeans/kMeans.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/10.kmeans/kMeans.py</a></li>
+<li>测试一下 kMeans 函数是否可以如预期运行, 请看: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/10.kmeans/kMeans.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/10.kmeans/kMeans.py</a> </li>
+</ol>
+<p>参考运行结果如下:<br />
+<img alt="K-Means 运行结果1" src="../../img/ml/10.KMeans/apachecn-k-means-run-result-1.jpg" /></p>
+<h3 id="k-means_8">K-Means 聚类算法的缺陷</h3>
+<blockquote>
+<p>在 kMeans 的函数测试中，可能偶尔会陷入局部最小值（局部最优的结果，但不是全局最优的结果）.</p>
+</blockquote>
+<p>局部最小值的的情况如下:<br />
+<img alt="K-Means 局部最小值1" src="../../img/ml/10.KMeans/apachecn-kmeans-partial-best-result-1.jpg" />
+出现这个问题有很多原因，可能是k值取的不合适，可能是距离函数不合适，可能是最初随机选取的质心靠的太近，也可能是数据本身分布的问题。</p>
+<p>为了解决这个问题，我们可以对生成的簇进行后处理，一种方法是将具有最大<strong>SSE</strong>值的簇划分成两个簇。具体实现时可以将最大簇包含的点过滤出来并在这些点上运行K-均值算法，令k设为2。</p>
+<p>为了保持簇总数不变，可以将某两个簇进行合并。从上图中很明显就可以看出，应该将上图下部两个出错的簇质心进行合并。那么问题来了，我们可以很容易对二维数据上的聚类进行可视化， 但是如果遇到40维的数据应该如何去做？</p>
+<p>有两种可以量化的办法：合并最近的质心，或者合并两个使得<strong>SSE</strong>增幅最小的质心。 第一种思路通过计算所有质心之间的距离， 然后合并距离最近的两个点来实现。第二种方法需要合并两个簇然后计算总<strong>SSE</strong>值。必须在所有可能的两个簇上重复上述处理过程，直到找到合并最佳的两个簇为止。</p>
+<p>因为上述后处理过程实在是有些繁琐，所以有更厉害的大佬提出了另一个称之为二分K-均值（bisecting K-Means）的算法.   </p>
+<h3 id="k-means_9">二分 K-Means 聚类算法</h3>
+<p>该算法首先将所有点作为一个簇，然后将该簇一分为二。<br />
+之后选择其中一个簇继续进行划分，选择哪一个簇进行划分取决于对其划分时候可以最大程度降低 SSE（平方和误差）的值。<br />
+上述基于 SSE 的划分过程不断重复，直到得到用户指定的簇数目为止。  </p>
+<h4 id="k-means_10">二分 K-Means 聚类算法伪代码</h4>
+<ul>
+<li>将所有点看成一个簇</li>
+<li>当簇数目小于 k 时</li>
+<li>对于每一个簇<ul>
+<li>计算总误差</li>
+<li>在给定的簇上面进行 KMeans 聚类（k=2）</li>
+<li>计算将该簇一分为二之后的总误差</li>
+</ul>
+</li>
+<li>选择使得误差最小的那个簇进行划分操作</li>
+</ul>
+<p>另一种做法是选择 SSE 最大的簇进行划分，直到簇数目达到用户指定的数目位置。
+接下来主要介绍该做法的python2代码实现</p>
+<h4 id="k-means_11">二分 K-Means 聚类算法代码</h4>
+<pre><code class="python"># 二分 KMeans 聚类算法, 基于 kMeans 基础之上的优化，以避免陷入局部最小值
+def biKMeans(dataSet, k, distMeas=distEclud):
+    m = shape(dataSet)[0]
+    clusterAssment = mat(zeros((m,2))) # 保存每个数据点的簇分配结果和平方误差
+    centroid0 = mean(dataSet, axis=0).tolist()[0] # 质心初始化为所有数据点的均值
+    centList =[centroid0] # 初始化只有 1 个质心的 list
+    for j in range(m): # 计算所有数据点到初始质心的距离平方误差
+        clusterAssment[j,1] = distMeas(mat(centroid0), dataSet[j,:])**2
+    while (len(centList) &lt; k): # 当质心数量小于 k 时
+        lowestSSE = inf
+        for i in range(len(centList)): # 对每一个质心
+            ptsInCurrCluster = dataSet[nonzero(clusterAssment[:,0].A==i)[0],:] # 获取当前簇 i 下的所有数据点
+            centroidMat, splitClustAss = kMeans(ptsInCurrCluster, 2, distMeas) # 将当前簇 i 进行二分 kMeans 处理
+            sseSplit = sum(splitClustAss[:,1]) # 将二分 kMeans 结果中的平方和的距离进行求和
+            sseNotSplit = sum(clusterAssment[nonzero(clusterAssment[:,0].A!=i)[0],1]) # 将未参与二分 kMeans 分配结果中的平方和的距离进行求和
+            print &quot;sseSplit, and notSplit: &quot;,sseSplit,sseNotSplit
+            if (sseSplit + sseNotSplit) &lt; lowestSSE: # 总的（未拆分和已拆分）误差和越小，越相似，效果越优化，划分的结果更好（注意：这里的理解很重要，不明白的地方可以和我们一起讨论）
+                bestCentToSplit = i
+                bestNewCents = centroidMat
+                bestClustAss = splitClustAss.copy()
+                lowestSSE = sseSplit + sseNotSplit
+        # 找出最好的簇分配结果    
+        bestClustAss[nonzero(bestClustAss[:,0].A == 1)[0],0] = len(centList) # 调用二分 kMeans 的结果，默认簇是 0,1. 当然也可以改成其它的数字
+        bestClustAss[nonzero(bestClustAss[:,0].A == 0)[0],0] = bestCentToSplit # 更新为最佳质心
+        print 'the bestCentToSplit is: ',bestCentToSplit
+        print 'the len of bestClustAss is: ', len(bestClustAss)
+        # 更新质心列表
+        centList[bestCentToSplit] = bestNewCents[0,:].tolist()[0] # 更新原质心 list 中的第 i 个质心为使用二分 kMeans 后 bestNewCents 的第一个质心
+        centList.append(bestNewCents[1,:].tolist()[0]) # 添加 bestNewCents 的第二个质心
+        clusterAssment[nonzero(clusterAssment[:,0].A == bestCentToSplit)[0],:]= bestClustAss # 重新分配最好簇下的数据（质心）以及SSE
+    return mat(centList), clusterAssment
+</code></pre>
+
+<h4 id="kmeans">测试二分 KMeans 聚类算法</h4>
+<ul>
+<li>测试一下二分 KMeans 聚类算法，请看: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/10.kmeans/kMeans.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/10.kmeans/kMeans.py</a></li>
+</ul>
+<p>上述函数可以运行多次，聚类会收敛到全局最小值，而原始的 kMeans() 函数偶尔会陷入局部最小值。<br />
+运行参考结果如下:<br />
+<img alt="二分 K-Means 运行结果1" src="../../img/ml/10.KMeans/apachecn-bikmeans-run-result-1.jpg" /></p>
+<ul>
+<li><strong>作者：<a href="http://www.apache.wiki/display/~xuxin">那伊抹微笑</a>,  <a href="http://cwiki.apachecn.org/display/~xuzhaoqing">清都江水郎</a></strong> </li>
+<li><a href="https://github.com/apachecn/AiLearning">GitHub地址</a>: <a href="https://github.com/apachecn/AiLearning">https://github.com/apachecn/AiLearning</a></li>
+<li><strong>版权声明：欢迎转载学习 =&gt; 请标注信息来源于 <a href="http://www.apachecn.org/">ApacheCN</a></strong></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/AiLearning/" target="_blank">apachecn/AiLearning</a></p>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'AiLearning',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../9.TreeRegression/" title="第9章_树回归" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                第9章_树回归
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../11.Apriori/" title="第11章_Apriori算法" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                第11章_Apriori算法
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

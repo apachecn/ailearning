@@ -1,0 +1,1310 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ApacheCN 专注于优秀项目维护的开源组织">
+      
+      
+        <link rel="canonical" href="http://ailearning.apachecn.org/ml/14.SVD/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>第14章_SVD简化数据 - ApacheCN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#14-svd" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                ApacheCN
+              </span>
+              <span class="md-header-nav__topic">
+                第14章_SVD简化数据
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    ApacheCN
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1.MLFoundation/" title="第1章_基础知识" class="md-nav__link">
+      第1章_基础知识
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2.KNN/" title="第2章_K近邻算法" class="md-nav__link">
+      第2章_K近邻算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3.DecisionTree/" title="第3章_决策树算法" class="md-nav__link">
+      第3章_决策树算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4.NaiveBayesian/" title="第4章_朴素贝叶斯" class="md-nav__link">
+      第4章_朴素贝叶斯
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5.Logistic/" title="第5章_逻辑回归" class="md-nav__link">
+      第5章_逻辑回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6.SVM/" title="第6章_支持向量机" class="md-nav__link">
+      第6章_支持向量机
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7.Ensemble/" title="第7章_集成方法" class="md-nav__link">
+      第7章_集成方法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8.Regression/" title="第8章_回归" class="md-nav__link">
+      第8章_回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9.TreeRegression/" title="第9章_树回归" class="md-nav__link">
+      第9章_树回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10.KMeans/" title="第10章_KMeans聚类" class="md-nav__link">
+      第10章_KMeans聚类
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11.Apriori/" title="第11章_Apriori算法" class="md-nav__link">
+      第11章_Apriori算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12.FP-growth/" title="第12章_FP-growth算法" class="md-nav__link">
+      第12章_FP-growth算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13.PCA/" title="第13章_PCA降维" class="md-nav__link">
+      第13章_PCA降维
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        第14章_SVD简化数据
+      </label>
+    
+    <a href="./" title="第14章_SVD简化数据" class="md-nav__link md-nav__link--active">
+      第14章_SVD简化数据
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#svd" title="SVD 概述" class="md-nav__link">
+    SVD 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#svd_1" title="SVD 场景" class="md-nav__link">
+    SVD 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#svd_2" title="SVD 原理" class="md-nav__link">
+    SVD 原理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#svd_3" title="SVD 工作原理" class="md-nav__link">
+    SVD 工作原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svd_4" title="SVD 算法特点" class="md-nav__link">
+    SVD 算法特点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="推荐系统" class="md-nav__link">
+    推荐系统
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="推荐系统 概述" class="md-nav__link">
+    推荐系统 概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="推荐系统 场景" class="md-nav__link">
+    推荐系统 场景
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="推荐系统 要点" class="md-nav__link">
+    推荐系统 要点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="推荐系统 原理" class="md-nav__link">
+    推荐系统 原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="项目案例: 餐馆菜肴推荐系统" class="md-nav__link">
+    项目案例: 餐馆菜肴推荐系统
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="要点补充" class="md-nav__link">
+    要点补充
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svd_5" title="项目案例: 基于 SVD 的图像压缩" class="md-nav__link">
+    项目案例: 基于 SVD 的图像压缩
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15.BigData_MapReduce/" title="第15章_大数据与MapReduce" class="md-nav__link">
+      第15章_大数据与MapReduce
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16.RecommendedSystem/" title="第16章_推荐系统" class="md-nav__link">
+      第16章_推荐系统
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../why-to-record-study-ml-video/" title="为何录制教学版视频" class="md-nav__link">
+      为何录制教学版视频
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../join-us/" title="加入我们" class="md-nav__link">
+      加入我们
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#svd" title="SVD 概述" class="md-nav__link">
+    SVD 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#svd_1" title="SVD 场景" class="md-nav__link">
+    SVD 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#svd_2" title="SVD 原理" class="md-nav__link">
+    SVD 原理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#svd_3" title="SVD 工作原理" class="md-nav__link">
+    SVD 工作原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svd_4" title="SVD 算法特点" class="md-nav__link">
+    SVD 算法特点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="推荐系统" class="md-nav__link">
+    推荐系统
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="推荐系统 概述" class="md-nav__link">
+    推荐系统 概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="推荐系统 场景" class="md-nav__link">
+    推荐系统 场景
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="推荐系统 要点" class="md-nav__link">
+    推荐系统 要点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="推荐系统 原理" class="md-nav__link">
+    推荐系统 原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="项目案例: 餐馆菜肴推荐系统" class="md-nav__link">
+    项目案例: 餐馆菜肴推荐系统
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="要点补充" class="md-nav__link">
+    要点补充
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svd_5" title="项目案例: 基于 SVD 的图像压缩" class="md-nav__link">
+    项目案例: 基于 SVD 的图像压缩
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/AiLearning/edit/master/docs/ml/14.SVD.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="14-svd">第14章 利用SVD简化数据</h1>
+<p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
+<p><img alt="利用SVD简化数据首页" src="../../img/ml/14.SVD/svd_headPage.jpg" title="利用SVD简化数据首页" /></p>
+<h2 id="svd">SVD 概述</h2>
+<pre><code>奇异值分解（SVD, Singular Value Decomposition）:
+    提取信息的一种方法，可以把 SVD 看成是从噪声数据中抽取相关特征。从生物信息学到金融学，SVD 是提取信息的强大工具。
+</code></pre>
+
+<h2 id="svd_1">SVD 场景</h2>
+<blockquote>
+<p>信息检索-隐性语义检索（Lstent Semantic Indexing, LSI）或 隐形语义分析（Latent Semantic Analysis, LSA）</p>
+</blockquote>
+<p>隐性语义索引：矩阵 = 文档 + 词语
+* 是最早的 SVD 应用之一，我们称利用 SVD 的方法为隐性语义索引（LSI）或隐性语义分析（LSA）。</p>
+<p><img alt="LSA举例" src="../../img/ml/14.SVD/使用SVD简化数据-LSI举例.png" /></p>
+<blockquote>
+<p>推荐系统</p>
+</blockquote>
+<ol>
+<li>利用 SVD 从数据中构建一个主题空间。</li>
+<li>再在该空间下计算其相似度。(从高维-低维空间的转化，在低维空间来计算相似度，SVD 提升了推荐系统的效率。)</li>
+</ol>
+<p><img alt="主题空间案例1" src="../../img/ml/14.SVD/SVD_推荐系统_主题空间案例1.jpg" /></p>
+<ul>
+<li>上图右边标注的为一组共同特征，表示美式 BBQ 空间；另一组在上图右边未标注的为日式食品 空间。</li>
+</ul>
+<blockquote>
+<p>图像压缩</p>
+</blockquote>
+<p>例如：<code>32*32=1024 =&gt; 32*2+2*1+32*2=130</code>(2*1表示去掉了除对角线的0), 几乎获得了10倍的压缩比。</p>
+<p><img alt="SVD公式" src="../../img/ml/14.SVD/使用SVD简化数据-SVD公式.jpg" /></p>
+<h2 id="svd_2">SVD 原理</h2>
+<h3 id="svd_3">SVD 工作原理</h3>
+<blockquote>
+<p>矩阵分解</p>
+</blockquote>
+<ul>
+<li>矩阵分解是将数据矩阵分解为多个独立部分的过程。</li>
+<li>矩阵分解可以将原始矩阵表示成新的易于处理的形式，这种新形式是两个或多个矩阵的乘积。（类似代数中的因数分解）</li>
+<li>举例：如何将12分解成两个数的乘积？（1，12）、（2，6）、（3，4）都是合理的答案。</li>
+</ul>
+<blockquote>
+<p>SVD 是矩阵分解的一种类型，也是矩阵分解最常见的技术</p>
+</blockquote>
+<ul>
+<li>SVD 将原始的数据集矩阵 Data 分解成三个矩阵 U、∑、V</li>
+<li>举例：如果原始矩阵 \(Data_{m*n}\) 是m行n列，<ul>
+<li>\(U_{m * k}\) 表示m行k列</li>
+<li>\(∑_{k * k}\) 表示k行k列</li>
+<li>\(V_{k * n}\) 表示k行n列。</li>
+</ul>
+</li>
+</ul>
+<p>\(Data_{m*n} = U_{m*k} * ∑<em>{k*k} * V</em>{k*n}\)</p>
+<p><img alt="SVD公式" src="../../img/ml/14.SVD/使用SVD简化数据-SVD公式.jpg" /></p>
+<p>具体的案例：（大家可以试着推导一下：https://wenku.baidu.com/view/b7641217866fb84ae45c8d17.html ）</p>
+<p><img alt="SVD公式" src="../../img/ml/14.SVD/SVD公式的测试案例.jpg" /></p>
+<ul>
+<li>上述分解中会构建出一个矩阵∑，该矩阵只有对角元素，其他元素均为0(近似于0)。另一个惯例就是，∑的对角元素是从大到小排列的。这些对角元素称为奇异值。</li>
+<li>奇异值与特征值(PCA 数据中重要特征)是有关系的。这里的奇异值就是矩阵 \(Data * Data^T\) 特征值的平方根。</li>
+<li>普遍的事实：在某个奇异值的数目(r 个=&gt;奇异值的平方和累加到总值的90%以上)之后，其他的奇异值都置为0(近似于0)。这意味着数据集中仅有 r 个重要特征，而其余特征则都是噪声或冗余特征。</li>
+</ul>
+<h3 id="svd_4">SVD 算法特点</h3>
+<pre><code>优点：简化数据，去除噪声，优化算法的结果
+缺点：数据的转换可能难以理解
+使用的数据类型：数值型数据
+</code></pre>
+
+<h2 id="_1">推荐系统</h2>
+<h3 id="_2">推荐系统 概述</h3>
+<p><code>推荐系统是利用电子商务网站向客户提供商品信息和建议，帮助用户决定应该购买什么产品，模拟销售人员帮助客户完成购买过程。</code></p>
+<h3 id="_3">推荐系统 场景</h3>
+<ol>
+<li>Amazon 会根据顾客的购买历史向他们推荐物品</li>
+<li>Netflix 会向其用户推荐电影</li>
+<li>新闻网站会对用户推荐新闻频道</li>
+</ol>
+<h3 id="_4">推荐系统 要点</h3>
+<blockquote>
+<p>基于协同过滤(collaborative filtering) 的推荐引擎</p>
+</blockquote>
+<ul>
+<li>利用Python 实现 SVD(Numpy 有一个称为 linalg 的线性代数工具箱)</li>
+<li>协同过滤：是通过将用户和其他用户的数据进行对比来实现推荐的。</li>
+<li>当知道了两个用户或两个物品之间的相似度，我们就可以利用已有的数据来预测未知用户的喜好。</li>
+</ul>
+<blockquote>
+<p>基于物品的相似度和基于用户的相似度：物品比较少则选择物品相似度，用户比较少则选择用户相似度。【矩阵还是小一点好计算】</p>
+</blockquote>
+<ul>
+<li>基于物品的相似度：计算物品之间的距离。【耗时会随物品数量的增加而增加】</li>
+<li>由于物品A和物品C 相似度(相关度)很高，所以给买A的人推荐C。</li>
+</ul>
+<p><img alt="SVD公式" src="../../img/ml/14.SVD/使用SVD简化数据-基于物品相似度.png" /></p>
+<ul>
+<li>基于用户的相似度：计算用户之间的距离。【耗时会随用户数量的增加而增加】</li>
+<li>由于用户A和用户C 相似度(相关度)很高，所以A和C是兴趣相投的人，对于C买的物品就会推荐给A。</li>
+</ul>
+<p><img alt="SVD公式" src="../../img/ml/14.SVD/使用SVD简化数据-基于用户相似度.png" /></p>
+<blockquote>
+<p>相似度计算</p>
+</blockquote>
+<ul>
+<li>inA, inB 对应的是 列向量</li>
+<li>欧氏距离：指在m维空间中两个点之间的真实距离，或者向量的自然长度（即该点到原点的距离）。二维或三维中的欧氏距离就是两点之间的实际距离。<ul>
+<li>相似度= 1/(1+欧式距离)</li>
+<li><code>相似度= 1.0/(1.0 + la.norm(inA - inB))</code></li>
+<li>物品对越相似，它们的相似度值就越大。</li>
+</ul>
+</li>
+<li>皮尔逊相关系数：度量的是两个向量之间的相似度。<ul>
+<li>相似度= 0.5 + 0.5*corrcoef() 【皮尔逊相关系数的取值范围从 -1 到 +1，通过函数0.5 + 0.5*corrcoef()这个函数计算，把值归一化到0到1之间】</li>
+<li><code>相似度= 0.5 + 0.5 * corrcoef(inA, inB, rowvar = 0)[0][1]</code></li>
+<li>相对欧氏距离的优势：它对用户评级的量级并不敏感。</li>
+</ul>
+</li>
+<li>余弦相似度：计算的是两个向量夹角的余弦值。<ul>
+<li>余弦值 = (A·B)/(||A||·||B||) 【余弦值的取值范围也在-1到+1之间】</li>
+<li>相似度= 0.5 + 0.5*余弦值</li>
+<li><code>相似度= 0.5 + 0.5*( float(inA.T*inB) / la.norm(inA)*la.norm(inB))</code></li>
+<li>如果夹角为90度，则相似度为0；如果两个向量的方向相同，则相似度为1.0。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>推荐系统的评价</p>
+</blockquote>
+<ul>
+<li>采用交叉测试的方法。【拆分数据为训练集和测试集】</li>
+<li>推荐引擎评价的指标： 最小均方根误差(Root mean squared error, RMSE)，也称标准误差(Standard error)，就是计算均方误差的平均值然后取其平方根。<ul>
+<li>如果RMSE=1, 表示相差1个星级；如果RMSE=2.5, 表示相差2.5个星级。</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">推荐系统 原理</h3>
+<ul>
+<li>推荐系统的工作过程：给定一个用户，系统会为此用户返回N个最好的推荐菜。</li>
+<li>实现流程大致如下：<ol>
+<li>寻找用户没有评级的菜肴，即在用户-物品矩阵中的0值。</li>
+<li>在用户没有评级的所有物品中，对每个物品预计一个可能的评级分数。这就是说：我们认为用户可能会对物品的打分（这就是相似度计算的初衷）。</li>
+<li>对这些物品的评分从高到低进行排序，返回前N个物品。</li>
+</ol>
+</li>
+</ul>
+<h3 id="_6">项目案例: 餐馆菜肴推荐系统</h3>
+<h4 id="_7">项目概述</h4>
+<p><code>假如一个人在家决定外出吃饭，但是他并不知道该到哪儿去吃饭，该点什么菜。推荐系统可以帮他做到这两点。</code></p>
+<h4 id="_8">开发流程</h4>
+<blockquote>
+<p>收集 并 准备数据</p>
+</blockquote>
+<p><img alt="SVD 矩阵" src="../../img/ml/14.SVD/项目数据导入.jpg" /></p>
+<pre><code class="python">def loadExData3():
+    # 利用SVD提高推荐效果，菜肴矩阵
+    &quot;&quot;&quot;
+    行：代表人
+    列：代表菜肴名词
+    值：代表人对菜肴的评分，0表示未评分
+    &quot;&quot;&quot;
+    return[[2, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0],
+           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5],
+           [0, 0, 0, 0, 0, 0, 0, 1, 0, 4, 0],
+           [3, 3, 4, 0, 3, 0, 0, 2, 2, 0, 0],
+           [5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0],
+           [0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0],
+           [4, 0, 4, 0, 0, 0, 0, 0, 0, 0, 5],
+           [0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4],
+           [0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0],
+           [0, 0, 0, 3, 0, 0, 0, 0, 4, 5, 0],
+           [1, 1, 2, 1, 1, 2, 1, 0, 4, 5, 0]]
+</code></pre>
+
+<blockquote>
+<p>分析数据: 这里不做过多的讨论(当然此处可以对比不同距离之间的差别)</p>
+<p>训练算法: 通过调用 recommend() 函数进行推荐</p>
+</blockquote>
+<p>recommend() 会调用 基于物品相似度 或者是 基于SVD，得到推荐的物品评分。</p>
+<ul>
+<li>1.基于物品相似度</li>
+</ul>
+<p><img alt="基于物品相似度" src="../../img/ml/14.SVD/基于物品相似度.jpg" /></p>
+<p><img alt="欧式距离的计算方式" src="../../img/ml/14.SVD/欧式距离的计算方式.jpg" /></p>
+<pre><code class="python"># 基于物品相似度的推荐引擎
+def standEst(dataMat, user, simMeas, item):
+    &quot;&quot;&quot;standEst(计算某用户未评分物品中，以对该物品和其他物品评分的用户的物品相似度，然后进行综合评分)
+
+    Args:
+        dataMat         训练数据集
+        user            用户编号
+        simMeas         相似度计算方法
+        item            未评分的物品编号
+    Returns:
+        ratSimTotal/simTotal     评分（0～5之间的值）
+    &quot;&quot;&quot;
+    # 得到数据集中的物品数目
+    n = shape(dataMat)[1]
+    # 初始化两个评分值
+    simTotal = 0.0
+    ratSimTotal = 0.0
+    # 遍历行中的每个物品（对用户评过分的物品进行遍历，并将它与其他物品进行比较）
+    for j in range(n):
+        userRating = dataMat[user, j]
+        # 如果某个物品的评分值为0，则跳过这个物品
+        if userRating == 0:
+            continue
+        # 寻找两个用户都评级的物品
+        # 变量 overLap 给出的是两个物品当中已经被评分的那个元素的索引ID
+        # logical_and 计算x1和x2元素的真值。
+        overLap = nonzero(logical_and(dataMat[:, item].A &gt; 0, dataMat[:, j].A &gt; 0))[0]
+        # 如果相似度为0，则两着没有任何重合元素，终止本次循环
+        if len(overLap) == 0:
+            similarity = 0
+        # 如果存在重合的物品，则基于这些重合物重新计算相似度。
+        else:
+            similarity = simMeas(dataMat[overLap, item], dataMat[overLap, j])
+        # print 'the %d and %d similarity is : %f'(iten,j,similarity)
+        # 相似度会不断累加，每次计算时还考虑相似度和当前用户评分的乘积
+        # similarity  用户相似度，   userRating 用户评分
+        simTotal += similarity
+        ratSimTotal += similarity * userRating
+    if simTotal == 0:
+        return 0
+    # 通过除以所有的评分总和，对上述相似度评分的乘积进行归一化，使得最后评分在0~5之间，这些评分用来对预测值进行排序
+    else:
+        return ratSimTotal/simTotal
+</code></pre>
+
+<ul>
+<li>2.基于SVD(参考地址：http://www.codeweblog.com/svd-%E7%AC%94%E8%AE%B0/)</li>
+</ul>
+<p><img alt="基于SVD.png" src="../../img/ml/14.SVD/基于SVD.png" /></p>
+<pre><code class="python"># 基于SVD的评分估计
+# 在recommend() 中，这个函数用于替换对standEst()的调用，该函数对给定用户给定物品构建了一个评分估计值
+def svdEst(dataMat, user, simMeas, item):
+    &quot;&quot;&quot;svdEst(计算某用户未评分物品中，以对该物品和其他物品评分的用户的物品相似度，然后进行综合评分)
+
+    Args:
+        dataMat         训练数据集
+        user            用户编号
+        simMeas         相似度计算方法
+        item            未评分的物品编号
+    Returns:
+        ratSimTotal/simTotal     评分（0～5之间的值）
+    &quot;&quot;&quot;
+    # 物品数目
+    n = shape(dataMat)[1]
+    # 对数据集进行SVD分解
+    simTotal = 0.0
+    ratSimTotal = 0.0
+    # 奇异值分解
+    # 在SVD分解之后，我们只利用包含了90%能量值的奇异值，这些奇异值会以NumPy数组的形式得以保存
+    U, Sigma, VT = la.svd(dataMat)
+
+    # # 分析 Sigma 的长度取值
+    # analyse_data(Sigma, 20)
+
+    # 如果要进行矩阵运算，就必须要用这些奇异值构建出一个对角矩阵
+    Sig4 = mat(eye(4) * Sigma[: 4])
+    # 利用U矩阵将物品转换到低维空间中，构建转换后的物品(物品+4个主要的特征)
+    xformedItems = dataMat.T * U[:, :4] * Sig4.I
+    # 对于给定的用户，for循环在用户对应行的元素上进行遍历，
+    # 这和standEst()函数中的for循环的目的一样，只不过这里的相似度计算时在低维空间下进行的。
+    for j in range(n):
+        userRating = dataMat[user, j]
+        if userRating == 0 or j == item:
+            continue
+        # 相似度的计算方法也会作为一个参数传递给该函数
+        similarity = simMeas(xformedItems[item, :].T, xformedItems[j, :].T)
+        # for 循环中加入了一条print语句，以便了解相似度计算的进展情况。如果觉得累赘，可以去掉
+        print 'the %d and %d similarity is: %f' % (item, j, similarity)
+        # 对相似度不断累加求和
+        simTotal += similarity
+        # 对相似度及对应评分值的乘积求和
+        ratSimTotal += similarity * userRating
+    if simTotal == 0:
+        return 0
+    else:
+        # 计算估计评分
+        return ratSimTotal/simTotal
+</code></pre>
+
+<p>排序获取最后的推荐结果</p>
+<pre><code class="python"># recommend()函数，就是推荐引擎，它默认调用standEst()函数，产生了最高的N个推荐结果。
+# 如果不指定N的大小，则默认值为3。该函数另外的参数还包括相似度计算方法和估计方法
+def recommend(dataMat, user, N=3, simMeas=cosSim, estMethod=standEst):
+    # 寻找未评级的物品
+    # 对给定的用户建立一个未评分的物品列表
+    unratedItems = nonzero(dataMat[user, :].A == 0)[1]
+    # 如果不存在未评分物品，那么就退出函数
+    if len(unratedItems) == 0:
+        return 'you rated everything'
+    # 物品的编号和评分值
+    itemScores = []
+    # 在未评分物品上进行循环
+    for item in unratedItems:
+        estimatedScore = estMethod(dataMat, user, simMeas, item)
+        # 寻找前N个未评级物品，调用standEst()来产生该物品的预测得分，该物品的编号和估计值会放在一个元素列表itemScores中
+        itemScores.append((item, estimatedScore))
+        # 按照估计得分，对该列表进行排序并返回。列表逆排序，第一个值就是最大值
+    return sorted(itemScores, key=lambda jj: jj[1], reverse=True)[: N]
+</code></pre>
+
+<blockquote>
+<p>测试 和 项目调用，可直接参考我们的代码</p>
+</blockquote>
+<p><a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/14.SVD/svdRecommend.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/14.SVD/svdRecommend.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/14.SVD/svdRecommend.py</a></p>
+<h4 id="_9">要点补充</h4>
+<blockquote>
+<p>基于内容(content-based)的推荐</p>
+</blockquote>
+<ol>
+<li>通过各种标签来标记菜肴</li>
+<li>将这些属性作为相似度计算所需要的数据</li>
+<li>这就是：基于内容的推荐。</li>
+</ol>
+<blockquote>
+<p>构建推荐引擎面临的挑战</p>
+</blockquote>
+<p>问题
+<em> 1）在大规模的数据集上，SVD分解会降低程序的速度
+</em> 2）存在其他很多规模扩展性的挑战性问题，比如矩阵的表示方法和计算相似度得分消耗资源。
+* 3）如何在缺乏数据时给出好的推荐-称为冷启动【简单说：用户不会喜欢一个无效的物品，而用户不喜欢的物品又无效】</p>
+<p>建议
+<em> 1）在大型系统中，SVD分解(可以在程序调入时运行一次)每天运行一次或者其频率更低，并且还要离线运行。
+</em> 2）在实际中，另一个普遍的做法就是离线计算并保存相似度得分。(物品相似度可能被用户重复的调用)
+* 3）冷启动问题，解决方案就是将推荐看成是搜索问题，通过各种标签／属性特征进行<code>基于内容的推荐</code>。</p>
+<h3 id="svd_5">项目案例: 基于 SVD 的图像压缩</h3>
+<blockquote>
+<p>收集 并 准备数据</p>
+</blockquote>
+<p>将文本数据转化为矩阵</p>
+<pre><code class="python"># 加载并转换数据
+def imgLoadData(filename):
+    myl = []
+    # 打开文本文件，并从文件以数组方式读入字符
+    for line in open(filename).readlines():
+        newRow = []
+        for i in range(32):
+            newRow.append(int(line[i]))
+        myl.append(newRow)
+    # 矩阵调入后，就可以在屏幕上输出该矩阵
+    myMat = mat(myl)
+    return myMat
+</code></pre>
+
+<blockquote>
+<p>分析数据: 分析 Sigma 的长度个数</p>
+</blockquote>
+<p>通常保留矩阵 80% ～ 90% 的能量，就可以得到重要的特征并去除噪声。</p>
+<pre><code class="python">def analyse_data(Sigma, loopNum=20):
+    &quot;&quot;&quot;analyse_data(分析 Sigma 的长度取值)
+
+    Args:
+        Sigma         Sigma的值
+        loopNum       循环次数
+    &quot;&quot;&quot;
+    # 总方差的集合（总能量值）
+    Sig2 = Sigma**2
+    SigmaSum = sum(Sig2)
+    for i in range(loopNum):
+        SigmaI = sum(Sig2[:i+1])
+        '''
+        根据自己的业务情况，就行处理，设置对应的 Singma 次数
+
+        通常保留矩阵 80% ～ 90% 的能量，就可以得到重要的特征并取出噪声。
+        '''
+        print '主成分：%s, 方差占比：%s%%' % (format(i+1, '2.0f'), format(SigmaI/SigmaSum*100, '4.2f'))
+</code></pre>
+
+<blockquote>
+<p>使用算法: 对比使用 SVD 前后的数据差异对比，对于存储大家可以试着写写</p>
+</blockquote>
+<p>例如：<code>32*32=1024 =&gt; 32*2+2*1+32*2=130</code>(2*1表示去掉了除对角线的0), 几乎获得了10倍的压缩比。</p>
+<pre><code class="python"># 打印矩阵
+def printMat(inMat, thresh=0.8):
+    # 由于矩阵保护了浮点数，因此定义浅色和深色，遍历所有矩阵元素，当元素大于阀值时打印1，否则打印0
+    for i in range(32):
+        for k in range(32):
+            if float(inMat[i, k]) &gt; thresh:
+                print 1,
+            else:
+                print 0,
+        print ''
+
+
+# 实现图像压缩，允许基于任意给定的奇异值数目来重构图像
+def imgCompress(numSV=3, thresh=0.8):
+    &quot;&quot;&quot;imgCompress( )
+
+    Args:
+        numSV       Sigma长度   
+        thresh      判断的阈值
+    &quot;&quot;&quot;
+    # 构建一个列表
+    myMat = imgLoadData('db/14.SVD/0_5.txt')
+
+    print &quot;****original matrix****&quot;
+    # 对原始图像进行SVD分解并重构图像e
+    printMat(myMat, thresh)
+
+    # 通过Sigma 重新构成SigRecom来实现
+    # Sigma是一个对角矩阵，因此需要建立一个全0矩阵，然后将前面的那些奇异值填充到对角线上。
+    U, Sigma, VT = la.svd(myMat)
+    # SigRecon = mat(zeros((numSV, numSV)))
+    # for k in range(numSV):
+    #     SigRecon[k, k] = Sigma[k]
+
+    # 分析插入的 Sigma 长度
+    analyse_data(Sigma, 20)
+
+    SigRecon = mat(eye(numSV) * Sigma[: numSV])
+    reconMat = U[:, :numSV] * SigRecon * VT[:numSV, :]
+    print &quot;****reconstructed matrix using %d singular values *****&quot; % numSV
+    printMat(reconMat, thresh)
+</code></pre>
+
+<p><a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/14.SVD/svdRecommend.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/14.SVD/svdRecommend.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/14.SVD/svdRecommend.py</a></p>
+<hr />
+<ul>
+<li><strong>作者：<a href="http://cwiki.apachecn.org/display/~jiangzhonglian">片刻</a> <a href="http://cwiki.apachecn.org/display/~lihuisong">1988</a></strong></li>
+<li><a href="https://github.com/apachecn/AiLearning">GitHub地址</a>: <a href="https://github.com/apachecn/AiLearning">https://github.com/apachecn/AiLearning</a></li>
+<li><strong>版权声明：欢迎转载学习 =&gt; 请标注信息来源于 <a href="http://www.apachecn.org/">ApacheCN</a></strong></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/AiLearning/" target="_blank">apachecn/AiLearning</a></p>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'AiLearning',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../13.PCA/" title="第13章_PCA降维" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                第13章_PCA降维
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../15.BigData_MapReduce/" title="第15章_大数据与MapReduce" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                第15章_大数据与MapReduce
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1624 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ApacheCN 专注于优秀项目维护的开源组织">
+      
+      
+        <link rel="canonical" href="http://ailearning.apachecn.org/ml/7.Ensemble/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>第7章_集成方法 - ApacheCN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#7-ensemble-method" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                ApacheCN
+              </span>
+              <span class="md-header-nav__topic">
+                第7章_集成方法
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    ApacheCN
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1.MLFoundation/" title="第1章_基础知识" class="md-nav__link">
+      第1章_基础知识
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2.KNN/" title="第2章_K近邻算法" class="md-nav__link">
+      第2章_K近邻算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3.DecisionTree/" title="第3章_决策树算法" class="md-nav__link">
+      第3章_决策树算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4.NaiveBayesian/" title="第4章_朴素贝叶斯" class="md-nav__link">
+      第4章_朴素贝叶斯
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5.Logistic/" title="第5章_逻辑回归" class="md-nav__link">
+      第5章_逻辑回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6.SVM/" title="第6章_支持向量机" class="md-nav__link">
+      第6章_支持向量机
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        第7章_集成方法
+      </label>
+    
+    <a href="./" title="第7章_集成方法" class="md-nav__link md-nav__link--active">
+      第7章_集成方法
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ensemble-method-meta-algorithm" title="集成方法: ensemble method（元算法: meta algorithm） 概述" class="md-nav__link">
+    集成方法: ensemble method（元算法: meta algorithm） 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="集成方法 场景" class="md-nav__link">
+    集成方法 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="随机森林" class="md-nav__link">
+    随机森林
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="随机森林 概述" class="md-nav__link">
+    随机森林 概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="随机森林 原理" class="md-nav__link">
+    随机森林 原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="项目案例: 声纳信号分类" class="md-nav__link">
+    项目案例: 声纳信号分类
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adaboost" title="AdaBoost" class="md-nav__link">
+    AdaBoost
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adaboost-adaptive-boosting-boosting" title="AdaBoost (adaptive boosting: 自适应 boosting) 概述" class="md-nav__link">
+    AdaBoost (adaptive boosting: 自适应 boosting) 概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adaboost_1" title="AdaBoost 原理" class="md-nav__link">
+    AdaBoost 原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="项目案例: 马疝病的预测" class="md-nav__link">
+    项目案例: 马疝病的预测
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="要点补充" class="md-nav__link">
+    要点补充
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" title="1.能否收集到更多的数据？" class="md-nav__link">
+    1.能否收集到更多的数据？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" title="2.尝试使用其他的评价指标" class="md-nav__link">
+    2.尝试使用其他的评价指标
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" title="3.尝试对样本重抽样" class="md-nav__link">
+    3.尝试对样本重抽样
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" title="4.尝试产生人工生成的样本" class="md-nav__link">
+    4.尝试产生人工生成的样本
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" title="5.尝试不同的算法" class="md-nav__link">
+    5.尝试不同的算法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" title="6.尝试使用惩罚的模型" class="md-nav__link">
+    6.尝试使用惩罚的模型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" title="7.尝试使用不同的角度" class="md-nav__link">
+    7.尝试使用不同的角度
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8" title="8.尝试去创新" class="md-nav__link">
+    8.尝试去创新
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8.Regression/" title="第8章_回归" class="md-nav__link">
+      第8章_回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9.TreeRegression/" title="第9章_树回归" class="md-nav__link">
+      第9章_树回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10.KMeans/" title="第10章_KMeans聚类" class="md-nav__link">
+      第10章_KMeans聚类
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11.Apriori/" title="第11章_Apriori算法" class="md-nav__link">
+      第11章_Apriori算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12.FP-growth/" title="第12章_FP-growth算法" class="md-nav__link">
+      第12章_FP-growth算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13.PCA/" title="第13章_PCA降维" class="md-nav__link">
+      第13章_PCA降维
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14.SVD/" title="第14章_SVD简化数据" class="md-nav__link">
+      第14章_SVD简化数据
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15.BigData_MapReduce/" title="第15章_大数据与MapReduce" class="md-nav__link">
+      第15章_大数据与MapReduce
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16.RecommendedSystem/" title="第16章_推荐系统" class="md-nav__link">
+      第16章_推荐系统
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../why-to-record-study-ml-video/" title="为何录制教学版视频" class="md-nav__link">
+      为何录制教学版视频
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../join-us/" title="加入我们" class="md-nav__link">
+      加入我们
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ensemble-method-meta-algorithm" title="集成方法: ensemble method（元算法: meta algorithm） 概述" class="md-nav__link">
+    集成方法: ensemble method（元算法: meta algorithm） 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="集成方法 场景" class="md-nav__link">
+    集成方法 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="随机森林" class="md-nav__link">
+    随机森林
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="随机森林 概述" class="md-nav__link">
+    随机森林 概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="随机森林 原理" class="md-nav__link">
+    随机森林 原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="项目案例: 声纳信号分类" class="md-nav__link">
+    项目案例: 声纳信号分类
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adaboost" title="AdaBoost" class="md-nav__link">
+    AdaBoost
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adaboost-adaptive-boosting-boosting" title="AdaBoost (adaptive boosting: 自适应 boosting) 概述" class="md-nav__link">
+    AdaBoost (adaptive boosting: 自适应 boosting) 概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adaboost_1" title="AdaBoost 原理" class="md-nav__link">
+    AdaBoost 原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="项目案例: 马疝病的预测" class="md-nav__link">
+    项目案例: 马疝病的预测
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="要点补充" class="md-nav__link">
+    要点补充
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" title="1.能否收集到更多的数据？" class="md-nav__link">
+    1.能否收集到更多的数据？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" title="2.尝试使用其他的评价指标" class="md-nav__link">
+    2.尝试使用其他的评价指标
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" title="3.尝试对样本重抽样" class="md-nav__link">
+    3.尝试对样本重抽样
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" title="4.尝试产生人工生成的样本" class="md-nav__link">
+    4.尝试产生人工生成的样本
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" title="5.尝试不同的算法" class="md-nav__link">
+    5.尝试不同的算法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" title="6.尝试使用惩罚的模型" class="md-nav__link">
+    6.尝试使用惩罚的模型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" title="7.尝试使用不同的角度" class="md-nav__link">
+    7.尝试使用不同的角度
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8" title="8.尝试去创新" class="md-nav__link">
+    8.尝试去创新
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/AiLearning/edit/master/docs/ml/7.Ensemble.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="7-ensemble-method">第7章 集成方法 ensemble method</h1>
+<p><img alt="利用AdaBoost元算法提高分类" src="../../img/ml/7.AdaBoost/adaboost_headPage.jpg" title="利用AdaBoost元算法提高分类" /></p>
+<h2 id="ensemble-method-meta-algorithm">集成方法: ensemble method（元算法: meta algorithm） 概述</h2>
+<ul>
+<li>概念：是对其他算法进行组合的一种形式。</li>
+<li>
+<p>通俗来说： 当做重要决定时，大家可能都会考虑吸取多个专家而不只是一个人的意见。
+    机器学习处理问题时又何尝不是如此？ 这就是集成方法背后的思想。</p>
+</li>
+<li>
+<p>集成方法：  </p>
+<ol>
+<li>投票选举(bagging: 自举汇聚法 bootstrap aggregating): 是基于数据随机重抽样分类器构造的方法</li>
+<li>再学习(boosting): 是基于所有分类器的加权求和的方法</li>
+</ol>
+</li>
+</ul>
+<h2 id="_1">集成方法 场景</h2>
+<p>目前 bagging 方法最流行的版本是: 随机森林(random forest)<br/>
+选男友：美女选择择偶对象的时候，会问几个闺蜜的建议，最后选择一个综合得分最高的一个作为男朋友</p>
+<p>目前 boosting 方法最流行的版本是: AdaBoost<br/>
+追女友：3个帅哥追同一个美女，第1个帅哥失败-&gt;(传授经验：姓名、家庭情况) 第2个帅哥失败-&gt;(传授经验：兴趣爱好、性格特点) 第3个帅哥成功</p>
+<blockquote>
+<p>bagging 和 boosting 区别是什么？</p>
+</blockquote>
+<ol>
+<li>bagging 是一种与 boosting 很类似的技术, 所使用的多个分类器的类型（数据量和特征量）都是一致的。</li>
+<li>bagging 是由不同的分类器（1.数据随机化 2.特征随机化）经过训练，综合得出的出现最多分类结果；boosting 是通过调整已有分类器错分的那些数据来获得新的分类器，得出目前最优的结果。</li>
+<li>bagging 中的分类器权重是相等的；而 boosting 中的分类器加权求和，所以权重并不相等，每个权重代表的是其对应分类器在上一轮迭代中的成功度。</li>
+</ol>
+<h2 id="_2">随机森林</h2>
+<h3 id="_3">随机森林 概述</h3>
+<ul>
+<li>随机森林指的是利用多棵树对样本进行训练并预测的一种分类器。</li>
+<li>决策树相当于一个大师，通过自己在数据集中学到的知识用于新数据的分类。但是俗话说得好，一个诸葛亮，玩不过三个臭皮匠。随机森林就是希望构建多个臭皮匠，希望最终的分类效果能够超过单个大师的一种算法。</li>
+</ul>
+<h3 id="_4">随机森林 原理</h3>
+<p>那随机森林具体如何构建呢？<br/>
+有两个方面：<br/>
+1. 数据的随机性化<br/> 
+2. 待选特征的随机化<br/></p>
+<p>使得随机森林中的决策树都能够彼此不同，提升系统的多样性，从而提升分类性能。</p>
+<blockquote>
+<p>数据的随机化：使得随机森林中的决策树更普遍化一点，适合更多的场景。</p>
+</blockquote>
+<p>（有放回的准确率在：70% 以上， 无放回的准确率在：60% 以上）
+1. 采取有放回的抽样方式 构造子数据集，保证不同子集之间的数量级一样（不同子集／同一子集 之间的元素可以重复）
+2. 利用子数据集来构建子决策树，将这个数据放到每个子决策树中，每个子决策树输出一个结果。
+3. 然后统计子决策树的投票结果，得到最终的分类 就是 随机森林的输出结果。
+4. 如下图，假设随机森林中有3棵子决策树，2棵子树的分类结果是A类，1棵子树的分类结果是B类，那么随机森林的分类结果就是A类。</p>
+<p><img alt="数据重抽样" src="../../img/ml/7.RandomForest/数据重抽样.jpg" /></p>
+<blockquote>
+<p>待选特征的随机化</p>
+</blockquote>
+<ol>
+<li>子树从所有的待选特征中随机选取一定的特征。</li>
+<li>在选取的特征中选取最优的特征。</li>
+</ol>
+<p>下图中，蓝色的方块代表所有可以被选择的特征，也就是目前的待选特征；黄色的方块是分裂特征。<br/>
+左边是一棵决策树的特征选取过程，通过在待选特征中选取最优的分裂特征（别忘了前文提到的ID3算法，C4.5算法，CART算法等等），完成分裂。<br/>
+右边是一个随机森林中的子树的特征选取过程。<br/></p>
+<p><img alt="特征重抽样" src="../../img/ml/7.RandomForest/特征重抽样.jpg" /></p>
+<blockquote>
+<p>随机森林 开发流程</p>
+</blockquote>
+<pre><code>收集数据：任何方法
+准备数据：转换样本集
+分析数据：任何方法
+训练算法：通过数据随机化和特征随机化，进行多实例的分类评估
+测试算法：计算错误率
+使用算法：输入样本数据，然后运行 随机森林 算法判断输入数据分类属于哪个分类，最后对计算出的分类执行后续处理
+</code></pre>
+
+<blockquote>
+<p>随机森林 算法特点</p>
+</blockquote>
+<pre><code>优点：几乎不需要输入准备、可实现隐式特征选择、训练速度非常快、其他模型很难超越、很难建立一个糟糕的随机森林模型、大量优秀、免费以及开源的实现。
+缺点：劣势在于模型大小、是个很难去解释的黑盒子。
+适用数据范围：数值型和标称型
+</code></pre>
+
+<h3 id="_5">项目案例: 声纳信号分类</h3>
+<h4 id="_6">项目概述</h4>
+<p>这是 Gorman 和 Sejnowski 在研究使用神经网络的声纳信号分类中使用的数据集。任务是训练一个模型来区分声纳信号。</p>
+<h4 id="_7">开发流程</h4>
+<pre><code>收集数据：提供的文本文件
+准备数据：转换样本集
+分析数据：手工检查数据
+训练算法：在数据上，利用 random_forest() 函数进行优化评估，返回模型的综合分类结果
+测试算法：在采用自定义 n_folds 份随机重抽样 进行测试评估，得出综合的预测评分
+使用算法：若你感兴趣可以构建完整的应用程序，从案例进行封装，也可以参考我们的代码
+</code></pre>
+
+<blockquote>
+<p>收集数据：提供的文本文件</p>
+</blockquote>
+<p>样本数据：sonar-all-data.txt</p>
+<pre><code>0.02,0.0371,0.0428,0.0207,0.0954,0.0986,0.1539,0.1601,0.3109,0.2111,0.1609,0.1582,0.2238,0.0645,0.066,0.2273,0.31,0.2999,0.5078,0.4797,0.5783,0.5071,0.4328,0.555,0.6711,0.6415,0.7104,0.808,0.6791,0.3857,0.1307,0.2604,0.5121,0.7547,0.8537,0.8507,0.6692,0.6097,0.4943,0.2744,0.051,0.2834,0.2825,0.4256,0.2641,0.1386,0.1051,0.1343,0.0383,0.0324,0.0232,0.0027,0.0065,0.0159,0.0072,0.0167,0.018,0.0084,0.009,0.0032,R
+0.0453,0.0523,0.0843,0.0689,0.1183,0.2583,0.2156,0.3481,0.3337,0.2872,0.4918,0.6552,0.6919,0.7797,0.7464,0.9444,1,0.8874,0.8024,0.7818,0.5212,0.4052,0.3957,0.3914,0.325,0.32,0.3271,0.2767,0.4423,0.2028,0.3788,0.2947,0.1984,0.2341,0.1306,0.4182,0.3835,0.1057,0.184,0.197,0.1674,0.0583,0.1401,0.1628,0.0621,0.0203,0.053,0.0742,0.0409,0.0061,0.0125,0.0084,0.0089,0.0048,0.0094,0.0191,0.014,0.0049,0.0052,0.0044,R
+0.0262,0.0582,0.1099,0.1083,0.0974,0.228,0.2431,0.3771,0.5598,0.6194,0.6333,0.706,0.5544,0.532,0.6479,0.6931,0.6759,0.7551,0.8929,0.8619,0.7974,0.6737,0.4293,0.3648,0.5331,0.2413,0.507,0.8533,0.6036,0.8514,0.8512,0.5045,0.1862,0.2709,0.4232,0.3043,0.6116,0.6756,0.5375,0.4719,0.4647,0.2587,0.2129,0.2222,0.2111,0.0176,0.1348,0.0744,0.013,0.0106,0.0033,0.0232,0.0166,0.0095,0.018,0.0244,0.0316,0.0164,0.0095,0.0078,R
+</code></pre>
+
+<blockquote>
+<p>准备数据：转换样本集</p>
+</blockquote>
+<pre><code class="python"># 导入csv文件
+def loadDataSet(filename):
+    dataset = []
+    with open(filename, 'r') as fr:
+        for line in fr.readlines():
+            if not line:
+                continue
+            lineArr = []
+            for featrue in line.split(','):
+                # strip()返回移除字符串头尾指定的字符生成的新字符串
+                str_f = featrue.strip()
+                if str_f.isdigit(): # 判断是否是数字
+                    # 将数据集的第column列转换成float形式
+                    lineArr.append(float(str_f))
+                else:
+                    # 添加分类标签
+                    lineArr.append(str_f)
+            dataset.append(lineArr)
+    return dataset
+</code></pre>
+
+<blockquote>
+<p>分析数据：手工检查数据</p>
+<p>训练算法：在数据上，利用 random_forest() 函数进行优化评估，返回模型的综合分类结果</p>
+</blockquote>
+<ul>
+<li>样本数据随机无放回抽样-用于交叉验证</li>
+</ul>
+<pre><code class="python">def cross_validation_split(dataset, n_folds):
+    &quot;&quot;&quot;cross_validation_split(将数据集进行抽重抽样 n_folds 份，数据可以重复抽取)
+
+    Args:
+        dataset     原始数据集
+        n_folds     数据集dataset分成n_flods份
+    Returns:
+        dataset_split    list集合，存放的是：将数据集进行抽重抽样 n_folds 份，数据可以重复抽取
+    &quot;&quot;&quot;
+    dataset_split = list()
+    dataset_copy = list(dataset)       # 复制一份 dataset,防止 dataset 的内容改变
+    fold_size = len(dataset) / n_folds
+    for i in range(n_folds):
+        fold = list()                  # 每次循环 fold 清零，防止重复导入 dataset_split
+        while len(fold) &lt; fold_size:   # 这里不能用 if，if 只是在第一次判断时起作用，while 执行循环，直到条件不成立
+            # 有放回的随机采样，有一些样本被重复采样，从而在训练集中多次出现，有的则从未在训练集中出现，此为自助采样法。从而保证每棵决策树训练集的差异性            
+            index = randrange(len(dataset_copy))
+            # 将对应索引 index 的内容从 dataset_copy 中导出，并将该内容从 dataset_copy 中删除。
+            # pop() 函数用于移除列表中的一个元素（默认最后一个元素），并且返回该元素的值。
+            fold.append(dataset_copy.pop(index))  # 无放回的方式
+            # fold.append(dataset_copy[index])  # 有放回的方式
+        dataset_split.append(fold)
+    # 由dataset分割出的n_folds个数据构成的列表，为了用于交叉验证
+    return dataset_split
+</code></pre>
+
+<ul>
+<li>训练数据集随机化</li>
+</ul>
+<pre><code class="python"># Create a random subsample from the dataset with replacement
+def subsample(dataset, ratio):   # 创建数据集的随机子样本
+    &quot;&quot;&quot;random_forest(评估算法性能，返回模型得分)
+
+    Args:
+        dataset         训练数据集
+        ratio           训练数据集的样本比例
+    Returns:
+        sample          随机抽样的训练样本
+    &quot;&quot;&quot;
+
+    sample = list()
+    # 训练样本的按比例抽样。
+    # round() 方法返回浮点数x的四舍五入值。
+    n_sample = round(len(dataset) * ratio)
+    while len(sample) &lt; n_sample:
+        # 有放回的随机采样，有一些样本被重复采样，从而在训练集中多次出现，有的则从未在训练集中出现，此为自助采样法。从而保证每棵决策树训练集的差异性
+        index = randrange(len(dataset))
+        sample.append(dataset[index])
+    return sample
+</code></pre>
+
+<ul>
+<li>特征随机化</li>
+</ul>
+<pre><code class="python"># 找出分割数据集的最优特征，得到最优的特征 index，特征值 row[index]，以及分割完的数据 groups（left, right）
+def get_split(dataset, n_features):
+    class_values = list(set(row[-1] for row in dataset))  # class_values =[0, 1]
+    b_index, b_value, b_score, b_groups = 999, 999, 999, None
+    features = list()
+    while len(features) &lt; n_features:
+        index = randrange(len(dataset[0])-1)  # 往 features 添加 n_features 个特征（ n_feature 等于特征数的个数），特征索引从 dataset 中随机取
+        if index not in features:
+            features.append(index)
+    for index in features:                    # 在 n_features 个特征中选出最优的特征索引，并没有遍历所有特征，从而保证了每课决策树的差异性
+        for row in dataset:
+            groups = test_split(index, row[index], dataset)  # groups=(left, right), row[index] 遍历每一行 index 索引下的特征值作为分类值 value, 找出最优的分类特征和特征值
+            gini = gini_index(groups, class_values)
+            # 左右两边的数量越一样，说明数据区分度不高，gini系数越大
+            if gini &lt; b_score:
+                b_index, b_value, b_score, b_groups = index, row[index], gini, groups  # 最后得到最优的分类特征 b_index,分类特征值 b_value,分类结果 b_groups。b_value 为分错的代价成本
+    # print b_score
+    return {'index': b_index, 'value': b_value, 'groups': b_groups}
+</code></pre>
+
+<ul>
+<li>随机森林</li>
+</ul>
+<pre><code class="python"># Random Forest Algorithm
+def random_forest(train, test, max_depth, min_size, sample_size, n_trees, n_features):
+    &quot;&quot;&quot;random_forest(评估算法性能，返回模型得分)
+
+    Args:
+        train           训练数据集
+        test            测试数据集
+        max_depth       决策树深度不能太深，不然容易导致过拟合
+        min_size        叶子节点的大小
+        sample_size     训练数据集的样本比例
+        n_trees         决策树的个数
+        n_features      选取的特征的个数
+    Returns:
+        predictions     每一行的预测结果，bagging 预测最后的分类结果
+    &quot;&quot;&quot;
+
+    trees = list()
+    # n_trees 表示决策树的数量
+    for i in range(n_trees):
+        # 随机抽样的训练样本， 随机采样保证了每棵决策树训练集的差异性
+        sample = subsample(train, sample_size)
+        # 创建一个决策树
+        tree = build_tree(sample, max_depth, min_size, n_features)
+        trees.append(tree)
+
+    # 每一行的预测结果，bagging 预测最后的分类结果
+    predictions = [bagging_predict(trees, row) for row in test]
+    return predictions
+</code></pre>
+
+<blockquote>
+<p>测试算法：在采用自定义 n_folds 份随机重抽样 进行测试评估，得出综合的预测评分。</p>
+</blockquote>
+<ul>
+<li>计算随机森林的预测结果的正确率</li>
+</ul>
+<pre><code class="python"># 评估算法性能，返回模型得分
+def evaluate_algorithm(dataset, algorithm, n_folds, *args):
+    &quot;&quot;&quot;evaluate_algorithm(评估算法性能，返回模型得分)
+
+    Args:
+        dataset     原始数据集
+        algorithm   使用的算法
+        n_folds     数据的份数
+        *args       其他的参数
+    Returns:
+        scores      模型得分
+    &quot;&quot;&quot;
+
+    # 将数据集进行随机抽样，分成 n_folds 份，数据无重复的抽取
+    folds = cross_validation_split(dataset, n_folds)
+    scores = list()
+    # 每次循环从 folds 从取出一个 fold 作为测试集，其余作为训练集，遍历整个 folds ，实现交叉验证
+    for fold in folds:
+        train_set = list(folds)
+        train_set.remove(fold)
+        # 将多个 fold 列表组合成一个 train_set 列表, 类似 union all
+        &quot;&quot;&quot;
+        In [20]: l1=[[1, 2, 'a'], [11, 22, 'b']]
+        In [21]: l2=[[3, 4, 'c'], [33, 44, 'd']]
+        In [22]: l=[]
+        In [23]: l.append(l1)
+        In [24]: l.append(l2)
+        In [25]: l
+        Out[25]: [[[1, 2, 'a'], [11, 22, 'b']], [[3, 4, 'c'], [33, 44, 'd']]]
+        In [26]: sum(l, [])
+        Out[26]: [[1, 2, 'a'], [11, 22, 'b'], [3, 4, 'c'], [33, 44, 'd']]
+        &quot;&quot;&quot;
+        train_set = sum(train_set, [])
+        test_set = list()
+        # fold 表示从原始数据集 dataset 提取出来的测试集
+        for row in fold:
+            row_copy = list(row)
+            row_copy[-1] = None 
+            test_set.append(row_copy)
+        predicted = algorithm(train_set, test_set, *args)
+        actual = [row[-1] for row in fold]
+
+        # 计算随机森林的预测结果的正确率
+        accuracy = accuracy_metric(actual, predicted)
+        scores.append(accuracy)
+    return scores
+</code></pre>
+
+<blockquote>
+<p>使用算法：若你感兴趣可以构建完整的应用程序，从案例进行封装，也可以参考我们的代码</p>
+</blockquote>
+<p><a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/7.RandomForest/randomForest.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/7.RandomForest/randomForest.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/7.RandomForest/randomForest.py</a></p>
+<h2 id="adaboost">AdaBoost</h2>
+<h3 id="adaboost-adaptive-boosting-boosting">AdaBoost (adaptive boosting: 自适应 boosting) 概述</h3>
+<p><code>能否使用弱分类器和多个实例来构建一个强分类器？ 这是一个非常有趣的理论问题。</code></p>
+<h3 id="adaboost_1">AdaBoost 原理</h3>
+<blockquote>
+<p>AdaBoost 工作原理</p>
+</blockquote>
+<p><img alt="AdaBoost 工作原理" src="../../img/ml/7.AdaBoost/adaboost_illustration.png" title="AdaBoost 工作原理" /></p>
+<blockquote>
+<p>AdaBoost 开发流程</p>
+</blockquote>
+<pre><code>收集数据：可以使用任意方法
+准备数据：依赖于所使用的弱分类器类型，本章使用的是单层决策树，这种分类器可以处理任何数据类型。
+    当然也可以使用任意分类器作为弱分类器，第2章到第6章中的任一分类器都可以充当弱分类器。
+    作为弱分类器，简单分类器的效果更好。
+分析数据：可以使用任意方法。
+训练算法：AdaBoost 的大部分时间都用在训练上，分类器将多次在同一数据集上训练弱分类器。
+测试算法：计算分类的错误率。
+使用算法：通SVM一样，AdaBoost 预测两个类别中的一个。如果想把它应用到多个类别的场景，那么就要像多类 SVM 中的做法一样对 AdaBoost 进行修改。
+</code></pre>
+
+<blockquote>
+<p>AdaBoost 算法特点</p>
+</blockquote>
+<pre><code>* 优点：泛化（由具体的、个别的扩大为一般的）错误率低，易编码，可以应用在大部分分类器上，无参数调节。
+* 缺点：对离群点敏感。
+* 适用数据类型：数值型和标称型数据。
+</code></pre>
+
+<h3 id="_8">项目案例: 马疝病的预测</h3>
+<blockquote>
+<p>项目流程图</p>
+</blockquote>
+<p><img alt="AdaBoost代码流程图" src="../../img/ml/7.AdaBoost/adaboost_code-flow-chart.jpg" title="AdaBoost代码流程图" /></p>
+<p>基于单层决策树构建弱分类器
+* 单层决策树(decision stump, 也称决策树桩)是一种简单的决策树。</p>
+<h4 id="_9">项目概述</h4>
+<p>预测患有疝气病的马的存活问题，这里的数据包括368个样本和28个特征，疝气病是描述马胃肠痛的术语，然而，这种病并不一定源自马的胃肠问题，其他问题也可能引发疝气病，该数据集中包含了医院检测马疝气病的一些指标，有的指标比较主观，有的指标难以测量，例如马的疼痛级别。另外，除了部分指标主观和难以测量之外，该数据还存在一个问题，数据集中有30%的值是缺失的。</p>
+<h4 id="_10">开发流程</h4>
+<pre><code>收集数据：提供的文本文件
+准备数据：确保类别标签是+1和-1，而非1和0
+分析数据：统计分析
+训练算法：在数据上，利用 adaBoostTrainDS() 函数训练出一系列的分类器
+测试算法：我们拥有两个数据集。在不采用随机抽样的方法下，我们就会对 AdaBoost 和 Logistic 回归的结果进行完全对等的比较
+使用算法：观察该例子上的错误率。不过，也可以构建一个 Web 网站，让驯马师输入马的症状然后预测马是否会死去
+</code></pre>
+
+<blockquote>
+<p>收集数据：提供的文本文件</p>
+</blockquote>
+<p>训练数据：horseColicTraining.txt<br/>
+测试数据：horseColicTest.txt</p>
+<pre><code>2.000000    1.000000    38.500000   66.000000   28.000000   3.000000    3.000000    0.000000    2.000000    5.000000    4.000000    4.000000    0.000000    0.000000    0.000000    3.000000    5.000000    45.000000   8.400000    0.000000    0.000000    -1.000000
+1.000000    1.000000    39.200000   88.000000   20.000000   0.000000    0.000000    4.000000    1.000000    3.000000    4.000000    2.000000    0.000000    0.000000    0.000000    4.000000    2.000000    50.000000   85.000000   2.000000    2.000000    -1.000000
+2.000000    1.000000    38.300000   40.000000   24.000000   1.000000    1.000000    3.000000    1.000000    3.000000    3.000000    1.000000    0.000000    0.000000    0.000000    1.000000    1.000000    33.000000   6.700000    0.000000    0.000000    1.000000
+</code></pre>
+
+<blockquote>
+<p>准备数据：确保类别标签是+1和-1，而非1和0</p>
+</blockquote>
+<pre><code class="python">def loadDataSet(fileName):
+    # 获取 feature 的数量, 便于获取
+    numFeat = len(open(fileName).readline().split('\t'))
+    dataArr = []
+    labelArr = []
+    fr = open(fileName)
+    for line in fr.readlines():
+        lineArr = []
+        curLine = line.strip().split('\t')
+        for i in range(numFeat-1):
+            lineArr.append(float(curLine[i]))
+        dataArr.append(lineArr)
+        labelArr.append(float(curLine[-1]))
+    return dataArr, labelArr
+</code></pre>
+
+<blockquote>
+<p>分析数据：统计分析</p>
+</blockquote>
+<p>过拟合(overfitting, 也称为过学习)
+* 发现测试错误率在达到一个最小值之后有开始上升，这种现象称为过拟合。</p>
+<p><img alt="过拟合" src="../../img/ml/7.AdaBoost/过拟合.png" /></p>
+<ul>
+<li>通俗来说：就是把一些噪音数据也拟合进去的，如下图。</li>
+</ul>
+<p><img alt="过拟合" src="../../img/ml/7.AdaBoost/过拟合图解.png" /></p>
+<blockquote>
+<p>训练算法：在数据上，利用 adaBoostTrainDS() 函数训练出一系列的分类器</p>
+</blockquote>
+<pre><code class="python">def adaBoostTrainDS(dataArr, labelArr, numIt=40):
+    &quot;&quot;&quot;adaBoostTrainDS(adaBoost训练过程放大)
+    Args:
+        dataArr   特征标签集合
+        labelArr  分类标签集合
+        numIt     实例数
+    Returns:
+        weakClassArr  弱分类器的集合
+        aggClassEst   预测的分类结果值
+    &quot;&quot;&quot;
+    weakClassArr = []
+    m = shape(dataArr)[0]
+    # 初始化 D，设置每个样本的权重值，平均分为m份
+    D = mat(ones((m, 1))/m)
+    aggClassEst = mat(zeros((m, 1)))
+    for i in range(numIt):
+        # 得到决策树的模型
+        bestStump, error, classEst = buildStump(dataArr, labelArr, D)
+
+        # alpha目的主要是计算每一个分类器实例的权重(组合就是分类结果)
+        # 计算每个分类器的alpha权重值
+        alpha = float(0.5*log((1.0-error)/max(error, 1e-16)))
+        bestStump['alpha'] = alpha
+        # store Stump Params in Array
+        weakClassArr.append(bestStump)
+
+        print &quot;alpha=%s, classEst=%s, bestStump=%s, error=%s &quot; % (alpha, classEst.T, bestStump, error)
+        # 分类正确：乘积为1，不会影响结果，-1主要是下面求e的-alpha次方
+        # 分类错误：乘积为 -1，结果会受影响，所以也乘以 -1
+        expon = multiply(-1*alpha*mat(labelArr).T, classEst)
+        print '(-1取反)预测值expon=', expon.T
+        # 计算e的expon次方，然后计算得到一个综合的概率的值
+        # 结果发现： 判断错误的样本，D中相对应的样本权重值会变大。
+        D = multiply(D, exp(expon))
+        D = D/D.sum()
+
+        # 预测的分类结果值，在上一轮结果的基础上，进行加和操作
+        print '当前的分类结果：', alpha*classEst.T
+        aggClassEst += alpha*classEst
+        print &quot;叠加后的分类结果aggClassEst: &quot;, aggClassEst.T
+        # sign 判断正为1， 0为0， 负为-1，通过最终加和的权重值，判断符号。
+        # 结果为：错误的样本标签集合，因为是 !=,那么结果就是0 正, 1 负
+        aggErrors = multiply(sign(aggClassEst) != mat(labelArr).T, ones((m, 1)))
+        errorRate = aggErrors.sum()/m
+        # print &quot;total error=%s &quot; % (errorRate)
+        if errorRate == 0.0:
+            break
+    return weakClassArr, aggClassEst
+</code></pre>
+
+<pre><code>发现：
+alpha （模型权重）目的主要是计算每一个分类器实例的权重(加和就是分类结果)
+  分类的权重值：最大的值= alpha 的加和，最小值=-最大值
+D （样本权重）的目的是为了计算错误概率： weightedError = D.T*errArr，求最佳分类器
+  样本的权重值：如果一个值误判的几率越小，那么 D 的样本权重越小
+</code></pre>
+
+<p><img alt="AdaBoost算法权重计算公式" src="../../img/ml/7.AdaBoost/adaboost_alpha.png" title="AdaBoost算法权重计算公式" /></p>
+<blockquote>
+<p>测试算法：我们拥有两个数据集。在不采用随机抽样的方法下，我们就会对 AdaBoost 和 Logistic 回归的结果进行完全对等的比较。</p>
+</blockquote>
+<pre><code class="python">def adaClassify(datToClass, classifierArr):
+    &quot;&quot;&quot;adaClassify(ada分类测试)
+    Args:
+        datToClass     多个待分类的样例
+        classifierArr  弱分类器的集合
+    Returns:
+        sign(aggClassEst) 分类结果
+    &quot;&quot;&quot;
+    # do stuff similar to last aggClassEst in adaBoostTrainDS
+    dataMat = mat(datToClass)
+    m = shape(dataMat)[0]
+    aggClassEst = mat(zeros((m, 1)))
+
+    # 循环 多个分类器
+    for i in range(len(classifierArr)):
+        # 前提： 我们已经知道了最佳的分类器的实例
+        # 通过分类器来核算每一次的分类结果，然后通过alpha*每一次的结果 得到最后的权重加和的值。
+        classEst = stumpClassify(dataMat, classifierArr[i]['dim'], classifierArr[i]['thresh'], classifierArr[i]['ineq'])
+        aggClassEst += classifierArr[i]['alpha']*classEst
+    return sign(aggClassEst)
+</code></pre>
+
+<blockquote>
+<p>使用算法：观察该例子上的错误率。不过，也可以构建一个 Web 网站，让驯马师输入马的症状然后预测马是否会死去。</p>
+</blockquote>
+<pre><code class="python"># 马疝病数据集
+# 训练集合
+dataArr, labelArr = loadDataSet(&quot;db/7.AdaBoost/horseColicTraining2.txt&quot;)
+weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 40)
+print weakClassArr, '\n-----\n', aggClassEst.T
+# 计算ROC下面的AUC的面积大小
+plotROC(aggClassEst.T, labelArr)
+# 测试集合
+dataArrTest, labelArrTest = loadDataSet(&quot;db/7.AdaBoost/horseColicTest2.txt&quot;)
+m = shape(dataArrTest)[0]
+predicting10 = adaClassify(dataArrTest, weakClassArr)
+errArr = mat(ones((m, 1)))
+# 测试：计算总样本数，错误样本数，错误率
+print m, errArr[predicting10 != mat(labelArrTest).T].sum(), errArr[predicting10 != mat(labelArrTest).T].sum()/m
+</code></pre>
+
+<p><a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/7.AdaBoost/adaboost.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/7.AdaBoost/adaboost.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/7.AdaBoost/adaboost.py</a></p>
+<h4 id="_11">要点补充</h4>
+<blockquote>
+<p>非均衡现象：</p>
+</blockquote>
+<p><code>在分类器训练时，正例数目和反例数目不相等（相差很大）。或者发生在正负例分类错误的成本不同的时候。</code></p>
+<ul>
+<li>判断马是否能继续生存(不可误杀)</li>
+<li>过滤垃圾邮件(不可漏判)</li>
+<li>不能放过传染病的人</li>
+<li>不能随便认为别人犯罪</li>
+</ul>
+<p>我们有多种方法来处理这个问题： 具体可参考<a href="https://machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/">此链接</a></p>
+<p>再结合书中的方法，可以归为八大类：</p>
+<h5 id="1">1.能否收集到更多的数据？</h5>
+<p>这个措施往往被人们所忽略，被认为很蠢。但是更大的数据集更能体现样本的分布，多样性。</p>
+<h5 id="2">2.尝试使用其他的评价指标</h5>
+<p>Accuracy 或者error rate 不能用于非均衡的数据集。这会误导人。这时候可以尝试其他的评价指标。</p>
+<p>Confusion Matrix 混淆矩阵：使用一个表格对分类器所预测的类别与其真实的类别的样本统计，分别为：TP、FN、FP与TN。</p>
+<p>Precision：精确度</p>
+<p>Recall： 召回率</p>
+<p>F1 Score (or F-Score)： 精确度和召回率的加权平均</p>
+<p>或者使用</p>
+<p>Kappa (Cohen's kappa)</p>
+<p>ROC Curves</p>
+<blockquote>
+<p>ROC 评估方法</p>
+</blockquote>
+<ul>
+<li>ROC 曲线: 最佳的分类器应该尽可能地处于左上角</li>
+</ul>
+<p><img alt="ROC曲线" src="../../img/ml/7.AdaBoost/ROC曲线.png" /></p>
+<ul>
+<li>
+<p>对不同的 ROC 曲线进行比较的一个指标是曲线下的面积(Area Unser the Curve, AUC). </p>
+</li>
+<li>
+<p>AUC 给出的是分类器的平均性能值，当然它并不能完全代替对整条曲线的观察。</p>
+</li>
+<li>
+<p>一个完美分类器的 AUC 为1，而随机猜测的 AUC 则为0.5。</p>
+</li>
+</ul>
+<h5 id="3">3.尝试对样本重抽样</h5>
+<p>欠抽样(undersampling)或者过抽样(oversampling)</p>
+<pre><code>- 欠抽样: 意味着删除样例
+- 过抽样: 意味着复制样例(重复使用)
+</code></pre>
+<p>对大类进行欠抽样</p>
+<p>对小类进行过抽样</p>
+<p>或者结合上述两种方法进行抽样</p>
+<p>一些经验法则：</p>
+<ul>
+<li>
+<p>考虑样本（超过1万、十万甚至更多）进行欠采样，即删除部分样本；</p>
+</li>
+<li>
+<p>考虑样本（不足1为甚至更少）进行过采样，即添加部分样本的副本；</p>
+</li>
+<li>
+<p>考虑尝试随机采样与非随机采样两种采样方法；</p>
+</li>
+<li>
+<p>考虑对各类别尝试不同的采样比例，不一定是1:1</p>
+</li>
+<li>
+<p>考虑同时使用过采样与欠采样
+        </p>
+</li>
+</ul>
+<h5 id="4">4.尝试产生人工生成的样本</h5>
+<p>一种简单的方法就是随机抽样小类样本的属性（特征）来组成新的样本即属性值随机采样。你可以根据经验进行抽样，可以使用其他方式比如朴素贝叶斯方法假设各属性之间互相独立进行采样，这样便可得到更多的数据，但是无法保证属性之间的非线性关系。</p>
+<p>当然也有系统性的算法。最常用的SMOTE(Synthetic Minority Over-Sampling Technique)。 顾名思义，这是一种over sampling（过抽样）的方式。它是产生人为的样本而不是制造样本副本。这个算法是选取2个或者2个以上相似的样本（根据距离度量 distance measure），然后每次选择其中一个样本，并随机选择一定数量的邻居样本对选择的那个样本的一个属性增加噪声(每次只处理一个属性)。这样就构造了更多的新生数据。具体可以参见<a href="http://www.jair.org/papers/paper953.html">原始论文</a>。</p>
+<p>python实现可以查阅<a href="https://github.com/scikit-learn-contrib/imbalanced-learn">UnbalancedDataset</a></p>
+<h5 id="5">5.尝试不同的算法</h5>
+<p>强烈建议不要在每个问题上使用你最喜欢的算法。虽然这个算法带来较好的效果，但是它也会蒙蔽你观察数据内蕴含的其他的信息。至少你得在同一个问题上试试各种算法。具体可以参阅<a href="https://machinelearningmastery.com/why-you-should-be-spot-checking-algorithms-on-your-machine-learning-problems/">Why you should be Spot-Checking Algorithms on your Machine Learning Problems</a></p>
+<p>比如说，决策树经常在非均衡数据集上表现良好。创建分类树时候使用基于类变量的划分规则强制使类别表达出来。如果有疑惑，可以尝试一些流行的决策树，比如, C4.5, C5.0, CART 和 Random Forrest。</p>
+<h5 id="6">6.尝试使用惩罚的模型</h5>
+<p>你可以使用同种算法但是以不同的角度对待这个问题。</p>
+<p>惩罚的模型就是对于不同的分类错误给予不同的代价（惩罚）。比如对于错分的小类给予更高的代价。这种方式会使模型偏差，更加关注小类。</p>
+<p>通常来说这种代价/惩罚或者比重在学习中算法是特定的。比如使用代价函数来实现：</p>
+<blockquote>
+<p>代价函数</p>
+</blockquote>
+<ul>
+<li>基于代价函数的分类器决策控制：<code>TP*(-5)+FN*1+FP*50+TN*0</code></li>
+</ul>
+<p><img alt="代价函数" src="../../img/ml/7.AdaBoost/代价函数.png" /></p>
+<p>这种方式叫做 cost sensitive learning，Weka 中相应的框架可以实现叫<a href="http://weka.sourceforge.net/doc.dev/weka/classifiers/meta/CostSensitiveClassifier.html">CostSensitiveClassifier</a></p>
+<p>如果当你只能使用特定算法而且无法重抽样，或者模型效果不行，这时候使用惩罚（penalization）是可行的方法。这提供另外一种方式来“平衡”类别。但是设定惩罚函数/代价函数是比较复杂的。最好还是尝试不同的代价函数组合来得到最优效果。</p>
+<h5 id="7">7.尝试使用不同的角度</h5>
+<p>其实有很多研究关于非均衡数据。他们有自己的算法，度量，术语。</p>
+<p>从它们的角度看看你的问题，思考你的问题，说不定会有新的想法。</p>
+<p>两个领域您可以考虑： anomaly detection(异常值检测) 和 change detection（变化趋势检测）。</p>
+<p>Anomaly dectection 就是检测稀有事件。 比如通过机器震动来识别机器谷中或者根据一系列系统的调用来检测恶意操作。与常规操作相比，这些事件是罕见的。</p>
+<p>把小类想成异常类这种转变可能会帮助你想到新办法来分类数据样本。</p>
+<p>change detection 变化趋势检测类似于异常值检测。但是他不是寻找异常值而是寻找变化或区别。比如通过使用模式或者银行交易记录来观察用户行为转变。</p>
+<p>这些两种转变可能会给你新的方式去思考你的问题和新的技术去尝试。
+    </p>
+<h5 id="8">8.尝试去创新</h5>
+<p>仔细思考你的问题然后想想看如何将这问题细分为几个更切实际的小问题。</p>
+<p>比如：</p>
+<p>将你的大类分解成多个较小的类；</p>
+<p>使用One Class分类器（看待成异常点检测）；</p>
+<p>对数据集进行抽样成多个数据集，使用集成方式，训练多个分类器，然后联合这些分类器进行分类；</p>
+<p>这只是一个例子。更多的可以参阅<a href="http://www.quora.com/In-classification-how-do-you-handle-an-unbalanced-training-set">In classification, how do you handle an unbalanced training set?</a> 和<a href="https://www.reddit.com/r/MachineLearning/comments/12evgi/classification_when_80_of_my_training_set_is_of/">Classification when 80% of my training set is of one class</a></p>
+<hr />
+<ul>
+<li><strong>作者：<a href="http://www.apache.wiki/display/~jiangzhonglian">片刻</a></strong></li>
+<li><a href="https://github.com/apachecn/AiLearning">GitHub地址</a>: <a href="https://github.com/apachecn/AiLearning">https://github.com/apachecn/AiLearning</a></li>
+<li><strong>版权声明：欢迎转载学习 =&gt; 请标注信息来源于 <a href="http://www.apachecn.org/">ApacheCN</a></strong></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/AiLearning/" target="_blank">apachecn/AiLearning</a></p>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'AiLearning',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../6.SVM/" title="第6章_支持向量机" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                第6章_支持向量机
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../8.Regression/" title="第8章_回归" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                第8章_回归
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

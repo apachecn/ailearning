@@ -1,0 +1,1046 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ApacheCN 专注于优秀项目维护的开源组织">
+      
+      
+        <link rel="canonical" href="http://ailearning.apachecn.org/ml/15.BigData_MapReduce/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>第15章_大数据与MapReduce - ApacheCN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#15-mapreduce" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                ApacheCN
+              </span>
+              <span class="md-header-nav__topic">
+                第15章_大数据与MapReduce
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    ApacheCN
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1.MLFoundation/" title="第1章_基础知识" class="md-nav__link">
+      第1章_基础知识
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2.KNN/" title="第2章_K近邻算法" class="md-nav__link">
+      第2章_K近邻算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3.DecisionTree/" title="第3章_决策树算法" class="md-nav__link">
+      第3章_决策树算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4.NaiveBayesian/" title="第4章_朴素贝叶斯" class="md-nav__link">
+      第4章_朴素贝叶斯
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5.Logistic/" title="第5章_逻辑回归" class="md-nav__link">
+      第5章_逻辑回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6.SVM/" title="第6章_支持向量机" class="md-nav__link">
+      第6章_支持向量机
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7.Ensemble/" title="第7章_集成方法" class="md-nav__link">
+      第7章_集成方法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8.Regression/" title="第8章_回归" class="md-nav__link">
+      第8章_回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9.TreeRegression/" title="第9章_树回归" class="md-nav__link">
+      第9章_树回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10.KMeans/" title="第10章_KMeans聚类" class="md-nav__link">
+      第10章_KMeans聚类
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11.Apriori/" title="第11章_Apriori算法" class="md-nav__link">
+      第11章_Apriori算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12.FP-growth/" title="第12章_FP-growth算法" class="md-nav__link">
+      第12章_FP-growth算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13.PCA/" title="第13章_PCA降维" class="md-nav__link">
+      第13章_PCA降维
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14.SVD/" title="第14章_SVD简化数据" class="md-nav__link">
+      第14章_SVD简化数据
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        第15章_大数据与MapReduce
+      </label>
+    
+    <a href="./" title="第15章_大数据与MapReduce" class="md-nav__link md-nav__link--active">
+      第15章_大数据与MapReduce
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="大数据 概述" class="md-nav__link">
+    大数据 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="大数据 场景" class="md-nav__link">
+    大数据 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapredece" title="MapRedece" class="md-nav__link">
+    MapRedece
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hadoop" title="Hadoop 概述" class="md-nav__link">
+    Hadoop 概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapredece_1" title="MapRedece 原理" class="md-nav__link">
+    MapRedece 原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hadoop-python" title="Hadoop 流(Python 调用)" class="md-nav__link">
+    Hadoop 流(Python 调用)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapreduce" title="MapReduce 机器学习" class="md-nav__link">
+    MapReduce 机器学习
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mahout-in-action" title="Mahout in Action" class="md-nav__link">
+    Mahout in Action
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mrjob-mapreduce" title="使用 mrjob 库将 MapReduce 自动化" class="md-nav__link">
+    使用 mrjob 库将 MapReduce 自动化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svm-pegasos" title="项目案例：分布式 SVM 的 Pegasos 算法" class="md-nav__link">
+    项目案例：分布式 SVM 的 Pegasos 算法
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pegasos" title="Pegasos 工作原理" class="md-nav__link">
+    Pegasos 工作原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16.RecommendedSystem/" title="第16章_推荐系统" class="md-nav__link">
+      第16章_推荐系统
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../why-to-record-study-ml-video/" title="为何录制教学版视频" class="md-nav__link">
+      为何录制教学版视频
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../join-us/" title="加入我们" class="md-nav__link">
+      加入我们
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="大数据 概述" class="md-nav__link">
+    大数据 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="大数据 场景" class="md-nav__link">
+    大数据 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapredece" title="MapRedece" class="md-nav__link">
+    MapRedece
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hadoop" title="Hadoop 概述" class="md-nav__link">
+    Hadoop 概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapredece_1" title="MapRedece 原理" class="md-nav__link">
+    MapRedece 原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hadoop-python" title="Hadoop 流(Python 调用)" class="md-nav__link">
+    Hadoop 流(Python 调用)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapreduce" title="MapReduce 机器学习" class="md-nav__link">
+    MapReduce 机器学习
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mahout-in-action" title="Mahout in Action" class="md-nav__link">
+    Mahout in Action
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mrjob-mapreduce" title="使用 mrjob 库将 MapReduce 自动化" class="md-nav__link">
+    使用 mrjob 库将 MapReduce 自动化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svm-pegasos" title="项目案例：分布式 SVM 的 Pegasos 算法" class="md-nav__link">
+    项目案例：分布式 SVM 的 Pegasos 算法
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pegasos" title="Pegasos 工作原理" class="md-nav__link">
+    Pegasos 工作原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/AiLearning/edit/master/docs/ml/15.BigData_MapReduce.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="15-mapreduce">第15章 大数据与MapReduce</h1>
+<p><img alt="大数据与MapReduce首页" src="../../img/ml/15.BigData_MapReduce/mr_headPage.jpg" title="大数据与MapReduce首页" /></p>
+<h2 id="_1">大数据 概述</h2>
+<p><code>大数据: 收集到的数据已经远远超出了我们的处理能力。</code></p>
+<h2 id="_2">大数据 场景</h2>
+<pre><code>假如你为一家网络购物商店工作，很多用户访问该网站，其中有些人会购买商品，有些人则随意浏览后就离开。
+对于你来说，可能很想识别那些有购物意愿的用户。
+那么问题就来了，数据集可能会非常大，在单机上训练要运行好几天。
+接下来：我们讲讲 MapRedece 如何来解决这样的问题
+</code></pre>
+
+<h2 id="mapredece">MapRedece</h2>
+<h3 id="hadoop">Hadoop 概述</h3>
+<pre><code>Hadoop 是 MapRedece 框架的一个免费开源实现。
+MapReduce: 分布式的计算框架，可以将单个计算作业分配给多台计算机执行。
+</code></pre>
+
+<h3 id="mapredece_1">MapRedece 原理</h3>
+<blockquote>
+<p>MapRedece 工作原理</p>
+</blockquote>
+<ul>
+<li>主节点控制 MapReduce 的作业流程</li>
+<li>MapReduce 的作业可以分成map任务和reduce任务</li>
+<li>map 任务之间不做数据交流，reduce 任务也一样</li>
+<li>在 map 和 reduce 阶段中间，有一个 sort 和 combine 阶段</li>
+<li>数据被重复存放在不同的机器上，以防止某个机器失效</li>
+<li>mapper 和 reducer 传输的数据形式为 key/value对</li>
+</ul>
+<p><img alt="MapReduce框架的示意图" src="../../img/ml/15.BigData_MapReduce/mr_1_cluster.jpg" title="MapReduce框架的示意图" /></p>
+<blockquote>
+<p>MapRedece 特点</p>
+</blockquote>
+<pre><code>优点: 使程序以并行的方式执行，可在短时间内完成大量工作。
+缺点: 算法必须经过重写，需要对系统工程有一定的理解。
+适用数据类型: 数值型和标称型数据。
+</code></pre>
+
+<h3 id="hadoop-python">Hadoop 流(Python 调用)</h3>
+<blockquote>
+<p>理论简介</p>
+</blockquote>
+<p>例如: Hadoop流可以像Linux命令一样执行</p>
+<pre><code class="Shell">cat inputFile.txt | python mapper.py | sort | python reducer.py &gt; outputFile.txt
+</code></pre>
+
+<p>类似的Hadoop流就可以在多台机器上分布式执行，用户可以通过Linux命令来测试Python语言编写的MapReduce脚本。</p>
+<blockquote>
+<p>实战脚本</p>
+</blockquote>
+<pre><code># 测试 Mapper
+# Linux
+cat db/15.BigData_MapReduce/inputFile.txt | python src/python/15.BigData_MapReduce/mrMeanMapper.py
+# Window
+# python src/python/15.BigData_MapReduce/mrMeanMapper.py &lt; db/15.BigData_MapReduce/inputFile.txt
+
+# 测试 Reducer
+# Linux
+cat db/15.BigData_MapReduce/inputFile.txt | python src/python/15.BigData_MapReduce/mrMeanMapper.py | python src/python/15.BigData_MapReduce/mrMeanReducer.py
+# Window
+# python src/python/15.BigData_MapReduce/mrMeanMapper.py &lt; db/15.BigData_MapReduce/inputFile.txt | python src/python/15.BigData_MapReduce/mrMeanReducer.py
+</code></pre>
+
+<h3 id="mapreduce">MapReduce 机器学习</h3>
+<h4 id="mahout-in-action">Mahout in Action</h4>
+<ol>
+<li>简单贝叶斯：它属于为数不多的可以很自然的使用MapReduce的算法。通过统计在某个类别下某特征的概率。</li>
+<li>k-近邻算法：高维数据下（如文本、图像和视频）流行的近邻查找方法是局部敏感哈希算法。</li>
+<li>支持向量机(SVM)：使用随机梯度下降算法求解，如Pegasos算法。</li>
+<li>奇异值分解：Lanczos算法是一个有效的求解近似特征值的算法。</li>
+<li>k-均值聚类：canopy算法初始化k个簇，然后再运行K-均值求解结果。</li>
+</ol>
+<h3 id="mrjob-mapreduce">使用 mrjob 库将 MapReduce 自动化</h3>
+<blockquote>
+<p>理论简介</p>
+</blockquote>
+<ul>
+<li>MapReduce 作业流自动化的框架：Cascading 和 Oozie.</li>
+<li>mrjob 是一个不错的学习工具，与2010年底实现了开源，来之于 Yelp(一个餐厅点评网站).</li>
+</ul>
+<pre><code class="Shell">python src/python/15.BigData_MapReduce/mrMean.py &lt; db/15.BigData_MapReduce/inputFile.txt &gt; db/15.BigData_MapReduce/myOut.txt
+</code></pre>
+
+<blockquote>
+<p>实战脚本</p>
+</blockquote>
+<pre><code># 测试 mrjob的案例
+# 先测试一下mapper方法
+# python src/python/15.BigData_MapReduce/mrMean.py --mapper &lt; db/15.BigData_MapReduce/inputFile.txt
+# 运行整个程序，移除 --mapper 就行
+python src/python/15.BigData_MapReduce/mrMean.py &lt; db/15.BigData_MapReduce/inputFile.txt
+</code></pre>
+
+<h3 id="svm-pegasos">项目案例：分布式 SVM 的 Pegasos 算法</h3>
+<p>Pegasos是指原始估计梯度求解器(Peimal Estimated sub-GrAdient Solver)</p>
+<h4 id="pegasos">Pegasos 工作原理</h4>
+<ol>
+<li>从训练集中随机挑选一些样本点添加到待处理列表中</li>
+<li>按序判断每个样本点是否被正确分类<ul>
+<li>如果是则忽略</li>
+<li>如果不是则将其加入到待更新集合。</li>
+</ul>
+</li>
+<li>批处理完毕后，权重向量按照这些错分的样本进行更新。</li>
+</ol>
+<p>上述算法伪代码如下：</p>
+<pre><code>将 回归系数w 初始化为0
+对每次批处理
+    随机选择 k 个样本点(向量)
+    对每个向量
+        如果该向量被错分：
+            更新权重向量 w
+    累加对 w 的更新
+</code></pre>
+
+<h4 id="_3">开发流程</h4>
+<pre><code>收集数据：数据按文本格式存放。
+准备数据：输入数据已经是可用的格式，所以不需任何准备工作。如果你需要解析一个大规模的数据集，建议使用 map 作业来完成，从而达到并行处理的目的。
+分析数据：无。
+训练算法：与普通的 SVM 一样，在分类器训练上仍需花费大量的时间。
+测试算法：在二维空间上可视化之后，观察超平面，判断算法是否有效。
+使用算法：本例不会展示一个完整的应用，但会展示如何在大数据集上训练SVM。该算法其中一个应用场景就是本文分类，通常在文本分类里可能有大量的文档和成千上万的特征。
+</code></pre>
+
+<blockquote>
+<p>收集数据</p>
+</blockquote>
+<p>文本文件数据格式如下：</p>
+<pre><code class="python">0.365032        2.465645        -1
+-2.494175       -0.292380       -1
+-3.039364       -0.123108       -1
+1.348150        0.255696        1
+2.768494        1.234954        1
+1.232328        -0.601198       1
+</code></pre>
+
+<blockquote>
+<p>准备数据</p>
+</blockquote>
+<pre><code class="python">def loadDataSet(fileName):
+    dataMat = []
+    labelMat = []
+    fr = open(fileName)
+    for line in fr.readlines():
+        lineArr = line.strip().split('\t')
+        # dataMat.append([float(lineArr[0]), float(lineArr[1]), float(lineArr[2])])
+        dataMat.append([float(lineArr[0]), float(lineArr[1])])
+        labelMat.append(float(lineArr[2]))
+    return dataMat, labelMat
+</code></pre>
+
+<blockquote>
+<p>分析数据: 无</p>
+<p>训练算法</p>
+</blockquote>
+<pre><code class="python">def batchPegasos(dataSet, labels, lam, T, k):
+    &quot;&quot;&quot;batchPegasos()
+
+    Args:
+        dataMat    特征集合
+        labels     分类结果集合
+        lam        固定值
+        T          迭代次数
+        k          待处理列表大小
+    Returns:
+        w          回归系数
+    &quot;&quot;&quot;
+    m, n = shape(dataSet)
+    w = zeros(n)  # 回归系数
+    dataIndex = range(m)
+    for t in range(1, T+1):
+        wDelta = mat(zeros(n))  # 重置 wDelta
+
+        # 它是学习率，代表了权重调整幅度的大小。（也可以理解为随机梯度的步长，使它不断减小，便于拟合）
+        # 输入T和K分别设定了迭代次数和待处理列表的大小。在T次迭代过程中，每次需要重新计算eta
+        eta = 1.0/(lam*t)
+        random.shuffle(dataIndex)
+        for j in range(k):      # 全部的训练集  内循环中执行批处理，将分类错误的值全部做累加后更新权重向量
+            i = dataIndex[j]
+            p = predict(w, dataSet[i, :])              # mapper 代码
+
+            # 如果预测正确，并且预测结果的绝对值&gt;=1，因为最大间隔为1, 认为没问题。
+            # 否则算是预测错误, 通过预测错误的结果，来累计更新w.
+            if labels[i]*p &lt; 1:                        # mapper 代码
+                wDelta += labels[i]*dataSet[i, :].A    # 累积变化
+        # w通过不断的随机梯度的方式来优化
+        w = (1.0 - 1/t)*w + (eta/k)*wDelta             # 在每个 T上应用更改
+        # print '-----', w
+    # print '++++++', w
+    return w
+</code></pre>
+
+<p><a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/15.BigData_MapReduce/pegasos.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/15.BigData_MapReduce/pegasos.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/15.BigData_MapReduce/pegasos.py</a></p>
+<p>运行方式：<code>python /opt/git/MachineLearning/src/python/15.BigData_MapReduce/mrSVM.py &lt; db/15.BigData_MapReduce/inputFile.txt</code>
+<a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/15.BigData_MapReduce/mrSVM.py">MR版本的代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/15.BigData_MapReduce/mrSVM.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/15.BigData_MapReduce/mrSVM.py</a></p>
+<hr />
+<ul>
+<li><strong>作者：<a href="http://cwiki.apachecn.org/display/~jiangzhonglian">片刻</a> <a href="http://cwiki.apachecn.org/display/~chenyao">小瑶</a></strong></li>
+<li><a href="https://github.com/apachecn/AiLearning">GitHub地址</a>: <a href="https://github.com/apachecn/AiLearning">https://github.com/apachecn/AiLearning</a></li>
+<li><strong>版权声明：欢迎转载学习 =&gt; 请标注信息来源于 <a href="http://www.apachecn.org/">ApacheCN</a></strong></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/AiLearning/" target="_blank">apachecn/AiLearning</a></p>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'AiLearning',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../14.SVD/" title="第14章_SVD简化数据" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                第14章_SVD简化数据
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../16.RecommendedSystem/" title="第16章_推荐系统" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                第16章_推荐系统
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1502 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ApacheCN 专注于优秀项目维护的开源组织">
+      
+      
+        <link rel="canonical" href="http://ailearning.apachecn.org/ml/6.SVM/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>第6章_支持向量机 - ApacheCN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#6" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                ApacheCN
+              </span>
+              <span class="md-header-nav__topic">
+                第6章_支持向量机
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    ApacheCN
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1.MLFoundation/" title="第1章_基础知识" class="md-nav__link">
+      第1章_基础知识
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2.KNN/" title="第2章_K近邻算法" class="md-nav__link">
+      第2章_K近邻算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3.DecisionTree/" title="第3章_决策树算法" class="md-nav__link">
+      第3章_决策树算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4.NaiveBayesian/" title="第4章_朴素贝叶斯" class="md-nav__link">
+      第4章_朴素贝叶斯
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5.Logistic/" title="第5章_逻辑回归" class="md-nav__link">
+      第5章_逻辑回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        第6章_支持向量机
+      </label>
+    
+    <a href="./" title="第6章_支持向量机" class="md-nav__link md-nav__link--active">
+      第6章_支持向量机
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="支持向量机 概述" class="md-nav__link">
+    支持向量机 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="支持向量机 场景" class="md-nav__link">
+    支持向量机 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="支持向量机 原理" class="md-nav__link">
+    支持向量机 原理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#svm" title="SVM 工作原理" class="md-nav__link">
+    SVM 工作原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="寻找最大间隔" class="md-nav__link">
+    寻找最大间隔
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="为什么寻找最大间隔" class="md-nav__link">
+    为什么寻找最大间隔
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="怎么寻找最大间隔" class="md-nav__link">
+    怎么寻找最大间隔
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smo" title="SMO 高效优化算法" class="md-nav__link">
+    SMO 高效优化算法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svm_1" title="SVM 开发流程" class="md-nav__link">
+    SVM 开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svm_2" title="SVM 算法特点" class="md-nav__link">
+    SVM 算法特点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="课本案例（无核函数）" class="md-nav__link">
+    课本案例（无核函数）
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel" title="核函数(kernel) 使用" class="md-nav__link">
+    核函数(kernel) 使用
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="项目案例: 手写数字识别的优化（有核函数）" class="md-nav__link">
+    项目案例: 手写数字识别的优化（有核函数）
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7.Ensemble/" title="第7章_集成方法" class="md-nav__link">
+      第7章_集成方法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8.Regression/" title="第8章_回归" class="md-nav__link">
+      第8章_回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9.TreeRegression/" title="第9章_树回归" class="md-nav__link">
+      第9章_树回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10.KMeans/" title="第10章_KMeans聚类" class="md-nav__link">
+      第10章_KMeans聚类
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../11.Apriori/" title="第11章_Apriori算法" class="md-nav__link">
+      第11章_Apriori算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12.FP-growth/" title="第12章_FP-growth算法" class="md-nav__link">
+      第12章_FP-growth算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13.PCA/" title="第13章_PCA降维" class="md-nav__link">
+      第13章_PCA降维
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14.SVD/" title="第14章_SVD简化数据" class="md-nav__link">
+      第14章_SVD简化数据
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15.BigData_MapReduce/" title="第15章_大数据与MapReduce" class="md-nav__link">
+      第15章_大数据与MapReduce
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16.RecommendedSystem/" title="第16章_推荐系统" class="md-nav__link">
+      第16章_推荐系统
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../why-to-record-study-ml-video/" title="为何录制教学版视频" class="md-nav__link">
+      为何录制教学版视频
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../join-us/" title="加入我们" class="md-nav__link">
+      加入我们
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="支持向量机 概述" class="md-nav__link">
+    支持向量机 概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="支持向量机 场景" class="md-nav__link">
+    支持向量机 场景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="支持向量机 原理" class="md-nav__link">
+    支持向量机 原理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#svm" title="SVM 工作原理" class="md-nav__link">
+    SVM 工作原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="寻找最大间隔" class="md-nav__link">
+    寻找最大间隔
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="为什么寻找最大间隔" class="md-nav__link">
+    为什么寻找最大间隔
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="怎么寻找最大间隔" class="md-nav__link">
+    怎么寻找最大间隔
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smo" title="SMO 高效优化算法" class="md-nav__link">
+    SMO 高效优化算法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svm_1" title="SVM 开发流程" class="md-nav__link">
+    SVM 开发流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svm_2" title="SVM 算法特点" class="md-nav__link">
+    SVM 算法特点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="课本案例（无核函数）" class="md-nav__link">
+    课本案例（无核函数）
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel" title="核函数(kernel) 使用" class="md-nav__link">
+    核函数(kernel) 使用
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="项目案例: 手写数字识别的优化（有核函数）" class="md-nav__link">
+    项目案例: 手写数字识别的优化（有核函数）
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="项目概述" class="md-nav__link">
+    项目概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="开发流程" class="md-nav__link">
+    开发流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/AiLearning/edit/master/docs/ml/6.SVM.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="6">第6章 支持向量机</h1>
+<p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
+<p><img alt="支持向量机_首页" src="../../img/ml/6.SVM/SVM_1.jpg" /></p>
+<h2 id="_1">支持向量机 概述</h2>
+<p>支持向量机(Support Vector Machines, SVM)：是一种监督学习算法。
+<em> 支持向量(Support Vector)就是离分隔超平面最近的那些点。
+</em> 机(Machine)就是表示一种算法，而不是表示机器。</p>
+<h2 id="_2">支持向量机 场景</h2>
+<ul>
+<li>要给左右两边的点进行分类</li>
+<li>明显发现：选择D会比B、C分隔的效果要好很多。</li>
+</ul>
+<p><img alt="线性可分" src="../../img/ml/6.SVM/SVM_3_linearly-separable.jpg" /></p>
+<h2 id="_3">支持向量机 原理</h2>
+<h3 id="svm">SVM 工作原理</h3>
+<p><img alt="k_2" src="../../img/ml/6.SVM/k_2.jpg" title="k_2" /></p>
+<p>对于上述的苹果和香蕉，我们想象为2种水果类型的炸弹。（保证距离最近的炸弹，距离它们最远）</p>
+<ol>
+<li>寻找最大分类间距</li>
+<li>
+<p>转而通过拉格朗日函数求优化的问题</p>
+</li>
+<li>
+<p>数据可以通过画一条直线就可以将它们完全分开，这组数据叫<code>线性可分(linearly separable)</code>数据，而这条分隔直线称为<code>分隔超平面(separating hyperplane)</code>。</p>
+</li>
+<li>如果数据集上升到1024维呢？那么需要1023维来分隔数据集，也就说需要N-1维的对象来分隔，这个对象叫做<code>超平面(hyperlane)</code>，也就是分类的决策边界。</li>
+</ol>
+<p><img alt="分隔超平面" src="../../img/ml/6.SVM/SVM_2_separating-hyperplane.jpg" /></p>
+<h3 id="_4">寻找最大间隔</h3>
+<h4 id="_5">为什么寻找最大间隔</h4>
+<pre><code>摘录地址：http://slideplayer.com/slide/8610144  (第12条信息)
+Support Vector Machines: Slide 12 Copyright © 2001, 2003, Andrew W. Moore Why Maximum Margin? 
+
+1.Intuitively this feels safest. 
+2.If we’ve made a small error in the location of the boundary (it’s been jolted in its perpendicular direction) this gives us least chance of causing a misclassification. 
+3.CV is easy since the model is immune to removal of any non-support-vector datapoints. 
+4.There’s some theory that this is a good thing. 
+5.Empirically it works very very well. 
+
+* * *
+
+1. 直觉上是最安全的
+2. 如果我们在边界的位置发生了一个小错误（它在垂直方向上被颠倒），这给我们最小的可能导致错误分类。
+3. CV（cross validation 交叉验证）很容易，因为该模型对任何非支持向量数据点的去除是免疫的。
+4. 有一些理论表明这是一件好东西。
+5. 从经验角度上说它的效果非常非常好。
+</code></pre>
+
+<h4 id="_6">怎么寻找最大间隔</h4>
+<blockquote>
+<p>点到超平面的距离</p>
+</blockquote>
+<ul>
+<li>分隔超平面<code>函数间距</code>:  \(y(x)=w^Tx+b\)</li>
+<li>分类的结果： \(f(x)=sign(w^Tx+b)\)  (sign表示&gt;0为1，&lt;0为-1，=0为0) </li>
+<li>点到超平面的<code>几何间距</code>: \(d(x)=(w^Tx+b)/||w||\)  （||w||表示w矩阵的二范数=&gt; \(\sqrt{w^T*w}\), 点到超平面的距离也是类似的）</li>
+</ul>
+<p><img alt="点到直线的几何距离" src="../../img/ml/6.SVM/SVM_4_point2line-distance.jpg" /></p>
+<blockquote>
+<p>拉格朗日乘子法</p>
+</blockquote>
+<ul>
+<li>类别标签用-1、1，是为了后期方便 \(label<em>(w^Tx+b)\) 的标识和距离计算；如果 \(label</em>(w^Tx+b)&gt;0\) 表示预测正确，否则预测错误。</li>
+<li>现在目标很明确，就是要找到<code>w</code>和<code>b</code>，因此我们必须要找到最小间隔的数据点，也就是前面所说的<code>支持向量</code>。<ul>
+<li>也就说，让最小的距离取最大.(最小的距离：就是最小间隔的数据点；最大：就是最大间距，为了找出最优超平面--最终就是支持向量)</li>
+<li>目标函数：\(arg: max_{关于w, b} \left( min[label<em>(w^Tx+b)]</em>\frac{1}{||w||} \right) \)<ol>
+<li>如果 \(label*(w^Tx+b)&gt;0\) 表示预测正确，也称<code>函数间隔</code>，\(||w||\) 可以理解为归一化，也称<code>几何间隔</code>。</li>
+<li>令 \(label<em>(w^Tx+b)&gt;=1\)， 因为0～1之间，得到的点是存在误判的可能性，所以要保障 \(min[label</em>(w^Tx+b)]=1\)，才能更好降低噪音数据影响。</li>
+<li>所以本质上是求 \(arg: max_{关于w, b}  \frac{1}{||w||} \)；也就说，我们约束(前提)条件是: \(label*(w^Tx+b)=1\)</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>新的目标函数求解： \(arg: max_{关于w, b}  \frac{1}{||w||} \)<ul>
+<li>=&gt; 就是求: \(arg: min_{关于w, b} ||w|| \) (求矩阵会比较麻烦，如果x只是 \(\frac{1}{2}*x^2\) 的偏导数，那么。。同样是求最小值)</li>
+<li>=&gt; 就是求: \(arg: min_{关于w, b} (\frac{1}{2}*||w||^2)\) (二次函数求导，求极值，平方也方便计算)</li>
+<li>本质上就是求线性不等式的二次优化问题(求分隔超平面，等价于求解相应的凸二次规划问题)</li>
+</ul>
+</li>
+<li>通过拉格朗日乘子法，求二次优化问题<ul>
+<li>假设需要求极值的目标函数 (objective function) 为 f(x,y)，限制条件为 φ(x,y)=M  # M=1</li>
+<li>设g(x,y)=M-φ(x,y)   # 临时φ(x,y)表示下文中 \(label*(w^Tx+b)\)</li>
+<li>定义一个新函数: F(x,y,λ)=f(x,y)+λg(x,y)</li>
+<li>a为λ（a&gt;=0），代表要引入的拉格朗日乘子(Lagrange multiplier)</li>
+<li>那么： \(L(w,b,\alpha)=\frac{1}{2} * ||w||^2 + \sum_{i=1}^{n} \alpha_i * [1 - label * (w^Tx+b)]\)</li>
+<li>因为：\(label<em>(w^Tx+b)&gt;=1, \alpha&gt;=0\) , 所以 \(\alpha</em>[1-label<em>(w^Tx+b)]&lt;=0\) , \(\sum_{i=1}^{n} \alpha_i * [1-label</em>(w^Tx+b)]&lt;=0\) </li>
+<li>当 \(label*(w^Tx+b)&gt;1\) 则 \(\alpha=0\) ，表示该点为<font color=red>非支持向量</font></li>
+<li>相当于求解： \(max_{关于\alpha} L(w,b,\alpha) = \frac{1}{2} *||w||^2\) </li>
+<li>如果求： \(min_{关于w, b} \frac{1}{2} *||w||^2\) , 也就是要求： \(min_{关于w, b} \left( max_{关于\alpha} L(w,b,\alpha)\right)\) </li>
+</ul>
+</li>
+<li>现在转化到对偶问题的求解<ul>
+<li>\(min_{关于w, b} \left(max_{关于\alpha} L(w,b,\alpha) \right) \) &gt;= \(max_{关于\alpha} \left(min_{关于w, b}\ L(w,b,\alpha) \right) \) </li>
+<li>现在分2步</li>
+<li>先求： \(min_{关于w, b} L(w,b,\alpha)=\frac{1}{2} * ||w||^2 + \sum_{i=1}^{n} \alpha_i * [1 - label * (w^Tx+b)]\)</li>
+<li>就是求<code>L(w,b,a)</code>关于[w, b]的偏导数, 得到<code>w和b的值</code>，并化简为：<code>L和a的方程</code>。</li>
+<li>参考： 如果公式推导还是不懂，也可以参考《统计学习方法》李航-P103&lt;学习的对偶算法&gt;
+<img alt="计算拉格朗日函数的对偶函数" src="../../img/ml/6.SVM/SVM_5_Lagrangemultiplier.png" /></li>
+</ul>
+</li>
+<li>终于得到课本上的公式： \(max_{关于\alpha} \left( \sum_{i=1}^{m} \alpha_i - \frac{1}{2} \sum_{i, j=1}^{m} label_i·label_j·\alpha_i·\alpha_j·<x_i, x_j> \right) \)</li>
+<li>约束条件： \(a&gt;=0\) 并且 \(\sum_{i=1}^{m} a_i·label_i=0\)</li>
+</ul>
+<blockquote>
+<p>松弛变量(slack variable)</p>
+</blockquote>
+<p>参考地址：http://blog.csdn.net/wusecaiyun/article/details/49659183</p>
+<p><img alt="松弛变量公式" src="../../img/ml/6.SVM/SVM_松弛变量.jpg" /></p>
+<ul>
+<li>我们知道几乎所有的数据都不那么干净, 通过引入松弛变量来 <code>允许数据点可以处于分隔面错误的一侧</code>。</li>
+<li>约束条件： \(C&gt;=a&gt;=0\) 并且 \(\sum_{i=1}^{m} a_i·label_i=0\)</li>
+<li>总的来说：<ul>
+<li><img alt="松弛变量" src="../../img/ml/6.SVM/松弛变量.png" /> 表示 <code>松弛变量</code></li>
+<li>常量C是 <code>惩罚因子</code>, 表示离群点的权重（用于控制“最大化间隔”和“保证大部分点的函数间隔小于1.0” ）<ul>
+<li>\(label*(w^Tx+b) &gt; 1\) and alpha = 0 (在边界外，就是非支持向量)</li>
+<li>\(label*(w^Tx+b) = 1\) and 0&lt; alpha &lt; C (在分割超平面上，就支持向量)</li>
+<li>\(label*(w^Tx+b) &lt; 1\) and alpha = C (在分割超平面内，是误差点 -&gt; C表示它该受到的惩罚因子程度)</li>
+<li>参考地址：https://www.zhihu.com/question/48351234/answer/110486455</li>
+</ul>
+</li>
+<li>C值越大，表示离群点影响越大，就越容易过度拟合；反之有可能欠拟合。</li>
+<li>我们看到，目标函数控制了离群点的数目和程度，使大部分样本点仍然遵守限制条件。</li>
+<li>例如：正类有10000个样本，而负类只给了100个（C越大表示100个负样本的影响越大，就会出现过度拟合，所以C决定了负样本对模型拟合程度的影响！，C就是一个非常关键的优化点！）</li>
+</ul>
+</li>
+<li>这一结论十分直接，SVM中的主要工作就是要求解 alpha.</li>
+</ul>
+<h3 id="smo">SMO 高效优化算法</h3>
+<ul>
+<li>SVM有很多种实现，最流行的一种实现是： <code>序列最小优化(Sequential Minimal Optimization, SMO)算法</code>。</li>
+<li>下面还会介绍一种称为 <code>核函数(kernel)</code> 的方式将SVM扩展到更多数据集上。</li>
+<li>注意：<code>SVM几何含义比较直观，但其算法实现较复杂，牵扯大量数学公式的推导。</code></li>
+</ul>
+<blockquote>
+<p>序列最小优化(Sequential Minimal Optimization, SMO)</p>
+</blockquote>
+<ul>
+<li>创建作者：John Platt</li>
+<li>创建时间：1996年</li>
+<li>SMO用途：用于训练 SVM</li>
+<li>SMO目标：求出一系列 alpha 和 b,一旦求出 alpha，就很容易计算出权重向量 w 并得到分隔超平面。</li>
+<li>SMO思想：是将大优化问题分解为多个小优化问题来求解的。</li>
+<li>SMO原理：每次循环选择两个 alpha 进行优化处理，一旦找出一对合适的 alpha，那么就增大一个同时减少一个。<ul>
+<li>这里指的合适必须要符合一定的条件<ol>
+<li>这两个 alpha 必须要在间隔边界之外</li>
+<li>这两个 alpha 还没有进行过区间化处理或者不在边界上。</li>
+</ol>
+</li>
+<li>之所以要同时改变2个 alpha；原因是我们有一个约束条件： \(\sum_{i=1}^{m} a_i·label_i=0\)；如果只是修改一个 alpha，很可能导致约束条件失效。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>SMO 伪代码大致如下：</p>
+</blockquote>
+<pre><code>创建一个 alpha 向量并将其初始化为0向量
+当迭代次数小于最大迭代次数时(外循环)
+    对数据集中的每个数据向量(内循环)：
+        如果该数据向量可以被优化
+            随机选择另外一个数据向量
+            同时优化这两个向量
+            如果两个向量都不能被优化，退出内循环
+    如果所有向量都没被优化，增加迭代数目，继续下一次循环
+</code></pre>
+
+<h3 id="svm_1">SVM 开发流程</h3>
+<pre><code>收集数据：可以使用任意方法。
+准备数据：需要数值型数据。
+分析数据：有助于可视化分隔超平面。
+训练算法：SVM的大部分时间都源自训练，该过程主要实现两个参数的调优。
+测试算法：十分简单的计算过程就可以实现。
+使用算法：几乎所有分类问题都可以使用SVM，值得一提的是，SVM本身是一个二类分类器，对多类问题应用SVM需要对代码做一些修改。
+</code></pre>
+
+<h3 id="svm_2">SVM 算法特点</h3>
+<pre><code>优点：泛化（由具体的、个别的扩大为一般的，就是说：模型训练完后的新样本）错误率低，计算开销不大，结果易理解。
+缺点：对参数调节和核函数的选择敏感，原始分类器不加修改仅适合于处理二分类问题。
+使用数据类型：数值型和标称型数据。
+</code></pre>
+
+<h3 id="_7">课本案例（无核函数）</h3>
+<h4 id="_8">项目概述</h4>
+<p>对小规模数据点进行分类</p>
+<h4 id="_9">开发流程</h4>
+<blockquote>
+<p>收集数据</p>
+</blockquote>
+<p>文本文件格式：</p>
+<pre><code class="python">3.542485    1.977398    -1
+3.018896    2.556416    -1
+7.551510    -1.580030   1
+2.114999    -0.004466   -1
+8.127113    1.274372    1
+</code></pre>
+
+<blockquote>
+<p>准备数据</p>
+</blockquote>
+<pre><code class="python">def loadDataSet(fileName):
+    &quot;&quot;&quot;
+    对文件进行逐行解析，从而得到第行的类标签和整个特征矩阵
+    Args:
+        fileName 文件名
+    Returns:
+        dataMat  特征矩阵
+        labelMat 类标签
+    &quot;&quot;&quot;
+    dataMat = []
+    labelMat = []
+    fr = open(fileName)
+    for line in fr.readlines():
+        lineArr = line.strip().split('\t')
+        dataMat.append([float(lineArr[0]), float(lineArr[1])])
+        labelMat.append(float(lineArr[2]))
+    return dataMat, labelMat
+</code></pre>
+
+<blockquote>
+<p>分析数据: 无</p>
+<p>训练算法</p>
+</blockquote>
+<pre><code class="python">def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
+    &quot;&quot;&quot;smoSimple
+
+    Args:
+        dataMatIn    特征集合
+        classLabels  类别标签
+        C   松弛变量(常量值)，允许有些数据点可以处于分隔面的错误一侧。
+            控制最大化间隔和保证大部分的函数间隔小于1.0这两个目标的权重。
+            可以通过调节该参数达到不同的结果。
+        toler   容错率（是指在某个体系中能减小一些因素或选择对某个系统产生不稳定的概率。）
+        maxIter 退出前最大的循环次数
+    Returns:
+        b       模型的常量值
+        alphas  拉格朗日乘子
+    &quot;&quot;&quot;
+    dataMatrix = mat(dataMatIn)
+    # 矩阵转置 和 .T 一样的功能
+    labelMat = mat(classLabels).transpose()
+    m, n = shape(dataMatrix)
+
+    # 初始化 b和alphas(alpha有点类似权重值。)
+    b = 0
+    alphas = mat(zeros((m, 1)))
+
+    # 没有任何alpha改变的情况下遍历数据的次数
+    iter = 0
+    while (iter &lt; maxIter):
+        # w = calcWs(alphas, dataMatIn, classLabels)
+        # print(&quot;w:&quot;, w)
+
+        # 记录alpha是否已经进行优化，每次循环时设为0，然后再对整个集合顺序遍历
+        alphaPairsChanged = 0
+        for i in range(m):
+            # print 'alphas=', alphas
+            # print 'labelMat=', labelMat
+            # print 'multiply(alphas, labelMat)=', multiply(alphas, labelMat)
+            # 我们预测的类别 y[i] = w^Tx[i]+b; 其中因为 w = Σ(1~n) a[n]*label[n]*x[n]
+            fXi = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[i, :].T)) + b
+            # 预测结果与真实结果比对，计算误差Ei
+            Ei = fXi - float(labelMat[i])
+
+            # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值)
+            # 0&lt;=alphas[i]&lt;=C，但由于0和C是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。
+            # 表示发生错误的概率：labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。
+            '''
+            # 检验训练样本(xi, yi)是否满足KKT条件
+            yi*f(i) &gt;= 1 and alpha = 0 (outside the boundary)
+            yi*f(i) == 1 and 0&lt;alpha&lt; C (on the boundary)
+            yi*f(i) &lt;= 1 and alpha = C (between the boundary)
+            '''
+            if ((labelMat[i]*Ei &lt; -toler) and (alphas[i] &lt; C)) or ((labelMat[i]*Ei &gt; toler) and (alphas[i] &gt; 0)):
+
+                # 如果满足优化的条件，我们就随机选取非i的一个点，进行优化比较
+                j = selectJrand(i, m)
+                # 预测j的结果
+                fXj = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[j, :].T)) + b
+                Ej = fXj - float(labelMat[j])
+                alphaIold = alphas[i].copy()
+                alphaJold = alphas[j].copy()
+
+                # L和H用于将alphas[j]调整到0-C之间。如果L==H，就不做任何改变，直接执行continue语句
+                # labelMat[i] != labelMat[j] 表示异侧，就相减，否则是同侧，就相加。
+                if (labelMat[i] != labelMat[j]):
+                    L = max(0, alphas[j] - alphas[i])
+                    H = min(C, C + alphas[j] - alphas[i])
+                else:
+                    L = max(0, alphas[j] + alphas[i] - C)
+                    H = min(C, alphas[j] + alphas[i])
+                # 如果相同，就没法优化了
+                if L == H:
+                    print(&quot;L==H&quot;)
+                    continue
+
+                # eta是alphas[j]的最优修改量，如果eta==0，需要退出for循环的当前迭代过程
+                # 参考《统计学习方法》李航-P125~P128&lt;序列最小最优化算法&gt;
+                eta = 2.0 * dataMatrix[i, :]*dataMatrix[j, :].T - dataMatrix[i, :]*dataMatrix[i, :].T - dataMatrix[j, :]*dataMatrix[j, :].T
+                if eta &gt;= 0:
+                    print(&quot;eta&gt;=0&quot;)
+                    continue
+
+                # 计算出一个新的alphas[j]值
+                alphas[j] -= labelMat[j]*(Ei - Ej)/eta
+                # 并使用辅助函数，以及L和H对其进行调整
+                alphas[j] = clipAlpha(alphas[j], H, L)
+                # 检查alpha[j]是否只是轻微的改变，如果是的话，就退出for循环。
+                if (abs(alphas[j] - alphaJold) &lt; 0.00001):
+                    print(&quot;j not moving enough&quot;)
+                    continue
+                # 然后alphas[i]和alphas[j]同样进行改变，虽然改变的大小一样，但是改变的方向正好相反
+                alphas[i] += labelMat[j]*labelMat[i]*(alphaJold - alphas[j])
+                # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
+                # w= Σ[1~n] ai*yi*xi =&gt; b = yj- Σ[1~n] ai*yi(xi*xj)
+                # 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
+                # 为什么减2遍？ 因为是 减去Σ[1~n]，正好2个变量i和j，所以减2遍
+                b1 = b - Ei- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i, :]*dataMatrix[i, :].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[i, :]*dataMatrix[j, :].T
+                b2 = b - Ej- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i, :]*dataMatrix[j, :].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[j, :]*dataMatrix[j, :].T
+                if (0 &lt; alphas[i]) and (C &gt; alphas[i]):
+                    b = b1
+                elif (0 &lt; alphas[j]) and (C &gt; alphas[j]):
+                    b = b2
+                else:
+                    b = (b1 + b2)/2.0
+                alphaPairsChanged += 1
+                print(&quot;iter: %d i:%d, pairs changed %d&quot; % (iter, i, alphaPairsChanged))
+        # 在for循环外，检查alpha值是否做了更新，如果更新则将iter设为0后继续运行程序
+        # 直到更新完毕后，iter次循环无变化，才退出循环。
+        if (alphaPairsChanged == 0):
+            iter += 1
+        else:
+            iter = 0
+        print(&quot;iteration number: %d&quot; % iter)
+    return b, alphas
+</code></pre>
+
+<p><a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/6.SVM/svm-simple.py">完整代码地址：SVM简化版，应用简化版SMO算法处理小规模数据集</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/6.SVM/svm-simple.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/6.SVM/svm-simple.py</a></p>
+<p><a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/6.SVM/svm-complete_Non-Kernel.py">完整代码地址：SVM完整版，使用完整 Platt SMO算法加速优化，优化点：选择alpha的方式不同</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/6.SVM/svm-complete_Non-Kernel.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/6.SVM/svm-complete_Non-Kernel.py</a></p>
+<h2 id="kernel">核函数(kernel) 使用</h2>
+<ul>
+<li>对于线性可分的情况，效果明显</li>
+<li>对于非线性的情况也一样，此时需要用到一种叫<code>核函数(kernel)</code>的工具将数据转化为分类器易于理解的形式。</li>
+</ul>
+<blockquote>
+<p>利用核函数将数据映射到高维空间</p>
+</blockquote>
+<ul>
+<li>使用核函数：可以将数据从某个特征空间到另一个特征空间的映射。（通常情况下：这种映射会将低维特征空间映射到高维空间。）</li>
+<li>如果觉得特征空间很装逼、很难理解。</li>
+<li>可以把核函数想象成一个包装器(wrapper)或者是接口(interface)，它能将数据从某个很难处理的形式转换成为另一个较容易处理的形式。</li>
+<li>经过空间转换后：低维需要解决的非线性问题，就变成了高维需要解决的线性问题。</li>
+<li>SVM 优化特别好的地方，在于所有的运算都可以写成内积(inner product: 是指2个向量相乘，得到单个标量 或者 数值)；内积替换成核函数的方式被称为<code>核技巧(kernel trick)</code>或者<code>核"变电"(kernel substation)</code></li>
+<li>核函数并不仅仅应用于支持向量机，很多其他的机器学习算法也都用到核函数。最流行的核函数：径向基函数(radial basis function)</li>
+<li>径向基函数的高斯版本，其具体的公式为：</li>
+</ul>
+<p><img alt="径向基函数的高斯版本" src="../../img/ml/6.SVM/SVM_6_radial-basis-function.jpg" /></p>
+<h3 id="_10">项目案例: 手写数字识别的优化（有核函数）</h3>
+<h4 id="_11">项目概述</h4>
+<pre><code class="python">你的老板要求：你写的那个手写识别程序非常好，但是它占用内存太大。顾客无法通过无线的方式下载我们的应用。
+所以：我们可以考虑使用支持向量机，保留支持向量就行（knn需要保留所有的向量），就可以获得非常好的效果。
+</code></pre>
+
+<h4 id="_12">开发流程</h4>
+<blockquote>
+<p>收集数据：提供的文本文件</p>
+</blockquote>
+<pre><code class="python">00000000000000001111000000000000
+00000000000000011111111000000000
+00000000000000011111111100000000
+00000000000000011111111110000000
+00000000000000011111111110000000
+00000000000000111111111100000000
+00000000000000111111111100000000
+00000000000001111111111100000000
+00000000000000111111111100000000
+00000000000000111111111100000000
+00000000000000111111111000000000
+00000000000001111111111000000000
+00000000000011111111111000000000
+00000000000111111111110000000000
+00000000001111111111111000000000
+00000001111111111111111000000000
+00000011111111111111110000000000
+00000111111111111111110000000000
+00000111111111111111110000000000
+00000001111111111111110000000000
+00000001111111011111110000000000
+00000000111100011111110000000000
+00000000000000011111110000000000
+00000000000000011111100000000000
+00000000000000111111110000000000
+00000000000000011111110000000000
+00000000000000011111110000000000
+00000000000000011111111000000000
+00000000000000011111111000000000
+00000000000000011111111000000000
+00000000000000000111111110000000
+00000000000000000111111100000000
+
+</code></pre>
+
+<blockquote>
+<p>准备数据：基于二值图像构造向量</p>
+</blockquote>
+<p><code>将 32*32的文本转化为 1*1024的矩阵</code></p>
+<pre><code class="python">def img2vector(filename):
+    returnVect = zeros((1, 1024))
+    fr = open(filename)
+    for i in range(32):
+        lineStr = fr.readline()
+        for j in range(32):
+            returnVect[0, 32 * i + j] = int(lineStr[j])
+    return returnVect
+
+def loadImages(dirName):
+    from os import listdir
+    hwLabels = []
+    print(dirName)
+    trainingFileList = listdir(dirName)  # load the training set
+    m = len(trainingFileList)
+    trainingMat = zeros((m, 1024))
+    for i in range(m):
+        fileNameStr = trainingFileList[i]
+        fileStr = fileNameStr.split('.')[0]  # take off .txt
+        classNumStr = int(fileStr.split('_')[0])
+        if classNumStr == 9:
+            hwLabels.append(-1)
+        else:
+            hwLabels.append(1)
+        trainingMat[i, :] = img2vector('%s/%s' % (dirName, fileNameStr))
+    return trainingMat, hwLabels
+</code></pre>
+
+<blockquote>
+<p>分析数据：对图像向量进行目测</p>
+<p>训练算法：采用两种不同的核函数，并对径向基核函数采用不同的设置来运行SMO算法</p>
+</blockquote>
+<pre><code class="python">def kernelTrans(X, A, kTup):  # calc the kernel or transform data to a higher dimensional space
+    &quot;&quot;&quot;
+    核转换函数
+    Args:
+        X     dataMatIn数据集
+        A     dataMatIn数据集的第i行的数据
+        kTup  核函数的信息
+
+    Returns:
+
+    &quot;&quot;&quot;
+    m, n = shape(X)
+    K = mat(zeros((m, 1)))
+    if kTup[0] == 'lin':
+        # linear kernel:   m*n * n*1 = m*1
+        K = X * A.T
+    elif kTup[0] == 'rbf':
+        for j in range(m):
+            deltaRow = X[j, :] - A
+            K[j] = deltaRow * deltaRow.T
+        # 径向基函数的高斯版本
+        K = exp(K / (-1 * kTup[1] ** 2))  # divide in NumPy is element-wise not matrix like Matlab
+    else:
+        raise NameError('Houston We Have a Problem -- That Kernel is not recognized')
+    return K
+
+def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
+    &quot;&quot;&quot;
+    完整SMO算法外循环，与smoSimple有些类似，但这里的循环退出条件更多一些
+    Args:
+        dataMatIn    数据集
+        classLabels  类别标签
+        C   松弛变量(常量值)，允许有些数据点可以处于分隔面的错误一侧。
+            控制最大化间隔和保证大部分的函数间隔小于1.0这两个目标的权重。
+            可以通过调节该参数达到不同的结果。
+        toler   容错率
+        maxIter 退出前最大的循环次数
+        kTup    包含核函数信息的元组
+    Returns:
+        b       模型的常量值
+        alphas  拉格朗日乘子
+    &quot;&quot;&quot;
+
+    # 创建一个 optStruct 对象
+    oS = optStruct(mat(dataMatIn), mat(classLabels).transpose(), C, toler, kTup)
+    iter = 0
+    entireSet = True
+    alphaPairsChanged = 0
+
+    # 循环遍历：循环maxIter次 并且 （alphaPairsChanged存在可以改变 or 所有行遍历一遍）
+    while (iter &lt; maxIter) and ((alphaPairsChanged &gt; 0) or (entireSet)):
+        alphaPairsChanged = 0
+
+        #  当entireSet=true or 非边界alpha对没有了；就开始寻找 alpha对，然后决定是否要进行else。
+        if entireSet:
+            # 在数据集上遍历所有可能的alpha
+            for i in range(oS.m):
+                # 是否存在alpha对，存在就+1
+                alphaPairsChanged += innerL(i, oS)
+                # print(&quot;fullSet, iter: %d i:%d, pairs changed %d&quot; % (iter, i, alphaPairsChanged))
+            iter += 1
+
+        # 对已存在 alpha对，选出非边界的alpha值，进行优化。
+        else:
+            # 遍历所有的非边界alpha值，也就是不在边界0或C上的值。
+            nonBoundIs = nonzero((oS.alphas.A &gt; 0) * (oS.alphas.A &lt; C))[0]
+            for i in nonBoundIs:
+                alphaPairsChanged += innerL(i, oS)
+                # print(&quot;non-bound, iter: %d i:%d, pairs changed %d&quot; % (iter, i, alphaPairsChanged))
+            iter += 1
+
+        # 如果找到alpha对，就优化非边界alpha值，否则，就重新进行寻找，如果寻找一遍 遍历所有的行还是没找到，就退出循环。
+        if entireSet:
+            entireSet = False  # toggle entire set loop
+        elif (alphaPairsChanged == 0):
+            entireSet = True
+        print(&quot;iteration number: %d&quot; % iter)
+    return oS.b, oS.alphas
+</code></pre>
+
+<blockquote>
+<p>测试算法：便携一个函数来测试不同的和函数并计算错误率</p>
+</blockquote>
+<pre><code class="python">def testDigits(kTup=('rbf', 10)):
+
+    # 1. 导入训练数据
+    dataArr, labelArr = loadImages('db/6.SVM/trainingDigits')
+    b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, kTup)
+    datMat = mat(dataArr)
+    labelMat = mat(labelArr).transpose()
+    svInd = nonzero(alphas.A &gt; 0)[0]
+    sVs = datMat[svInd]
+    labelSV = labelMat[svInd]
+    # print(&quot;there are %d Support Vectors&quot; % shape(sVs)[0])
+    m, n = shape(datMat)
+    errorCount = 0
+    for i in range(m):
+        kernelEval = kernelTrans(sVs, datMat[i, :], kTup)
+        # 1*m * m*1 = 1*1 单个预测结果
+        predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
+        if sign(predict) != sign(labelArr[i]): errorCount += 1
+    print(&quot;the training error rate is: %f&quot; % (float(errorCount) / m))
+
+    # 2. 导入测试数据
+    dataArr, labelArr = loadImages('db/6.SVM/testDigits')
+    errorCount = 0
+    datMat = mat(dataArr)
+    labelMat = mat(labelArr).transpose()
+    m, n = shape(datMat)
+    for i in range(m):
+        kernelEval = kernelTrans(sVs, datMat[i, :], kTup)
+        # 1*m * m*1 = 1*1 单个预测结果
+        predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
+        if sign(predict) != sign(labelArr[i]): errorCount += 1
+    print(&quot;the test error rate is: %f&quot; % (float(errorCount) / m))
+</code></pre>
+
+<blockquote>
+<p>使用算法：一个图像识别的完整应用还需要一些图像处理的知识，这里并不打算深入介绍</p>
+</blockquote>
+<p><a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/6.SVM/svm-complete.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/6.SVM/svm-complete.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/6.SVM/svm-complete.py</a></p>
+<hr />
+<ul>
+<li><strong>作者：<a href="http://cwiki.apachecn.org/display/~jiangzhonglian">片刻</a> <a href="http://cwiki.apachecn.org/display/~houfachao">geekidentity</a></strong></li>
+<li><a href="https://github.com/apachecn/AiLearning">GitHub地址</a>: <a href="https://github.com/apachecn/AiLearning">https://github.com/apachecn/AiLearning</a></li>
+<li><strong>版权声明：欢迎转载学习 =&gt; 请标注信息来源于 <a href="http://www.apachecn.org/">ApacheCN</a></strong></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/AiLearning/" target="_blank">apachecn/AiLearning</a></p>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'AiLearning',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../5.Logistic/" title="第5章_逻辑回归" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                第5章_逻辑回归
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../7.Ensemble/" title="第7章_集成方法" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                第7章_集成方法
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

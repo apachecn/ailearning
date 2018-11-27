@@ -1,0 +1,1273 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ApacheCN 专注于优秀项目维护的开源组织">
+      
+      
+        <link rel="canonical" href="http://ailearning.apachecn.org/ml/11.Apriori/">
+      
+      
+        <meta name="author" content="ApacheCN Team">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0, mkdocs-material-3.0.3">
+    
+    
+      
+        <title>第11章_Apriori算法 - ApacheCN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#11-apriori" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                ApacheCN
+              </span>
+              <span class="md-header-nav__topic">
+                第11章_Apriori算法
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="http://ailearning.apachecn.org" title="ApacheCN" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    ApacheCN
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/apachecn/AiLearning/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      AiLearning
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../1.MLFoundation/" title="第1章_基础知识" class="md-nav__link">
+      第1章_基础知识
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../2.KNN/" title="第2章_K近邻算法" class="md-nav__link">
+      第2章_K近邻算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../3.DecisionTree/" title="第3章_决策树算法" class="md-nav__link">
+      第3章_决策树算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../4.NaiveBayesian/" title="第4章_朴素贝叶斯" class="md-nav__link">
+      第4章_朴素贝叶斯
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../5.Logistic/" title="第5章_逻辑回归" class="md-nav__link">
+      第5章_逻辑回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../6.SVM/" title="第6章_支持向量机" class="md-nav__link">
+      第6章_支持向量机
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../7.Ensemble/" title="第7章_集成方法" class="md-nav__link">
+      第7章_集成方法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../8.Regression/" title="第8章_回归" class="md-nav__link">
+      第8章_回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../9.TreeRegression/" title="第9章_树回归" class="md-nav__link">
+      第9章_树回归
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../10.KMeans/" title="第10章_KMeans聚类" class="md-nav__link">
+      第10章_KMeans聚类
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        第11章_Apriori算法
+      </label>
+    
+    <a href="./" title="第11章_Apriori算法" class="md-nav__link md-nav__link--active">
+      第11章_Apriori算法
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="关联分析" class="md-nav__link">
+    关联分析
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="相关术语" class="md-nav__link">
+    相关术语
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apriori" title="Apriori 原理" class="md-nav__link">
+    Apriori 原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apriori_1" title="Apriori 算法的使用" class="md-nav__link">
+    Apriori 算法的使用
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="生成候选项集" class="md-nav__link">
+    生成候选项集
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="加载数据集" class="md-nav__link">
+    加载数据集
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c1-dataset-list-frozenset" title="创建集合 C1。即对 dataSet 进行去重，排序，放入 list 中，然后转换所有的元素为 frozenset" class="md-nav__link">
+    创建集合 C1。即对 dataSet 进行去重，排序，放入 list 中，然后转换所有的元素为 frozenset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ck-d-minsupport" title="计算候选数据集 CK 在数据集 D 中的支持度，并返回支持度大于最小支持度（minSupport）的数据" class="md-nav__link">
+    计算候选数据集 CK 在数据集 D 中的支持度，并返回支持度大于最小支持度（minSupport）的数据
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apriori_2" title="组织完整的 Apriori 算法" class="md-nav__link">
+    组织完整的 Apriori 算法
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lk-k-ck" title="输入频繁项集列表 Lk 与返回的元素个数 k，然后输出所有可能的候选项集 Ck" class="md-nav__link">
+    输入频繁项集列表 Lk 与返回的元素个数 k，然后输出所有可能的候选项集 Ck
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataset" title="找出数据集 dataSet 中支持度 &gt;= 最小支持度的候选项集以及它们的支持度。即我们的频繁项集。" class="md-nav__link">
+    找出数据集 dataSet 中支持度 &gt;= 最小支持度的候选项集以及它们的支持度。即我们的频繁项集。
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="从频繁项集中挖掘关联规则" class="md-nav__link">
+    从频繁项集中挖掘关联规则
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="一个频繁项集可以产生多少条关联规则呢？" class="md-nav__link">
+    一个频繁项集可以产生多少条关联规则呢？
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="计算可信度" class="md-nav__link">
+    计算可信度
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="生成关联规则" class="md-nav__link">
+    生成关联规则
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../12.FP-growth/" title="第12章_FP-growth算法" class="md-nav__link">
+      第12章_FP-growth算法
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../13.PCA/" title="第13章_PCA降维" class="md-nav__link">
+      第13章_PCA降维
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../14.SVD/" title="第14章_SVD简化数据" class="md-nav__link">
+      第14章_SVD简化数据
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../15.BigData_MapReduce/" title="第15章_大数据与MapReduce" class="md-nav__link">
+      第15章_大数据与MapReduce
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../16.RecommendedSystem/" title="第16章_推荐系统" class="md-nav__link">
+      第16章_推荐系统
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../why-to-record-study-ml-video/" title="为何录制教学版视频" class="md-nav__link">
+      为何录制教学版视频
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../join-us/" title="加入我们" class="md-nav__link">
+      加入我们
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="关联分析" class="md-nav__link">
+    关联分析
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="相关术语" class="md-nav__link">
+    相关术语
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apriori" title="Apriori 原理" class="md-nav__link">
+    Apriori 原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apriori_1" title="Apriori 算法的使用" class="md-nav__link">
+    Apriori 算法的使用
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="生成候选项集" class="md-nav__link">
+    生成候选项集
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="加载数据集" class="md-nav__link">
+    加载数据集
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c1-dataset-list-frozenset" title="创建集合 C1。即对 dataSet 进行去重，排序，放入 list 中，然后转换所有的元素为 frozenset" class="md-nav__link">
+    创建集合 C1。即对 dataSet 进行去重，排序，放入 list 中，然后转换所有的元素为 frozenset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ck-d-minsupport" title="计算候选数据集 CK 在数据集 D 中的支持度，并返回支持度大于最小支持度（minSupport）的数据" class="md-nav__link">
+    计算候选数据集 CK 在数据集 D 中的支持度，并返回支持度大于最小支持度（minSupport）的数据
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apriori_2" title="组织完整的 Apriori 算法" class="md-nav__link">
+    组织完整的 Apriori 算法
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lk-k-ck" title="输入频繁项集列表 Lk 与返回的元素个数 k，然后输出所有可能的候选项集 Ck" class="md-nav__link">
+    输入频繁项集列表 Lk 与返回的元素个数 k，然后输出所有可能的候选项集 Ck
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataset" title="找出数据集 dataSet 中支持度 &gt;= 最小支持度的候选项集以及它们的支持度。即我们的频繁项集。" class="md-nav__link">
+    找出数据集 dataSet 中支持度 &gt;= 最小支持度的候选项集以及它们的支持度。即我们的频繁项集。
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="从频繁项集中挖掘关联规则" class="md-nav__link">
+    从频繁项集中挖掘关联规则
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="一个频繁项集可以产生多少条关联规则呢？" class="md-nav__link">
+    一个频繁项集可以产生多少条关联规则呢？
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="计算可信度" class="md-nav__link">
+    计算可信度
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="生成关联规则" class="md-nav__link">
+    生成关联规则
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/apachecn/AiLearning/edit/master/docs/ml/11.Apriori.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="11-apriori">第 11 章 使用 Apriori 算法进行关联分析</h1>
+<p><img alt="" src="../../img/ml/11.Apriori/apachecn_apriori_homepage.jpg" /></p>
+<h2 id="_1">关联分析</h2>
+<p>关联分析是一种在大规模数据集中寻找有趣关系的任务。
+这些关系可以有两种形式: 
+<em> 频繁项集（frequent item sets）: 经常出现在一块的物品的集合。
+</em> 关联规则（associational rules）: 暗示两种物品之间可能存在很强的关系。</p>
+<h2 id="_2">相关术语</h2>
+<ul>
+<li>
+<p>关联分析（关联规则学习): 从大规模数据集中寻找物品间的隐含关系被称作 <code>关联分析(associati analysis)</code> 或者 <code>关联规则学习（association rule learning）</code> 。
+下面是用一个 <code>杂货店</code> 例子来说明这两个概念，如下图所示:<br />
+<img alt="关联分析示例1" src="../../img/ml/11.Apriori/apachecn_apriori_association_demo_1.jpg" /></p>
+</li>
+<li>
+<p>频繁项集: {葡萄酒, 尿布, 豆奶} 就是一个频繁项集的例子。</p>
+</li>
+<li>关联规则: 尿布 -&gt; 葡萄酒 就是一个关联规则。这意味着如果顾客买了尿布，那么他很可能会买葡萄酒。</li>
+</ul>
+<p>那么 <code>频繁</code> 的定义是什么呢？怎么样才算频繁呢？
+度量它们的方法有很多种，这里我们来简单的介绍下支持度和可信度。
+<em> 支持度: 数据集中包含该项集的记录所占的比例。例如上图中，{豆奶} 的支持度为 4/5。{豆奶, 尿布} 的支持度为 3/5。
+</em> 可信度: 针对一条诸如 {尿布} -&gt; {葡萄酒} 这样具体的关联规则来定义的。这条规则的 <code>可信度</code> 被定义为 <code>支持度({尿布, 葡萄酒})/支持度({尿布})</code>，从图中可以看出 支持度({尿布, 葡萄酒}) = 3/5，支持度({尿布}) = 4/5，所以 {尿布} -&gt; {葡萄酒} 的可信度 = 3/5 / 4/5 = 3/4 = 0.75。</p>
+<p><code>支持度</code> 和 <code>可信度</code> 是用来量化 <code>关联分析</code> 是否成功的一个方法。
+假设想找到支持度大于 0.8 的所有项集，应该如何去做呢？
+一个办法是生成一个物品所有可能组合的清单，然后对每一种组合统计它出现的频繁程度，但是当物品成千上万时，上述做法就非常非常慢了。
+我们需要详细分析下这种情况并讨论下 Apriori 原理，该原理会减少关联规则学习时所需的计算量。</p>
+<h2 id="apriori">Apriori 原理</h2>
+<p>假设我们一共有 4 个商品: 商品0, 商品1, 商品2, 商品3。
+所有可能的情况如下:<br />
+<img alt="4种商品的所有组合" src="../../img/ml/11.Apriori/apachecn_apriori_goods_all_1.jpg" /><br />
+如果我们计算所有组合的支持度，也需要计算 15 次。即 2^N - 1 = 2^4 - 1 = 15。<br />
+随着物品的增加，计算的次数呈指数的形式增长 ... <br />
+为了降低计算次数和时间，研究人员发现了一种所谓的 Apriori 原理，即某个项集是频繁的，那么它的所有子集也是频繁的。
+例如，如果 {0, 1} 是频繁的，那么 {0}, {1} 也是频繁的。
+该原理直观上没有什么帮助，但是如果反过来看就有用了，也就是说如果一个项集是 <code>非频繁项集</code>，那么它的所有超集也是非频繁项集，如下图所示:  </p>
+<p><img alt="非频繁项集" src="../../img/ml/11.Apriori/非频繁项集.png" /></p>
+<p>在图中我们可以看到，已知灰色部分 {2,3} 是 <code>非频繁项集</code>，那么利用上面的知识，我们就可以知道 {0,2,3} {1,2,3} {0,1,2,3} 都是 <code>非频繁的</code>。
+也就是说，计算出 {2,3} 的支持度，知道它是 <code>非频繁</code> 的之后，就不需要再计算 {0,2,3} {1,2,3} {0,1,2,3} 的支持度，因为我们知道这些集合不会满足我们的要求。
+使用该原理就可以避免项集数目的指数增长，从而在合理的时间内计算出频繁项集。</p>
+<p>Apriori 算法优缺点</p>
+<pre><code>* 优点：易编码实现
+* 缺点：在大数据集上可能较慢
+* 适用数据类型：数值型 或者 标称型数据。
+</code></pre>
+
+<p>Apriori 算法流程步骤：</p>
+<pre><code>* 收集数据：使用任意方法。
+* 准备数据：任何数据类型都可以，因为我们只保存集合。
+* 分析数据：使用任意方法。
+* 训练数据：使用Apiori算法来找到频繁项集。
+* 测试算法：不需要测试过程。
+* 使用算法：用于发现频繁项集以及物品之间的关联规则。
+</code></pre>
+
+<h2 id="apriori_1">Apriori 算法的使用</h2>
+<p>前面提到，关联分析的目标包括两项: 发现 <code>频繁项集</code> 和发现 <code>关联规则</code>。
+首先需要找到 <code>频繁项集</code>，然后才能发现 <code>关联规则</code>。<br />
+<code>Apriori</code> 算法是发现 <code>频繁项集</code> 的一种方法。
+Apriori 算法的两个输入参数分别是最小支持度和数据集。
+该算法首先会生成所有单个物品的项集列表。
+接着扫描交易记录来查看哪些项集满足最小支持度要求，那些不满足最小支持度要求的集合会被去掉。
+燃尽后对生下来的集合进行组合以声场包含两个元素的项集。
+接下来再重新扫描交易记录，去掉不满足最小支持度的项集。
+该过程重复进行直到所有项集被去掉。</p>
+<h3 id="_3">生成候选项集</h3>
+<p>下面会创建一个用于构建初始集合的函数，也会创建一个通过扫描数据集以寻找交易记录子集的函数，
+数据扫描的伪代码如下: 
+<em> 对数据集中的每条交易记录 tran
+</em> 对每个候选项集 can
+    * 检查一下 can 是否是 tran 的子集: 如果是则增加 can 的计数值
+* 对每个候选项集
+    * 如果其支持度不低于最小值，则保留该项集
+    * 返回所有频繁项集列表
+以下是一些辅助函数。</p>
+<h4 id="_4">加载数据集</h4>
+<pre><code class="python"># 加载数据集
+def loadDataSet():
+    return [[1, 3, 4], [2, 3, 5], [1, 2, 3, 5], [2, 5]]
+</code></pre>
+
+<h4 id="c1-dataset-list-frozenset">创建集合 C1。即对 dataSet 进行去重，排序，放入 list 中，然后转换所有的元素为 frozenset</h4>
+<pre><code class="python"># 创建集合 C1。即对 dataSet 进行去重，排序，放入 list 中，然后转换所有的元素为 frozenset
+def createC1(dataSet):
+    &quot;&quot;&quot;createC1（创建集合 C1）
+
+    Args:
+        dataSet 原始数据集
+    Returns:
+        frozenset 返回一个 frozenset 格式的 list
+    &quot;&quot;&quot;
+
+    C1 = []
+    for transaction in dataSet:
+        for item in transaction:
+            if not [item] in C1:
+                # 遍历所有的元素，如果不在 C1 出现过，那么就 append
+                C1.append([item])
+    # 对数组进行 `从小到大` 的排序
+    print 'sort 前=', C1
+    C1.sort()
+    # frozenset 表示冻结的 set 集合，元素无改变；可以把它当字典的 key 来使用
+    print 'sort 后=', C1
+    print 'frozenset=', map(frozenset, C1)
+    return map(frozenset, C1)
+</code></pre>
+
+<h4 id="ck-d-minsupport">计算候选数据集 CK 在数据集 D 中的支持度，并返回支持度大于最小支持度（minSupport）的数据</h4>
+<pre><code class="python"># 计算候选数据集 CK 在数据集 D 中的支持度，并返回支持度大于最小支持度（minSupport）的数据
+def scanD(D, Ck, minSupport):
+    &quot;&quot;&quot;scanD（计算候选数据集 CK 在数据集 D 中的支持度，并返回支持度大于最小支持度 minSupport 的数据）
+
+    Args:
+        D 数据集
+        Ck 候选项集列表
+        minSupport 最小支持度
+    Returns:
+        retList 支持度大于 minSupport 的集合
+        supportData 候选项集支持度数据
+    &quot;&quot;&quot;
+
+    # ssCnt 临时存放选数据集 Ck 的频率. 例如: a-&gt;10, b-&gt;5, c-&gt;8
+    ssCnt = {}
+    for tid in D:
+        for can in Ck:
+            # s.issubset(t)  测试是否 s 中的每一个元素都在 t 中
+            if can.issubset(tid):
+                if not ssCnt.has_key(can):
+                    ssCnt[can] = 1
+                else:
+                    ssCnt[can] += 1
+    numItems = float(len(D)) # 数据集 D 的数量
+    retList = []
+    supportData = {}
+    for key in ssCnt:
+        # 支持度 = 候选项（key）出现的次数 / 所有数据集的数量
+        support = ssCnt[key]/numItems
+        if support &gt;= minSupport:
+            # 在 retList 的首位插入元素，只存储支持度满足频繁项集的值
+            retList.insert(0, key)
+        # 存储所有的候选项（key）和对应的支持度（support）
+        supportData[key] = support
+    return retList, supportData
+</code></pre>
+
+<p>完整代码地址: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/11.Apriori/apriori.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/11.Apriori/apriori.py</a></p>
+<h3 id="apriori_2">组织完整的 Apriori 算法</h3>
+<h4 id="lk-k-ck">输入频繁项集列表 Lk 与返回的元素个数 k，然后输出所有可能的候选项集 Ck</h4>
+<pre><code class="python"># 输入频繁项集列表 Lk 与返回的元素个数 k，然后输出所有可能的候选项集 Ck
+def aprioriGen(Lk, k):
+    &quot;&quot;&quot;aprioriGen（输入频繁项集列表 Lk 与返回的元素个数 k，然后输出候选项集 Ck。
+       例如: 以 {0},{1},{2} 为输入且 k = 2 则输出 {0,1}, {0,2}, {1,2}. 以 {0,1},{0,2},{1,2} 为输入且 k = 3 则输出 {0,1,2}
+       仅需要计算一次，不需要将所有的结果计算出来，然后进行去重操作
+       这是一个更高效的算法）
+
+    Args:
+        Lk 频繁项集列表
+        k 返回的项集元素个数（若元素的前 k-2 相同，就进行合并）
+    Returns:
+        retList 元素两两合并的数据集
+    &quot;&quot;&quot;
+
+    retList = []
+    lenLk = len(Lk)
+    for i in range(lenLk):
+        for j in range(i+1, lenLk):
+            L1 = list(Lk[i])[: k-2]
+            L2 = list(Lk[j])[: k-2]
+            # print '-----i=', i, k-2, Lk, Lk[i], list(Lk[i])[: k-2]
+            # print '-----j=', j, k-2, Lk, Lk[j], list(Lk[j])[: k-2]
+            L1.sort()
+            L2.sort()
+            # 第一次 L1,L2 为空，元素直接进行合并，返回元素两两合并的数据集
+            # if first k-2 elements are equal
+            if L1 == L2:
+                # set union
+                # print 'union=', Lk[i] | Lk[j], Lk[i], Lk[j]
+                retList.append(Lk[i] | Lk[j])
+    return retList
+</code></pre>
+
+<h4 id="dataset">找出数据集 dataSet 中支持度 &gt;= 最小支持度的候选项集以及它们的支持度。即我们的频繁项集。</h4>
+<pre><code class="python"># 找出数据集 dataSet 中支持度 &gt;= 最小支持度的候选项集以及它们的支持度。即我们的频繁项集。
+def apriori(dataSet, minSupport=0.5):
+    &quot;&quot;&quot;apriori（首先构建集合 C1，然后扫描数据集来判断这些只有一个元素的项集是否满足最小支持度的要求。那么满足最小支持度要求的项集构成集合 L1。然后 L1 中的元素相互组合成 C2，C2 再进一步过滤变成 L2，然后以此类推，知道 CN 的长度为 0 时结束，即可找出所有频繁项集的支持度。）
+
+    Args:
+        dataSet 原始数据集
+        minSupport 支持度的阈值
+    Returns:
+        L 频繁项集的全集
+        supportData 所有元素和支持度的全集
+    &quot;&quot;&quot;
+    # C1 即对 dataSet 进行去重，排序，放入 list 中，然后转换所有的元素为 frozenset
+    C1 = createC1(dataSet)
+    # 对每一行进行 set 转换，然后存放到集合中
+    D = map(set, dataSet)
+    print 'D=', D
+    # 计算候选数据集 C1 在数据集 D 中的支持度，并返回支持度大于 minSupport 的数据
+    L1, supportData = scanD(D, C1, minSupport)
+    # print &quot;L1=&quot;, L1, &quot;\n&quot;, &quot;outcome: &quot;, supportData
+
+    # L 加了一层 list, L 一共 2 层 list
+    L = [L1]
+    k = 2
+    # 判断 L 的第 k-2 项的数据长度是否 &gt; 0。第一次执行时 L 为 [[frozenset([1]), frozenset([3]), frozenset([2]), frozenset([5])]]。L[k-2]=L[0]=[frozenset([1]), frozenset([3]), frozenset([2]), frozenset([5])]，最后面 k += 1
+    while (len(L[k-2]) &gt; 0):
+        print 'k=', k, L, L[k-2]
+        Ck = aprioriGen(L[k-2], k) # 例如: 以 {0},{1},{2} 为输入且 k = 2 则输出 {0,1}, {0,2}, {1,2}. 以 {0,1},{0,2},{1,2} 为输入且 k = 3 则输出 {0,1,2}
+        print 'Ck', Ck
+
+        Lk, supK = scanD(D, Ck, minSupport) # 计算候选数据集 CK 在数据集 D 中的支持度，并返回支持度大于 minSupport 的数据
+        # 保存所有候选项集的支持度，如果字典没有，就追加元素，如果有，就更新元素
+        supportData.update(supK)
+        if len(Lk) == 0:
+            break
+        # Lk 表示满足频繁子项的集合，L 元素在增加，例如: 
+        # l=[[set(1), set(2), set(3)]]
+        # l=[[set(1), set(2), set(3)], [set(1, 2), set(2, 3)]]
+        L.append(Lk)
+        k += 1
+        # print 'k=', k, len(L[k-2])
+    return L, supportData
+</code></pre>
+
+<p>到这一步，我们就找出我们所需要的 <code>频繁项集</code> 和他们的 <code>支持度</code> 了，接下来再找出关联规则即可！</p>
+<p>完整代码地址: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/11.Apriori/apriori.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/11.Apriori/apriori.py</a></p>
+<h2 id="_5">从频繁项集中挖掘关联规则</h2>
+<p>前面我们介绍了用于发现 <code>频繁项集</code> 的 Apriori 算法，现在要解决的问题是如何找出 <code>关联规则</code>。</p>
+<p>要找到 <code>关联规则</code>，我们首先从一个 <code>频繁项集</code> 开始。
+我们知道集合中的元素是不重复的，但我们想知道基于这些元素能否获得其它内容。
+某个元素或某个元素集合可能会推导出另一个元素。
+从先前 <code>杂货店</code> 的例子可以得到，如果有一个频繁项集 {豆奶,莴苣}，那么就可能有一条关联规则 “豆奶 -&gt; 莴苣”。
+这意味着如果有人买了豆奶，那么在统计上他会购买莴苣的概率比较大。
+但是，这一条件反过来并不总是成立。
+也就是说 “豆奶 -&gt; 莴苣” 统计上显著，那么 “莴苣 -&gt; 豆奶” 也不一定成立。</p>
+<p>前面我们给出了 <code>频繁项集</code> 的量化定义，即它满足最小支持度要求。<br />
+对于 <code>关联规则</code>，我们也有类似的量化方法，这种量化指标称之为 <code>可信度</code>。<br />
+一条规则 A -&gt; B 的可信度定义为 support(A | B) / support(A)。（注意: 在 python 中 | 表示集合的并操作，而数学书集合并的符号是 U）。<br />
+<code>A | B</code> 是指所有出现在集合 A 或者集合 B 中的元素。<br />
+由于我们先前已经计算出所有 <code>频繁项集</code> 的支持度了，现在我们要做的只不过是提取这些数据做一次除法运算即可。</p>
+<h3 id="_6">一个频繁项集可以产生多少条关联规则呢？</h3>
+<p>如下图所示，给出的是项集 {0,1,2,3} 产生的所有关联规则:<br />
+<img alt="关联规则网格示意图" src="../../img/ml/11.Apriori/apachecn_association_rule_demo_1.jpg" /><br />
+与我们前面的 <code>频繁项集</code> 生成一样，我们可以为每个频繁项集产生许多关联规则。<br />
+如果能减少规则的数目来确保问题的可解析，那么计算起来就会好很多。<br />
+通过观察，我们可以知道，如果某条规则并不满足 <code>最小可信度</code> 要求，那么该规则的所有子集也不会满足 <code>最小可信度</code> 的要求。<br />
+如上图所示，假设 <code>123 -&gt; 3</code>  并不满足最小可信度要求，那么就知道任何左部为 {0,1,2} 子集的规则也不会满足 <code>最小可信度</code> 的要求。
+即 <code>12 -&gt; 03</code> , <code>02 -&gt; 13</code> , <code>01 -&gt; 23</code> , <code>2 -&gt; 013</code>, <code>1 -&gt; 023</code>, <code>0 -&gt; 123</code> 都不满足 <code>最小可信度</code> 要求。  </p>
+<p>可以利用关联规则的上述性质属性来减少需要测试的规则数目，跟先前 Apriori 算法的套路一样。<br />
+以下是一些辅助函数: </p>
+<h4 id="_7">计算可信度</h4>
+<pre><code class="python"># 计算可信度（confidence）
+def calcConf(freqSet, H
+, supportData, brl, minConf=0.7):
+    &quot;&quot;&quot;calcConf（对两个元素的频繁项，计算可信度，例如： {1,2}/{1} 或者 {1,2}/{2} 看是否满足条件）
+
+    Args:
+        freqSet 频繁项集中的元素，例如: frozenset([1, 3])    
+        H 频繁项集中的元素的集合，例如: [frozenset([1]), frozenset([3])]
+        supportData 所有元素的支持度的字典
+        brl 关联规则列表的空数组
+        minConf 最小可信度
+    Returns:
+        prunedH 记录 可信度大于阈值的集合
+    &quot;&quot;&quot;
+    # 记录可信度大于最小可信度（minConf）的集合
+    prunedH = []
+    for conseq in H: # 假设 freqSet = frozenset([1, 3]), H = [frozenset([1]), frozenset([3])]，那么现在需要求出 frozenset([1]) -&gt; frozenset([3]) 的可信度和 frozenset([3]) -&gt; frozenset([1]) 的可信度
+
+        # print 'confData=', freqSet, H, conseq, freqSet-conseq
+        conf = supportData[freqSet]/supportData[freqSet-conseq] # 支持度定义: a -&gt; b = support(a | b) / support(a). 假设  freqSet = frozenset([1, 3]), conseq = [frozenset([1])]，那么 frozenset([1]) 至 frozenset([3]) 的可信度为 = support(a | b) / support(a) = supportData[freqSet]/supportData[freqSet-conseq] = supportData[frozenset([1, 3])] / supportData[frozenset([1])]
+        if conf &gt;= minConf:
+            # 只要买了 freqSet-conseq 集合，一定会买 conseq 集合（freqSet-conseq 集合和 conseq 集合是全集）
+            print freqSet-conseq, '--&gt;', conseq, 'conf:', conf
+            brl.append((freqSet-conseq, conseq, conf))
+            prunedH.append(conseq)
+    return prunedH
+````
+
+#### 递归计算频繁项集的规则
+
+```python
+# 递归计算频繁项集的规则
+def rulesFromConseq(freqSet, H, supportData, brl, minConf=0.7):
+    &quot;&quot;&quot;rulesFromConseq
+
+    Args:
+        freqSet 频繁项集中的元素，例如: frozenset([2, 3, 5])    
+        H 频繁项集中的元素的集合，例如: [frozenset([2]), frozenset([3]), frozenset([5])]
+        supportData 所有元素的支持度的字典
+        brl 关联规则列表的数组
+        minConf 最小可信度
+    &quot;&quot;&quot;
+    # H[0] 是 freqSet 的元素组合的第一个元素，并且 H 中所有元素的长度都一样，长度由 aprioriGen(H, m+1) 这里的 m + 1 来控制
+    # 该函数递归时，H[0] 的长度从 1 开始增长 1 2 3 ...
+    # 假设 freqSet = frozenset([2, 3, 5]), H = [frozenset([2]), frozenset([3]), frozenset([5])]
+    # 那么 m = len(H[0]) 的递归的值依次为 1 2
+    # 在 m = 2 时, 跳出该递归。假设再递归一次，那么 H[0] = frozenset([2, 3, 5])，freqSet = frozenset([2, 3, 5]) ，没必要再计算 freqSet 与 H[0] 的关联规则了。
+    m = len(H[0])
+    if (len(freqSet) &gt; (m + 1)):
+        print 'freqSet******************', len(freqSet), m + 1, freqSet, H, H[0]
+        # 生成 m+1 个长度的所有可能的 H 中的组合，假设 H = [frozenset([2]), frozenset([3]), frozenset([5])]
+        # 第一次递归调用时生成 [frozenset([2, 3]), frozenset([2, 5]), frozenset([3, 5])]
+        # 第二次 。。。没有第二次，递归条件判断时已经退出了
+        Hmp1 = aprioriGen(H, m+1)
+        # 返回可信度大于最小可信度的集合
+        Hmp1 = calcConf(freqSet, Hmp1, supportData, brl, minConf)
+        print 'Hmp1=', Hmp1
+        print 'len(Hmp1)=', len(Hmp1), 'len(freqSet)=', len(freqSet)
+        # 计算可信度后，还有数据大于最小可信度的话，那么继续递归调用，否则跳出递归
+        if (len(Hmp1) &gt; 1):
+            print '----------------------', Hmp1
+            # print len(freqSet),  len(Hmp1[0]) + 1
+            rulesFromConseq(freqSet, Hmp1, supportData, brl, minConf)
+</code></pre>
+
+<h4 id="_8">生成关联规则</h4>
+<pre><code class="python"># 生成关联规则
+def generateRules(L, supportData, minConf=0.7):
+    &quot;&quot;&quot;generateRules
+
+    Args:
+        L 频繁项集列表
+        supportData 频繁项集支持度的字典
+        minConf 最小置信度
+    Returns:
+        bigRuleList 可信度规则列表（关于 (A-&gt;B+置信度) 3个字段的组合）
+    &quot;&quot;&quot;
+    bigRuleList = []
+    # 假设 L = [[frozenset([1]), frozenset([3]), frozenset([2]), frozenset([5])], [frozenset([1, 3]), frozenset([2, 5]), frozenset([2, 3]), frozenset([3, 5])], [frozenset([2, 3, 5])]]
+    for i in range(1, len(L)):
+        # 获取频繁项集中每个组合的所有元素
+        for freqSet in L[i]:
+            # 假设：freqSet= frozenset([1, 3]), H1=[frozenset([1]), frozenset([3])]
+            # 组合总的元素并遍历子元素，并转化为 frozenset 集合，再存放到 list 列表中
+            H1 = [frozenset([item]) for item in freqSet]
+            # 2 个的组合，走 else, 2 个以上的组合，走 if
+            if (i &gt; 1):
+                rulesFromConseq(freqSet, H1, supportData, bigRuleList, minConf)
+            else:
+                calcConf(freqSet, H1, supportData, bigRuleList, minConf)
+    return bigRuleList
+</code></pre>
+
+<p>到这里为止，通过调用 generateRules 函数即可得出我们所需的 <code>关联规则</code>。</p>
+<ul>
+<li>分级法： 频繁项集-&gt;关联规则<ul>
+<li>1.首先从一个频繁项集开始，接着创建一个规则列表，其中规则右部分只包含一个元素，然后对这个规则进行测试。</li>
+<li>2.接下来合并所有剩余规则来创建一个新的规则列表，其中规则右部包含两个元素。</li>
+<li>如下图：</li>
+<li><img alt="所有可能的项集组合" src="../../img/ml/11.Apriori/所有可能的项集组合.png" /></li>
+</ul>
+</li>
+<li>最后： 每次增加频繁项集的大小，Apriori 算法都会重新扫描整个数据集，是否有优化空间呢？ 下一章：FP-growth算法等着你的到来</li>
+</ul>
+<hr />
+<ul>
+<li><strong>作者：<a href="http://www.apache.wiki/display/~jiangzhonglian">片刻</a></strong></li>
+<li><a href="https://github.com/apachecn/AiLearning">GitHub地址</a>: <a href="https://github.com/apachecn/AiLearning">https://github.com/apachecn/AiLearning</a></li>
+<li><strong>版权声明：欢迎转载学习 =&gt; 请标注信息来源于 <a href="http://www.apachecn.org/">ApacheCN</a></strong></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+
+              <hr/>
+              <div align="center">
+                  <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+                  <p><a href="https://github.com/apachecn/AiLearning/" target="_blank">apachecn/AiLearning</a></p>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+                  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a>
+              </div>
+
+              <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+              <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+              <div id="gitalk-container" class="container-fluid"></div>
+              <script type="text/javascript">
+                  var gitalk = new Gitalk({
+                  clientID: 'f27b87eb424ba43df978',
+                  clientSecret: '9b3482a495c5257a1d269d8108b9bfd71f048c3c',
+                  repo: 'AiLearning',
+                  owner: 'apachecn',
+                  admin: ['jiangzhonglian'],
+                  id: md5(location.pathname),
+                  distractionFreeMode: false
+                  })
+                  gitalk.render('gitalk-container')
+              </script>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../10.KMeans/" title="第10章_KMeans聚类" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                第10章_KMeans聚类
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../12.FP-growth/" title="第12章_FP-growth算法" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                第12章_FP-growth算法
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>
