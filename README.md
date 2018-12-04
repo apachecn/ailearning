@@ -129,7 +129,7 @@
     <td>机器学习实战</td>
     <td><a href="blog/ml/15.大数据与MapReduce.md">第 15 章: 大数据与 MapReduce</a></td>
     <td>工具</td>
-    <td>wnma3mz</td>
+    <td><a href="https://github.com/wnma3mz">@wnma3mz</a></td>
     <td>1003324213</td>
   </tr>
   <tr>
