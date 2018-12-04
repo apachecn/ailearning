@@ -136,7 +136,7 @@
     <td>Ml项目实战</td>
     <td><a href="blog/ml/16.推荐系统.md">第 16 章: 推荐系统（已迁移）</a></td>
     <td>项目</td>
-    <td><a href="https://github.com/apachecn/RecommenderSystems">推荐系统 <--（迁移后地址）</a></td>
+    <td><a href="https://github.com/apachecn/RecommenderSystems">推荐系统 \n <--（迁移后地址）</a></td>
     <td></td>
   </tr>
   <tr>
