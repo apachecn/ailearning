@@ -501,7 +501,7 @@ mage字幕是为给定图像生成文本描述的任务。
 
 ## 赞助我们
 
-![](http://www.apachecn.org/img/about/donate.jpg)
+<img src="http://www.apachecn.org/img/about/donate.jpg" alt="微信&支付宝" />
 
 ## License
 
