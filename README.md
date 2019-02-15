@@ -4,15 +4,15 @@
 
 * 首页地址: <http://www.apachecn.org>
 * 关于我们: <http://www.apachecn.org/about>
-* 我们与Apache没关系，只是Apache狂热的粉丝，才成立中文开源组织！
-* 如有侵权，请联系邮箱: 【片刻】 <jiang-s@163.com>  (如果需要合作，也可以私聊我)
+* 我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！
+* 合作or侵权，请联系【fonttian】fonttian@gmail.com | 请抄送一份到 apachecn@163.com
 
 > **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
 
 * **ApacheCN - 学习机器学习群【629470233】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=30e5f1123a79867570f665aa3a483ca404b1c3f77737bc01ec520ed5f078ddef"><img border="0" src="img/MainPage/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[629470233]" title="ApacheCN - 学习机器学习群[629470233]"></a>**
 * **Machine Learning in Action (机器学习实战) | [ApacheCN(apache中文网)](http://cwiki.apachecn.org/)**
 * 电子版书籍：[【机器学习实战-中文版-带目录版.pdf】](https://github.com/apachecn/AiLearning/tree/master/books)  
-* -- 感谢 [群小哥哥：Wizard Zhang](https://github.com/wizardforcel) 生成的电子书[《机器学习实战-ApacheCN.pdf》](https://github.com/apachecn/AiLearning/blob/master/books/机器学习实战-ApacheCN.pdf)
+* -- 感谢 [飞龙小哥哥](https://github.com/wizardforcel) 生成的电子书[《机器学习实战-ApacheCN.pdf》](https://github.com/apachecn/AiLearning/blob/master/books/机器学习实战-ApacheCN.pdf)
 * **视频已更新完成，如果你觉得有价值，请帮忙点 Star【后续组织学习活动：sklearn、kaggle、 Pytorch 和 tensorflow】**
 * -- 视频网站：优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
 * -- [群小哥哥：红色石头](https://github.com/RedstoneWill): [台湾大学林轩田机器学习笔记](https://github.com/apachecn/ntu-hsuantienlin-ml)
@@ -153,9 +153,9 @@
 * 1.) [入门介绍](/blog/dl/1.入门介绍.md)
 * 2.） 代码位置：src/py2.x or py3.x/DL
 
-# 自然语言处理 NLP
+# 自然语言处理 NLP 学习
 
-## 百度公开课（使用场景了解）
+## 1.使用场景 （百度公开课）
 
 > 第一部分 入门介绍
 
@@ -176,7 +176,7 @@
 
 * 4.) [UNIT-语言理解与交互技术](/blog/nlp/4.UNIT-语言理解与交互技术.md)
 
-## 自然语言处理(NLP) - 相关项目
+## 2.相关结构
 
 学习过程中-内心复杂的变化！！！
 
@@ -342,6 +342,11 @@ mage字幕是为给定图像生成文本描述的任务。
 * word2vec推荐文档: https://www.zhihu.com/question/44832436/answer/266068967
 * textrank推荐文档: https://blog.csdn.net/BaiHuaXiu123/article/details/77847232
 
+## Graph图计算【慢慢更新】
+
+* 数据集: [data/nlp/graph](data/nlp/graph)
+* 学习资料: spark graphX实战.pdf 【文件太大不方便提供，自己百度】
+
 ### 进一步阅读
 
 如果您希望更深入，本节提供了其他数据集列表。
@@ -481,16 +486,23 @@ mage字幕是为给定图像生成文本描述的任务。
 
 > Ml 第三届 (2019-01-01)
 
-* [小明教主]()
+* [只会喊666的存在]()
 * [codefun007.xyz]()
 * [荼靡]()
 * [大鱼]()
+* [青鸟]()
 * [古柳-DesertsX]()
-* [张一极]()
+* [Edge]()
 * [Alluka]()
-* [viviwong]()
 * [不发篇paper不改名片]()
 * [FontTian]()
+* [Bigjing]()
+* [仁 礼 智 爱]()
+* [可啪的小乖受]()
+* [老古董]()
+* [时空守望者]()
+* [我好菜啊]()
+* [Messi 19]()
 
 **欢迎贡献者不断的追加**
 

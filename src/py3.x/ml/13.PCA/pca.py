@@ -88,7 +88,7 @@ def pca(dataMat, topNfeat=9999999):
 
 
 def replaceNanWithMean():
-    datMat = loadDataSet('db/13.PCA/secom.data', ' ')
+    datMat = loadDataSet('data/13.PCA/secom.data', ' ')
     numFeat = shape(datMat)[1]
     for i in range(numFeat):
         # 对value不为NaN的求均值
@@ -135,7 +135,7 @@ def analyse_data(dataMat):
 
 if __name__ == "__main__":
     # # 加载数据，并转化数据类型为float
-    # dataMat = loadDataSet('db/13.PCA/testSet.txt')
+    # dataMat = loadDataSet('data/13.PCA/testSet.txt')
     # # 只需要1个特征向量
     # lowDmat, reconMat = pca(dataMat, 1)
     # # 只需要2个特征向量，和原始数据一致，没任何变化

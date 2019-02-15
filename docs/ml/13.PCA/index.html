@@ -798,7 +798,7 @@
 <p>准备数据：将value为NaN的求均值</p>
 </blockquote>
 <pre><code class="python">def replaceNanWithMean():
-    datMat = loadDataSet('db/13.PCA/secom.data', ' ')
+    datMat = loadDataSet('data/13.PCA/secom.data', ' ')
     numFeat = shape(datMat)[1]
     for i in range(numFeat):
         # 对value不为NaN的求均值

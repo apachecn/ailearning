@@ -279,7 +279,7 @@ def imgCompress(numSV=3, thresh=0.8):
         thresh      判断的阈值
     """
     # 构建一个列表
-    myMat = imgLoadData('db/14.SVD/0_5.txt')
+    myMat = imgLoadData('data/14.SVD/0_5.txt')
 
     print("****original matrix****")
     # 对原始图像进行SVD分解并重构图像e

@@ -335,7 +335,7 @@ if __name__ == "__main__":
     #     print t
 
     # # 2.新闻网站点击流中挖掘，例如：文章1阅读过的人，还阅读过什么？
-    # parsedDat = [line.split() for line in open('db/12.FPGrowth/kosarak.dat').readlines()]
+    # parsedDat = [line.split() for line in open('data/12.FPGrowth/kosarak.dat').readlines()]
     # initSet = createInitSet(parsedDat)
     # myFPtree, myHeaderTab = createTree(initSet, 100000)
 
