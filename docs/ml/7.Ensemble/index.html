@@ -1388,13 +1388,13 @@ D （样本权重）的目的是为了计算错误概率： weightedError = D.T*
 </blockquote>
 <pre><code class="python"># 马疝病数据集
 # 训练集合
-dataArr, labelArr = loadDataSet(&quot;db/7.AdaBoost/horseColicTraining2.txt&quot;)
+dataArr, labelArr = loadDataSet(&quot;data/7.AdaBoost/horseColicTraining2.txt&quot;)
 weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 40)
 print weakClassArr, '\n-----\n', aggClassEst.T
 # 计算ROC下面的AUC的面积大小
 plotROC(aggClassEst.T, labelArr)
 # 测试集合
-dataArrTest, labelArrTest = loadDataSet(&quot;db/7.AdaBoost/horseColicTest2.txt&quot;)
+dataArrTest, labelArrTest = loadDataSet(&quot;data/7.AdaBoost/horseColicTest2.txt&quot;)
 m = shape(dataArrTest)[0]
 predicting10 = adaClassify(dataArrTest, weakClassArr)
 errArr = mat(ones((m, 1)))

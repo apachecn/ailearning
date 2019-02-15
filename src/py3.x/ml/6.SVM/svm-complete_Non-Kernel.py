@@ -365,7 +365,7 @@ def plotfig_SVM(xArr, yArr, ws, b, alphas):
 
 if __name__ == "__main__":
     # 获取特征和目标变量
-    dataArr, labelArr = loadDataSet('db/6.SVM/testSet.txt')
+    dataArr, labelArr = loadDataSet('data/6.SVM/testSet.txt')
     # print(labelArr)
 
     # b是常量值， alphas是拉格朗日乘子

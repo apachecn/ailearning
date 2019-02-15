@@ -787,15 +787,15 @@ MapReduce: 分布式的计算框架，可以将单个计算作业分配给多台
 </blockquote>
 <pre><code># 测试 Mapper
 # Linux
-cat db/15.BigData_MapReduce/inputFile.txt | python src/python/15.BigData_MapReduce/mrMeanMapper.py
+cat data/15.BigData_MapReduce/inputFile.txt | python src/python/15.BigData_MapReduce/mrMeanMapper.py
 # Window
-# python src/python/15.BigData_MapReduce/mrMeanMapper.py &lt; db/15.BigData_MapReduce/inputFile.txt
+# python src/python/15.BigData_MapReduce/mrMeanMapper.py &lt; data/15.BigData_MapReduce/inputFile.txt
 
 # 测试 Reducer
 # Linux
-cat db/15.BigData_MapReduce/inputFile.txt | python src/python/15.BigData_MapReduce/mrMeanMapper.py | python src/python/15.BigData_MapReduce/mrMeanReducer.py
+cat data/15.BigData_MapReduce/inputFile.txt | python src/python/15.BigData_MapReduce/mrMeanMapper.py | python src/python/15.BigData_MapReduce/mrMeanReducer.py
 # Window
-# python src/python/15.BigData_MapReduce/mrMeanMapper.py &lt; db/15.BigData_MapReduce/inputFile.txt | python src/python/15.BigData_MapReduce/mrMeanReducer.py
+# python src/python/15.BigData_MapReduce/mrMeanMapper.py &lt; data/15.BigData_MapReduce/inputFile.txt | python src/python/15.BigData_MapReduce/mrMeanReducer.py
 </code></pre>
 
 <h3 id="mapreduce">MapReduce 机器学习</h3>
@@ -815,7 +815,7 @@ cat db/15.BigData_MapReduce/inputFile.txt | python src/python/15.BigData_MapRedu
 <li>MapReduce 作业流自动化的框架：Cascading 和 Oozie.</li>
 <li>mrjob 是一个不错的学习工具，与2010年底实现了开源，来之于 Yelp(一个餐厅点评网站).</li>
 </ul>
-<pre><code class="Shell">python src/python/15.BigData_MapReduce/mrMean.py &lt; db/15.BigData_MapReduce/inputFile.txt &gt; db/15.BigData_MapReduce/myOut.txt
+<pre><code class="Shell">python src/python/15.BigData_MapReduce/mrMean.py &lt; data/15.BigData_MapReduce/inputFile.txt &gt; data/15.BigData_MapReduce/myOut.txt
 </code></pre>
 
 <blockquote>
@@ -823,9 +823,9 @@ cat db/15.BigData_MapReduce/inputFile.txt | python src/python/15.BigData_MapRedu
 </blockquote>
 <pre><code># 测试 mrjob的案例
 # 先测试一下mapper方法
-# python src/python/15.BigData_MapReduce/mrMean.py --mapper &lt; db/15.BigData_MapReduce/inputFile.txt
+# python src/python/15.BigData_MapReduce/mrMean.py --mapper &lt; data/15.BigData_MapReduce/inputFile.txt
 # 运行整个程序，移除 --mapper 就行
-python src/python/15.BigData_MapReduce/mrMean.py &lt; db/15.BigData_MapReduce/inputFile.txt
+python src/python/15.BigData_MapReduce/mrMean.py &lt; data/15.BigData_MapReduce/inputFile.txt
 </code></pre>
 
 <h3 id="svm-pegasos">项目案例：分布式 SVM 的 Pegasos 算法</h3>
@@ -928,7 +928,7 @@ python src/python/15.BigData_MapReduce/mrMean.py &lt; db/15.BigData_MapReduce/in
 </code></pre>
 
 <p><a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/15.BigData_MapReduce/pegasos.py">完整代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/15.BigData_MapReduce/pegasos.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/15.BigData_MapReduce/pegasos.py</a></p>
-<p>运行方式：<code>python /opt/git/MachineLearning/src/python/15.BigData_MapReduce/mrSVM.py &lt; db/15.BigData_MapReduce/inputFile.txt</code>
+<p>运行方式：<code>python /opt/git/MachineLearning/src/python/15.BigData_MapReduce/mrSVM.py &lt; data/15.BigData_MapReduce/inputFile.txt</code>
 <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/15.BigData_MapReduce/mrSVM.py">MR版本的代码地址</a>: <a href="https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/15.BigData_MapReduce/mrSVM.py">https://github.com/apachecn/AiLearning/blob/master/src/py2.x/ml/15.BigData_MapReduce/mrSVM.py</a></p>
 <hr />
 <ul>

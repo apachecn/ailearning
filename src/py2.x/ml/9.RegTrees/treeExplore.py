@@ -108,7 +108,7 @@ def main(root):
     reDraw.canvas.show()
     reDraw.canvas.get_tk_widget().grid(row=0, columnspan=3)
 
-    reDraw.rawDat = mat(regTrees.loadDataSet('db/9.RegTrees/sine.txt'))
+    reDraw.rawDat = mat(regTrees.loadDataSet('data/9.RegTrees/sine.txt'))
     reDraw.testDat = arange(min(reDraw.rawDat[:, 0]), max(reDraw.rawDat[:, 0]), 0.01)
     reDraw(1.0, 10)
 

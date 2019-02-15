@@ -1153,7 +1153,7 @@ def gradAscent(dataMatIn, classLabels):
 </blockquote>
 <pre><code class="python">def testLR():
     # 1.收集并准备数据
-    dataMat, labelMat = loadDataSet(&quot;db/5.Logistic/TestSet.txt&quot;)
+    dataMat, labelMat = loadDataSet(&quot;data/5.Logistic/TestSet.txt&quot;)
 
     # print dataMat, '---\n', labelMat
     # 2.训练模型，  f(x)=a1*x1+b2*x2+..+nn*xn中 (a1,b2, .., nn).T的矩阵值
@@ -1404,8 +1404,8 @@ def colicTest():
     Returns:
         errorRate -- 分类错误率
     '''
-    frTrain = open('db/5.Logistic/horseColicTraining.txt')
-    frTest = open('db/5.Logistic/horseColicTest.txt')
+    frTrain = open('data/5.Logistic/horseColicTraining.txt')
+    frTest = open('data/5.Logistic/horseColicTest.txt')
     trainingSet = []
     trainingLabels = []
     # 解析训练数据集中的数据特征和Labels

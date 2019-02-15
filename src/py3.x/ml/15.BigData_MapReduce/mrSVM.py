@@ -19,7 +19,7 @@ class MRsvm(MRJob):
 
     def __init__(self, *args, **kwargs):
         super(MRsvm, self).__init__(*args, **kwargs)
-        self.data = pickle.load(open('/opt/git/MachineLearnidb/15.BigData_MapReduce/svmDat27', 'r'))
+        self.data = pickle.load(open('/opt/git/MachineLearnidata/15.BigData_MapReduce/svmDat27', 'r'))
         self.w = 0
         self.eta = 0.69
         self.dataList = []
