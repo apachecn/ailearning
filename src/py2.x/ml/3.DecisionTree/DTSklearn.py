@@ -14,7 +14,7 @@ def createDataSet():
     ''' 数据读入 '''
     data = []
     labels = []
-    with open("db/3.DecisionTree/data.txt") as ifile:
+    with open("data/3.DecisionTree/data.txt") as ifile:
         for line in ifile:
             # 特征： 身高 体重   label： 胖瘦
             tokens = line.strip().split(' ')

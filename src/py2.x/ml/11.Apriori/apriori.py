@@ -244,7 +244,7 @@ def getActionIds():
     votesmart.apikey = 'a7fa40adec6f4a77178799fae4441030'
     actionIdList = []
     billTitleList = []
-    fr = open('db/11.Apriori/recent20bills.txt')
+    fr = open('data/11.Apriori/recent20bills.txt')
     for line in fr.readlines():
         billNum = int(line.split('\t')[0])
         try:
@@ -355,7 +355,7 @@ def main():
     # # 项目案例
     # # 发现毒蘑菇的相似特性
     # # 得到全集的数据
-    # dataSet = [line.split() for line in open("db/11.Apriori/mushroom.dat").readlines()]
+    # dataSet = [line.split() for line in open("data/11.Apriori/mushroom.dat").readlines()]
     # L, supportData = apriori(dataSet, minSupport=0.3)
     # # 2表示毒蘑菇，1表示可食用的蘑菇
     # # 找出关于2的频繁子项出来，就知道如果是毒蘑菇，那么出现频繁的也可能是毒蘑菇
