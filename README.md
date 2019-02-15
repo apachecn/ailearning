@@ -12,7 +12,7 @@
 * **ApacheCN - 学习机器学习群【629470233】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=30e5f1123a79867570f665aa3a483ca404b1c3f77737bc01ec520ed5f078ddef"><img border="0" src="img/MainPage/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[629470233]" title="ApacheCN - 学习机器学习群[629470233]"></a>**
 * **Machine Learning in Action (机器学习实战) | [ApacheCN(apache中文网)](http://cwiki.apachecn.org/)**
 * 电子版书籍：[【机器学习实战-中文版-带目录版.pdf】](https://github.com/apachecn/AiLearning/tree/master/books)  
-* -- 感谢 [群小哥哥：Wizard Zhang](https://github.com/wizardforcel) 生成的电子书[《机器学习实战-ApacheCN.pdf》](https://github.com/apachecn/AiLearning/blob/master/books/机器学习实战-ApacheCN.pdf)
+* -- 感谢 [飞龙小哥哥](https://github.com/wizardforcel) 生成的电子书[《机器学习实战-ApacheCN.pdf》](https://github.com/apachecn/AiLearning/blob/master/books/机器学习实战-ApacheCN.pdf)
 * **视频已更新完成，如果你觉得有价值，请帮忙点 Star【后续组织学习活动：sklearn、kaggle、 Pytorch 和 tensorflow】**
 * -- 视频网站：优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
 * -- [群小哥哥：红色石头](https://github.com/RedstoneWill): [台湾大学林轩田机器学习笔记](https://github.com/apachecn/ntu-hsuantienlin-ml)
@@ -153,9 +153,9 @@
 * 1.) [入门介绍](/blog/dl/1.入门介绍.md)
 * 2.） 代码位置：src/py2.x or py3.x/DL
 
-# 自然语言处理 NLP
+# 自然语言处理 NLP 学习
 
-## 百度公开课（使用场景了解）
+## 1.使用场景 （百度公开课）
 
 > 第一部分 入门介绍
 
@@ -176,7 +176,7 @@
 
 * 4.) [UNIT-语言理解与交互技术](/blog/nlp/4.UNIT-语言理解与交互技术.md)
 
-## 自然语言处理(NLP) - 相关项目
+## 2.相关结构
 
 学习过程中-内心复杂的变化！！！
 
@@ -341,6 +341,11 @@ mage字幕是为给定图像生成文本描述的任务。
 * word2vec + textrank
 * word2vec推荐文档: https://www.zhihu.com/question/44832436/answer/266068967
 * textrank推荐文档: https://blog.csdn.net/BaiHuaXiu123/article/details/77847232
+
+## Graph图计算【慢慢更新】
+
+* 数据集: [data/nlp/graph](data/nlp/graph)
+* 学习资料: spark graphX实战.pdf 【文件太大不方便提供，自己百度】
 
 ### 进一步阅读
 
