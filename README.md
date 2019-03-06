@@ -528,9 +528,11 @@ mage字幕是为给定图像生成文本描述的任务。
 
 <img src="http://data.apachecn.org/img/about/donate.jpg" alt="微信&支付宝" />
 
-## License
+## **协议**
 
-GPL-3.0 © [ApacheCN](https://github.com/apachecn)
+以各项目协议为准。
+
+ApacheCN 账号下没有协议的项目，一律视为 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)。
 
 ## Organization
 
