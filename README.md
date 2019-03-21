@@ -2,11 +2,14 @@
     <a href="https://www.apachecn.org">
         <img width="200" src="http://data.apachecn.org/img/logo/GreenHat.jpg">
     </a>
+    <br >
+    <a href="https://www.apachecn.org/"><img src="https://img.shields.io/badge/%3E-www.apachecn.com-green.svg"></a>
+    <a href="mailto:apache@163.com"><img src="https://img.shields.io/badge/%3E-apachecn@163.com-green.svg"></a>
+
 </p>
 
 > ApacheCN 中文开源组织
 
-* 首页地址: <http://www.apachecn.org>
 * 关于我们: <http://www.apachecn.org/about>
 * 我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！
 * 合作or侵权，请联系: apachecn@163.com
