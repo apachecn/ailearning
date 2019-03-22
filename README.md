@@ -4,7 +4,7 @@
     </a>
 </p>
 
-> ApacheCN 中文开源组织 哈哈哈
+> ApacheCN 中文开源组织 对不起
 
 * 首页地址: <http://www.apachecn.org>
 * 关于我们: <http://www.apachecn.org/about>
