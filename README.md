@@ -3,9 +3,9 @@
         <img width="200" src="http://data.apachecn.org/img/logo/GreenHat.jpg">
     </a>
     <br >
-    首页: <a href="https://www.apachecn.org/"><img src="https://img.shields.io/badge/%3E-www.apachecn.com-green.svg"></a>
-    关于: <a href="https://www.apachecn.org/"><img src="https://img.shields.io/badge/%3E-about-green.svg"></a>
-    合作or侵权: <a href="mailto:apache@163.com"><img src="https://img.shields.io/badge/%3E-apachecn@163.com-green.svg"></a>
+    <a href="https://www.apachecn.org/"><img src="https://img.shields.io/badge/%3E-HOME-green.svg"></a>
+    <a href="https://www.apachecn.org/"><img src="https://img.shields.io/badge/%3E-ABOUT-green.svg"></a>
+    <a href="mailto:apache@163.com"><img src="https://img.shields.io/badge/%3E-Email-green.svg"></a>
 </p>
 
 <h2 align="center">Special Sponsors</h2>
