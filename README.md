@@ -4,7 +4,7 @@
     </a>
     <br >
     <a href="https://www.apachecn.org/"><img src="https://img.shields.io/badge/%3E-HOME-green.svg"></a>
-    <a href="https://www.apachecn.org/"><img src="https://img.shields.io/badge/%3E-ABOUT-green.svg"></a>
+    <a href="http://home.apachecn.org/about/"><img src="https://img.shields.io/badge/%3E-ABOUT-green.svg"></a>
     <a href="mailto:apache@163.com"><img src="https://img.shields.io/badge/%3E-Email-green.svg"></a>
 </p>
 
