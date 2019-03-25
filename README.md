@@ -253,7 +253,7 @@
 
 ![](img/nlp/F94581F64C21A1094A473397DFA42F9C.jpg)
 
-* **入门教程需看资料【添加比赛链接】: https://github.com/apachecn/AiLearning/tree/dev/blog/nlp**
+* **入门教程必看资料【添加比赛链接】: https://github.com/apachecn/AiLearning/tree/dev/blog/nlp**
 * Python 自然语言处理 第二版: https://usyiyi.github.io/nlp-py-2e-zh
 * 推荐一个[liuhuanyong大佬](https://github.com/liuhuanyong)整理的nlp全面知识体系: <https://liuhuanyong.github.io>
 
