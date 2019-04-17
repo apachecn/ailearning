@@ -13,7 +13,7 @@
       <tbody>
         <tr>
           <td align="center" valign="middle">
-            <a href="https://e.coding.net/?utm_source=ApacheCN&utm_medium=banner&utm_campaign=march2019" target="_blank">
+            <a href="https://coding.net/?utm_source=ApacheCN&utm_medium=banner&utm_campaign=march2019" target="_blank">
               <img width="1080" src="http://data.apachecn.org/img/SpecialSponsors/CodingNet.png">
             </a>
           </td>
