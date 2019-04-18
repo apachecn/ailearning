@@ -1,9 +1,10 @@
 # 入门教程需看资料
 
-## nlp 学习书籍：
+## nlp 学习书籍和工具：
 
 * 百度搜索：Python自然语言处理
 * 读书笔记：https://wnma3mz.github.io/hexo_blog/2018/05/13/《Python自然语言处理》阅读笔记（一）
+* Python自然语言处理工具汇总: <https://blog.csdn.net/sa14023053/article/details/51823122>
 
 ## nlp 全局介绍视频：（简单做了解就行）
 
@@ -13,7 +14,7 @@
 2. 百度机器翻译
 3. 篇章分析
 4. UNIT：语言理解与交互技术
- 
+
 ## 中文 nlp 词向量
 
 https://github.com/Embedding/Chinese-Word-Vectors
@@ -72,6 +73,7 @@ https://github.com/Embedding/Chinese-Word-Vectors
     - http://mrc2018.cipsc.org.cn
 + 句子文本相似度计算
     - https://www.kaggle.com/c/quora-question-pairs
+
 
 * * * 
 
