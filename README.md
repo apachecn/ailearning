@@ -8,7 +8,10 @@
     <a href="mailto:apache@163.com"><img src="https://img.shields.io/badge/%3E-Email-green.svg"></a>
 </p>
 
-<h2 align="center">Special Sponsors</h2>
+<h1 align="center">AI learning</h1>
+
+> Special Sponsors
+
 <table>
       <tbody>
         <tr>
@@ -20,7 +23,7 @@
       </tbody>
 </table>
 
-> ApacheCN 中文开源组织
+## 组织介绍
 
 * 我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！
 * 合作or侵权，请联系: apachecn@163.com
@@ -28,7 +31,7 @@
 
 > **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
 
-# AI learning
+# 路线图
 
 按照步骤: 1 => 2 => 3，你可以当大牛！
 
