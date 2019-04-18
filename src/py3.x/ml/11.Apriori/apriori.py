@@ -7,6 +7,7 @@ Update  on 2017-05-18
 Ch 11 code
 Author: Peter/片刻
 GitHub: https://github.com/apachecn/AiLearning'''
+from __future__ import print_function
 print(__doc__)
 from numpy import *
 
@@ -170,7 +171,7 @@ def calcConf(freqSet, H, supportData, brl, minConf=0.7):
         conf = supportData[freqSet]/supportData[freqSet-conseq] # 支持度定义: a -> b = support(a | b) / support(a). 假设  freqSet = frozenset([1, 3]), conseq = [frozenset([1])]，那么 frozenset([1]) 至 frozenset([3]) 的可信度为 = support(a | b) / support(a) = supportData[freqSet]/supportData[freqSet-conseq] = supportData[frozenset([1, 3])] / supportData[frozenset([1])]
         if conf >= minConf:
             # 只要买了 freqSet-conseq 集合，一定会买 conseq 集合（freqSet-conseq 集合和 conseq集合 是全集）
-            print (freqSet-conseq, '-->', conseq, 'conf:', conf)
+            print((freqSet-conseq, '-->', conseq, 'conf:', conf))
             brl.append((freqSet-conseq, conseq, conf))
             prunedH.append(conseq)
     return prunedH
@@ -200,8 +201,8 @@ def rulesFromConseq(freqSet, H, supportData, brl, minConf=0.7):
         Hmp1 = aprioriGen(H, m+1)
         # 返回可信度大于最小可信度的集合
         Hmp1 = calcConf(freqSet, Hmp1, supportData, brl, minConf)
-        print ('Hmp1=', Hmp1)
-        print ('len(Hmp1)=', len(Hmp1), 'len(freqSet)=', len(freqSet))
+        print(('Hmp1=', Hmp1))
+        print(('len(Hmp1)=', len(Hmp1), 'len(freqSet)=', len(freqSet)))
         # 计算可信度后，还有数据大于最小可信度的话，那么继续递归调用，否则跳出递归
         if (len(Hmp1) > 1):
             # print '----------------------', Hmp1
@@ -302,33 +303,33 @@ def getTransList(actionIdList, billTitleList): #this will return a list of lists
 def testApriori():
     # 加载测试数据集
     dataSet = loadDataSet()
-    print ('dataSet: ', dataSet)
+    print(('dataSet: ', dataSet))
 
     # Apriori 算法生成频繁项集以及它们的支持度
     L1, supportData1 = apriori(dataSet, minSupport=0.7)
-    print ('L(0.7): ', L1)
-    print ('supportData(0.7): ', supportData1)
+    print(('L(0.7): ', L1))
+    print(('supportData(0.7): ', supportData1))
 
     print ('->->->->->->->->->->->->->->->->->->->->->->->->->->->->')
 
     # Apriori 算法生成频繁项集以及它们的支持度
     L2, supportData2 = apriori(dataSet, minSupport=0.5)
-    print ('L(0.5): ', L2)
-    print ('supportData(0.5): ', supportData2)
+    print(('L(0.5): ', L2))
+    print(('supportData(0.5): ', supportData2))
 
 def testGenerateRules():
     # 加载测试数据集
     dataSet = loadDataSet()
-    print ('dataSet: ', dataSet)
+    print(('dataSet: ', dataSet))
 
     # Apriori 算法生成频繁项集以及它们的支持度
     L1, supportData1 = apriori(dataSet, minSupport=0.5)
-    print ('L(0.7): ', L1)
-    print ('supportData(0.7): ', supportData1)
+    print(('L(0.7): ', L1))
+    print(('supportData(0.7): ', supportData1))
 
     # 生成关联规则
     rules = generateRules(L1, supportData1, minConf=0.5)
-    print ('rules: ', rules)
+    print(('rules: ', rules))
 
 def main():
     # 测试 Apriori 算法

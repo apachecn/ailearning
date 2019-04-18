@@ -1,5 +1,6 @@
 # coding: utf-8
 
+from __future__ import print_function
 import torch
 import torch.autograd as autograd
 import torch.nn as nn
@@ -26,7 +27,7 @@ for sent, _ in data + test_data:
     for word in sent:
         if word not in word_to_ix:
             word_to_ix[word] = len(word_to_ix)
-print("打印词汇表: \n", word_to_ix)
+print(("打印词汇表: \n", word_to_ix))
 
 # 输入的特征数
 VOCAB_SIZE = len(word_to_ix)
@@ -94,7 +95,7 @@ model = BoWClassifier(NUM_LABELS, VOCAB_SIZE)
 sample = data[0]
 # 将文本转化为 Variable 对象
 bow_vector = make_bow_vector(sample[0], word_to_ix)
-print("bow_vector: \n", bow_vector)
+print(("bow_vector: \n", bow_vector))
 log_probs = model(autograd.Variable(bow_vector))
 # 将原始数据从 x ⇒ log (x)，无疑会将原始数据的值域进行一定的收缩。
 """lable目标变量的：最终的分类下所有结果的概率（下面为: SPANISH 和 ENGLISH 的概率分布-暂时还没有定义先后顺序，默认是字母？）
@@ -147,7 +148,7 @@ for epoch in range(100):
 for instance, label in test_data:
     bow_vec = autograd.Variable(make_bow_vector(instance, word_to_ix))
     log_probs = model(bow_vec)
-    print("训练后 ---: \n", log_probs)
+    print(("训练后 ---: \n", log_probs))
 
 # Index corresponding to Spanish goes up, English goes down!
 print(next(model.parameters())[:, word_to_ix["creo"]])

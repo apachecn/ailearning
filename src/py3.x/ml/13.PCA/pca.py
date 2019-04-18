@@ -7,6 +7,7 @@ Update  on 2017-12-20
 Author: Peter Harrington/片刻
 GitHub: https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 from numpy import *
 import matplotlib.pyplot as plt
 print(__doc__)

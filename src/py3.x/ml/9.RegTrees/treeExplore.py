@@ -8,6 +8,7 @@ Tree-Based Regression Methods Source Code for Machine Learning in Action Ch. 9
 Aauthor: Peter/片刻
 GitHub:  https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 import regTrees
 from Tkinter import *
 from numpy import *

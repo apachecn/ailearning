@@ -7,6 +7,7 @@ Author: 片刻
 GitHub: https://github.com/apachecn/AiLearning
 Coding: http://blog.csdn.net/github_36299736/article/details/54966460
 """
+from __future__ import print_function
 
 import gensim
 from gensim import corpora, models

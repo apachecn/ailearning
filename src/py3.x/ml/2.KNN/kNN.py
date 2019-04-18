@@ -6,6 +6,7 @@ Update  on 2017-05-18
 Author: Peter Harrington/羊三/小瑶
 GitHub: https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 
 # 导入科学计算包numpy和运算符模块operator
 from numpy import *
@@ -248,7 +249,7 @@ def datingClassTest():
     m = normMat.shape[0]
     # 设置测试的样本数量， numTestVecs:m表示训练样本的数量
     numTestVecs = int(m * hoRatio)
-    print('numTestVecs=', numTestVecs)
+    print(('numTestVecs=', numTestVecs))
     errorCount = 0
     for i in range(numTestVecs):
         # 对数据测试

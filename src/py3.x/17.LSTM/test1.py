@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # encoding: utf-8
 
+from __future__ import print_function
 import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_squared_error
@@ -93,7 +94,7 @@ def invert_scale(scaler, X, yhat):
 def fit_lstm(train, n_batch, nb_epoch, n_neurons):
     X, y = train[:, 0:-1], train[:, -1]
     X = X.reshape(X.shape[0], 1, X.shape[1])
-    print('x=', X)
+    print(('x=', X))
     model = Sequential()
     # https://keras.io/layers/recurrent/#lstm
     # 
@@ -113,14 +114,14 @@ def experiment(series, n_lag, n_repeats, n_epochs, n_batch, n_neurons):
     # 获取 trainY 的值 和 前后的差值
     raw_values = series.values
     diff_values = difference(raw_values, 1)
-    print('=' * 10, raw_values[:5])
-    print('=' * 10, diff_values.head(5).values)
+    print(('=' * 10, raw_values[:5]))
+    print(('=' * 10, diff_values.head(5).values))
 
     # 将数据转化为监督学习数据，也就是时间序列的前后关系（前一天 预测 后一天数据）
     # 剔除 n_lag 之前的 None 的值
     supervised = timeSeries_to_supervised(diff_values, n_lag)
     supervised_values = supervised.values[n_lag:, :]
-    print('=' * 10, supervised_values[:5])
+    print(('=' * 10, supervised_values[:5]))
 
     # 分离 训练和测试数据
     train, test = supervised_values[0:-12], supervised_values[-12:]

@@ -6,6 +6,7 @@ Update  on 2017-06-20
 Author: Peter/ApacheCN-xy/片刻
 GitHub: https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 import base64
 import pickle
 

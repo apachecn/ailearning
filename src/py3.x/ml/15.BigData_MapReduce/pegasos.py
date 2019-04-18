@@ -7,6 +7,7 @@ Update  on 2017-11-17
 Author: Peter/ApacheCN-xy/片刻
 GitHub: https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 
 from numpy import *
 

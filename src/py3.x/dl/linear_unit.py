@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 # 引入 Perceptron 类
+from __future__ import print_function
 from perceptron import Perceptron
 
 # 定义激活函数 f

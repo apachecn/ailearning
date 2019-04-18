@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # encoding: utf-8
 
+from __future__ import print_function
 import math
 import numpy
 import matplotlib.pyplot as plt

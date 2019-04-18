@@ -8,6 +8,7 @@ Decision Tree Source Code for Machine Learning in Action Ch. 3
 Author: Peter Harrington/片刻
 GitHub: https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 print(__doc__)
 import operator
 from math import log
@@ -179,7 +180,7 @@ def chooseBestFeatureToSplit(dataSet):
         # gain[信息增益]: 划分数据集前后的信息变化， 获取信息熵最大的值
         # 信息增益是熵的减少或者是数据无序度的减少。最后，比较所有特征中的信息增益，返回最好特征划分的索引值。
         infoGain = baseEntropy - newEntropy
-        print('infoGain=', infoGain, 'bestFeature=', i, baseEntropy, newEntropy)
+        print(('infoGain=', infoGain, 'bestFeature=', i, baseEntropy, newEntropy))
         if (infoGain > bestInfoGain):
             bestInfoGain = infoGain
             bestFeature = i
@@ -297,7 +298,7 @@ def classify(inputTree, featLabels, testVec):
     # 测试数据，找到根节点对应的label位置，也就知道从输入的数据的第几位来开始分类
     key = testVec[featIndex]
     valueOfFeat = secondDict[key]
-    print('+++', firstStr, 'xxx', secondDict, '---', key, '>>>', valueOfFeat)
+    print(('+++', firstStr, 'xxx', secondDict, '---', key, '>>>', valueOfFeat))
     # 判断分枝是否结束: 判断valueOfFeat是否是dict类型
     if isinstance(valueOfFeat, dict):
         classLabel = classify(valueOfFeat, featLabels, testVec)

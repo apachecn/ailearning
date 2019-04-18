@@ -6,6 +6,7 @@ Update  on 2017-05-18
 Author: Peter Harrington/小瑶
 GitHub: https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 
 from numpy import *
 import matplotlib.pylab as plt
@@ -370,8 +371,8 @@ def crossValidation(xArr,yArr,numVal=10):
     xMat = mat(xArr); yMat=mat(yArr).T
     meanX = mean(xMat,0); varX = var(xMat,0)
     unReg = bestWeights/varX
-    print ("the best model from Ridge Regression is:\n",unReg)
-    print ("with constant term: ",-1*sum(multiply(meanX,unReg)) + mean(yMat))
+    print(("the best model from Ridge Regression is:\n",unReg))
+    print(("with constant term: ",-1*sum(multiply(meanX,unReg)) + mean(yMat)))
 
 # ----------------------------------------------------------------------------
 # 预测乐高玩具套装的价格 可运行版本，我们把乐高数据存储到了我们的 input 文件夹下，使用 urllib爬取,bs4解析内容
@@ -526,22 +527,22 @@ def abaloneTest():
     oldyHat1 = lwlrTest(abX[0:99], abX[0:99], abY[0:99], 1)
     oldyHat10 = lwlrTest(abX[0:99], abX[0:99], abY[0:99], 10)
     # 打印出不同的核预测值与训练数据集上的真实值之间的误差大小
-    print("old yHat01 error Size is :", rssError(abY[0:99], oldyHat01.T))
-    print("old yHat1 error Size is :", rssError(abY[0:99], oldyHat1.T))
-    print("old yHat10 error Size is :", rssError(abY[0:99], oldyHat10.T))
+    print(("old yHat01 error Size is :", rssError(abY[0:99], oldyHat01.T)))
+    print(("old yHat1 error Size is :", rssError(abY[0:99], oldyHat1.T)))
+    print(("old yHat10 error Size is :", rssError(abY[0:99], oldyHat10.T)))
 
     # 打印出 不同的核预测值 与 新数据集（测试数据集）上的真实值之间的误差大小
     newyHat01 = lwlrTest(abX[100:199], abX[0:99], abY[0:99], 0.1)
-    print("new yHat01 error Size is :", rssError(abY[0:99], newyHat01.T))
+    print(("new yHat01 error Size is :", rssError(abY[0:99], newyHat01.T)))
     newyHat1 = lwlrTest(abX[100:199], abX[0:99], abY[0:99], 1)
-    print("new yHat1 error Size is :", rssError(abY[0:99], newyHat1.T))
+    print(("new yHat1 error Size is :", rssError(abY[0:99], newyHat1.T)))
     newyHat10 = lwlrTest(abX[100:199], abX[0:99], abY[0:99], 10)
-    print("new yHat10 error Size is :", rssError(abY[0:99], newyHat10.T))
+    print(("new yHat10 error Size is :", rssError(abY[0:99], newyHat10.T)))
 
     # 使用简单的 线性回归 进行预测，与上面的计算进行比较
     standWs = standRegres(abX[0:99], abY[0:99])
     standyHat = mat(abX[100:199]) * standWs
-    print("standRegress error Size is:", rssError(abY[100:199], standyHat.T.A))
+    print(("standRegress error Size is:", rssError(abY[100:199], standyHat.T.A)))
 
 
 # test for ridgeRegression

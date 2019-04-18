@@ -8,6 +8,7 @@ Author: Peter Harrington/1988/片刻
 GitHub: https://github.com/apachecn/AiLearning
 Score : 98.46%
 '''
+from __future__ import print_function
 
 import pandas as pd
 import torch
@@ -179,7 +180,7 @@ def train_model(cnn, optimizer, loss_func, loader_train, loader_test):
                     test_output, last_layer = cnn(x_test)
                     pred_y = torch.max(test_output, 1)[1].data.squeeze()
                     accuracy = sum(pred_y == y_test) / float(y_test.size(0))
-                    print('Epoch: ', epoch, '| Num: ',  num, '| Step: ',  step, '| train loss: %.4f' % loss.data[0], '| test accuracy: %.4f' % accuracy)
+                    print(('Epoch: ', epoch, '| Num: ',  num, '| Step: ',  step, '| train loss: %.4f' % loss.data[0], '| test accuracy: %.4f' % accuracy))
                     # 可视化展现
                     show(last_layer, y_test)
     plt.ioff()
@@ -209,7 +210,7 @@ def prediction(cnn, loader_pre):
         test_output, _ = cnn(b_x)
 
         pred_y = torch.max(test_output, 1)[1].data.numpy().squeeze()
-        print(pred_y, 'prediction number')
+        print((pred_y, 'prediction number'))
 
     return pred_y
 

@@ -1,5 +1,6 @@
 # coding: utf-8
 
+from __future__ import print_function
 import torch
 import torch.autograd as autograd
 import torch.nn as nn
@@ -40,7 +41,7 @@ And see thy blood warm when thou feel'st it cold.""".split()
 trigrams = [([test_sentence[i], test_sentence[i + 1]], test_sentence[i + 2])
             for i in range(len(test_sentence) - 2)]
 # 打印前3行
-print("打印数据前3行: \n", trigrams[:3])
+print(("打印数据前3行: \n", trigrams[:3]))
 
 # 词集选择， enumerate是带序列号的增序ID列表
 vocab = set(test_sentence)
@@ -95,4 +96,4 @@ for epoch in range(10):
 
         total_loss += loss.data
     losses.append(total_loss)
-print("计算损失函数: \n", losses)  # The loss decreased every iteration over the training data!
+print(("计算损失函数: \n", losses))  # The loss decreased every iteration over the training data!

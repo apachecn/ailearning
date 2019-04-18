@@ -1,3 +1,4 @@
+from __future__ import print_function
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
@@ -96,7 +97,7 @@ for epoch in range(EPOCH):
         optimizer.step()                    # apply gradients
 
         if step % 100 == 0:
-            print('Epoch: ', epoch, '| train loss: %.4f' % loss.data[0])
+            print(('Epoch: ', epoch, '| train loss: %.4f' % loss.data[0]))
 
             # plotting decoded image (second row)
             _, decoded_data = autoencoder(view_data)

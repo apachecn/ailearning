@@ -1,6 +1,7 @@
 # coding: utf-8
 # 作者: Robert Guthrie
 
+from __future__ import print_function
 import torch
 import torch.autograd as autograd
 import torch.nn as nn

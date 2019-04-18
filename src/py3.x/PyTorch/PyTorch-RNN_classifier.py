@@ -1,3 +1,4 @@
+from __future__ import print_function
 import torch
 from torch import nn
 from torch.autograd import Variable
@@ -89,10 +90,10 @@ for epoch in range(EPOCH):
             test_output = rnn(test_x)                   # (samples, time_step, input_size)
             pred_y = torch.max(test_output, 1)[1].data.numpy().squeeze()
             accuracy = sum(pred_y == test_y) / float(test_y.size)
-            print('Epoch: ', epoch, '| train loss: %.4f' % loss.data[0], '| test accuracy: %.4f' % accuracy)
+            print(('Epoch: ', epoch, '| train loss: %.4f' % loss.data[0], '| test accuracy: %.4f' % accuracy))
 
 # print 10 predictions from test data
 test_output = rnn(test_x[:100].view(-1, 28, 28))
 pred_y = torch.max(test_output, 1)[1].data.numpy().squeeze()
-print(pred_y, 'prediction number')
-print(test_y[:100], 'real number')
+print((pred_y, 'prediction number'))
+print((test_y[:100], 'real number'))

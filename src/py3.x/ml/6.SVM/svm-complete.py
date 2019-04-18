@@ -8,6 +8,7 @@ Chapter 5 source file for Machine Learing in Action
 Author: Peter/geekidentity/片刻
 GitHub: https://github.com/apachecn/AiLearning
 """
+from __future__ import print_function
 from numpy import *
 import matplotlib.pyplot as plt
 

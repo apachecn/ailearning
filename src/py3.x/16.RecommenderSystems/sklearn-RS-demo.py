@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # coding:utf8
 
+from __future__ import print_function
 import numpy as np
 from sklearn.decomposition import NMF
 import matplotlib.pyplot as plt

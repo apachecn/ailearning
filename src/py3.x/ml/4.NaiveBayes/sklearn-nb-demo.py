@@ -8,6 +8,7 @@ NaiveBayes：朴素贝叶斯
 Author: 小瑶
 GitHub: https://github.com/apachecn/AiLearning
 """
+from __future__ import print_function
 
 
 # GaussianNB_高斯朴素贝叶斯

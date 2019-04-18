@@ -1,6 +1,7 @@
 #!/user/bin/python
 # coding:utf-8
 
+from __future__ import print_function
 import nltk
 import numpy
 import jieba

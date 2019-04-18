@@ -1,5 +1,6 @@
 # coding: utf-8
 
+from __future__ import print_function
 import matplotlib.pyplot as plt
 
 import torch
@@ -22,7 +23,7 @@ y = torch.cat((y0, y1), ).type(torch.LongTensor)  # LongTensor = 64-bit integer
 x, y = Variable(x), Variable(y)
 
 print(zip(x0, y0))
-print('00', 20)
+print(('00', 20))
 print(zip(x1, y1))
 
 # # 画散点图
@@ -57,7 +58,7 @@ net1 = Net(n_feature=2, n_hidden=10, n_output=2)  # 几个类别就几个 output
 # )
 
 # # net1 和 net2 效果是相同的
-print('net1:\n', net1)  # net1 的结构
+print(('net1:\n', net1))  # net1 的结构
 # print('net2:\n', net2)  # net2 的结构
 # """
 # net1:

@@ -1,3 +1,4 @@
+from __future__ import print_function
 import torch
 from torch import nn
 from torch.autograd import Variable

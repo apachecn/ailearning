@@ -10,6 +10,7 @@ TF-IDF 模型：
 * TF(t) = (词t在文档中出现的总次数) / (文档的词总数)
 * IDF = log_e(总文档数/词t出现的文档数)
 """
+from __future__ import print_function
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
@@ -33,7 +34,7 @@ cv_fit = cv.fit_transform(corpus)
 print("bag of words（BOW） 词袋模型")
 print(cv_fit.toarray())
 
-print("\n", "---" * 10, "\n")
+print(("\n", "---" * 10, "\n"))
 
 # 计算 IF-IDF的值
 transformer = TfidfTransformer()
@@ -44,7 +45,7 @@ print("TF-IDF 模型")
 print(tfidf.toarray())
 
 
-print("\n", "---" * 10, "\n")
+print(("\n", "---" * 10, "\n"))
 """
 计算方式2: 直接通过 文本词料 来计算文本中 tf-idf 权重
 """

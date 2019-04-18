@@ -1,3 +1,4 @@
+from __future__ import print_function
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
@@ -113,8 +114,8 @@ for i_episode in range(400):
         if dqn.memory_counter > MEMORY_CAPACITY:
             dqn.learn()
             if done:
-                print('Ep: ', i_episode,
-                      '| Ep_r: ', round(ep_r, 2))
+                print(('Ep: ', i_episode,
+                      '| Ep_r: ', round(ep_r, 2)))
 
         if done:
             break

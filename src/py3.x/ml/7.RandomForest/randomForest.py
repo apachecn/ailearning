@@ -12,6 +12,7 @@ GitHub: https://github.com/apachecn/AiLearning
 Flying_sfeng博客地址：http://blog.csdn.net/flying_sfeng/article/details/64133822
 在此表示感谢你的代码和注解， 我重新也完善了个人注解
 '''
+from __future__ import print_function
 from random import seed, randrange, random
 
 
@@ -315,7 +316,7 @@ if __name__ == '__main__':
         scores = evaluate_algorithm(dataset, random_forest, n_folds, max_depth, min_size, sample_size, n_trees, n_features)
         # 每一次执行本文件时都能产生同一个随机数
         seed(1)
-        print('random=', random())
+        print(('random=', random()))
         print('Trees: %d' % n_trees)
         print('Scores: %s' % scores)
         print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))

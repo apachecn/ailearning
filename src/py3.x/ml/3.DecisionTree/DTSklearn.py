@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 # 原始链接： http://blog.csdn.net/lsldd/article/details/41223147
 # GitHub: https://github.com/apachecn/AiLearning
+from __future__ import print_function
 import numpy as np
 from sklearn import tree
 from sklearn.metrics import precision_recall_curve
@@ -28,7 +29,7 @@ def createDataSet():
 
     ''' 标签转换为0/1 '''
     y[labels == 'fat'] = 1
-    print(data, '-------', x, '-------', labels, '-------', y)
+    print((data, '-------', x, '-------', labels, '-------', y))
     return x, y
 
 
@@ -105,7 +106,7 @@ if __name__ == '__main__':
 
     ''' 拆分训练数据与测试数据， 80%做训练 20%做测试 '''
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
-    print('拆分数据：', x_train, x_test, y_train, y_test)
+    print(('拆分数据：', x_train, x_test, y_train, y_test))
 
     # 得到训练的预测结果集
     y_pre, clf = predict_train(x_train, y_train)

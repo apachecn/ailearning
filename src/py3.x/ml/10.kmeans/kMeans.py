@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 __coding__ = "utf-8"
 __author__ = "Ng WaiMing"
 
@@ -146,7 +147,7 @@ def biKmeans(dataMat, k, distMeas=distEclud):
             # 将误差值与剩余数据集的误差之和作为本次划分的误差
             sseSplit = sum(splitClustAss[:, 1])
             sseNotSplit = sum(clusterAssment[nonzero(clusterAssment[:, 0].A != i)[0], 1])
-            print('sseSplit, and notSplit: ', sseSplit, sseNotSplit)
+            print(('sseSplit, and notSplit: ', sseSplit, sseNotSplit))
             # 如果本次划分的SSE值最小,则本次划分被保存
             if (sseSplit + sseNotSplit) < lowestSSE:
                 bestCentToSplit = i
@@ -158,8 +159,8 @@ def biKmeans(dataMat, k, distMeas=distEclud):
         bestClustAss[nonzero(bestClustAss[:, 0].A == 1)[0], 0] = len(centList)
         # 更新为最佳质心
         bestClustAss[nonzero(bestClustAss[:, 0].A == 0)[0], 0] = bestCentToSplit
-        print('the bestCentToSplit is: ', bestCentToSplit)
-        print('the len of bestClustAss is: ', len(bestClustAss))
+        print(('the bestCentToSplit is: ', bestCentToSplit))
+        print(('the len of bestClustAss is: ', len(bestClustAss)))
         # 更新质心列表
         # 更新原质心list中的第i个质心为使用二分kMeans后bestNewCents的第一个质心
         centList[bestCentToSplit] = bestNewCents[0, :].tolist()[0]

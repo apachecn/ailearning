@@ -12,6 +12,7 @@ This finds frequent itemsets similar to apriori but does not find association ru
 Author: Peter/片刻
 GitHub: https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 print(__doc__)
 
 
@@ -33,7 +34,7 @@ class treeNode:
         """disp(用于将树以文本形式显示)
 
         """
-        print('  '*ind, self.name, ' ', self.count)
+        print(('  '*ind, self.name, ' ', self.count))
         for child in self.children.values():
             child.disp(ind+1)
 
@@ -220,23 +221,23 @@ def mineTree(inTree, headerTable, minSup, preFix, freqItemList):
     # 通过value进行从小到大的排序， 得到频繁项集的key
     # 最小支持项集的key的list集合
     bigL = [v[0] for v in sorted(headerTable.items(), key=lambda p: p[1][0])]
-    print('-----', sorted(headerTable.items(), key=lambda p: p[1][0]))
-    print('bigL=', bigL)
+    print(('-----', sorted(headerTable.items(), key=lambda p: p[1][0])))
+    print(('bigL=', bigL))
     # 循环遍历 最频繁项集的key，从小到大的递归寻找对应的频繁项集
     for basePat in bigL:
         # preFix为newFreqSet上一次的存储记录，一旦没有myHead，就不会更新
         newFreqSet = preFix.copy()
         newFreqSet.add(basePat)
-        print('newFreqSet=', newFreqSet, preFix)
+        print(('newFreqSet=', newFreqSet, preFix))
 
         freqItemList.append(newFreqSet)
-        print('freqItemList=', freqItemList)
+        print(('freqItemList=', freqItemList))
         condPattBases = findPrefixPath(basePat, headerTable[basePat][1])
-        print('condPattBases=', basePat, condPattBases)
+        print(('condPattBases=', basePat, condPattBases))
 
         # 构建FP-tree
         myCondTree, myHead = createTree(condPattBases, minSup)
-        print('myHead=', myHead)
+        print(('myHead=', myHead))
         # 挖掘条件 FP-tree, 如果myHead不为空，表示满足minSup {所有的元素+(value, treeNode)}
         if myHead is not None:
             myCondTree.disp(1)
@@ -317,14 +318,14 @@ if __name__ == "__main__":
 
     # 抽取条件模式基
     # 查询树节点的，频繁子项
-    print('x --->', findPrefixPath('x', myHeaderTab['x'][1]))
-    print('z --->', findPrefixPath('z', myHeaderTab['z'][1]))
-    print('r --->', findPrefixPath('r', myHeaderTab['r'][1]))
+    print(('x --->', findPrefixPath('x', myHeaderTab['x'][1])))
+    print(('z --->', findPrefixPath('z', myHeaderTab['z'][1])))
+    print(('r --->', findPrefixPath('r', myHeaderTab['r'][1])))
 
     # 创建条件模式基
     freqItemList = []
     mineTree(myFPtree, myHeaderTab, 3, set([]), freqItemList)
-    print("freqItemList: \n", freqItemList)
+    print(("freqItemList: \n", freqItemList))
 
     # # 项目实战
     # # 1.twitter项目案例

@@ -8,6 +8,7 @@ Author: Lockvictor/片刻
 参考地址：https://github.com/Lockvictor/MovieLens-RecSys
 更新地址：https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 import sys
 import math
 import random
@@ -33,8 +34,8 @@ class UserBasedCF():
         self.movie_popular = {}
         self.movie_count = 0
 
-        print >> sys.stderr, 'similar user number = %d' % self.n_sim_user
-        print >> sys.stderr, 'recommended movie number = %d' % self.n_rec_movie
+        print('similar user number = %d' % self.n_sim_user, file=sys.stderr)
+        print('recommended movie number = %d' % self.n_rec_movie, file=sys.stderr)
 
     @staticmethod
     def loadfile(filename):
@@ -49,9 +50,9 @@ class UserBasedCF():
         for i, line in enumerate(fp):
             yield line.strip('\r\n')
             if i > 0 and i % 100000 == 0:
-                print >> sys.stderr, 'loading %s(%s)' % (filename, i)
+                print('loading %s(%s)' % (filename, i), file=sys.stderr)
         fp.close()
-        print >> sys.stderr, 'load %s success' % filename
+        print('load %s success' % filename, file=sys.stderr)
 
     def generate_dataset(self, filename, pivot=0.7):
         """loadfile(加载文件，将数据集按照7:3 进行随机拆分)
@@ -81,16 +82,16 @@ class UserBasedCF():
                 self.testset[user][movie] = int(rating)
                 testset_len += 1
 
-        print >> sys.stderr, '分离训练集和测试集成功'
-        print >> sys.stderr, 'train set = %s' % trainset_len
-        print >> sys.stderr, 'test  set = %s' % testset_len
+        print('分离训练集和测试集成功', file=sys.stderr)
+        print('train set = %s' % trainset_len, file=sys.stderr)
+        print('test  set = %s' % testset_len, file=sys.stderr)
 
     def calc_user_sim(self):
         """calc_user_sim(计算用户之间的相似度)"""
 
         # build inverse table for item-users
         # key=movieID, value=list of userIDs who have seen this movie
-        print >> sys.stderr, 'building movie-users inverse table...'
+        print('building movie-users inverse table...', file=sys.stderr)
         movie2users = dict()
 
         # 同一个电影中，收集用户的集合
@@ -106,15 +107,15 @@ class UserBasedCF():
                     self.movie_popular[movie] = 0
                 self.movie_popular[movie] += 1
 
-        print >> sys.stderr, 'build movie-users inverse table success'
+        print('build movie-users inverse table success', file=sys.stderr)
 
         # save the total movie number, which will be used in evaluation
         self.movie_count = len(movie2users)
-        print >> sys.stderr, 'total movie number = %d' % self.movie_count
+        print('total movie number = %d' % self.movie_count, file=sys.stderr)
 
         usersim_mat = self.user_sim_mat
         # 统计在相同电影时，不同用户同时出现的次数
-        print >> sys.stderr, 'building user co-rated movies matrix...'
+        print('building user co-rated movies matrix...', file=sys.stderr)
 
         for movie, users in movie2users.items():
             for u in users:
@@ -124,10 +125,10 @@ class UserBasedCF():
                     usersim_mat.setdefault(u, {})
                     usersim_mat[u].setdefault(v, 0)
                     usersim_mat[u][v] += 1
-        print >> sys.stderr, 'build user co-rated movies matrix success'
+        print('build user co-rated movies matrix success', file=sys.stderr)
 
         # calculate similarity matrix
-        print >> sys.stderr, 'calculating user similarity matrix...'
+        print('calculating user similarity matrix...', file=sys.stderr)
         simfactor_count = 0
         PRINT_STEP = 2000000
         for u, related_users in usersim_mat.items():
@@ -138,10 +139,10 @@ class UserBasedCF():
                 simfactor_count += 1
                 # 打印进度条
                 if simfactor_count % PRINT_STEP == 0:
-                    print >> sys.stderr, 'calculating user similarity factor(%d)' % simfactor_count
+                    print('calculating user similarity factor(%d)' % simfactor_count, file=sys.stderr)
 
-        print >> sys.stderr, 'calculate user similarity matrix(similarity factor) success'
-        print >> sys.stderr, 'Total similarity factor number = %d' % simfactor_count
+        print('calculate user similarity matrix(similarity factor) success', file=sys.stderr)
+        print('Total similarity factor number = %d' % simfactor_count, file=sys.stderr)
 
     # @profile
     def recommend(self, user):
@@ -182,7 +183,7 @@ class UserBasedCF():
 
     def evaluate(self):
         ''' return precision, recall, coverage and popularity '''
-        print >> sys.stderr, 'Evaluation start...'
+        print('Evaluation start...', file=sys.stderr)
 
         # 返回top N的推荐结果
         N = self.n_rec_movie
@@ -200,7 +201,7 @@ class UserBasedCF():
         # 参考地址：http://blog.csdn.net/churximi/article/details/51648388
         for i, user in enumerate(self.trainset):
             if i > 0 and i % 500 == 0:
-                print >> sys.stderr, 'recommended for %d users' % i
+                print('recommended for %d users' % i, file=sys.stderr)
             test_movies = self.testset.get(user, {})
             rec_movies = self.recommend(user)
 
@@ -219,8 +220,8 @@ class UserBasedCF():
         coverage = len(all_rec_movies) / (1.0 * self.movie_count)
         popularity = popular_sum / (1.0 * rec_count)
 
-        print >> sys.stderr, 'precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (
-            precision, recall, coverage, popularity)
+        print('precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (
+            precision, recall, coverage, popularity), file=sys.stderr)
 
 
 if __name__ == '__main__':

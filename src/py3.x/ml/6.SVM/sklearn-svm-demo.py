@@ -9,6 +9,7 @@ Author: 片刻
 GitHub: https://github.com/apachecn/AiLearning
 sklearn-SVM译文链接: http://cwiki.apachecn.org/pages/viewpage.action?pageId=10031359
 """
+from __future__ import print_function
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import svm
@@ -44,8 +45,8 @@ def loadDataSet(fileName):
 X, Y = loadDataSet('data/6.SVM/testSet.txt')
 X = np.mat(X)
 
-print("X=", X)
-print("Y=", Y)
+print(("X=", X))
+print(("Y=", Y))
 
 # 拟合一个SVM模型
 clf = svm.SVC(kernel='linear')
@@ -60,11 +61,11 @@ a = -w[0] / w[1]
 xx = np.linspace(-2, 10)  # , num=50)
 # 二维的直线方程
 yy = a * xx - (clf.intercept_[0]) / w[1]
-print("yy=", yy)
+print(("yy=", yy))
 
 # plot the parallels to the separating hyperplane that pass through the support vectors
 # 通过支持向量绘制分割超平面
-print("support_vectors_=", clf.support_vectors_)
+print(("support_vectors_=", clf.support_vectors_))
 b = clf.support_vectors_[0]
 yy_down = a * xx + (b[1] - a * b[0])
 b = clf.support_vectors_[-1]

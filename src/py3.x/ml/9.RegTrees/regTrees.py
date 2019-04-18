@@ -7,6 +7,7 @@ Tree-Based Regression Methods Source Code for Machine Learning in Action Ch. 9
 Author: Peter Harrington/片刻/小瑶
 GitHub: https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 print(__doc__)
 from numpy import *
 
@@ -438,13 +439,13 @@ if __name__ == "__main__":
     print("--------------\n")
     # print yHat1
     # print "ssss==>", testMat[:, 1]
-    print("回归树:", corrcoef(yHat1, testMat[:, 1],rowvar=0)[0, 1])
+    print(("回归树:", corrcoef(yHat1, testMat[:, 1],rowvar=0)[0, 1]))
 
     # 模型树
     myTree2 = createTree(trainMat, modelLeaf, modelErr, ops=(1, 20))
     yHat2 = createForeCast(myTree2, testMat[:, 0], modelTreeEval)
     print(myTree2)
-    print("模型树:", corrcoef(yHat2, testMat[:, 1],rowvar=0)[0, 1])
+    print(("模型树:", corrcoef(yHat2, testMat[:, 1],rowvar=0)[0, 1]))
 
     # 线性回归
     ws, X, Y = linearSolve(trainMat)
@@ -453,4 +454,4 @@ if __name__ == "__main__":
     yHat3 = mat(zeros((m, 1)))
     for i in range(shape(testMat)[0]):
         yHat3[i] = testMat[i, 0]*ws[1, 0] + ws[0, 0]
-    print("线性回归:", corrcoef(yHat3, testMat[:, 1],rowvar=0)[0, 1])
+    print(("线性回归:", corrcoef(yHat3, testMat[:, 1],rowvar=0)[0, 1]))

@@ -8,6 +8,7 @@ RegressionTree：树回归
 Author: 小瑶
 GitHub: https://github.com/apachecn/AiLearning
 """
+from __future__ import print_function
 
 print(__doc__)
 

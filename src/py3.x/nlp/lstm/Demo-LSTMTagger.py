@@ -1,6 +1,7 @@
 # coding: utf-8
 # 作者: Robert Guthrie
 
+from __future__ import print_function
 import torch
 import torch.autograd as autograd
 import torch.nn as nn
@@ -97,11 +98,11 @@ for epoch in range(300):  # 再次说明下, 实际情况下你不会训练300�
 
 # 查看训练后得分的值
 inputs = prepare_sequence(training_data[0][0], word_to_ix)
-print('inputs: \n', inputs)
+print(('inputs: \n', inputs))
 tag_scores = model(inputs)
 # 句子是 "the dog ate the apple", i,j 表示对于单词 i, 标签 j 的得分.
 # 我们采用得分最高的标签作为预测的标签. 从下面的输出我们可以看到, 预测得
 # 到的结果是0 1 2 0 1. 因为 索引是从0开始的, 因此第一个值0表示第一行的
 # 最大值, 第二个值1表示第二行的最大值, 以此类推. 所以最后的结果是 DET
 # NOUN VERB DET NOUN, 整个序列都是正确的!
-print('tag_scores: \n', tag_scores)
+print(('tag_scores: \n', tag_scores))

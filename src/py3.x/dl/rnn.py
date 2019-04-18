@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 
+from __future__ import print_function
 import numpy as np
 from cnn import element_wise_op
 from functools import reduce

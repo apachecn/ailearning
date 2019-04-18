@@ -5,6 +5,7 @@
 * 袋模型可以很好的表现文本由哪些单词组成，但是却无法表达出单词之间的前后关系，
 * 于是人们借鉴了词袋模型的思想，使用生成的词汇表对原有句子按照单词逐个进行编码。
 """
+from __future__ import print_function
 
 import numpy as np
 from tensorflow.contrib.learn import preprocessing as pc
@@ -24,11 +25,11 @@ VocabularyProcessor 参数
 vocab.fit(corpus)
 
 # 获取 Iterator 对象, next 进行遍历
-print("Encoding: \n", next(vocab.transform(['i me too'])).tolist())
+print(("Encoding: \n", next(vocab.transform(['i me too'])).tolist()))
 
 # 获取 预料 编码后的矩阵向量
 mat_corpus = np.array(list(vocab.fit_transform(corpus)))
-print("mat_corpus: \n", mat_corpus)
+print(("mat_corpus: \n", mat_corpus))
 
 # 保存和加载词汇表
 # vocab.save('vocab.pickle')

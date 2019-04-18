@@ -6,6 +6,7 @@ Update  on 2017-05-18
 Author: Peter Harrington/羊三/小瑶/BBruceyuan
 GitHub: https://github.com/apachecn/AiLearning
 """
+from __future__ import print_function
 
 # 我个人非常不喜欢 from numpy import *
 # 因为这样会和一些系统函数冲突，比如log, sum之类的

@@ -1,5 +1,6 @@
 # coding: utf-8
 
+from __future__ import print_function
 import torch
 from torch.autograd import Variable
 import torch.nn.functional as F

@@ -62,6 +62,7 @@ Update on 2017-03-10
 author: jiangzhonglian
 content: 模型树
 '''
+from __future__ import print_function
 
 print(__doc__)
 

@@ -7,6 +7,7 @@ Update  on 2017-12-12
 Author: Peter Harrington/山上有课树/片刻/marsjhao
 GitHub: https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 from numpy import linalg as la
 from numpy import *
 
@@ -163,11 +164,11 @@ def svdEst(dataMat, user, simMeas, item):
 
     # 利用U矩阵将物品转换到低维空间中，构建转换后的物品(物品+4个主要的特征)
     xformedItems = dataMat.T * U[:, :4] * Sig4.I
-    print('dataMat', shape(dataMat))
-    print('U[:, :4]', shape(U[:, :4]))
-    print('Sig4.I', shape(Sig4.I))
-    print('VT[:4, :]', shape(VT[:4, :]))
-    print('xformedItems', shape(xformedItems))
+    print(('dataMat', shape(dataMat)))
+    print(('U[:, :4]', shape(U[:, :4])))
+    print(('Sig4.I', shape(Sig4.I)))
+    print(('VT[:4, :]', shape(VT[:4, :])))
+    print(('xformedItems', shape(xformedItems)))
 
     # 对于给定的用户，for循环在用户对应行的元素上进行遍历
     # 这和standEst()函数中的for循环的目的一样，只不过这里的相似度计算时在低维空间下进行的。
@@ -258,9 +259,9 @@ def printMat(inMat, thresh=0.8):
     for i in range(32):
         for k in range(32):
             if float(inMat[i, k]) > thresh:
-                print(1,)
+                print((1,))
             else:
-                print(0,)
+                print((0,))
         print('')
 
 

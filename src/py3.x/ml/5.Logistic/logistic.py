@@ -8,6 +8,7 @@ Logistic Regression Working Module
 Author: Peter Harrington/羊三/小瑶/BBruceyuan
 GitHub: https://github.com/apachecn/AiLearning
 """
+from __future__ import print_function
 
 import numpy as np
 

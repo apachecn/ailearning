@@ -1,6 +1,7 @@
 # coding: utf-8
 # 作者: Robert Guthrie
 
+from __future__ import print_function
 import torch
 import torch.autograd as autograd
 import torch.nn as nn
@@ -31,5 +32,5 @@ inputs = torch.cat(inputs).view(len(inputs), 1, -1)
 hidden = (autograd.Variable(torch.randn(1, 1, 3)), autograd.Variable(
     torch.randn((1, 1, 3))))  # 清空输出隐状态
 out, hidden = lstm(inputs, hidden)
-print("out: \n", out)
-print("hidden: \n", hidden)
+print(("out: \n", out))
+print(("hidden: \n", hidden))
