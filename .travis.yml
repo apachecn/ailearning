@@ -6,9 +6,9 @@ matrix:
     - python: 2.7
   include:
     - python: 2.7
-      env: TEST_DIR=./MachineLearning/src/py2.x
+      env: TEST_DIR=./src/py2.x
     - python: 3.7
-      env: TEST_DIR=./MachineLearning/src/py3.x
+      env: TEST_DIR=./src/py3.x
       dist: xenial  # required for Python 3.7
 install:
   - pip install flake8
