@@ -42,8 +42,8 @@ def dump_data(x, y, file_output):
 
 
 if __name__ == "__main__":
-    file_input = "db/7.AdaBoost/horseColicTest2.txt"
-    file_output = "db/7.AdaBoost/horseColicTest2.libsvm"
+    file_input = "data/7.AdaBoost/horseColicTest2.txt"
+    file_output = "data/7.AdaBoost/horseColicTest2.libsvm"
 
     # 获取数据集
     x, y = get_data(file_input, separator='\t')

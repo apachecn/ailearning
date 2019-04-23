@@ -858,7 +858,7 @@ knn 算法按照距离最近的三部电影的类型，决定未知电影的类�
 <blockquote>
 <p>收集数据：提供文本文件</p>
 </blockquote>
-<p>海伦把这些约会对象的数据存放在文本文件 <a href="db/2.KNN/datingTestSet2.txt">datingTestSet2.txt</a> 中，总共有 1000 行。海伦约会的对象主要包含以下 3 种特征：</p>
+<p>海伦把这些约会对象的数据存放在文本文件 <a href="data/2.KNN/datingTestSet2.txt">datingTestSet2.txt</a> 中，总共有 1000 行。海伦约会的对象主要包含以下 3 种特征：</p>
 <ul>
 <li>每年获得的飞行常客里程数</li>
 <li>玩视频游戏所耗时间百分比</li>
@@ -1066,7 +1066,7 @@ $$\sqrt{(0-67)^2 + (20000-32000)^2 + (1.1-0.1)^2 }$$</p>
     # 设置测试数据的的一个比例（训练数据集比例=1-hoRatio）
     hoRatio = 0.1  # 测试范围,一部分测试一部分作为样本
     # 从文件中加载数据
-    datingDataMat, datingLabels = file2matrix('db/2.KNN/datingTestSet2.txt')  # load data setfrom file
+    datingDataMat, datingLabels = file2matrix('data/2.KNN/datingTestSet2.txt')  # load data setfrom file
     # 归一化数据
     normMat, ranges, minVals = autoNorm(datingDataMat)
     # m 表示数据的行数，即矩阵的第一维
@@ -1128,7 +1128,7 @@ You will probably like this person: in small doses
 <blockquote>
 <p>收集数据: 提供文本文件</p>
 </blockquote>
-<p>目录 <a href="db/2.KNN/trainingDigits">trainingDigits</a> 中包含了大约 2000 个例子，每个例子内容如下图所示，每个数字大约有 200 个样本；目录 <a href="db/2.KNN/testDigits">testDigits</a> 中包含了大约 900 个测试数据。</p>
+<p>目录 <a href="data/2.KNN/trainingDigits">trainingDigits</a> 中包含了大约 2000 个例子，每个例子内容如下图所示，每个数字大约有 200 个样本；目录 <a href="data/2.KNN/testDigits">testDigits</a> 中包含了大约 900 个测试数据。</p>
 <p><img alt="手写数字数据集的例子" src="../../img/ml/2.KNN/knn_2_handWriting.png" /></p>
 <blockquote>
 <p>准备数据: 编写函数 img2vector(), 将图像文本数据转换为分类器使用的向量</p>
@@ -1165,7 +1165,7 @@ array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 1., 1., 1., 1., 1., 1
 <pre><code class="python">def handwritingClassTest():
     # 1. 导入训练数据
     hwLabels = []
-    trainingFileList = listdir('db/2.KNN/trainingDigits')  # load the training set
+    trainingFileList = listdir('data/2.KNN/trainingDigits')  # load the training set
     m = len(trainingFileList)
     trainingMat = zeros((m, 1024))
     # hwLabels存储0～9对应的index位置， trainingMat存放的每个位置对应的图片向量
@@ -1175,17 +1175,17 @@ array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 1., 1., 1., 1., 1., 1
         classNumStr = int(fileStr.split('_')[0])
         hwLabels.append(classNumStr)
         # 将 32*32的矩阵-&gt;1*1024的矩阵
-        trainingMat[i, :] = img2vector('db/2.KNN/trainingDigits/%s' % fileNameStr)
+        trainingMat[i, :] = img2vector('data/2.KNN/trainingDigits/%s' % fileNameStr)
 
     # 2. 导入测试数据
-    testFileList = listdir('db/2.KNN/testDigits')  # iterate through the test set
+    testFileList = listdir('data/2.KNN/testDigits')  # iterate through the test set
     errorCount = 0.0
     mTest = len(testFileList)
     for i in range(mTest):
         fileNameStr = testFileList[i]
         fileStr = fileNameStr.split('.')[0]  # take off .txt
         classNumStr = int(fileStr.split('_')[0])
-        vectorUnderTest = img2vector('db/2.KNN/testDigits/%s' % fileNameStr)
+        vectorUnderTest = img2vector('data/2.KNN/testDigits/%s' % fileNameStr)
         classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)
         print &quot;the classifier came back with: %d, the real answer is: %d&quot; % (classifierResult, classNumStr)
         if (classifierResult != classNumStr): errorCount += 1.0

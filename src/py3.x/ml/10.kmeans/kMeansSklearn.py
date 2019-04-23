@@ -6,7 +6,7 @@ from sklearn.cluster import KMeans
 
 # 加载数据集
 dataMat = []
-fr = open("db/10.KMeans/testSet.txt") # 注意，这个是相对路径，请保证是在 MachineLearning 这个目录下执行。
+fr = open("data/10.KMeans/testSet.txt") # 注意，这个是相对路径，请保证是在 MachineLearning 这个目录下执行。
 for line in fr.readlines():
     curLine = line.strip().split('\t')
     fltLine = list(map(float,curLine))    # 映射所有的元素为 float（浮点数）类型

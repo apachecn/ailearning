@@ -376,7 +376,7 @@ def calcWs(alphas, dataArr, classLabels):
 
 
 def testRbf(k1=1.3):
-    dataArr, labelArr = loadDataSet('db/6.SVM/testSetRBF.txt')
+    dataArr, labelArr = loadDataSet('data/6.SVM/testSetRBF.txt')
     b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, ('rbf', k1))  # C=200 important
     datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
@@ -395,7 +395,7 @@ def testRbf(k1=1.3):
             errorCount += 1
     print("the training error rate is: %f" % (float(errorCount) / m))
 
-    dataArr, labelArr = loadDataSet('db/6.SVM/testSetRBF2.txt')
+    dataArr, labelArr = loadDataSet('data/6.SVM/testSetRBF2.txt')
     errorCount = 0
     datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
@@ -440,7 +440,7 @@ def loadImages(dirName):
 def testDigits(kTup=('rbf', 10)):
 
     # 1. 导入训练数据
-    dataArr, labelArr = loadImages('db/6.SVM/trainingDigits')
+    dataArr, labelArr = loadImages('data/6.SVM/trainingDigits')
     b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, kTup)
     datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
@@ -457,7 +457,7 @@ def testDigits(kTup=('rbf', 10)):
         if sign(predict) != sign(labelArr[i]): errorCount += 1
     print("the training error rate is: %f" % (float(errorCount) / m))
     # 2. 导入测试数据
-    dataArr, labelArr = loadImages('db/6.SVM/testDigits')
+    dataArr, labelArr = loadImages('data/6.SVM/testDigits')
     errorCount = 0
     datMat = mat(dataArr)
     labelMat = mat(labelArr).transpose()
@@ -512,7 +512,7 @@ if __name__ == "__main__":
 
     # # 无核函数的测试
     # # 获取特征和目标变量
-    # dataArr, labelArr = loadDataSet('db/6.SVM/testSet.txt')
+    # dataArr, labelArr = loadDataSet('data/6.SVM/testSet.txt')
     # # print(labelArr)
 
     # # b是常量值， alphas是拉格朗日乘子

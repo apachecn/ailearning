@@ -426,12 +426,12 @@ def scrapePage(retX, retY, inFile, yr, numPce, origPrc):
 
 # 依次读取六种乐高套装的数据，并生成数据矩阵        
 def setDataCollect(retX, retY):
-    scrapePage(retX, retY, 'db/8.Regression/setHtml/lego8288.html', 2006, 800, 49.99)
-    scrapePage(retX, retY, 'db/8.Regression/setHtml/lego10030.html', 2002, 3096, 269.99)
-    scrapePage(retX, retY, 'db/8.Regression/setHtml/lego10179.html', 2007, 5195, 499.99)
-    scrapePage(retX, retY, 'db/8.Regression/setHtml/lego10181.html', 2007, 3428, 199.99)
-    scrapePage(retX, retY, 'db/8.Regression/setHtml/lego10189.html', 2008, 5922, 299.99)
-    scrapePage(retX, retY, 'db/8.Regression/setHtml/lego10196.html', 2009, 3263, 249.99)
+    scrapePage(retX, retY, 'data/8.Regression/setHtml/lego8288.html', 2006, 800, 49.99)
+    scrapePage(retX, retY, 'data/8.Regression/setHtml/lego10030.html', 2002, 3096, 269.99)
+    scrapePage(retX, retY, 'data/8.Regression/setHtml/lego10179.html', 2007, 5195, 499.99)
+    scrapePage(retX, retY, 'data/8.Regression/setHtml/lego10181.html', 2007, 3428, 199.99)
+    scrapePage(retX, retY, 'data/8.Regression/setHtml/lego10189.html', 2008, 5922, 299.99)
+    scrapePage(retX, retY, 'data/8.Regression/setHtml/lego10196.html', 2009, 3263, 249.99)
 
 
 # 交叉验证测试岭回归
@@ -495,7 +495,7 @@ def crossValidation(xArr,yArr,numVal=10):
 
 # test for standRegression
 def regression1():
-    xArr, yArr = loadDataSet("db/8.Regression/data.txt")
+    xArr, yArr = loadDataSet("data/8.Regression/data.txt")
     xMat = mat(xArr)
     yMat = mat(yArr)
     ws = standRegres(xArr, yArr)
@@ -514,7 +514,7 @@ def regression1():
 
 # test for LWLR
 def regression2():
-    xArr, yArr = loadDataSet("db/8.Regression/data.txt")
+    xArr, yArr = loadDataSet("data/8.Regression/data.txt")
     yHat = lwlrTest(xArr, xArr, yArr, 0.003)
     xMat = mat(xArr)
     srtInd = xMat[:, 1].argsort(
@@ -541,7 +541,7 @@ def abaloneTest():
         None
     '''
     # 加载数据
-    abX, abY = loadDataSet("db/8.Regression/abalone.txt")
+    abX, abY = loadDataSet("data/8.Regression/abalone.txt")
     # 使用不同的核进行预测
     oldyHat01 = lwlrTest(abX[0:99], abX[0:99], abY[0:99], 0.1)
     oldyHat1 = lwlrTest(abX[0:99], abX[0:99], abY[0:99], 1)
@@ -567,7 +567,7 @@ def abaloneTest():
 
 # test for ridgeRegression
 def regression3():
-    abX, abY = loadDataSet("db/8.Regression/abalone.txt")
+    abX, abY = loadDataSet("data/8.Regression/abalone.txt")
     ridgeWeights = ridgeTest(abX, abY)
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -577,7 +577,7 @@ def regression3():
 
 # test for stageWise
 def regression4():
-    xArr, yArr = loadDataSet("db/8.Regression/abalone.txt")
+    xArr, yArr = loadDataSet("data/8.Regression/abalone.txt")
     stageWise(xArr, yArr, 0.01, 200)
     xMat = mat(xArr)
     yMat = mat(yArr).T
