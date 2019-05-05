@@ -235,7 +235,7 @@ https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md
 1. 反向传递: https://www.cnblogs.com/charlotte77/p/5629865.html
 2. CNN原理: http://www.cnblogs.com/charlotte77/p/7759802.html
 3. RNN原理: https://blog.csdn.net/qq_39422642/article/details/78676567
-4. LSTM原理: https://blog.csdn.net/roslei/article/details/61912618
+4. LSTM原理: https://blog.csdn.net/weixin_42111770/article/details/80900575
 
 
 ## 3.自然语言处理
