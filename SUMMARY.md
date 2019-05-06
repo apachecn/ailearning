@@ -15,3 +15,5 @@
 +   [第14章_SVD简化数据](blog/ml/14.利用SVD简化数据.md)
 +   [第15章_大数据与MapReduce](blog/ml/15.大数据与MapReduce.md)
 +   [第16章_推荐系统](blog/ml/16.推荐系统.md)
++   [为何录制教学版视频](blog/why-to-record-study-ml-video.md)
++   [加入我们](blog/join-us.md)
