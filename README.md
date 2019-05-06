@@ -33,6 +33,11 @@
 
 # 路线图
 
+<a href="https://github.com/apachecn/AiLearning/blob/dev/blog/AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.md" target="_blank">
+<img width="1080" src="http://www.apachecn.org/wp-content/uploads/2019/04/AILearningRoadMap.jpg"></a>
+
+https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md
+
 按照步骤: 1 => 2 => 3，你可以当大牛！
 
 ## 1.机器学习 - 基础
@@ -227,11 +232,10 @@
 
 > 深度学习必学
 
-1. 反向传递: https://www.cnblogs.com/charlotte77/p/5629865.html
-2. CNN原理: http://www.cnblogs.com/charlotte77/p/7759802.html
-3. RNN原理: https://blog.csdn.net/qq_39422642/article/details/78676567
-4. LSTM深入浅出的好文: https://blog.csdn.net/roslei/article/details/61912618
-
+1. [反向传递](/blog/dl/反向传递.md): https://www.cnblogs.com/charlotte77/p/5629865.html
+2. [CNN原理](/blog/dl/CNN原理.md): http://www.cnblogs.com/charlotte77/p/7759802.html
+3. [RNN原理](/blog/dl/RNN原理.md): https://blog.csdn.net/qq_39422642/article/details/78676567
+4. [LSTM原理](/blog/dl/LSTM原理.md): https://blog.csdn.net/weixin_42111770/article/details/80900575
 
 ## 3.自然语言处理
 
@@ -247,9 +251,9 @@
   2）国外就不举例了，我看不懂！
 3. 开源的框架
   1）国外的开源框架： tensorflow/pytorch 文档+教程+视频（官方提供）
-  2) 国内的开源框架: 额额，还真举例不出来！但是牛逼吹得不比国外差！（MXNet虽然有众多华人参与开发，但不能算是国内开源框架。基于MXNet的动手学深度学习(https://zh.diveintodeeplearning.org)中文教程,已经由沐神(李沐)以及阿斯顿·张讲授录制，公开发布。  文档+第一季教程+视频）
-每一次深入都要去翻墙，每一次深入都要Google，每一次看着国内的说：哈工大、讯飞、中科大、百度、阿里 多牛逼，但是资料还是得国外去找！
-有时候真的挺狠的！真的有点瞧不起自己国内的技术环境！
+  2) 国内的开源框架: 额额，还真举例不出来！但是牛逼吹得不比国外差！（MXNet虽然有众多国人参与开发，但不能算是国内开源框架。基于MXNet的动手学深度学习(http://zh.d2l.ai & https://discuss.gluon.ai/t/topic/753)中文教程,已经由沐神(李沐)以及阿斯顿·张讲授录制，公开发布(文档+第一季教程+视频）。)
+每一次深入都要去翻墙，每一次深入都要Google，每一次看着国内的说：哈工大、讯飞、中科大、百度、阿里多牛逼，但是资料还是得国外去找！
+有时候真的挺恨的！真的有点瞧不起自己国内的技术环境！
 
 当然谢谢国内很多博客大佬，特别是一些入门的Demo和基本概念。【深入的水平有限，没看懂】
 ```
