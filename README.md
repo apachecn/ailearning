@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://www.apachecn.org">
-        <img width="200" src="http://data.apachecn.org/img/logo/GreenHat.jpg">
+        <img width="200" src="http://ww1.sinaimg.cn/large/841aea59ly1g2t6uptvh0j20b40b4gm4.jpg">
     </a>
     <br >
     <a href="https://www.apachecn.org/"><img src="https://img.shields.io/badge/%3E-HOME-green.svg"></a>
