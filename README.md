@@ -33,7 +33,7 @@
 
 # 路线图
 
-<a href="https://github.com/apachecn/AiLearning/blob/dev/blog/AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.md" target="_blank">
+<a href="https://github.com/apachecn/AiLearning/blob/master/docs/AI学习路线.md" target="_blank">
 <img width="1080" src="http://www.apachecn.org/wp-content/uploads/2019/04/AILearningRoadMap.jpg"></a>
 
 https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md
@@ -260,7 +260,7 @@ https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md
 
 ![](img/nlp/F94581F64C21A1094A473397DFA42F9C.jpg)
 
-* **入门教程必看资料【添加比赛链接】: https://github.com/apachecn/AiLearning/tree/dev/blog/nlp**
+* **入门教程必看资料【添加比赛链接】: https://github.com/apachecn/AiLearning/tree/master/docs/nlp**
 * Python 自然语言处理 第二版: https://usyiyi.github.io/nlp-py-2e-zh
 * 推荐一个[liuhuanyong大佬](https://github.com/liuhuanyong)整理的nlp全面知识体系: <https://liuhuanyong.github.io>
 
@@ -268,22 +268,22 @@ https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md
 
 > 第一部分 入门介绍
 
-* 1.) [自然语言处理入门介绍](/blog/nlp/1.自然语言处理入门介绍.md)
+* 1.) [自然语言处理入门介绍](/docs/nlp/1.自然语言处理入门介绍.md)
 
 > 第二部分 机器翻译
 
-* 2.) [机器翻译](/blog/nlp/2.机器翻译.md)
+* 2.) [机器翻译](/docs/nlp/2.机器翻译.md)
 
 > 第三部分 篇章分析
 
-* 3.1.) [篇章分析-内容概述](/blog/nlp/3.1.篇章分析-内容概述.md)
-* 3.2.) [篇章分析-内容标签](/blog/nlp/3.2.篇章分析-内容标签.md)
-* 3.3.) [篇章分析-情感分析](/blog/nlp/3.3.篇章分析-情感分析.md)
-* 3.4.) [篇章分析-自动摘要](/blog/nlp/3.4.篇章分析-自动摘要.md)
+* 3.1.) [篇章分析-内容概述](/docs/nlp/3.1.篇章分析-内容概述.md)
+* 3.2.) [篇章分析-内容标签](/docs/nlp/3.2.篇章分析-内容标签.md)
+* 3.3.) [篇章分析-情感分析](/docs/nlp/3.3.篇章分析-情感分析.md)
+* 3.4.) [篇章分析-自动摘要](/docs/nlp/3.4.篇章分析-自动摘要.md)
 
 > 第四部分 UNIT-语言理解与交互技术
 
-* 4.) [UNIT-语言理解与交互技术](/blog/nlp/4.UNIT-语言理解与交互技术.md)
+* 4.) [UNIT-语言理解与交互技术](/docs/nlp/4.UNIT-语言理解与交互技术.md)
 
 ### 应用领域
 
