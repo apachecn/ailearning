@@ -21,14 +21,14 @@ https://github.com/Embedding/Chinese-Word-Vectors
 
 > 深度学习必学
 
-1. 反向传递: https://www.cnblogs.com/charlotte77/p/5629865.html
-2. CNN原理: http://www.cnblogs.com/charlotte77/p/7759802.html
-3. RNN原理: https://blog.csdn.net/qq_39422642/article/details/78676567
-4. LSTM深入浅出的好文: https://blog.csdn.net/roslei/article/details/61912618
+1. [反向传递](/docs/dl/反向传递.md): https://www.cnblogs.com/charlotte77/p/5629865.html
+2. [CNN原理](/docs/dl/CNN原理.md): http://www.cnblogs.com/charlotte77/p/7759802.html
+3. [RNN原理](/docs/dl/RNN原理.md): https://blog.csdn.net/qq_39422642/article/details/78676567
+4. [LSTM原理](/docs/dl/LSTM原理.md): https://blog.csdn.net/weixin_42111770/article/details/80900575
 
 ## nlp 操作流程
 
-[本项目](http://pytorch.apachecn.org/cn/tutorials/intermediate/char_rnn_classification_tutorial.html) 试图通过名字分类问题给大家描述一个基础的深度学习中自然语言处理模型，同时也向大家展示了Pytorch的基本玩法。 其实对于大部分基础的NLP工作，都是类似的套路： 
+[本项目](https://pytorch.apachecn.org/docs/1.0/#/char_rnn_classification_tutorial) 试图通过名字分类问题给大家描述一个基础的深度学习中自然语言处理模型，同时也向大家展示了Pytorch的基本玩法。 其实对于大部分基础的NLP工作，都是类似的套路：
 
 1. 收集数据 
 2. 清洗数据 
@@ -46,8 +46,7 @@ https://github.com/Embedding/Chinese-Word-Vectors
 
 最后，本文参考整合了:
 
-* Pytorch中文教程：http://pytorch.apachecn.org/cn/tutorials
-* Pytorch中文文档：http://pytorch.apachecn.org/cn/docs/0.3.0
+* Pytorch中文文档：https://pytorch.apachecn.org
 * Pytorch官方文档：http://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html 
 * Ngarneau小哥的博文：https://github.com/ngarneau/understanding-pytorch-batching-lstm
 * 另外，本项目搭配Sung Kim的Pytorch Zero To All的第13讲rnn_classification会更加方便食用喔，视频可以在油管和b站中找到。
