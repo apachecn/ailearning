@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def test():
     # D = np.mat(np.ones((5, 1)) / 5)
     # data_mat, class_labels = load_sim_data()
