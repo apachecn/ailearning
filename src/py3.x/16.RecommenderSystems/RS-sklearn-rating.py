@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # coding:utf8
 
+from __future__ import print_function
 import sys
 import math
 from operator import itemgetter
@@ -24,7 +25,7 @@ def splitData(dataFile, test_size):
     print('Number of users = ' + str(n_users) + ' | Number of movies = ' +
           str(n_items))
     train_data, test_data = cv.train_test_split(df, test_size=test_size)
-    print("数据量：", len(train_data), len(test_data))
+    print(("数据量：", len(train_data), len(test_data)))
     return df, n_users, n_items, train_data, test_data
 
 
@@ -38,13 +39,13 @@ def calc_similarity(n_users, n_items, train_data, test_data):
         test_data_matrix[line[1] - 1, line[2] - 1] = line[3]
 
     # 使用sklearn的pairwise_distances函数来计算余弦相似性。
-    print("1:", np.shape(train_data_matrix))  # 行：人，列：电影
-    print("2:", np.shape(train_data_matrix.T))  # 行：电影，列：人
+    print(("1:", np.shape(train_data_matrix)))  # 行：人，列：电影
+    print(("2:", np.shape(train_data_matrix.T)))  # 行：电影，列：人
 
     user_similarity = pairwise_distances(train_data_matrix, metric="cosine")
     item_similarity = pairwise_distances(train_data_matrix.T, metric="cosine")
 
-    print >> sys.stderr, '开始统计流行item的数量...'
+    print('开始统计流行item的数量...', file=sys.stderr)
     item_popular = {}
     # 统计在所有的用户中，不同电影的总出现次数
     for i_index in range(n_items):
@@ -54,15 +55,15 @@ def calc_similarity(n_users, n_items, train_data, test_data):
 
     # save the total number of items
     item_count = len(item_popular)
-    print >> sys.stderr, '总共流行item数量 = %d' % item_count
+    print('总共流行item数量 = %d' % item_count, file=sys.stderr)
 
     return train_data_matrix, test_data_matrix, user_similarity, item_similarity, item_popular
 
 
 def predict(rating, similarity, type='user'):
     print(type)
-    print("rating=", np.shape(rating))
-    print("similarity=", np.shape(similarity))
+    print(("rating=", np.shape(rating)))
+    print(("similarity=", np.shape(similarity)))
     if type == 'user':
         # 求出每一个用户，所有电影的综合评分（axis=0 表示对列操作， 1表示对行操作）
         # print "rating=", np.shape(rating)
@@ -122,8 +123,8 @@ def evaluate(prediction, item_popular, name):
     recall = hit / (1.0 * test_count)
     coverage = len(all_rec_items) / (1.0 * len(item_popular))
     popularity = popular_sum / (1.0 * rec_count)
-    print >> sys.stderr, '%s: precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (
-        name, precision, recall, coverage, popularity)
+    print('%s: precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (
+        name, precision, recall, coverage, popularity), file=sys.stderr)
 
 
 def recommend(u_index, prediction):
@@ -134,8 +135,8 @@ def recommend(u_index, prediction):
         reverse=True)[:10]
     test_items = np.where(test_data_matrix[u_index, :] != 0)[0]
 
-    print('原始结果：', test_items)
-    print('推荐结果：', [key for key, value in pre_items])
+    print(('原始结果：', test_items))
+    print(('推荐结果：', [key for key, value in pre_items]))
 
 
 if __name__ == "__main__":
@@ -171,7 +172,7 @@ if __name__ == "__main__":
     u, s, vt = svds(train_data_matrix, k=15)
     s_diag_matrix = np.diag(s)
     svd_prediction = np.dot(np.dot(u, s_diag_matrix), vt)
-    print("svd-shape:", np.shape(svd_prediction))
+    print(("svd-shape:", np.shape(svd_prediction)))
     print(
         'Model based CF RMSE: ' + str(rmse(svd_prediction, test_data_matrix)))
     """
