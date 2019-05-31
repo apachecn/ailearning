@@ -2,7 +2,7 @@ import random
 
 
 # 负样本采样过程
-def RandomSelectNegativeSample(self, items):
+def RandSelectNegativeSamples(self, items):
     ret = {key: 1 for key in items}
     n = 0
     for i in range(0, len(items) * 3):
