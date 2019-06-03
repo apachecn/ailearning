@@ -15,9 +15,12 @@
 3. 篇章分析
 4. UNIT：语言理解与交互技术
 
-## 中文 nlp 词向量
+## 中文 NLP
+
+> 开源 - 词向量库集合
 
 https://github.com/Embedding/Chinese-Word-Vectors
+
 
 > 深度学习必学
 
@@ -25,6 +28,22 @@ https://github.com/Embedding/Chinese-Word-Vectors
 2. [CNN原理](/docs/dl/CNN原理.md): http://www.cnblogs.com/charlotte77/p/7759802.html
 3. [RNN原理](/docs/dl/RNN原理.md): https://blog.csdn.net/qq_39422642/article/details/78676567
 4. [LSTM原理](/docs/dl/LSTM原理.md): https://blog.csdn.net/weixin_42111770/article/details/80900575
+
+> [Word2Vec 原理](/docs/nlp/Word2Vec.md):
+
+1. 负采样
+
+介绍:
+    自然语言处理领域中，判断两个单词是不是一对上下文词（context）与目标词（target），如果是一对，则是正样本，如果不是一对，则是负样本。
+    采样得到一个上下文词和一个目标词，生成一个正样本（positive example），生成一个负样本（negative example），则是用与正样本相同的上下文词，再在字典中随机选择一个单词，这就是负采样（negative sampling）。
+
+案例:
+    比如给定一句话“这是去上学的班车”，则对这句话进行正采样，得到上下文“上”和目标词“学”，则这两个字就是正样本。
+    负样本的采样需要选定同样的“上”，然后在训练的字典中任意取另一个字，如“我”、“梦”、“目”，这一对就构成负样本。
+    训练需要正样本和负样本同时存在。
+
+优势:
+    负采样的本质：每次让一个训练样本只更新部分权重，其他权重全部固定；减少计算量；（一定程度上还可以增加随机性）
 
 ## nlp 操作流程
 
@@ -61,7 +80,7 @@ https://github.com/Embedding/Chinese-Word-Vectors
 + 司法数据文本的 NLP
     - http://cail.cipsc.org.cn
 + “达观杯” 文本智能处理挑战赛   
-    - http://www.dcjingsai.com/common/cmpt/%E2%80%9C%E8%BE%BE%E8%A7%82%E6%9D%AF%E2%80%9D%E6%96%87%E6%9C%AC%E6%99%BA%E8%83%BD%E5%A4%84%E7%90%86%E6%8C%91%E6%88%98%E8%B5%9B_%E7%AB%9E%E8%B5%9B%E4%BF%A1%E6%81%AF.html
+    - http://www.dcjingsai.com/common/cmpt/“达观杯”文本智能处理挑战赛_竞赛信息.html
 + 中文论文摘要数据
     - https://biendata.com/competition/smpetst2018
 + 中文问答任务
