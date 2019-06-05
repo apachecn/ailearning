@@ -106,11 +106,8 @@ def classify0(inX, dataSet, labels, k):
     # sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)
     # return sortedClassCount[0][0]
     # 3.利用max函数直接返回字典中value最大的key
-	maxClassCount = max(classCount, key=classCount.get)
-	return maxClassCount
-
-   
-
+    maxClassCount = max(classCount, key=classCount.get)
+    return maxClassCount
     
     # ------------------------------------------------------------------------------------------------------------------------------------------
     # 实现 classify0() 方法的第二种方式
