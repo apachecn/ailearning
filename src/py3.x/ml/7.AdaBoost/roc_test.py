@@ -1,3 +1,8 @@
+import numpy as np
+
+from .adaboost import ada_boost_train_ds, ada_classify, load_data_set, plot_roc
+
+
 def test():
     # D = np.mat(np.ones((5, 1)) / 5)
     # data_mat, class_labels = load_sim_data()

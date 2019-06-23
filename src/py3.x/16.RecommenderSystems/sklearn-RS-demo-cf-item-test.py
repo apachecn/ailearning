@@ -8,6 +8,7 @@ Author: Lockvictor/片刻
 参考地址：https://github.com/Lockvictor/MovieLens-RecSys
 更新地址：https://github.com/apachecn/AiLearning
 '''
+from __future__ import print_function
 import math
 import random
 import sys
@@ -43,8 +44,8 @@ class ItemBasedCF():
         self.item_popular = {}
         self.item_count = 0
 
-        print >> sys.stderr, 'Similar item number = %d' % self.n_sim_item
-        print >> sys.stderr, 'Recommended item number = %d' % self.n_rec_item
+        print('Similar item number = %d' % self.n_sim_item, file=sys.stderr)
+        print('Recommended item number = %d' % self.n_rec_item, file=sys.stderr)
 
     def splitData(self, dataFile, test_size):
         # 加载数据集
@@ -60,9 +61,9 @@ class ItemBasedCF():
         # 拆分数据集： 用户+电影
         self.train_data, self.test_data = cv.train_test_split(
             df, test_size=test_size)
-        print >> sys.stderr, '分离训练集和测试集成功'
-        print >> sys.stderr, 'len(train) = %s' % np.shape(self.train_data)[0]
-        print >> sys.stderr, 'len(test) = %s' % np.shape(self.test_data)[0]
+        print('分离训练集和测试集成功', file=sys.stderr)
+        print('len(train) = %s' % np.shape(self.train_data)[0], file=sys.stderr)
+        print('len(test) = %s' % np.shape(self.test_data)[0], file=sys.stderr)
 
     def calc_similarity(self):
         # 创建用户产品矩阵，针对测试数据和训练数据，创建两个矩阵：
@@ -81,10 +82,10 @@ class ItemBasedCF():
         # 电影-电影-距离(1682, 1682)
         self.item_mat_similarity = pairwise_distances(
             np.mat(self.train_mat).T, metric='cosine')
-        print >> sys.stderr, 'item_mat_similarity=', np.shape(
-            self.item_mat_similarity)
+        print('item_mat_similarity=', np.shape(
+            self.item_mat_similarity), file=sys.stderr)
 
-        print >> sys.stderr, '开始统计流行item的数量...'
+        print('开始统计流行item的数量...', file=sys.stderr)
 
         # 统计在所有的用户中，不同电影的总出现次数
         for i_index in range(self.n_items):
@@ -95,7 +96,7 @@ class ItemBasedCF():
 
         # save the total number of items
         self.item_count = len(self.item_popular)
-        print >> sys.stderr, '总共流行item数量 = %d' % self.item_count
+        print('总共流行item数量 = %d' % self.item_count, file=sys.stderr)
 
     # @profile
     def recommend(self, u_index):
@@ -136,7 +137,7 @@ class ItemBasedCF():
 
     def evaluate(self):
         ''' return precision, recall, coverage and popularity '''
-        print >> sys.stderr, 'Evaluation start...'
+        print('Evaluation start...', file=sys.stderr)
 
         # varables for precision and recall
         # hit表示命中(测试集和推荐集相同+1)，rec_count 每个用户的推荐数， test_count 每个用户对应的测试数据集的电影数
@@ -152,7 +153,7 @@ class ItemBasedCF():
         # 参考地址：http://blog.csdn.net/churximi/article/details/51648388
         for u_index in range(50):
             if u_index > 0 and u_index % 10 == 0:
-                print >> sys.stderr, 'recommended for %d users' % u_index
+                print('recommended for %d users' % u_index, file=sys.stderr)
             print("u_index", u_index)
 
             # 对比测试集和推荐集的差异
@@ -180,8 +181,8 @@ class ItemBasedCF():
         coverage = len(all_rec_items) / (1.0 * self.item_count)
         popularity = popular_sum / (1.0 * rec_count)
 
-        print >> sys.stderr, 'precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (
-            precision, recall, coverage, popularity)
+        print('precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (
+            precision, recall, coverage, popularity), file=sys.stderr)
 
 
 if __name__ == '__main__':

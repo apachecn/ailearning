@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # coding:utf8
 
+from __future__ import print_function
 import sys
 import math
 from operator import itemgetter
@@ -44,7 +45,7 @@ def calc_similarity(n_users, n_items, train_data, test_data):
     user_similarity = pairwise_distances(train_data_matrix, metric="cosine")
     item_similarity = pairwise_distances(train_data_matrix.T, metric="cosine")
 
-    print >> sys.stderr, '开始统计流行item的数量...'
+    print('开始统计流行item的数量...', file=sys.stderr)
     item_popular = {}
     # 统计在所有的用户中，不同电影的总出现次数
     for i_index in range(n_items):
@@ -54,7 +55,7 @@ def calc_similarity(n_users, n_items, train_data, test_data):
 
     # save the total number of items
     item_count = len(item_popular)
-    print >> sys.stderr, '总共流行item数量 = %d' % item_count
+    print('总共流行item数量 = %d' % item_count, file=sys.stderr)
 
     return train_data_matrix, test_data_matrix, user_similarity, item_similarity, item_popular
 
@@ -122,8 +123,8 @@ def evaluate(prediction, item_popular, name):
     recall = hit / (1.0 * test_count)
     coverage = len(all_rec_items) / (1.0 * len(item_popular))
     popularity = popular_sum / (1.0 * rec_count)
-    print >> sys.stderr, '%s: precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (
-        name, precision, recall, coverage, popularity)
+    print('%s: precision=%.4f \t recall=%.4f \t coverage=%.4f \t popularity=%.4f' % (
+        name, precision, recall, coverage, popularity), file=sys.stderr)
 
 
 def recommend(u_index, prediction):

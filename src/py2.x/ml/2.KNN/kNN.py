@@ -103,8 +103,11 @@ def classify0(inX, dataSet, labels, k):
     # 例如：a=[('b',2),('a',1),('c',0)]  b=sorted(a,key=operator.itemgetter(1)) >>>b=[('c',0),('a',1),('b',2)] 可以看到排序是按照后边的0,1,2进行排序的，而不是a,b,c
     # b=sorted(a,key=operator.itemgetter(0)) >>>b=[('a',1),('b',2),('c',0)] 这次比较的是前边的a,b,c而不是0,1,2
     # b=sorted(a,key=opertator.itemgetter(1,0)) >>>b=[('c',0),('a',1),('b',2)] 这个是先比较第2个元素，然后对第一个元素进行排序，形成多级排序。
-    sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)
-    return sortedClassCount[0][0]
+    # sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)
+    # return sortedClassCount[0][0]
+    # 3.利用max函数直接返回字典中value最大的key
+    maxClassCount = max(classCount, key=classCount.get)
+    return maxClassCount
     
     # ------------------------------------------------------------------------------------------------------------------------------------------
     # 实现 classify0() 方法的第二种方式
