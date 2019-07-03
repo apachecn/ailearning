@@ -10,19 +10,6 @@
 
 <h1 align="center">AI learning</h1>
 
-> Special Sponsors
-
-<table>
-      <tbody>
-        <tr>
-          <td align="center" valign="middle">
-            <a href="https://coding.net/?utm_source=ApacheCN&utm_medium=banner&utm_campaign=march2019" target="_blank">
-              <img width="1080" src="http://data.apachecn.org/img/SpecialSponsors/CodingNet.png">
-            </a>
-          </td>
-      </tbody>
-</table>
-
 ## 组织介绍
 
 * 我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！
@@ -576,20 +563,43 @@ mage字幕是为给定图像生成文本描述的任务。
 * ApacheCN 纯粹出于学习目的与个人兴趣翻译本书
 * ApacheCN 保留对此版本译文的署名权及其它相关权利
 
+## **协议**
+
+* 以各项目协议为准。
+* ApacheCN 账号下没有协议的项目，一律视为 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)。
+
 ---
 
-资料来源:
+## 资料来源:
 
 * 【比赛收集平台】: https://github.com/iphysresearch/DataSciComp
 * https://github.com/pbharrin/machinelearninginaction
 * https://machinelearningmastery.com/datasets-natural-language-processing
 
+## 感谢信
+
+最近无意收到群友推送的链接，发现得到大佬高度的认可，并在热心的推广
+
+在此感谢:
+
+* [量子位](https://www.zhihu.com/org/liang-zi-wei-48): <https://www.zhihu.com/question/20472776/answer/691646493>
+* 人工智能前沿讲习: <https://mp.weixin.qq.com/s/f2dqulxOPkt7k5hqPsydyQ>
+
 ## 赞助我们
 
 <img src="http://data.apachecn.org/img/about/donate.jpg" alt="微信&支付宝" />
 
-## **协议**
+---
 
-以各项目协议为准。
+> 特别赞助商(欢迎“私聊”赞助)
 
-ApacheCN 账号下没有协议的项目，一律视为 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)。
+<table>
+      <tbody>
+        <tr>
+          <td align="center" valign="middle">
+            <a href="https://coding.net/?utm_source=ApacheCN&utm_medium=banner&utm_campaign=march2019" target="_blank">
+              <img width="1080" src="http://data.apachecn.org/img/SpecialSponsors/CodingNet.png">
+            </a>
+          </td>
+      </tbody>
+</table>
