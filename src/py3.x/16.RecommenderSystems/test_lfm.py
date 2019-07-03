@@ -2,11 +2,8 @@ import random
 
 
 # 负样本采样过程
-def RandomSelectNegativeSample(self, items):
-    ret = dict()
-    for i in items.keys():
-        ret[i] = 1
-
+def RandSelectNegativeSamples(self, items):
+    ret = {key: 1 for key in items}
     n = 0
     for i in range(0, len(items) * 3):
         item = items_pool[random.randint(0, len(items_pool) - 1)]

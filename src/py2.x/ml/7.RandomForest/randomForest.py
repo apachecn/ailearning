@@ -139,7 +139,7 @@ def to_terminal(group):
 
 
 # Create child splits for a node or make terminal  # 创建子分割器，递归分类，直到分类结束
-def split(node, max_depth, min_size, n_features, depth):  # max_depth = 10, min_size = 1, n_features = int(sqrt((dataset[0])-1))
+def split(node, max_depth, min_size, n_features, depth):  # max_depth = 10, min_size = 1, n_features=int(sqrt((len(dataset[0])-1)
     left, right = node['groups']
     del(node['groups'])
 # check for a no split
