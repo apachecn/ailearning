@@ -16,12 +16,12 @@
 
 [le.wiki](http://www.le.wiki) 域名太局限了，不够体现我们大家的情怀，所以不得不换一个域名了。
 
-[apache.wiki](http://www.apache.wiki) 域名的切换。由于我们这些成员大多数都是做大数据的，对 [Apache](http://www.apache.org) 是很有情怀的，非常感谢的，比如我们现在用的 Hadoop，Hive，Spark，Flink 等等的一些框架，都是 [Apache](http://www.apache.org) 开源出来的。所以经过大家的一致讨论后，准备使用 [apache.wiki](http://www.apache.wiki) 使用这个域名了，据说看着还挺有情怀（逼格）的 。。。
+[apache.wiki](http://cwiki.apachecn.org) 域名的切换。由于我们这些成员大多数都是做大数据的，对 [Apache](http://www.apache.org) 是很有情怀的，非常感谢的，比如我们现在用的 Hadoop，Hive，Spark，Flink 等等的一些框架，都是 [Apache](http://www.apache.org) 开源出来的。所以经过大家的一致讨论后，准备使用 [apache.wiki](http://cwiki.apachecn.org) 使用这个域名了，据说看着还挺有情怀（逼格）的 。。。
 
 在这期间，做了一些准备工作，和大家讨论一些事情等等，大家各自的尝试，然后就拖到 10 月份了。
 
 
-在 2016 年 10 月份的时候，准确来说是国庆后吧，正式开始翻译文档的搞事之际，邀请大家来操作一波，也为了让大家了解下我们是干嘛的，还特意在 [apache.wiki](http://www.apache.wiki) 上写了写了一篇 [关于我们](http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887240)（**注: 了解 ApacheCN 必读**），我差点把自己都感动了 。。。
+在 2016 年 10 月份的时候，准确来说是国庆后吧，正式开始翻译文档的搞事之际，邀请大家来操作一波，也为了让大家了解下我们是干嘛的，还特意在 [apache.wiki](http://cwiki.apachecn.org) 上写了写了一篇 [关于我们](http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887240)（**注: 了解 ApacheCN 必读**），我差点把自己都感动了 。。。
 
 在 2016 年年末试了下 Spark，Elasticsearch 文档的翻译，虽然内容很多，但还算是 OK 吧！~ 大家还是坚持了下来，非常感谢大家，我记得我调格式都调的要死了，忧桑 。。。
 
