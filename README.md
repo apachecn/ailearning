@@ -247,10 +247,16 @@ https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md
 
 ![](img/nlp/F94581F64C21A1094A473397DFA42F9C.jpg)
 
-* **入门教程必看资料【添加比赛链接】: https://github.com/apachecn/AiLearning/tree/master/docs/nlp**
-* Python 自然语言处理 第二版: https://usyiyi.github.io/nlp-py-2e-zh
+* **【入门须知】必须了解**: <https://github.com/apachecn/AiLearning/tree/master/docs/nlp>
+* **【入门教程】强烈推荐: PyTorch 自然语言处理**: <https://github.com/apachecn/NLP-with-PyTorch>
+* Python 自然语言处理 第二版: <https://usyiyi.github.io/nlp-py-2e-zh>
 * 推荐一个[liuhuanyong大佬](https://github.com/liuhuanyong)整理的nlp全面知识体系: <https://liuhuanyong.github.io>
-* 开源 - 词向量库集合: https://github.com/Embedding/Chinese-Word-Vectors
+* 开源 - 词向量库集合: 
+  * <https://github.com/Embedding/Chinese-Word-Vectors>
+  * <https://github.com/brightmart/nlp_chinese_corpus>
+  * <https://github.com/codemayq/chinese_chatbot_corpus>
+  * <https://github.com/candlewill/Dialog_Corpus>
+
 
 ### 1.使用场景 （百度公开课）
 
