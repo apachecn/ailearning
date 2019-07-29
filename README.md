@@ -14,14 +14,14 @@
 
 * 我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！
 * 合作or侵权，请联系: apachecn@163.com
-* **ApacheCN - 学习机器学习群【629470233】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=30e5f1123a79867570f665aa3a483ca404b1c3f77737bc01ec520ed5f078ddef"><img border="0" src="img/MainPage/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[629470233]" title="ApacheCN - 学习机器学习群[629470233]"></a>**
+* **ApacheCN - 学习机器学习群【629470233】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=30e5f1123a79867570f665aa3a483ca404b1c3f77737bc01ec520ed5f078ddef"><img border="0" src="http://data.apachecn.org/img/logo/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[629470233]" title="ApacheCN - 学习机器学习群[629470233]"></a>**
 
 > **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
 
 # 路线图
 
-<a href="https://github.com/apachecn/AiLearning/blob/master/docs/AI学习路线.md" target="_blank">
-<img width="1080" src="http://www.apachecn.org/wp-content/uploads/2019/04/AILearningRoadMap.jpg"></a>
+<a href="https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md" target="_blank">
+<img width="1080" src="http://data.apachecn.org/img/RoadMap/AILearningRoadMap.png"></a>
 
 https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md
 
