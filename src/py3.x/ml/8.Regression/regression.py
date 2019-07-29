@@ -66,7 +66,7 @@ def standRegres(xArr, yArr):
         print("This matrix is singular, cannot do inverse")
         return
     # 最小二乘法
-    # http://www.apache.wiki/pages/viewpage.action?pageId=5505133
+    # http://cwiki.apachecn.org/pages/viewpage.action?pageId=5505133
     # 书中的公式，求得w的最优解
     ws = xTx.I * (xMat.T * yMat)
     return ws
