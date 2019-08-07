@@ -461,7 +461,13 @@ mage字幕是为给定图像生成文本描述的任务。
 * [@瑶妹](https://github.com/chenyyx)
 * [@Mike](https://github.com/mikechengwei)
 
-> Ml 第三期 (2018-04-16)
+-- 负责人要求: (欢迎一起为 AiLearning 中文版本 做贡献)
+
+* 热爱开源，喜欢装逼
+* 长期钻研 ML+DL(至少0.5年) + 提交Pull Requests>=3
+* 能够有时间及时优化页面bug和用户issues
+* 试用期: 2个月
+* 欢迎联系: 片刻 529815144
 
 ## 项目贡献者
 
