@@ -199,6 +199,10 @@ https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md
 | - | - | - |
 | [可汗学院(概率)](http://open.163.com/special/Khan/probability.html)  | [可汗学院(统计学)](http://open.163.com/special/Khan/khstatistics.html)| [可汗学院(线性代数)](http://open.163.com/special/Khan/linearalgebra.html)
 
+* [@头发多]() 推荐: B站 3Blue1Brown - 数学之美
+
+地址: <https://space.bilibili.com/88461692/video?tid=0&page=3&keyword=&order=pubdate>
+
 > 机器学习视频 - ApacheCN 教学版
 
 |||
@@ -256,7 +260,6 @@ https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md
   * <https://github.com/brightmart/nlp_chinese_corpus>
   * <https://github.com/codemayq/chinese_chatbot_corpus>
   * <https://github.com/candlewill/Dialog_Corpus>
-
 
 ### 1.使用场景 （百度公开课）
 
