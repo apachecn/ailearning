@@ -184,7 +184,7 @@ def file2matrix(filename):
         # str.strip([chars]) --返回移除字符串头尾指定的字符生成的新字符串
         line = line.strip()
         # 以 '\t' 切割字符串
-        listFromLine = line.split('\t')
+        listFromLine = line.split()
         # 每列的属性数据，即 features
         returnMat[index] = listFromLine[0 : 3]
         # 每列的类别数据，就是 label 标签数据
