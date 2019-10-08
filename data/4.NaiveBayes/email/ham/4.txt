@@ -1,3 +1,0 @@
-Yo.  I've been working on my running website.  I'm using jquery and the jqplot plugin.  I'm not too far away from having a prototype to launch.  
-
-You used jqplot right?  If not, I think you would like it.
