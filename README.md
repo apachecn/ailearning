@@ -8,34 +8,33 @@
     <a href="mailto:apache@163.com"><img src="https://img.shields.io/badge/%3E-Email-green.svg"></a>
 </p>
 
-<h1 align="center">AI learning</h1>
+<h1 align="center"><a href="https://github.com/apachecn/AiLearning">AI learning</a></h1>
 
 ## 组织介绍
 
-* 我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！
-* 合作or侵权，请联系: apachecn@163.com
+* 合作or侵权，请联系: `apachecn@163.com`
+* **我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！**
 * **ApacheCN - 学习机器学习群【629470233】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=30e5f1123a79867570f665aa3a483ca404b1c3f77737bc01ec520ed5f078ddef"><img border="0" src="http://data.apachecn.org/img/logo/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[629470233]" title="ApacheCN - 学习机器学习群[629470233]"></a>**
 
 > **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
 
 # 路线图
 
-<a href="https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md" target="_blank">
-<img width="1080" src="http://data.apachecn.org/img/RoadMap/AILearningRoadMap.png"></a>
-
-https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md
-
-按照步骤: 1 => 2 => 3，你可以当大牛！
+* 入门只看: 步骤 1 => 2 => 3，你可以当大牛！
+* 中级补充 - 资料库: <https://github.com/apachecn/ai-roadmap>
 
 ## 1.机器学习 - 基础
 
-* **Machine Learning in Action (机器学习实战) | [ApacheCN(apache中文网)](http://cwiki.apachecn.org/)**
-* 电子版书籍：[【机器学习实战-中文版-带目录版.pdf】](https://github.com/apachecn/AiLearning/tree/master/books) 
-* -- 感谢 [飞龙小哥哥](https://github.com/wizardforcel) 生成的电子书[《机器学习实战-ApacheCN.pdf》](https://github.com/apachecn/AiLearning/blob/master/books/机器学习实战-ApacheCN.pdf)
-* **视频已更新完成，如果你觉得有价值，请帮忙点 Star【后续组织学习活动：sklearn、kaggle、 Pytorch 和 tensorflow】**
-* -- 视频网站：优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
-* -- [群小哥哥：红色石头](https://github.com/RedstoneWill): [台湾大学林轩田机器学习笔记](https://github.com/apachecn/ntu-hsuantienlin-ml)
-* 推荐一个[机器学习笔记](https://feisky.xyz/machine-learning): https://feisky.xyz/machine-learning
+### 基本介绍
+
+* 资料来源: Machine Learning in Action(机器学习实战-个人笔记)
+* 书籍下载地址: <https://github.com/apachecn/data/tree/master/book>
+* 数据下载地址: <https://github.com/apachecn/data/tree/master/机器学习>
+* 视频网站：优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
+* -- 推荐 [红色石头](https://github.com/RedstoneWill): [台湾大学林轩田机器学习笔记](https://github.com/apachecn/ntu-hsuantienlin-ml)
+* -- 推荐 [机器学习笔记](https://feisky.xyz/machine-learning): https://feisky.xyz/machine-learning
+
+### 学习文档
 
 <table>
   <tr>
@@ -215,14 +214,23 @@ https://github.com/apachecn/ai-roadmap/blob/master/ai-union-201904/README.md
 | [吴恩达机器学习](http://study.163.com/course/courseMain.htm?courseId=1004570029) | [神经网络和深度学习](http://mooc.study.163.com/course/2001281002?tid=2001392029) |
 
 
-## 2.深度学习 - 基础
+## 2.深度学习
 
-> 深度学习必学
+### 入门基础
 
 1. [反向传递](/docs/dl/反向传递.md): https://www.cnblogs.com/charlotte77/p/5629865.html
 2. [CNN原理](/docs/dl/CNN原理.md): http://www.cnblogs.com/charlotte77/p/7759802.html
 3. [RNN原理](/docs/dl/RNN原理.md): https://blog.csdn.net/qq_39422642/article/details/78676567
 4. [LSTM原理](/docs/dl/LSTM原理.md): https://blog.csdn.net/weixin_42111770/article/details/80900575
+
+### Pytorch - 教程
+
+-- 待更新
+
+### TensorFlow 2.0 - 教程
+
+-- 待更新
+
 
 ## 3.自然语言处理
 
