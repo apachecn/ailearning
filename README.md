@@ -234,7 +234,8 @@
 
 > 目录结构:
 
-* [安装指南](docs/tensorflow2.x/安装指南.md)
+* [安装指南](docs/TensorFlow2.x/安装指南.md)
+* [Kears 快速入门](docs/TensorFlow2.x/Keras快速入门.md)
 
 ## 3.自然语言处理
 
