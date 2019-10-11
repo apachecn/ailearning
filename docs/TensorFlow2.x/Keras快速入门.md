@@ -9,6 +9,23 @@
 * 3.亚马逊 AWS 正在开发 MXNet 支持。
 * 4.其他提供支持的公司包括 NVIDIA、优步、苹果（通过 CoreML）等。
 
+## Keras dataset 生产数据
+
+```py
+# With Numpy arrays
+data = np.random.random((1000, 32))
+labels = np.random.random((1000, 10))
+
+model.evaluate(data, labels, batch_size=32)
+
+# With a Dataset
+dataset = tf.data.Dataset.from_tensor_slices((data, labels))
+dataset = dataset.batch(32)
+
+model.evaluate(dataset)
+```
+
+
 ## Keras Sequential 顺序模型
 
 顺序模型是多个网络层的线性堆叠，目前支持2中方式
@@ -109,6 +126,9 @@ linear
 model.compile(optimizer='rmsprop',
               loss='categorical_crossentropy',
               metrics=['accuracy'])
+
+model.fit(x_train, y_train, epochs=5)
+model.evaluate(x_test,  y_test, verbose=2)
 ```
 
 ### 优化器 optimizer: <https://keras.io/optimizers>
@@ -243,6 +263,52 @@ sparse_top_k_categorical_accuracy(y_true, y_pred, k=5)
 ```
 
 
+## Keras load/save 模型持久化
+
+> 保存模型
+
+```py
+import tensorflow as tf
+
+# Save entire model to a HDF5 file
+model.save('my_model.h5')
+
+# Recreate the exact same model, including weights and optimizer.
+model = tf.keras.models.load_model('my_model.h5')
+```
+
+> 仅保存权重值
+
+```py
+import tensorflow as tf
+
+# Save weights to a TensorFlow Checkpoint file
+model.save_weights('./weights/my_model')
+# Restore the model's state,
+# this requires a model with the same architecture.
+model.load_weights('./weights/my_model')
+
+
+# Save weights to a HDF5 file
+model.save_weights('my_model.h5', save_format='h5')
+# Restore the model's state
+model.load_weights('my_model.h5')
+```
+
+> 仅保存模型配置
+
+```py
+import tensorflow as tf
+
+# Serialize a model to json format
+json_string = model.to_json()
+fresh_model = tf.keras.models.model_from_json(json_string)
+
+# Serialize a model to yaml format
+yaml_string = model.to_yaml()
+fresh_model = tf.keras.models.model_from_yaml(yaml_string)
+```
+
 --- 
 
 补充损失函数
@@ -328,4 +394,7 @@ keras.losses.cosine_proximity(y_true, y_pred, axis=-1)
 ```py
 keras.losses.is_categorical_crossentropy(loss)
 ```
+
+
+
 
