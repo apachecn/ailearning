@@ -1,0 +1,70 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
+  
+  <!-- google ads -->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <!-- baidu stats -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?33149aa6702022b1203201da06e23d81";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+    
+  <!-- google webmaster -->
+  <meta name="google-site-verification" content="pyo9N70ZWyh8JB43bIu633mhxesJ1IcwWCZlM3jUfFo" />
+</head>
+<body>
+  <div id="app">now loading...</div>
+  <script id="footer" type="text/xml">
+    <hr/>
+    <div align="center">
+      <p><a href="http://www.apachecn.org/" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a><p>
+      <p><a href="https://github.com/apachecn/ailearning/" target="_blank">apachecn/ailearning</a></p>
+      <p><iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=ailearning&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+      <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=ailearning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+      <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=ailearning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>
+      <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a></p>
+      <div style="text-align:center;margin:0 0 10.5px;">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:728px;height:90px"
+             data-ad-client="ca-pub-3565452474788507"
+             data-ad-slot="2543897000"></ins>
+      </div>
+    </div>
+  </script>
+  <script>
+    window.docsPlugin = function(hook) {
+      var footer = document.querySelector('#footer').innerHTML
+      hook.afterEach(function(html) {
+        return html + footer
+      })
+      hook.doneEach(function() {
+        (adsbygoogle = window.adsbygoogle || []).push({})
+      })
+    }
+    
+    window.$docsify = {
+      loadSidebar: 'SUMMARY.md',
+      name: '机器学习实战',
+      auto2top: true,
+      themeColor: '#03a9f4',
+      repo: 'apachecn/ailearning',
+      plugins: [window.docsPlugin],
+    }
+  </script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-python.min.js"></script>
+</body>
+</html>
