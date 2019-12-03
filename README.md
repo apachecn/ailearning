@@ -240,7 +240,8 @@
 * [Kears 快速入门](docs/TensorFlow2.x/Keras快速入门.md)
 * [实战项目 1 电影情感分类](docs/TensorFlow2.x/实战项目_1_电影情感分类.md)
 * [实战项目 2 汽车燃油效率](docs/TensorFlow2.x/实战项目_2_汽车燃油效率.md)
-* [实战项目 优化: 过拟合，欠拟合](docs/TensorFlow2.x/实战项目优化_过拟合和欠拟合.md)
+* [实战项目 3 优化 过拟合和欠拟合](docs/TensorFlow2.x/实战项目_3_优化_过拟合和欠拟合.md)
+* [实战项目 4 古诗词自动生成](docs/TensorFlow2.x/实战项目_4_古诗词自动生成.md)
 
 ## 3.自然语言处理
 
