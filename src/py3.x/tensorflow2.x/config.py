@@ -12,3 +12,4 @@ class Config(object):
     max_len = 6
     batch_size = 512
     learning_rate = 0.001
+    pre_num = 2
