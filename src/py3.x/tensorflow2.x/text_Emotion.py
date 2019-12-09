@@ -1,11 +1,10 @@
 # *-* coding:utf-8 *-*
-# https://blog.csdn.net/u012052268/article/details/90238282
 # 词向量: 
-#   https://blog.csdn.net/xiezj007/article/details/85073890
 #   https://www.cnblogs.com/Darwin2000/p/5786984.html
-#   https://ai.tencent.com/ailab/nlp/embedding.html
 # 数据集:
 #   https://blog.csdn.net/alip39/article/details/95891321
+# 参考代码:
+#   https://blog.csdn.net/u012052268/article/details/90238282
 import re
 import os
 import keras
