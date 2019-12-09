@@ -1,5 +1,9 @@
 # *-* coding:utf-8 *-*
 # https://blog.csdn.net/u012052268/article/details/90238282
+# 词向量: 
+#   https://blog.csdn.net/xiezj007/article/details/85073890
+#   https://www.cnblogs.com/Darwin2000/p/5786984.html
+#   https://ai.tencent.com/ailab/nlp/embedding.html
 import re
 import os
 import keras
@@ -15,27 +19,28 @@ from config import Config
 
 
 ## 训练自己的词向量，并保存。
-def trainWord2Vec(filePath):
-    sentences =  gensim.models.word2vec.LineSentence(filePath) # 读取分词后的 文本
+def trainWord2Vec(infile, outfile):
+    sentences =  gensim.models.word2vec.LineSentence(infile) # 读取分词后的 文本
     model = gensim.models.Word2Vec(sentences, size=100, window=5, min_count=1, workers=4) # 训练模型
-    model.save('./CarComment_vord2vec_100')
+    model.save(outfile)
 
 
-def testMyWord2Vec():
+def loadMyWord2Vec(outfile):
     # 导入 预训练的词向量
-    myPath = './CarComment_vord2vec_100'  # 读取词向量
-    Word2VecModel = gensim.models.Word2Vec.load(myPath)
-
-    print('空间的词向量（100 维）:', Word2VecModel.wv['空间'])
-    print('打印与空间最相近的5个词语：', Word2VecModel.wv.most_similar('空间', topn=5))
+    Word2VecModel = gensim.models.Word2Vec.load(outfile)
     return Word2VecModel
 
 
 def load_embeding():
-    # 训练词向量
-    trainWord2Vec('./CarCommentAll_cut.csv')
+    # 训练词向量(用空格隔开的文本)
+    infile = "./CarCommentAll_cut.csv"
+    outfile = "/opt/data/开源词向量/gensim_word2vec_60/Word60.model"
+    # trainWord2Vec(infile, outfile)
     # 加载词向量
-    Word2VecModel = testMyWord2Vec()
+    Word2VecModel = loadMyWord2Vec(outfile)
+
+    print('空间的词向量（60 维）:', Word2VecModel.wv['空间'].shape, Word2VecModel.wv['空间'])
+    print('打印与空间最相近的5个词语：', Word2VecModel.wv.most_similar('空间', topn=5))
 
     ## 2 构造包含所有词语的 list，以及初始化 “词语-序号”字典 和 “词向量”矩阵
     vocab_list = [word for word, Vocab in Word2VecModel.wv.vocab.items()]# 存储 所有的 词语
@@ -44,7 +49,7 @@ def load_embeding():
     word_vector = {} # 初始化`[word : vector]`字典
 
     # 初始化存储所有向量的大矩阵，留意其中多一位（首行），词向量全为 0，用于 padding补零。
-    # 行数 为 所有单词数+1 比如 10000+1 ； 列数为 词向量“维度”比如100。
+    # 行数 为 所有单词数+1 比如 10000+1 ； 列数为 词向量“维度”比如60。
     embeddings_matrix = np.zeros((len(vocab_list) + 1, Word2VecModel.vector_size))
 
     ## 3 填充 上述 的字典 和 大矩阵
@@ -54,6 +59,7 @@ def load_embeding():
         word_index[word] = i + 1 # 词语：序号
         word_vector[word] = Word2VecModel.wv[word] # 词语：词向量
         embeddings_matrix[i + 1] = Word2VecModel.wv[word]  # 词向量矩阵
+    print("加载词向量结束..")
     return embeddings_matrix
 
 
@@ -123,9 +129,12 @@ class EmotionModel(object):
 
 
 if __name__ == '__main__':
-    model = EmotionModel(Config)
-    while 1:
-        text = input("text:")
-        res = model.predict(text)
-        print(res)
+    # 测试加载外界word2vec词向量
+    load_embeding()
+
+    # model = EmotionModel(Config)
+    # while 1:
+    #     text = input("text:")
+    #     res = model.predict(text)
+    #     print(res)
 
