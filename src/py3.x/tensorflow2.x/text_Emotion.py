@@ -210,4 +210,4 @@ if __name__ == '__main__':
             status = True
         res = model.predict(text)
         label_dic = {0:"消极的", 1:"中性的", 2:"积极的"}
-        print(res, " : ",label_dic[np.argmax(res)])
+        print(res, " : ", label_dic[np.argmax(res)])
