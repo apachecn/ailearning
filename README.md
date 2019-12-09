@@ -271,6 +271,9 @@
 * Python 自然语言处理 第二版: <https://usyiyi.github.io/nlp-py-2e-zh>
 * 推荐一个[liuhuanyong大佬](https://github.com/liuhuanyong)整理的nlp全面知识体系: <https://liuhuanyong.github.io>
 * 开源 - 词向量库集合: 
+  * <https://www.cnblogs.com/Darwin2000/p/5786984.html>
+  * <https://ai.tencent.com/ailab/nlp/embedding.html>
+  * <https://blog.csdn.net/xiezj007/article/details/85073890>
   * <https://github.com/Embedding/Chinese-Word-Vectors>
   * <https://github.com/brightmart/nlp_chinese_corpus>
   * <https://github.com/codemayq/chinese_chatbot_corpus>
