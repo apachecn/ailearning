@@ -7,6 +7,7 @@
 
 class Config(object):
     poetry_file = 'poetry.txt'
+    weight_file = 'poetry_model.h5'
     data_file = 'EmotionData.xlsx'
     model_file = 'EmotionModel.h5'
     vocab_list = 'vocal_list.pkl'
