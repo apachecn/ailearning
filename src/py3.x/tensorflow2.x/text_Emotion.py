@@ -25,6 +25,7 @@ from keras.utils.np_utils import to_categorical
 from keras.optimizers import Adam
 from config import Config
 import pickle
+import matplotlib.pyplot as plt
 
 
 # 存储模型: 持久化
@@ -84,6 +85,37 @@ def load_embeding():
     return vocab_list, word_index, embeddings_matrix
 
 
+def plot_history(history):
+    history_dict = history.history
+    print(history_dict.keys())
+    acc = history_dict['accuracy']
+    val_acc = history_dict['val_accuracy']
+    loss = history_dict['loss']
+    val_loss = history_dict['val_loss']
+    epochs = range(1, len(acc) + 1)
+    # “bo”代表 "蓝点"
+    plt.plot(epochs, loss, 'bo', label='Training loss')
+    # b代表“蓝色实线”
+    plt.plot(epochs, val_loss, 'b', label='Validation loss')
+    plt.title('Training and validation loss')
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.legend()
+    plt.savefig('Emotion_loss.png')
+    # plt.show()
+
+    plt.clf()   # 清除数字
+
+    plt.plot(epochs, acc, 'bo', label='Training acc')
+    plt.plot(epochs, val_acc, 'b', label='Validation acc')
+    plt.title('Training and validation accuracy')
+    plt.xlabel('Epochs')
+    plt.ylabel('Accuracy')
+    plt.legend()
+    plt.savefig('Emotion_acc.png')
+    # plt.show()
+
+
 class EmotionModel(object):
     def __init__(self, config):
         self.model = None
@@ -118,7 +150,6 @@ class EmotionModel(object):
         #     output_dim = EMBEDDING_DIM, # 设置词向量的维度
         #     input_length=MAX_SEQUENCE_LENGTH
         # ) #设置句子的最大长度
-
         print("开始训练模型.....")
         sequence_input = Input(shape=(self.MAX_SEQUENCE_LENGTH,), dtype='int32')  # 返回一个张量，长度为1000，也就是模型的输入为batch_size*1000
         embedded_sequences = embedding_layer(sequence_input)  # 返回batch_size*1000*100
@@ -139,6 +170,7 @@ class EmotionModel(object):
     def load_word2jieba(self):
         vocab_list = load_pkl(self.vocab_list)
         if vocab_list != []:
+            print("加载词的总量: ", len(vocab_list))
             for word in vocab_list:
                 jieba.add_word(word)
 
@@ -194,7 +226,12 @@ class EmotionModel(object):
         print(x_test[:3], "\n", y_test[:3])
         print("---------")
         self.build_model(embeddings_matrix)
-        self.model.fit(x_train, y_train, batch_size=60, epochs=10)
+
+        # 画相关的 loss 和 accuracy=(预测正确-正or负/总预测的)
+        history = self.model.fit(x_train, y_train, batch_size=60, epochs=40, validation_split=0.2, verbose=0)
+        plot_history(history)
+
+        # self.model.fit(x_train, y_train, batch_size=60, epochs=40)
         self.model.evaluate(x_test, y_test, verbose=2)
         self.model.save(self.config.model_file)
 
