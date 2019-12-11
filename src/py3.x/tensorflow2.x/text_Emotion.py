@@ -163,7 +163,7 @@ class EmotionModel(object):
         preds = Dense(self.pre_num, activation='softmax')(x)
         self.model = Model(sequence_input, preds)
         # 设置优化器
-        optimizer = Adam(lr=self.config.learning_rate)
+        optimizer = Adam(lr=self.config.learning_rate, beta_1=0.95, beta_2=0.999,epsilon=1e-08)
         self.model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
         self.model.summary()
 
