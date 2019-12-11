@@ -15,7 +15,7 @@ class Config(object):
     # 根据前六个字预测第七个字
     max_len = 6
     batch_size = 512
-    learning_rate = 0.001
+    learning_rate = 0.0005
     pre_num = 3
     MAX_SEQUENCE_LENGTH = 1000  # 每个文本或者句子的截断长度，只保留1000个单词
     EMBEDDING_DIM = 60 # 词向量维度
