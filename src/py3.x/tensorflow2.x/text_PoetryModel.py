@@ -2,6 +2,7 @@
 '''
 代码参考: https://github.com/ioiogoo/poetry_generator_Keras
 做了一定的简化，作者 @ioiogoo 协议是 MIT
+目标: 自动生成歌词的
 '''
 import re
 import os
