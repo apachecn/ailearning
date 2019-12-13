@@ -56,7 +56,7 @@ def loadMyWord2Vec(outfile):
 def load_embeding():
     # 训练词向量(用空格隔开的文本)
     infile = "./CarCommentAll_cut.csv"
-    outfile = "gensim_word2vec_60/Word60.model"
+    outfile = "/opt/data/开源词向量/gensim_word2vec_60/Word60.model"
     # trainWord2Vec(infile, outfile)
     # 加载词向量
     Word2VecModel = loadMyWord2Vec(outfile)
