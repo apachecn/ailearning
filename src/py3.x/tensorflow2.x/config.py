@@ -8,10 +8,10 @@
 class Config(object):
     poetry_file = 'poetry.txt'
     weight_file = 'poetry_model.h5'
-    data_file = 'EmotionData.xlsx'
-    model_file = 'EmotionModel.h5'
-    vocab_list = 'vocal_list.pkl'
-    word_index = 'word_index.pkl'
+    data_file = 'Emotion/EmotionData.xlsx'
+    model_file = 'Emotion/EmotionModel.h5'
+    vocab_list = 'Emotion/vocal_list.pkl'
+    word_index = 'Emotion/word_index.pkl'
     # 根据前六个字预测第七个字
     max_len = 6
     batch_size = 512
