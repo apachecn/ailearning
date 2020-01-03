@@ -14,7 +14,7 @@
 
 * 合作or侵权，请联系: `apachecn@163.com`
 * **我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！**
-* **ApacheCN - 学习机器学习群【629470233】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=30e5f1123a79867570f665aa3a483ca404b1c3f77737bc01ec520ed5f078ddef"><img border="0" src="http://data.apachecn.org/img/logo/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[629470233]" title="ApacheCN - 学习机器学习群[629470233]"></a>**
+* **ApacheCN - 学习机器学习群【915394271】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=1577295fb6928b869facd55df9be529464a048389cbe1cea3a133b7708d5ded4"><img border="0" src="http://data.apachecn.org/img/logo/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[915394271]" title="ApacheCN - 学习机器学习群[915394271]"></a>**
 
 > **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
 
@@ -242,6 +242,21 @@
 * [实战项目 2 汽车燃油效率](docs/TensorFlow2.x/实战项目_2_汽车燃油效率.md)
 * [实战项目 3 优化 过拟合和欠拟合](docs/TensorFlow2.x/实战项目_3_优化_过拟合和欠拟合.md)
 * [实战项目 4 古诗词自动生成](docs/TensorFlow2.x/实战项目_4_古诗词自动生成.md)
+
+切分（分词）
+
+词性标注
+
+命名实体识别
+
+句法分析
+
+WordNet可以被看作是一个同义词词典
+
+词干提取（stemming）与词形还原（lemmatization）
+
+* https://www.biaodianfu.com/nltk.html/amp
+
 
 ## 3.自然语言处理
 
@@ -512,55 +527,6 @@ mage字幕是为给定图像生成文本描述的任务。
 * [@那伊抹微笑](https://github.com/wangyangting)
 * [@LAMDA-健忘症]() 永久留任-非常感谢对群的贡献
 
-> Ml 第一届 (2017-09-01)
-
-* [@易漠]()
-* [@Mike](https://github.com/mikechengwei)
-* [@Books]()
-* [@李孟禹]()
-* [@张假飞]()
-* [@Glassy]()
-* [@红色石头]()
-* [@微光同尘]()
-
-> Ml 第二届 (2018-07-04)
-
-* [@张假飞]()
-* [@李孟禹]()
-* [@小明教主]()
-* [@平淡的天]()
-* [@凌少skierゞ]()
-* [@じ☆νЁ坐看云起]()
-* [古柳-DesertsX]()
-* [woodchuck]()
-* [自由精灵]()
-* [楚盟]()
-* [99杆清台]()
-* [时空守望者@]()
-* [只想发论文的渣渣]()
-* [目标: ml劝退专家]()
-
-> Ml 第三届 (2019-01-01)
-
-* [只会喊666的存在]()
-* [codefun007.xyz]()
-* [荼靡]()
-* [大鱼]()
-* [青鸟]()
-* [古柳-DesertsX]()
-* [Edge]()
-* [Alluka]()
-* [不发篇paper不改名片]()
-* [FontTian]()
-* [Bigjing]()
-* [仁 礼 智 爱]()
-* [可啪的小乖受]()
-* [老古董]()
-* [时空守望者]()
-* [我好菜啊]()
-* [Messi 19]()
-* [萌Jay小公举]()
-
 > Ml 第四届 (2019-06-01)
 
 * [佛学爱好者]()
@@ -583,6 +549,55 @@ mage字幕是为给定图像生成文本描述的任务。
 * [小明教主]()
 * [zhiqing]()
 * [SrL.z]()
+
+> Ml 第三届 (2019-01-01)
+
+* [只会喊666的存在]()
+* [codefun007.xyz]()
+* [荼靡]()
+* [大鱼]()
+* [青鸟]()
+* [古柳-DesertsX]()
+* [Edge]()
+* [Alluka]()
+* [不发篇paper不改名片]()
+* [FontTian]()
+* [Bigjing]()
+* [仁 礼 智 爱]()
+* [可啪的小乖受]()
+* [老古董]()
+* [时空守望者]()
+* [我好菜啊]()
+* [Messi 19]()
+* [萌Jay小公举]()
+
+> Ml 第二届 (2018-07-04)
+
+* [@张假飞]()
+* [@李孟禹]()
+* [@小明教主]()
+* [@平淡的天]()
+* [@凌少skierゞ]()
+* [@じ☆νЁ坐看云起]()
+* [古柳-DesertsX]()
+* [woodchuck]()
+* [自由精灵]()
+* [楚盟]()
+* [99杆清台]()
+* [时空守望者@]()
+* [只想发论文的渣渣]()
+* [目标: ml劝退专家]()
+
+> Ml 第一届 (2017-09-01)
+
+* [@易漠]()
+* [@Mike](https://github.com/mikechengwei)
+* [@Books]()
+* [@李孟禹]()
+* [@张假飞]()
+* [@Glassy]()
+* [@红色石头]()
+* [@微光同尘]()
 
 **欢迎贡献者不断的追加**
 
