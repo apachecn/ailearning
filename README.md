@@ -641,7 +641,7 @@ mage字幕是为给定图像生成文本描述的任务。
         <tr>
           <td align="center" valign="middle">
             <a href="https://coding.net/?utm_source=ApacheCN&utm_medium=banner&utm_campaign=march2019" target="_blank">
-              <img width="1080" src="http://data.apachecn.org/img/SpecialSponsors/CodingNet.png">
+            <img width="1080" src="http://data.apachecn.org/img/SpecialSponsors/CodingNet.png">
             </a>
           </td>
       </tbody>

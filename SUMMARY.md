@@ -16,4 +16,3 @@
 +   [第15章_大数据与MapReduce](docs/ml/15.大数据与MapReduce.md)
 +   [第16章_推荐系统](docs/ml/16.推荐系统.md)
 +   [为何录制教学版视频](docs/why-to-record-study-ml-video.md)
-+   [加入我们](docs/join-us.md)
