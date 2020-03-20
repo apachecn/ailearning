@@ -14,7 +14,7 @@
 
 * 合作or侵权，请联系: `apachecn@163.com`
 * **我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！**
-* **ApacheCN - 学习机器学习群【915394271】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=1577295fb6928b869facd55df9be529464a048389cbe1cea3a133b7708d5ded4"><img border="0" src="http://data.apachecn.org/img/logo/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[915394271]" title="ApacheCN - 学习机器学习群[915394271]"></a>**
+* **ApacheCN - 学习群【724187166】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=51040bbd0bf7d0efbfa7256a0331d912a2055a906c324d52b02371d06f3c9878"><img border="0" src="http://data.apachecn.org/img/logo/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[724187166]" title="ApacheCN - 学习机器学习群[724187166]"></a>**
 
 > **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
 
@@ -489,7 +489,6 @@ mage字幕是为给定图像生成文本描述的任务。
 * [@片刻](https://github.com/jiangzhonglian)
 * [@那伊抹微笑](https://github.com/wangyangting)
 * [@瑶妹](https://github.com/chenyyx)
-* [2017-04-08_第一期的总结](/report/2017-04-08_第一期的总结.md)
 
 > Ml 第二期 (2017-08-14)
 
@@ -499,6 +498,8 @@ mage字幕是为给定图像生成文本描述的任务。
 * [@Mike](https://github.com/mikechengwei)
 
 > Ml 第三期 (2018-04-16)
+
+
 
 ## 项目贡献者
 
@@ -631,18 +632,3 @@ mage字幕是为给定图像生成文本描述的任务。
 ## 赞助我们
 
 <img src="http://data.apachecn.org/img/about/donate.jpg" alt="微信&支付宝" />
-
----
-
-> 特别赞助商(欢迎“私聊”赞助)
-
-<table>
-      <tbody>
-        <tr>
-          <td align="center" valign="middle">
-            <a href="https://coding.net/?utm_source=ApacheCN&utm_medium=banner&utm_campaign=march2019" target="_blank">
-            <img width="1080" src="http://data.apachecn.org/img/SpecialSponsors/CodingNet.png">
-            </a>
-          </td>
-      </tbody>
-</table>
