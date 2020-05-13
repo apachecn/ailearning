@@ -8,7 +8,7 @@
 ## nlp 学习书籍和工具：
 
 * 百度搜索：Python自然语言处理
-* 读书笔记：https://wnma3mz.github.io/hexo_blog/2018/05/13/《Python自然语言处理》阅读笔记（一）
+* 读书笔记：<https://wnma3mz.github.io/hexo_blog/2018/05/13/《Python自然语言处理》阅读笔记（一）>
 * Python自然语言处理工具汇总: <https://blog.csdn.net/sa14023053/article/details/51823122>
 
 ## nlp 全局介绍视频：（简单做了解就行）
