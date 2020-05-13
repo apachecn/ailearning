@@ -25,4 +25,15 @@
     + [第3章_自然语言处理入门介绍](docs/nlp/3.2.篇章分析-内容概述.md)
     + [第4章_自然语言处理入门介绍](docs/nlp/3.3.篇章分析-内容概述.md)
     + [第5章_自然语言处理入门介绍](docs/nlp/3.4.篇章分析-内容概述.md)
-
++ 深度学习
+    + [反向传递](docs/dl/反向传递.md)
+    + [CNN原理](docs/dl/CNN原理.md)
+    + [RNN原理](docs/dl/RNN原理.md)
+    + [LSTM原理](docs/dl/LSTM原理.md)
++ TensorFlow 2.0 - 教程
+    + [安装指南](docs/TensorFlow2.x/安装指南.md)
+    + [Kears 快速入门](docs/TensorFlow2.x/Keras快速入门.md)
+    + [实战项目 1 电影情感分类](docs/TensorFlow2.x/实战项目_1_电影情感分类.md)
+    + [实战项目 2 汽车燃油效率](docs/TensorFlow2.x/实战项目_2_汽车燃油效率.md)
+    + [实战项目 3 优化 过拟合和欠拟合](docs/TensorFlow2.x/实战项目_3_优化_过拟合和欠拟合.md)
+    + [实战项目 4 古诗词自动生成](docs/TensorFlow2.x/实战项目_4_古诗词自动生成.md)
