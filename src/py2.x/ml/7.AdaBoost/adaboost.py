@@ -94,8 +94,8 @@ def buildStump(dataArr, labelArr, D):
         # print 'rangeMin=%s, rangeMax=%s' % (rangeMin, rangeMax)
         # 计算每一份的元素个数
         stepSize = (rangeMax-rangeMin)/numSteps
-        # 例如： 4=(10-1)/2   那么  1-4(-1次)   1(0次)  1+1*4(1次)   1+2*4(2次)
-        # 所以： 循环 -1/0/1/2
+        # 例如:  4=(10-1)/2   那么  1-4(-1次)   1(0次)  1+1*4(1次)   1+2*4(2次)
+        # 所以:  循环 -1/0/1/2
         for j in range(-1, int(numSteps)+1):
             # go over less than and greater than
             for inequal in ['lt', 'gt']:
@@ -108,7 +108,7 @@ def buildStump(dataArr, labelArr, D):
                 # 正确为0，错误为1
                 errArr[predictedVals == labelMat] = 0
                 # 计算 平均每个特征的概率0.2*错误概率的总和为多少，就知道错误率多高
-                # 例如： 一个都没错，那么错误率= 0.2*0=0 ， 5个都错，那么错误率= 0.2*5=1， 只错3个，那么错误率= 0.2*3=0.6
+                # 例如:  一个都没错，那么错误率= 0.2*0=0 ， 5个都错，那么错误率= 0.2*5=1， 只错3个，那么错误率= 0.2*3=0.6
                 weightedError = D.T*errArr
                 '''
                 dim            表示 feature列
@@ -157,8 +157,8 @@ def adaBoostTrainDS(dataArr, labelArr, numIt=40):
         weakClassArr.append(bestStump)
 
         # print "alpha=%s, classEst=%s, bestStump=%s, error=%s " % (alpha, classEst.T, bestStump, error)
-        # 分类正确：乘积为1，不会影响结果，-1主要是下面求e的-alpha次方
-        # 分类错误：乘积为 -1，结果会受影响，所以也乘以 -1
+        # 分类正确: 乘积为1，不会影响结果，-1主要是下面求e的-alpha次方
+        # 分类错误: 乘积为 -1，结果会受影响，所以也乘以 -1
         expon = multiply(-1*alpha*mat(labelArr).T, classEst)
         # print '\n'
         # print 'labelArr=', labelArr
@@ -168,18 +168,18 @@ def adaBoostTrainDS(dataArr, labelArr, numIt=40):
         # 判断正确的，就乘以-1，否则就乘以1， 为什么？ 书上的公式。
         # print '(-1取反)预测值expon=', expon.T
         # 计算e的expon次方，然后计算得到一个综合的概率的值
-        # 结果发现： 判断错误的样本，D对于的样本权重值会变大。
+        # 结果发现:  判断错误的样本，D对于的样本权重值会变大。
         D = multiply(D, exp(expon))
         D = D/D.sum()
         # print "D: ", D.T
         # print '\n'
 
         # 预测的分类结果值，在上一轮结果的基础上，进行加和操作
-        # print '当前的分类结果：', alpha*classEst.T
+        # print '当前的分类结果: ', alpha*classEst.T
         aggClassEst += alpha*classEst
         # print "叠加后的分类结果aggClassEst: ", aggClassEst.T
         # sign 判断正为1， 0为0， 负为-1，通过最终加和的权重值，判断符号。
-        # 结果为：错误的样本标签集合，因为是 !=,那么结果就是0 正, 1 负
+        # 结果为: 错误的样本标签集合，因为是 !=,那么结果就是0 正, 1 负
         aggErrors = multiply(sign(aggClassEst) != mat(labelArr).T, ones((m, 1)))
         errorRate = aggErrors.sum()/m
         # print "total error=%s " % (errorRate)
@@ -196,7 +196,7 @@ def adaClassify(datToClass, classifierArr):
 
     # 循环 多个分类器
     for i in range(len(classifierArr)):
-        # 前提： 我们已经知道了最佳的分类器的实例
+        # 前提:  我们已经知道了最佳的分类器的实例
         # 通过分类器来核算每一次的分类结果，然后通过alpha*每一次的结果 得到最后的权重加和的值。
         classEst = stumpClassify(dataMat, classifierArr[i]['dim'], classifierArr[i]['thresh'], classifierArr[i]['ineq'])
         aggClassEst += classifierArr[i]['alpha']*classEst
@@ -258,7 +258,7 @@ def plotROC(predStrengths, classLabels):
     ax.axis([0, 1, 0, 1])
     plt.show()
     '''
-    参考说明：http://blog.csdn.net/wenyusuran/article/details/39056013
+    参考说明: http://blog.csdn.net/wenyusuran/article/details/39056013
     为了计算 AUC ，我们需要对多个小矩形的面积进行累加。
     这些小矩形的宽度是xStep，因此可以先对所有矩形的高度进行累加，最后再乘以xStep得到其总面积。
     所有高度的和(ySum)随着x轴的每次移动而渐次增加。
@@ -272,7 +272,7 @@ if __name__ == "__main__":
     # print 'dataArr', dataArr, 'labelArr', labelArr
 
     # # D表示最初值，对1进行均分为5份，平均每一个初始的概率都为0.2
-    # # D的目的是为了计算错误概率： weightedError = D.T*errArr
+    # # D的目的是为了计算错误概率:  weightedError = D.T*errArr
     # D = mat(ones((5, 1))/5)
     # print 'D=', D.T
 
@@ -281,18 +281,18 @@ if __name__ == "__main__":
     # # print 'minError=', minError
     # # print 'bestClasEst=', bestClasEst.T
 
-    # # 分类器：weakClassArr
+    # # 分类器: weakClassArr
     # # 历史累计的分类结果集
     # weakClassArr, aggClassEst = adaBoostTrainDS(dataArr, labelArr, 9)
     # print '\nweakClassArr=', weakClassArr, '\naggClassEst=', aggClassEst.T
 
     # """
     # 发现:
-    # 分类的权重值：最大的值，为alpha的加和，最小值为-最大值
-    # 特征的权重值：如果一个值误判的几率越小，那么D的特征权重越少
+    # 分类的权重值: 最大的值，为alpha的加和，最小值为-最大值
+    # 特征的权重值: 如果一个值误判的几率越小，那么D的特征权重越少
     # """
 
-    # # 测试数据的分类结果, 观测：aggClassEst分类的最终权重
+    # # 测试数据的分类结果, 观测: aggClassEst分类的最终权重
     # print adaClassify([0, 0], weakClassArr).T
     # print adaClassify([[5, 5], [0, 0]], weakClassArr).T
 
@@ -308,5 +308,5 @@ if __name__ == "__main__":
     m = shape(dataArrTest)[0]
     predicting10 = adaClassify(dataArrTest, weakClassArr)
     errArr = mat(ones((m, 1)))
-    # 测试：计算总样本数，错误样本数，错误率
+    # 测试: 计算总样本数，错误样本数，错误率
     print(m, errArr[predicting10 != mat(labelArrTest).T].sum(), errArr[predicting10 != mat(labelArrTest).T].sum()/m)

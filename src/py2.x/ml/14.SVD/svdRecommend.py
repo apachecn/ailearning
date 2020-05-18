@@ -240,7 +240,7 @@ def analyse_data(Sigma, loopNum=20):
 
         通常保留矩阵 80% ～ 90% 的能量，就可以得到重要的特征并取出噪声。
         '''
-        print('主成分：%s, 方差占比：%s%%' % (format(i+1, '2.0f'), format(SigmaI/SigmaSum*100, '4.2f')))
+        print('主成分: %s, 方差占比: %s%%' % (format(i+1, '2.0f'), format(SigmaI/SigmaSum*100, '4.2f')))
 
 
 # 图像压缩函数

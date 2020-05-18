@@ -107,7 +107,7 @@ class Filter(object):
     '''
     Desc:
         Filter类保存了卷积层的参数以及梯度，并且实现了用梯度下降算法来更新参数。
-        我们对参数的初始化采用了常用的策略，即：权重随机初始化为一个很小的值，而偏置项初始化为0。
+        我们对参数的初始化采用了常用的策略，即: 权重随机初始化为一个很小的值，而偏置项初始化为0。
     '''
     def __init__(self, width, height, depth):
         self.weights = np.random.uniform(-1e-4, 1e-4,

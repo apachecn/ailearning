@@ -57,7 +57,7 @@ def splitDataSet(dataSet, axis, value):
             # chop out axis used for splitting
             reducedFeatVec = featVec[:axis]
             '''
-            请百度查询一下： extend和append的区别
+            请百度查询一下:  extend和append的区别
             '''
             reducedFeatVec.extend(featVec[axis+1:])
             # 收集结果值 axis列为value的行【该行需要排除axis列】

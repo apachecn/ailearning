@@ -20,6 +20,12 @@ from keras import Model
 from keras.models import load_model
 from keras.layers.normalization import BatchNormalization
 from keras.layers import Dropout, Dense, Flatten, Bidirectional, Embedding, GRU, Input, multiply
+"""
+# padding: pre 向前补充0  post 向后补充0
+# truncating: 文本超过 pad_num,  pre 删除前面  post 删除后面
+# x_train = pad_sequences(x, maxlen=pad_num, value=0, padding='post', truncating="post")
+# print("--- ", x_train[0][:20])
+"""
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils.np_utils import to_categorical
 from keras.optimizers import Adam
@@ -62,7 +68,7 @@ def load_embeding():
     Word2VecModel = loadMyWord2Vec(outfile)
 
     print('空间的词向量（60 维）:', Word2VecModel.wv['空间'].shape, Word2VecModel.wv['空间'])
-    print('打印与空间最相近的5个词语：', Word2VecModel.wv.most_similar('空间', topn=5))
+    print('打印与空间最相近的5个词语: ', Word2VecModel.wv.most_similar('空间', topn=5))
 
     ## 2 构造包含所有词语的 list，以及初始化 “词语-序号”字典 和 “词向量”矩阵
     vocab_list = [word for word, Vocab in Word2VecModel.wv.vocab.items()]# 存储 所有的 词语
@@ -78,8 +84,8 @@ def load_embeding():
     for i in range(len(vocab_list)):
         # print(i)
         word = vocab_list[i]  # 每个词语
-        word_index[word] = i + 1 # 词语：序号
-        word_vector[word] = Word2VecModel.wv[word] # 词语：词向量
+        word_index[word] = i + 1 # 词语: 序号
+        word_vector[word] = Word2VecModel.wv[word] # 词语: 词向量
         embeddings_matrix[i + 1] = Word2VecModel.wv[word]  # 词向量矩阵
     print("加载词向量结束..")
     return vocab_list, word_index, embeddings_matrix
@@ -139,7 +145,7 @@ class EmotionModel(object):
         embedding_layer = Embedding(
             input_dim = len(embeddings_matrix), # 字典长度
             output_dim = self.EMBEDDING_DIM, # 词向量 长度（60）
-            weights = [embeddings_matrix], # 重点：预训练的词向量系数
+            weights = [embeddings_matrix], # 重点: 预训练的词向量系数
             input_length = self.MAX_SEQUENCE_LENGTH, # 每句话的 最大长度（必须padding） 
             trainable = False # 是否在 训练的过程中 更新词向量
         )

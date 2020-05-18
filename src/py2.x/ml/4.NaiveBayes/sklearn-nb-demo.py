@@ -4,7 +4,7 @@
 """
 Created on 2017-06-28
 Updated on 2017-06-28
-NaiveBayes：朴素贝叶斯
+NaiveBayes: 朴素贝叶斯
 Author: 小瑶
 GitHub: https://github.com/apachecn/AiLearning
 """

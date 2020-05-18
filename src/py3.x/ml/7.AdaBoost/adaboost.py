@@ -141,13 +141,13 @@ def ada_boost_train_ds(data_arr, class_labels, num_it=40):
         # store Stump Params in Array
         weak_class_arr.append(best_stump)
         # print('class_est: {}'.format(class_est.T))
-        # 分类正确：乘积为1，不会影响结果，-1主要是下面求e的-alpha次方
-        # 分类错误：乘积为 -1，结果会受影响，所以也乘以 -1
+        # 分类正确: 乘积为1，不会影响结果，-1主要是下面求e的-alpha次方
+        # 分类错误: 乘积为 -1，结果会受影响，所以也乘以 -1
         expon = np.multiply(-1 * alpha * np.mat(class_labels).T, class_est)
         # 判断正确的，就乘以-1，否则就乘以1， 为什么？ 书上的公式。
         # print('(-1取反)预测值 expon=', expon.T)
         # 计算e的expon次方，然后计算得到一个综合的概率的值
-        # 结果发现： 判断错误的样本，D对于的样本权重值会变大。
+        # 结果发现:  判断错误的样本，D对于的样本权重值会变大。
         # multiply是对应项相乘
         D = np.multiply(D, np.exp(expon))
         D = D / D.sum()
@@ -156,7 +156,7 @@ def ada_boost_train_ds(data_arr, class_labels, num_it=40):
         agg_class_est += alpha * class_est
         # print('叠加后的分类结果agg_class_est: {}'.format(agg_class_est.T))
         # sign 判断正为1， 0为0， 负为-1，通过最终加和的权重值，判断符号。
-        # 结果为：错误的样本标签集合，因为是 !=,那么结果就是0 正, 1 负
+        # 结果为: 错误的样本标签集合，因为是 !=,那么结果就是0 正, 1 负
         agg_errors = np.multiply(np.sign(agg_class_est) != np.mat(class_labels).T,
                                  np.ones((m, 1)))
         error_rate = agg_errors.sum() / m
@@ -237,7 +237,7 @@ def plot_roc(pred_strengths, class_labels):
     ax.axis([0, 1, 0, 1])
     plt.show()
     '''
-    参考说明：http://blog.csdn.net/wenyusuran/article/details/39056013
+    参考说明: http://blog.csdn.net/wenyusuran/article/details/39056013
     为了计算 AUC ，我们需要对多个小矩形的面积进行累加。
     这些小矩形的宽度是x_step，因此可以先对所有矩形的高度进行累加，最后再乘以x_step得到其总面积。
     所有高度的和(y_sum)随着x轴的每次移动而渐次增加。
@@ -262,7 +262,7 @@ def test():
     m = np.shape(data_arr_test)[0]
     predicting10 = ada_classify(data_arr_test, weak_class_arr)
     err_arr = np.mat(np.ones((m, 1)))
-    # 测试：计算总样本数，错误样本数，错误率
+    # 测试: 计算总样本数，错误样本数，错误率
     print(m,
           err_arr[predicting10 != np.mat(label_arr_test).T].sum(),
           err_arr[predicting10 != np.mat(label_arr_test).T].sum() / m

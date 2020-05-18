@@ -94,7 +94,7 @@ def loadDataSet(fileName):
 
 
 def calcEk(oS, k):
-    """calcEk（求 Ek误差：预测值-真实值的差）
+    """calcEk（求 Ek误差: 预测值-真实值的差）
 
     该过程在完整版的SMO算法中陪出现次数较多，因此将其单独作为一个方法
     Args:
@@ -149,10 +149,10 @@ def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
     # print('oS.eCache[%s]=%s' % (i, oS.eCache[i]))
     # print('oS.eCache[:, 0].A=%s' % oS.eCache[:, 0].A.T)
     # """
-    # # 返回非0的：行列值
+    # # 返回非0的: 行列值
     # nonzero(oS.eCache[:, 0].A)= (
-    #     行： array([ 0,  2,  4,  5,  8, 10, 17, 18, 20, 21, 23, 25, 26, 29, 30, 39, 46,52, 54, 55, 62, 69, 70, 76, 79, 82, 94, 97]),
-    #     列： array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0])
+    #     行:  array([ 0,  2,  4,  5,  8, 10, 17, 18, 20, 21, 23, 25, 26, 29, 30, 39, 46,52, 54, 55, 62, 69, 70, 76, 79, 82, 94, 97]),
+    #     列:  array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0])
     # )
     # """
     # print('nonzero(oS.eCache[:, 0].A)=', nonzero(oS.eCache[:, 0].A))
@@ -165,7 +165,7 @@ def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
             if k == i:
                 continue  # don't calc for i, waste of time
 
-            # 求 Ek误差：预测值-真实值的差
+            # 求 Ek误差: 预测值-真实值的差
             Ek = calcEk(oS, k)
             deltaE = abs(Ei - Ek)
             if deltaE > maxDeltaE:
@@ -177,7 +177,7 @@ def selectJ(i, oS, Ei):  # this is the second choice -heurstic, and calcs Ej
     else:  # 如果是第一次循环，则随机选择一个alpha值
         j = selectJrand(i, oS.m)
 
-        # 求 Ek误差：预测值-真实值的差
+        # 求 Ek误差: 预测值-真实值的差
         Ej = calcEk(oS, j)
     return j, Ej
 
@@ -191,7 +191,7 @@ def updateEk(oS, k):
         k   某一列的行号
     """
 
-    # 求 误差：预测值-真实值的差
+    # 求 误差: 预测值-真实值的差
     Ek = calcEk(oS, k)
     oS.eCache[k] = [1, Ek]
 
@@ -222,12 +222,12 @@ def innerL(i, oS):
         1   找到了最优的值，并且oS.Cache到缓存中
     """
 
-    # 求 Ek误差：预测值-真实值的差
+    # 求 Ek误差: 预测值-真实值的差
     Ei = calcEk(oS, i)
 
     # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值)
     # 0<=alphas[i]<=C，但由于0和C是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。
-    # 表示发生错误的概率：labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。
+    # 表示发生错误的概率: labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。
     '''
     # 检验训练样本(xi, yi)是否满足KKT条件
     yi*f(i) >= 1 and alpha = 0 (outside the boundary)
@@ -277,7 +277,7 @@ def innerL(i, oS):
 
         # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
         # w= Σ[1~n] ai*yi*xi => b = yi- Σ[1~n] ai*yi(xi*xj)
-        # 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
+        # 所以:   b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
         # 为什么减2遍？ 因为是 减去Σ[1~n]，正好2个变量i和j，所以减2遍
         b1 = oS.b - Ei - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, i] - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.K[i, j]
         b2 = oS.b - Ej - oS.labelMat[i] * (oS.alphas[i] - alphaIold) * oS.K[i, j] - oS.labelMat[j] * (oS.alphas[j] - alphaJold) * oS.K[j, j]
@@ -315,7 +315,7 @@ def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
     entireSet = True
     alphaPairsChanged = 0
 
-    # 循环遍历：循环maxIter次 并且 （alphaPairsChanged存在可以改变 or 所有行遍历一遍）
+    # 循环遍历: 循环maxIter次 并且 （alphaPairsChanged存在可以改变 or 所有行遍历一遍）
     while (iter < maxIter) and ((alphaPairsChanged > 0) or (entireSet)):
         alphaPairsChanged = 0
         # ----------- 第一种写法 start -------------------------
@@ -389,7 +389,7 @@ def testRbf(k1=1.3):
     for i in range(m):
         kernelEval = kernelTrans(sVs, datMat[i, :], ('rbf', k1))
 
-        # 和这个svm-simple类似： fXi = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[i, :].T)) + b
+        # 和这个svm-simple类似:  fXi = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[i, :].T)) + b
         predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
         if sign(predict) != sign(labelArr[i]):
             errorCount += 1
@@ -471,7 +471,7 @@ def testDigits(kTup=('rbf', 10)):
 
 def plotfig_SVM(xArr, yArr, ws, b, alphas):
     """
-    参考地址：
+    参考地址: 
        http://blog.csdn.net/maoersong/article/details/24315633
        http://www.cnblogs.com/JustForCS/p/5283489.html
        http://blog.csdn.net/kkxgx/article/details/6951959
@@ -532,7 +532,7 @@ if __name__ == "__main__":
     # testRbf(0.8)
 
     # 项目实战
-    # 示例：手写识别问题回顾
+    # 示例: 手写识别问题回顾
     # testDigits(('rbf', 0.1))
     # testDigits(('rbf', 5))
     testDigits(('rbf', 10))

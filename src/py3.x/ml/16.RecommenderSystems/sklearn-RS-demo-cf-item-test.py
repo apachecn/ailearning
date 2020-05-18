@@ -5,8 +5,8 @@ Created on 2015-06-22
 Update  on 2017-05-16
 Author: Lockvictor/片刻
 《推荐系统实践》协同过滤算法源代码
-参考地址：https://github.com/Lockvictor/MovieLens-RecSys
-更新地址：https://github.com/apachecn/AiLearning
+参考地址: https://github.com/Lockvictor/MovieLens-RecSys
+更新地址: https://github.com/apachecn/AiLearning
 '''
 from __future__ import print_function
 import math
@@ -19,7 +19,7 @@ import pandas as pd
 from sklearn import cross_validation as cv
 from sklearn.metrics.pairwise import pairwise_distances
 
-# 作用：使得随机数据可预测
+# 作用: 使得随机数据可预测
 random.seed(0)
 
 
@@ -58,7 +58,7 @@ class ItemBasedCF():
         print('Number of users = ' + str(self.n_users) +
               ' | Number of items = ' + str(self.n_items))
 
-        # 拆分数据集： 用户+电影
+        # 拆分数据集:  用户+电影
         self.train_data, self.test_data = cv.train_test_split(
             df, test_size=test_size)
         print('分离训练集和测试集成功', file=sys.stderr)
@@ -66,7 +66,7 @@ class ItemBasedCF():
         print('len(test) = %s' % np.shape(self.test_data)[0], file=sys.stderr)
 
     def calc_similarity(self):
-        # 创建用户产品矩阵，针对测试数据和训练数据，创建两个矩阵：
+        # 创建用户产品矩阵，针对测试数据和训练数据，创建两个矩阵: 
         self.train_mat = np.zeros((self.n_users, self.n_items))
         for line in self.train_data.itertuples():
             self.train_mat[int(line.user_id) - 1,
@@ -78,7 +78,7 @@ class ItemBasedCF():
                           int(line.item_id) - 1] = float(line.rating)
 
         # 使用sklearn的pairwise_distances函数来计算余弦相似性。
-        print("1:", np.shape(np.mat(self.train_mat).T))  # 行：电影，列：人
+        print("1:", np.shape(np.mat(self.train_mat).T))  # 行: 电影，列: 人
         # 电影-电影-距离(1682, 1682)
         self.item_mat_similarity = pairwise_distances(
             np.mat(self.train_mat).T, metric='cosine')
@@ -117,7 +117,7 @@ class ItemBasedCF():
 
         # 计算top K 电影的相似度
         # rating=电影评分, w=不同电影出现的次数
-        # 耗时分析：98.2%的时间在 line-154行
+        # 耗时分析: 98.2%的时间在 line-154行
         for i_item, rating in watched_items.items():
             i_other_items = np.where(
                 self.item_mat_similarity[i_item, :] != 0)[0]
@@ -150,7 +150,7 @@ class ItemBasedCF():
         popular_sum = 0
 
         # enumerate 将其组成一个索引序列，利用它可以同时获得索引和值
-        # 参考地址：http://blog.csdn.net/churximi/article/details/51648388
+        # 参考地址: http://blog.csdn.net/churximi/article/details/51648388
         for u_index in range(50):
             if u_index > 0 and u_index % 10 == 0:
                 print('recommended for %d users' % u_index, file=sys.stderr)
@@ -190,7 +190,7 @@ if __name__ == '__main__':
 
     # 创建ItemCF对象
     itemcf = ItemBasedCF()
-    # 将数据按照 7:3的比例，拆分成：训练集和测试集，存储在usercf的trainset和testset中
+    # 将数据按照 7:3的比例，拆分成: 训练集和测试集，存储在usercf的trainset和testset中
     itemcf.splitData(dataFile, test_size=0.3)
     # 计算用户之间的相似度
     itemcf.calc_similarity()

@@ -23,7 +23,7 @@ def test():
     m = np.shape(data_arr_test)[0]
     predicting10 = ada_classify(data_arr_test, weak_class_arr)
     err_arr = np.mat(np.ones((m, 1)))
-    # 测试：计算总样本数，错误样本数，错误率
+    # 测试: 计算总样本数，错误样本数，错误率
     print(m,
           err_arr[predicting10 != np.mat(label_arr_test).T].sum(),
           err_arr[predicting10 != np.mat(label_arr_test).T].sum() / m

@@ -2,7 +2,7 @@
 
 ## 介绍
 
-**需要复习** 手写 Word2Vec 源码：https://blog.csdn.net/u014595019/article/details/51943428
+**需要复习** 手写 Word2Vec 源码: https://blog.csdn.net/u014595019/article/details/51943428
 
 * 2013年，Google开源了一款用于词向量计算的工具—— `word2vec`，引起了工业界和学术界的关注。
 * `word2vec` 算法或模型的时候，其实指的是其背后用于计算 **word vector** 的 `CBoW` 模型和 `Skip-gram` 模型
@@ -32,17 +32,17 @@
 ![Skip-gram 模型/img/NLP/Word2Vce/Skip-gram.png)
 
 
-明天看看这个案例：https://blog.csdn.net/lyb3b3b/article/details/72897952
+明天看看这个案例: https://blog.csdn.net/lyb3b3b/article/details/72897952
 
 
-## 补充：NPLM - Ngram 模型
+## 补充: NPLM - Ngram 模型
 
-* n-gram 模型是一种近似策略，作了一个马尔可夫假设：认为目标词的条件概率只与其之前的 n 个词有关
+* n-gram 模型是一种近似策略，作了一个马尔可夫假设: 认为目标词的条件概率只与其之前的 n 个词有关
 * NPLM基于 n-gram, 相当于目标词只有上文。
 
 
 * * *
 
-参考资料：
+参考资料: 
 
 1. https://www.cnblogs.com/iloveai/p/word2vec.html

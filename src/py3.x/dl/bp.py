@@ -131,7 +131,7 @@ class Node(object):
         Returns:
             None
         '''
-        # 打印格式：第几层 - 第几个节点，output 是多少，delta 是多少
+        # 打印格式: 第几层 - 第几个节点，output 是多少，delta 是多少
         node_str = '%u-%u: output: %f delta: %f' % (self.layer_index, self.node_index, self.output, self.delta)
         # 下游节点
         downstream_str = reduce(lambda ret, conn: ret + '\n\t' + str(conn), self.downstream, '')
@@ -348,7 +348,7 @@ class Connection(object):
         Returns:
             连接信息进行返回
         '''
-        # 格式为：上游节点的层的索引+上游节点的节点索引 ---> 下游节点的层的索引+下游节点的节点索引，最后一个数是权重
+        # 格式为: 上游节点的层的索引+上游节点的节点索引 ---> 下游节点的层的索引+下游节点的节点索引，最后一个数是权重
         return '(%u-%u) -> (%u-%u) = %f' % (
             self.upstream_node.layer_index, 
             self.upstream_node.node_index,
@@ -491,7 +491,7 @@ class Network(object):
         for i in range(len(label)):
             # 计算输出层节点的 delta
             output_nodes[i].calc_output_layer_delta(label[i])
-        # 这个用法就是切片的用法， [-2::-1] 就是将 layers 这个数组倒过来，从没倒过来的时候的倒数第二个元素开始，到翻转过来的倒数第一个数，比如这样：aaa = [1,2,3,4,5,6,7,8,9],bbb = aaa[-2::-1] ==> bbb = [8, 7, 6, 5, 4, 3, 2, 1]
+        # 这个用法就是切片的用法， [-2::-1] 就是将 layers 这个数组倒过来，从没倒过来的时候的倒数第二个元素开始，到翻转过来的倒数第一个数，比如这样: aaa = [1,2,3,4,5,6,7,8,9],bbb = aaa[-2::-1] ==> bbb = [8, 7, 6, 5, 4, 3, 2, 1]
         # 实际上就是除掉输出层之外的所有层按照相反的顺序进行遍历
         for layer in self.layers[-2::-1]:
             # 遍历每层的所有节点
@@ -587,7 +587,7 @@ class Network(object):
 
 # # ------------------------- 至此，基本上我们把 我们的神经网络实现完成，下面还会介绍一下对应的梯度检查相关的算法，现在我们首先回顾一下我们上面写道的类及他们的作用 ------------------------
 '''
-1、节点类的实现 Node ：负责记录和维护节点自身信息以及这个节点相关的上下游连接，实现输出值和误差项的计算。如下：
+1、节点类的实现 Node : 负责记录和维护节点自身信息以及这个节点相关的上下游连接，实现输出值和误差项的计算。如下: 
 layer_index --- 节点所属的层的编号
 node_index --- 节点的编号
 downstream --- 下游节点
@@ -595,7 +595,7 @@ upstream  ---- 上游节点
 output    ---- 节点的输出值
 delta   ------ 节点的误差项
 
-2、ConstNode 类，偏置项类的实现：实现一个输出恒为 1 的节点（计算偏置项的时候会用到），如下：
+2、ConstNode 类，偏置项类的实现: 实现一个输出恒为 1 的节点（计算偏置项的时候会用到），如下: 
 layer_index --- 节点所属层的编号
 node_index ---- 节点的编号
 downstream ---- 下游节点
@@ -608,7 +608,7 @@ node_count ----- 层所包含的节点的个数
 def set_ouput() -- 设置层的输出，当层是输入层时会用到
 def calc_output -- 计算层的输出向量，调用的 Node 类的 计算输出 方法
 
-4、Connection 类：负责记录连接的权重，以及这个连接所关联的上下游节点，如下：
+4、Connection 类: 负责记录连接的权重，以及这个连接所关联的上下游节点，如下: 
 upstream_node --- 连接的上游节点
 downstream_node -- 连接的下游节点
 weight   -------- random.uniform(-0.1, 0.1) 初始化为一个很小的随机数
@@ -617,10 +617,10 @@ def calc_gradient() --- 计算梯度，使用的是下游节点的 delta 与上�
 def get_gradient() ---- 获取当前的梯度
 def update_weight() --- 根据梯度下降算法更新权重
 
-5、Connections 类：提供对 Connection 集合操作，如下：
+5、Connections 类: 提供对 Connection 集合操作，如下: 
 def add_connection() --- 添加一个 connection
 
-6、Network 类：提供相应的 API，如下：
+6、Network 类: 提供相应的 API，如下: 
 connections --- Connections 对象
 layers -------- 神经网络的层
 layer_count --- 神经网络的层数

@@ -1,8 +1,22 @@
 # *-* coding:utf-8 *-*
 '''
-@author: ioiogoo
-@date: 2018/1/31 19:28
+@author: 片刻
+@date: 20200428 11:02
 '''
+
+
+class Bert(object):
+    DEBUG = True
+    path_root = "/home/wac/jiangzhonglian"
+    if DEBUG:
+        path_root = "/opt/data/nlp/开源词向量/bert官方版预训练模型"
+
+    dict_path = '%s/chinese_L-12_H-768_A-12/vocab.txt' % path_root
+    path_config = '%s/chinese_L-12_H-768_A-12/bert_config.json' % path_root
+    path_checkpoint = '%s/chinese_L-12_H-768_A-12/bert_model.ckpt' % path_root
+    maxlen = 100
+    path_neg = "Emotion/neg.xlsx"
+    path_pos = "Emotion/pos.xlsx"
 
 
 class Config(object):
@@ -19,3 +33,5 @@ class Config(object):
     pre_num = 3
     MAX_SEQUENCE_LENGTH = 1000  # 每个文本或者句子的截断长度，只保留1000个单词
     EMBEDDING_DIM = 60 # 词向量维度
+
+    bert = Bert()

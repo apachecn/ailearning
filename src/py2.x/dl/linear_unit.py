@@ -79,7 +79,7 @@ def plot(linear_unit):
     '''
     # 引入绘图的库
     import matplotlib.pyplot as plt
-    # 获取训练数据：特征 input_vecs 与 对应的标签 labels
+    # 获取训练数据: 特征 input_vecs 与 对应的标签 labels
     input_vecs, labels = get_training_dataset()
     # figure() 创建一个 Figure 对象，与用户交互的整个窗口，这个 figure 中容纳着 subplots
     fig = plt.figure()

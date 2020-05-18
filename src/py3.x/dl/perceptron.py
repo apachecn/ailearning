@@ -58,7 +58,7 @@ class Perceptron(object):
         # reduce() 函数是 python 2 的内置函数，从 python 3 开始移到了 functools 模块
         # reduce() 从左到右对一个序列的项累计地应用有两个参数的函数，以此合并序列到一个单一值，例如 reduce(lambda x,y: x+y, [1,2,3,4,5]) 计算的就是 ((((1+2)+3)+4)+5)
         # map() 接收一个函数 f 和一个 list ，并通过把函数 f 依次作用在 list 的每个元素上，得到一个新的 list 返回。比如我们的 f 函数是计算平方， map(f, [1,2,3,4,5]) ===> 返回 [1,4,9,16,25]
-        # zip() 接收任意多个（包括 0 个和 1个）序列作为参数，返回一个 tuple 列表。例：x = [1,2,3] y = [4,5,6] z = [7,8,9] xyz = zip(x, y, z) ===> [(1,4,7), (2,5,8), (3,6,9)]
+        # zip() 接收任意多个（包括 0 个和 1个）序列作为参数，返回一个 tuple 列表。例: x = [1,2,3] y = [4,5,6] z = [7,8,9] xyz = zip(x, y, z) ===> [(1,4,7), (2,5,8), (3,6,9)]
 
         pack = zip(input_vec,self.weights)
         multi = []
@@ -73,7 +73,7 @@ class Perceptron(object):
     def train(self,input_vecs,labels,iteration,rate):
         '''
         Desc:
-            输入训练数据：一组向量、与每个向量对应的 label; 以及训练轮数、学习率
+            输入训练数据: 一组向量、与每个向量对应的 label; 以及训练轮数、学习率
         Args:
             input_vec —— 输入向量
             labels —— 数据对应的标签
@@ -96,7 +96,7 @@ class Perceptron(object):
         Returns:
             None
         '''
-        # zip() 接收任意多个（包括 0 个和 1个）序列作为参数，返回一个 tuple 列表。例：x = [1,2,3] y = [4,5,6] z = [7,8,9] xyz = zip(x, y, z) ===> [(1,4,7), (2,5,8), (3,6,9)]
+        # zip() 接收任意多个（包括 0 个和 1个）序列作为参数，返回一个 tuple 列表。例: x = [1,2,3] y = [4,5,6] z = [7,8,9] xyz = zip(x, y, z) ===> [(1,4,7), (2,5,8), (3,6,9)]
         samples = zip(input_vecs, labels)
         # 对每个样本，按照感知器规则更新权重
         for (input_vec, label) in samples:
@@ -121,7 +121,7 @@ class Perceptron(object):
         
         delta = labels -output
         # map() 接收一个函数 f 和一个 list ，并通过把函数 f 依次作用在 list 的每个元素上，得到一个新的 list 返回。比如我们的 f 函数是计算平方， map(f, [1,2,3,4,5]) ===> 返回 [1,4,9,16,25]
-        # zip() 接收任意多个（包括 0 个和 1个）序列作为参数，返回一个 tuple 列表。例：x = [1,2,3] y = [4,5,6] z = [7,8,9] xyz = zip(x, y, z) ===> [(1,4,7), (2,5,8), (3,6,9)]
+        # zip() 接收任意多个（包括 0 个和 1个）序列作为参数，返回一个 tuple 列表。例: x = [1,2,3] y = [4,5,6] z = [7,8,9] xyz = zip(x, y, z) ===> [(1,4,7), (2,5,8), (3,6,9)]
         # 此处python3必须对map函数进行list操作，不然 self.weights为map类型，最后无法打印出具体数值
         pack  = zip(input_vecs,self.weights)
         tmp = []

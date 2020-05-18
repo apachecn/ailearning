@@ -4,7 +4,7 @@
 """
 Created on 2017-06-29
 Updated on 2017-06-29
-DecisionTree：决策树
+DecisionTree: 决策树
 Author: 小瑶
 GitHub: https://github.com/apachecn/AiLearning
 """

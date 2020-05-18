@@ -16,7 +16,7 @@
 * **我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！**
 * **ApacheCN - 学习群【724187166】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=51040bbd0bf7d0efbfa7256a0331d912a2055a906c324d52b02371d06f3c9878"><img border="0" src="http://data.apachecn.org/img/logo/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[724187166]" title="ApacheCN - 学习机器学习群[724187166]"></a>**
 
-> **欢迎任何人参与和完善：一个人可以走的很快，但是一群人却可以走的更远**
+> **欢迎任何人参与和完善: 一个人可以走的很快，但是一群人却可以走的更远**
 
 # 路线图
 
@@ -33,7 +33,7 @@
 * 机器学习下载地址: <https://github.com/apachecn/data/tree/master/机器学习>
 * 深度学习数据地址: <https://github.com/apachecn/data/tree/master/深度学习>
 * 推荐系统数据地址: <https://github.com/apachecn/data/tree/master/推荐系统>
-* 视频网站：优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
+* 视频网站: 优酷 ／bilibili / Acfun / 网易云课堂，可直接在线播放。（最下方有相应链接）
 * -- 推荐 [红色石头](https://github.com/RedstoneWill): [台湾大学林轩田机器学习笔记](https://github.com/apachecn/ntu-hsuantienlin-ml)
 * -- 推荐 [机器学习笔记](https://feisky.xyz/machine-learning): https://feisky.xyz/machine-learning
 
@@ -175,11 +175,11 @@
 
 当然我知道，第一句就会被吐槽，因为科班出身的人，不屑的吐了一口唾沫，说傻X，还评论 Andrew Ng 的视频。。
 
-我还知道还有一部分人，看 Andrew Ng 的视频就是看不懂，那神秘的数学推导，那迷之微笑的英文版的教学，我何尝又不是这样走过来的？？ 我的心可能比你们都痛，因为我在网上收藏过上10部《机器学习》相关视频，外加国内本土风格的教程：7月+小象 等等，我都很难去听懂，直到有一天，被一个百度的高级算法分析师推荐说：《机器学习实战》还不错，通俗易懂，你去试试？？
+我还知道还有一部分人，看 Andrew Ng 的视频就是看不懂，那神秘的数学推导，那迷之微笑的英文版的教学，我何尝又不是这样走过来的？？ 我的心可能比你们都痛，因为我在网上收藏过上10部《机器学习》相关视频，外加国内本土风格的教程: 7月+小象 等等，我都很难去听懂，直到有一天，被一个百度的高级算法分析师推荐说: 《机器学习实战》还不错，通俗易懂，你去试试？？
 
 我试了试，还好我的Python基础和调试能力还不错，基本上代码都调试过一遍，很多高大上的 "理论+推导"，在我眼中变成了几个 "加减乘除+循环"，我想这不就是像我这样的程序员想要的入门教程么？
 
-很多程序员说机器学习 TM 太难学了，是的，真 TM 难学，我想最难的是：没有一本像《机器学习实战》那样的作者愿意以程序员 Coding 角度去给大家讲解！！
+很多程序员说机器学习 TM 太难学了，是的，真 TM 难学，我想最难的是: 没有一本像《机器学习实战》那样的作者愿意以程序员 Coding 角度去给大家讲解！！
 
 最近几天，GitHub 涨了 300颗 star，加群的200人， 现在还在不断的增加++，我想大家可能都是感同身受吧！
 
@@ -265,15 +265,15 @@ WordNet可以被看作是一个同义词词典
 ```python
 自从学习NLP以后，才发现国内与国外的典型区别:
 1. 对资源的态度是完全相反的:
-  1) 国内：就好像为了名气，举办工作装逼的会议，就是没有干货，全部都是象征性的PPT介绍，不是针对在做的各位
-  2）国外：就好像是为了推动nlp进步一样，分享者各种干货资料和具体的实现。（特别是: python自然语言处理）
-2. 论文的实现：
+  1) 国内: 就好像为了名气，举办工作装逼的会议，就是没有干货，全部都是象征性的PPT介绍，不是针对在做的各位
+  2）国外: 就好像是为了推动nlp进步一样，分享者各种干货资料和具体的实现。（特别是: python自然语言处理）
+2. 论文的实现: 
   1) 各种高大上的论文实现，却还是没看到一个像样的GitHub项目！（可能我的搜索能力差了点，一直没找到）
   2）国外就不举例了，我看不懂！
 3. 开源的框架
-  1）国外的开源框架： tensorflow/pytorch 文档+教程+视频（官方提供）
+  1）国外的开源框架:  tensorflow/pytorch 文档+教程+视频（官方提供）
   2) 国内的开源框架: 额额，还真举例不出来！但是牛逼吹得不比国外差！（MXNet虽然有众多国人参与开发，但不能算是国内开源框架。基于MXNet的动手学深度学习(http://zh.d2l.ai & https://discuss.gluon.ai/t/topic/753)中文教程,已经由沐神(李沐)以及阿斯顿·张讲授录制，公开发布(文档+第一季教程+视频）。)
-每一次深入都要去翻墙，每一次深入都要Google，每一次看着国内的说：哈工大、讯飞、中科大、百度、阿里多牛逼，但是资料还是得国外去找！
+每一次深入都要去翻墙，每一次深入都要Google，每一次看着国内的说: 哈工大、讯飞、中科大、百度、阿里多牛逼，但是资料还是得国外去找！
 有时候真的挺恨的！真的有点瞧不起自己国内的技术环境！
 
 当然谢谢国内很多博客大佬，特别是一些入门的Demo和基本概念。【深入的水平有限，没看懂】
@@ -318,7 +318,7 @@ WordNet可以被看作是一个同义词词典
 
 ### 应用领域
 
-#### 中文分词：
+#### 中文分词: 
 
 * 构建DAG图
 * 动态规划查找，综合正反向（正向加权反向输出）求得DAG最大概率路径
@@ -334,19 +334,19 @@ WordNet可以被看作是一个同义词词典
 2. [IMDB电影评论情感分类（斯坦福）](http://ai.stanford.edu/~amaas/data/sentiment)。来自网站imdb.com的一系列电影评论及其积极或消极的情绪。
 3. [新闻组电影评论情感分类（康奈尔）](http://www.cs.cornell.edu/people/pabo/movie-review-data/)。来自网站imdb.com的一系列电影评论及其积极或消极的情绪。
 
-有关更多信息，请参阅帖子：
+有关更多信息，请参阅帖子: 
 [单标签文本分类的数据集](http://ana.cachopo.org/datasets-for-single-label-text-categorization)。
 
 > 情感分析
 
 比赛地址: https://www.kaggle.com/c/word2vec-nlp-tutorial
 
-* 方案一(0.86)：WordCount + 朴素 Bayes
-* 方案二(0.94)：LDA + 分类模型（knn/决策树/逻辑回归/svm/xgboost/随机森林）
+* 方案一(0.86): WordCount + 朴素 Bayes
+* 方案二(0.94): LDA + 分类模型（knn/决策树/逻辑回归/svm/xgboost/随机森林）
   * a) 决策树效果不是很好，这种连续特征不太适合的
   * b) 通过参数调整 200 个topic，信息量保存效果较优（计算主题）
-* 方案三(0.72)：word2vec + CNN
-  * 说实话：没有一个好的机器，是调不出来一个好的结果 (: 逃
+* 方案三(0.72): word2vec + CNN
+  * 说实话: 没有一个好的机器，是调不出来一个好的结果 (: 逃
 
 **通过AUC 来评估模型的效果**
 
@@ -359,7 +359,7 @@ WordNet可以被看作是一个同义词词典
 下面是一些很好的初学者语言建模数据集。
 
 1. [古腾堡项目](https://www.gutenberg.org/)，一系列免费书籍，可以用纯文本检索各种语言。
-2. 还有更多正式的语料库得到了很好的研究; 例如：
+2. 还有更多正式的语料库得到了很好的研究; 例如: 
     [布朗大学现代美国英语标准语料库](https://en.wikipedia.org/wiki/Brown_Corpus)。大量英语单词样本。
     [谷歌10亿字语料库](https://github.com/ciprian-chelba/1-billion-word-language-modeling-benchmark)。
 
@@ -387,7 +387,7 @@ mage字幕是为给定图像生成文本描述的任务。
 1. [上下文中的公共对象（COCO）](http://mscoco.org/dataset/#overview)。包含超过12万张带描述的图像的集合
 2. [Flickr 8K](http://nlp.cs.illinois.edu/HockenmaierGroup/8k-pictures.html)。从flickr.com获取的8千个描述图像的集合。
 3. [Flickr 30K](http://shannon.cs.illinois.edu/DenotationGraph/)。从flickr.com获取的3万个描述图像的集合。
-    欲了解更多，请看帖子：
+    欲了解更多，请看帖子: 
 
 [探索图像字幕数据集，2016年](http://sidgan.me/technical/2016/01/09/Exploring-Datasets)
 
@@ -399,7 +399,7 @@ mage字幕是为给定图像生成文本描述的任务。
 
 1. [加拿大第36届议会的协调国会议员](https://www.isi.edu/natural-language/download/hansard/)。成对的英语和法语句子。
 2. [欧洲议会诉讼平行语料库1996-2011](http://www.statmt.org/europarl/)。句子对一套欧洲语言。
-    有大量标准数据集用于年度机器翻译挑战; 看到：
+    有大量标准数据集用于年度机器翻译挑战; 看到: 
 
 [统计机器翻译](http://www.statmt.org/)
 
@@ -417,9 +417,9 @@ mage字幕是为给定图像生成文本描述的任务。
 1. [斯坦福问题回答数据集（SQuAD）](https://rajpurkar.github.io/SQuAD-explorer/)。回答有关维基百科文章的问题。
 2. [Deepmind问题回答语料库](https://github.com/deepmind/rc-data)。从每日邮报回答有关新闻文章的问题。
 3. [亚马逊问答数据](http://jmcauley.ucsd.edu/data/amazon/qa/)。回答有关亚马逊产品的问题。
-    有关更多信息，请参阅帖子：
+    有关更多信息，请参阅帖子: 
 
-[数据集：我如何获得问答网站的语料库，如Quora或Yahoo Answers或Stack Overflow来分析答案质量？](https://www.quora.com/Datasets-How-can-I-get-corpus-of-a-question-answering-website-like-Quora-or-Yahoo-Answers-or-Stack-Overflow-for-analyzing-answer-quality)
+[数据集: 我如何获得问答网站的语料库，如Quora或Yahoo Answers或Stack Overflow来分析答案质量？](https://www.quora.com/Datasets-How-can-I-get-corpus-of-a-question-answering-website-like-Quora-or-Yahoo-Answers-or-Stack-Overflow-for-analyzing-answer-quality)
 
 #### 6.语音识别（Speech Recognition）
 
@@ -440,7 +440,7 @@ mage字幕是为给定图像生成文本描述的任务。
 1. [法律案例报告数据集](https://archive.ics.uci.edu/ml/datasets/Legal+Case+Reports)。收集了4000份法律案件及其摘要。
 2. [TIPSTER文本摘要评估会议语料库](http://www-nlpir.nist.gov/related_projects/tipster_summac/cmp_lg.html)。收集了近200份文件及其摘要。
 3. [英语新闻文本的AQUAINT语料库](https://catalog.ldc.upenn.edu/LDC2002T31)。不是免费的，而是广泛使用的。新闻文章的语料库。
-    欲了解更多信息：
+    欲了解更多信息: 
 
 [文档理解会议（DUC）任务](http://www-nlpir.nist.gov/projects/duc/data.html)。
 [在哪里可以找到用于文本摘要的良好数据集？](https://www.quora.com/Where-can-I-find-good-data-sets-for-text-summarization)
@@ -474,7 +474,7 @@ mage字幕是为给定图像生成文本描述的任务。
 如果您希望更深入，本节提供了其他数据集列表。
 
 1. [维基百科研究中使用的文本数据集](https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research#Text_data)
-2. [数据集：计算语言学家和自然语言处理研究人员使用的主要文本语料库是什么？](https://www.quora.com/Datasets-What-are-the-major-text-corpora-used-by-computational-linguists-and-natural-language-processing-researchers-and-what-are-the-characteristics-biases-of-each-corpus)
+2. [数据集: 计算语言学家和自然语言处理研究人员使用的主要文本语料库是什么？](https://www.quora.com/Datasets-What-are-the-major-text-corpora-used-by-computational-linguists-and-natural-language-processing-researchers-and-what-are-the-characteristics-biases-of-each-corpus)
 3. [斯坦福统计自然语言处理语料库](https://nlp.stanford.edu/links/statnlp.html#Corpora)
 4. [按字母顺序排列的NLP数据集列表](https://github.com/niderhoff/nlp-datasets)
 5. [该机构NLTK](http://www.nltk.org/nltk_data/)

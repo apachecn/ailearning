@@ -105,7 +105,7 @@ def plot_best_fit(weights):
     dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])
     w0*x0+w1*x1+w2*x2=f(x)
     x0最开始就设置为1叻， x2就是我们画图的y值，而f(x)被我们磨合误差给算到w0,w1,w2身上去了
-    所以： w0+w1*x+w2*y=0 => y = (-w0-w1*x)/w2   
+    所以:  w0+w1*x+w2*y=0 => y = (-w0-w1*x)/w2   
     """
     ax.plot(x, y)
     plt.xlabel('x1')

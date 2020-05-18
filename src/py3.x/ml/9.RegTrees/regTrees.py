@@ -15,7 +15,7 @@ from numpy import *
 # general function to parse tab -delimited floats
 def loadDataSet(fileName):
     """loadDataSet(解析每一行，并转化为float类型)
-        Desc：该函数读取一个以 tab 键为分隔符的文件，然后将每行的内容保存成一组浮点数
+        Desc: 该函数读取一个以 tab 键为分隔符的文件，然后将每行的内容保存成一组浮点数
     Args:
         fileName 文件名
     Returns:
@@ -36,7 +36,7 @@ def loadDataSet(fileName):
 
 def binSplitDataSet(dataSet, feature, value):
     """binSplitDataSet(将数据集，按照feature列的value进行 二元切分)
-        Description：在给定特征和特征值的情况下，该函数通过数组过滤方式将上述数据集合切分得到两个子集并返回。
+        Description: 在给定特征和特征值的情况下，该函数通过数组过滤方式将上述数据集合切分得到两个子集并返回。
     Args:
         dataMat 数据集
         feature 待切分的特征列
@@ -60,13 +60,13 @@ def binSplitDataSet(dataSet, feature, value):
 
 # 返回每一个叶子结点的均值
 # returns the value used for each leaf
-# 我的理解是：regLeaf 是产生叶节点的函数，就是求均值，即用聚类中心点来代表这类数据
+# 我的理解是: regLeaf 是产生叶节点的函数，就是求均值，即用聚类中心点来代表这类数据
 def regLeaf(dataSet):
     return mean(dataSet[:, -1])
 
 
 # 计算总方差=方差*样本数
-# 我的理解是：求这组数据的方差，即通过决策树划分，可以让靠近的数据分到同一类中去
+# 我的理解是: 求这组数据的方差，即通过决策树划分，可以让靠近的数据分到同一类中去
 def regErr(dataSet):
     # shape(dataSet)[0] 表示行数
     return var(dataSet[:, -1]) * shape(dataSet)[0]
@@ -138,7 +138,7 @@ def chooseBestSplit(dataSet, leafType=regLeaf, errType=regErr, ops=(1, 4)):
 # 假设 dataSet 是 NumPy Mat 类型的，那么我们可以进行 array 过滤
 def createTree(dataSet, leafType=regLeaf, errType=regErr, ops=(1, 4)):
     """createTree(获取回归树)
-        Description：递归函数：如果构建的是回归树，该模型是一个常数，如果是模型树，其模型师一个线性方程。
+        Description: 递归函数: 如果构建的是回归树，该模型是一个常数，如果是模型树，其模型师一个线性方程。
     Args:
         dataSet      加载的原始数据集
         leafType     建立叶子点的函数
@@ -147,7 +147,7 @@ def createTree(dataSet, leafType=regLeaf, errType=regErr, ops=(1, 4)):
     Returns:
         retTree    决策树最后的结果
     """
-    # 选择最好的切分方式： feature索引值，最优切分值
+    # 选择最好的切分方式:  feature索引值，最优切分值
     # choose the best split
     feat, val = chooseBestSplit(dataSet, leafType, errType, ops)
     # if the splitting hit a stop condition return val
@@ -227,7 +227,7 @@ def prune(tree, testData):
     # 1. 如果正确 
     #   * 那么计算一下总方差 和 该结果集的本身不分枝的总方差比较
     #   * 如果 合并的总方差 < 不合并的总方差，那么就进行合并
-    # 注意返回的结果： 如果可以合并，原来的dict就变为了 数值
+    # 注意返回的结果:  如果可以合并，原来的dict就变为了 数值
     if not isTree(tree['left']) and not isTree(tree['right']):
         lSet, rSet = binSplitDataSet(testData, tree['spInd'], tree['spVal'])
         # power(x, y)表示x的y次方
@@ -244,7 +244,7 @@ def prune(tree, testData):
         return tree
 
 
-# 得到模型的ws系数：f(x) = x0 + x1*featrue1+ x3*featrue2 ...
+# 得到模型的ws系数: f(x) = x0 + x1*featrue1+ x3*featrue2 ...
 # create linear model and return coeficients
 def modelLeaf(dataSet):
     """
@@ -408,13 +408,13 @@ if __name__ == "__main__":
     # myTree = createTree(myMat)
     # print myTree
 
-    # # 1. 预剪枝就是：提起设置最大误差数和最少元素数
+    # # 1. 预剪枝就是: 提起设置最大误差数和最少元素数
     # myDat = loadDataSet('data/9.RegTrees/data3.txt')
     # myMat = mat(myDat)
     # myTree = createTree(myMat, ops=(0, 1))
     # print myTree
 
-    # # 2. 后剪枝就是：通过测试数据，对预测模型进行合并判断
+    # # 2. 后剪枝就是: 通过测试数据，对预测模型进行合并判断
     # myDatTest = loadDataSet('data/9.RegTrees/data3test.txt')
     # myMat2Test = mat(myDatTest)
     # myFinalTree = prune(myTree, myMat2Test)

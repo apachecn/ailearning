@@ -25,12 +25,12 @@ def splitData(dataFile, test_size):
     print('Number of users = ' + str(n_users) + ' | Number of movies = ' +
           str(n_items))
     train_data, test_data = cv.train_test_split(df, test_size=test_size)
-    print("数据量：", len(train_data), len(test_data))
+    print("数据量: ", len(train_data), len(test_data))
     return df, n_users, n_items, train_data, test_data
 
 
 def calc_similarity(n_users, n_items, train_data, test_data):
-    # 创建用户产品矩阵，针对测试数据和训练数据，创建两个矩阵：
+    # 创建用户产品矩阵，针对测试数据和训练数据，创建两个矩阵: 
     train_data_matrix = np.zeros((n_users, n_items))
     for line in train_data.itertuples():
         train_data_matrix[line[1] - 1, line[2] - 1] = line[3]
@@ -39,8 +39,8 @@ def calc_similarity(n_users, n_items, train_data, test_data):
         test_data_matrix[line[1] - 1, line[2] - 1] = line[3]
 
     # 使用sklearn的pairwise_distances函数来计算余弦相似性。
-    print("1:", np.shape(train_data_matrix))  # 行：人，列：电影
-    print("2:", np.shape(train_data_matrix.T))  # 行：电影，列：人
+    print("1:", np.shape(train_data_matrix))  # 行: 人，列: 电影
+    print("2:", np.shape(train_data_matrix.T))  # 行: 电影，列: 人
 
     user_similarity = pairwise_distances(train_data_matrix, metric="cosine")
     item_similarity = pairwise_distances(train_data_matrix.T, metric="cosine")
@@ -80,7 +80,7 @@ def predict(rating, similarity, type='user'):
         pred = mean_user_rating[:, np.newaxis] + similarity.dot(
             rating_diff) / np.array([np.abs(similarity).sum(axis=1)]).T
     elif type == 'item':
-        # 综合打分： 人-电影-评分(943, 1682)*电影-电影-距离(1682, 1682)=结果-人-电影(各个电影对同一电影的综合得分)(943, 1682)  ／  再除以  电影与其他电影总的距离 = 人-电影综合得分
+        # 综合打分:  人-电影-评分(943, 1682)*电影-电影-距离(1682, 1682)=结果-人-电影(各个电影对同一电影的综合得分)(943, 1682)  ／  再除以  电影与其他电影总的距离 = 人-电影综合得分
         pred = rating.dot(similarity) / np.array(
             [np.abs(similarity).sum(axis=1)])
     return pred
@@ -135,8 +135,8 @@ def recommend(u_index, prediction):
         reverse=True)[:10]
     test_items = np.where(test_data_matrix[u_index, :] != 0)[0]
 
-    print('原始结果：', test_items)
-    print('推荐结果：', [key for key, value in pre_items])
+    print('原始结果: ', test_items)
+    print('推荐结果: ', [key for key, value in pre_items])
 
 
 if __name__ == "__main__":
@@ -156,7 +156,7 @@ if __name__ == "__main__":
     item_prediction = predict(train_data_matrix, item_similarity, type='item')
     user_prediction = predict(train_data_matrix, user_similarity, type='user')
 
-    # 评估：均方根误差
+    # 评估: 均方根误差
     print(
         'Item based CF RMSE: ' + str(rmse(item_prediction, test_data_matrix)))
     print(
@@ -177,7 +177,7 @@ if __name__ == "__main__":
         'Model based CF RMSE: ' + str(rmse(svd_prediction, test_data_matrix)))
     """
     在信息量相同的情况下，矩阵越小，那么携带的信息越可靠。
-    所以：user-cf 推荐效果高于 item-cf； 而svd分解后，发现15个维度效果就能达到90%以上，所以信息更可靠，效果也更好。
+    所以: user-cf 推荐效果高于 item-cf； 而svd分解后，发现15个维度效果就能达到90%以上，所以信息更可靠，效果也更好。
     item-cf: 1682
     user-cf: 943
     svd: 15

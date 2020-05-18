@@ -19,9 +19,9 @@ import urllib.request   # 在Python3中将urllib2和urllib3合并为一个标准
 def loadDataSet(fileName):
     """ 加载数据
         解析以tab键分隔的文件中的浮点数
-    Returns：
-        dataMat ：  feature 对应的数据集
-        labelMat ： feature 对应的分类标签，即类别标签
+    Returns: 
+        dataMat :   feature 对应的数据集
+        labelMat :  feature 对应的分类标签，即类别标签
     """
     # 获取样本特征的总数，不算最后的目标变量
     numFeat = len(open(fileName).readline().split('\t')) - 1
@@ -46,13 +46,13 @@ def loadDataSet(fileName):
 
 def standRegres(xArr, yArr):
     '''
-    Description：
+    Description: 
         线性回归
     Args:
-        xArr ：输入的样本数据，包含每个样本数据的 feature
-        yArr ：对应于输入数据的类别标签，也就是每个样本对应的目标变量
+        xArr : 输入的样本数据，包含每个样本数据的 feature
+        yArr : 对应于输入数据的类别标签，也就是每个样本对应的目标变量
     Returns:
-        ws：回归系数
+        ws: 回归系数
     '''
 
     # mat()函数将xArr，yArr转换为矩阵 mat().T 代表的是对矩阵进行转置操作
@@ -74,20 +74,20 @@ def standRegres(xArr, yArr):
 
 def lwlr(testPoint, xArr, yArr, k=1.0):
     '''
-        Description：
+        Description: 
             局部加权线性回归，在待预测点附近的每个点赋予一定的权重，在子集上基于最小均方差来进行普通的回归。
-        Args：
-            testPoint：样本点
-            xArr：样本的特征数据，即 feature
-            yArr：每个样本对应的类别标签，即目标变量
+        Args: 
+            testPoint: 样本点
+            xArr: 样本的特征数据，即 feature
+            yArr: 每个样本对应的类别标签，即目标变量
             k:关于赋予权重矩阵的核的一个参数，与权重的衰减速率有关
         Returns:
-            testPoint * ws：数据点与具有权重的系数相乘得到的预测点
+            testPoint * ws: 数据点与具有权重的系数相乘得到的预测点
         Notes:
             这其中会用到计算权重的公式，w = e^((x^((i))-x) / -2k^2)
-            理解：x为某个预测点，x^((i))为样本点，样本点距离预测点越近，贡献的误差越大（权值越大），越远则贡献的误差越小（权值越小）。
+            理解: x为某个预测点，x^((i))为样本点，样本点距离预测点越近，贡献的误差越大（权值越大），越远则贡献的误差越小（权值越小）。
             关于预测点的选取，在我的代码中取的是样本点。其中k是带宽参数，控制w（钟形函数）的宽窄程度，类似于高斯函数的标准差。
-            算法思路：假设预测点取样本点中的第i个样本点（共m个样本点），遍历1到m个样本点（含第i个），算出每一个样本点与预测点的距离，
+            算法思路: 假设预测点取样本点中的第i个样本点（共m个样本点），遍历1到m个样本点（含第i个），算出每一个样本点与预测点的距离，
             也就可以计算出每个样本贡献误差的权值，可以看出w是一个有m个元素的向量（写成对角阵形式）。
     '''
     # mat() 函数是将array转换为矩阵的函数， mat().T 是转换为矩阵之后，再进行转置操作
@@ -115,15 +115,15 @@ def lwlr(testPoint, xArr, yArr, k=1.0):
 
 def lwlrTest(testArr, xArr, yArr, k=1.0):
     '''
-        Description：
+        Description: 
             测试局部加权线性回归，对数据集中每个点调用 lwlr() 函数
-        Args：
-            testArr：测试所用的所有样本点
-            xArr：样本的特征数据，即 feature
-            yArr：每个样本对应的类别标签，即目标变量
-            k：控制核函数的衰减速率
-        Returns：
-            yHat：预测点的估计值
+        Args: 
+            testArr: 测试所用的所有样本点
+            xArr: 样本的特征数据，即 feature
+            yArr: 每个样本对应的类别标签，即目标变量
+            k: 控制核函数的衰减速率
+        Returns: 
+            yHat: 预测点的估计值
     '''
     # 得到样本点的总数
     m = shape(testArr)[0]
@@ -140,13 +140,13 @@ def lwlrTestPlot(xArr, yArr, k=1.0):
     '''
         Description:
             首先将 X 排序，其余的都与lwlrTest相同，这样更容易绘图
-        Args：
-            xArr：样本的特征数据，即 feature
-            yArr：每个样本对应的类别标签，即目标变量，实际值
-            k：控制核函数的衰减速率的有关参数，这里设定的是常量值 1
-        Return：
-            yHat：样本点的估计值
-            xCopy：xArr的复制
+        Args: 
+            xArr: 样本的特征数据，即 feature
+            yArr: 每个样本对应的类别标签，即目标变量，实际值
+            k: 控制核函数的衰减速率的有关参数，这里设定的是常量值 1
+        Return: 
+            yHat: 样本点的估计值
+            xCopy: xArr的复制
     '''
     # 生成一个与目标变量数目相同的 0 向量
     yHat = zeros(shape(yArr))
@@ -165,8 +165,8 @@ def rssError(yArr, yHatArr):
         Desc:
             计算分析预测误差的大小
         Args:
-            yArr：真实的目标变量
-            yHatArr：预测得到的估计值
+            yArr: 真实的目标变量
+            yHatArr: 预测得到的估计值
         Returns:
             计算真实值和估计值得到的值的平方和作为最后的返回值
     '''
@@ -175,16 +175,16 @@ def rssError(yArr, yHatArr):
 
 def ridgeRegres(xMat, yMat, lam=0.2):
     '''
-        Desc：
+        Desc: 
             这个函数实现了给定 lambda 下的岭回归求解。
             如果数据的特征比样本点还多，就不能再使用上面介绍的的线性回归和局部现行回归了，因为计算 (xTx)^(-1)会出现错误。
             如果特征比样本点还多（n > m），也就是说，输入数据的矩阵x不是满秩矩阵。非满秩矩阵在求逆时会出现问题。
-            为了解决这个问题，我们下边讲一下：岭回归，这是我们要讲的第一种缩减方法。
-        Args：
-            xMat：样本的特征数据，即 feature
-            yMat：每个样本对应的类别标签，即目标变量，实际值
-            lam：引入的一个λ值，使得矩阵非奇异
-        Returns：
+            为了解决这个问题，我们下边讲一下: 岭回归，这是我们要讲的第一种缩减方法。
+        Args: 
+            xMat: 样本的特征数据，即 feature
+            yMat: 每个样本对应的类别标签，即目标变量，实际值
+            lam: 引入的一个λ值，使得矩阵非奇异
+        Returns: 
             经过岭回归公式计算得到的回归系数
     '''
 
@@ -201,13 +201,13 @@ def ridgeRegres(xMat, yMat, lam=0.2):
 
 def ridgeTest(xArr, yArr):
     '''
-        Desc：
+        Desc: 
             函数 ridgeTest() 用于在一组 λ 上测试结果
-        Args：
-            xArr：样本数据的特征，即 feature
-            yArr：样本数据的类别标签，即真实数据
-        Returns：
-            wMat：将所有的回归系数输出到一个矩阵并返回
+        Args: 
+            xArr: 样本数据的特征，即 feature
+            yArr: 样本数据的类别标签，即真实数据
+        Returns: 
+            wMat: 将所有的回归系数输出到一个矩阵并返回
     '''
 
     xMat = mat(xArr)
@@ -375,7 +375,7 @@ def crossValidation(xArr,yArr,numVal=10):
 
 # ----------------------------------------------------------------------------
 # 预测乐高玩具套装的价格 可运行版本，我们把乐高数据存储到了我们的 input 文件夹下，使用 urllib爬取,bs4解析内容
-# 前提：安装 BeautifulSoup，步骤如下
+# 前提: 安装 BeautifulSoup，步骤如下
 # 在这个页面 https://www.crummy.com/software/BeautifulSoup/bs4/download/4.4/ 下载，beautifulsoup4-4.4.1.tar.gz
 # 将下载文件解压，使用 windows 版本的 cmd 命令行，进入解压的包，输入以下两行命令即可完成安装
 # python setup.py build

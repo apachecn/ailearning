@@ -10,7 +10,7 @@
     + [第7章_集成方法](docs/ml/7.集成方法-随机森林和AdaBoost.md)
     + [第8章_回归](docs/ml/8.回归.md)
     + [第9章_树回归](docs/ml/9.树回归.md)
-    + [第10章_KMeans聚类](docs/ml/10.k-means聚类.md)
+    + [第10章_KMeans聚类](docs/ml/10.KMeans聚类.md)
     + [第11章_Apriori算法](docs/ml/11.使用Apriori算法进行关联分析.md)
     + [第12章_FP-growth算法](docs/ml/12.使用FP-growth算法来高效发现频繁项集.md)
     + [第13章_PCA降维](docs/ml/13.利用PCA来简化数据.md)

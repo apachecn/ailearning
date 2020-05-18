@@ -7,7 +7,7 @@ Update  on 2017-05-18
 Logistic Regression Working Module
 Author: 小瑶
 GitHub: https://github.com/apachecn/AiLearning
-scikit-learn的例子地址：http://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+scikit-learn的例子地址: http://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
 '''
 
 # 逻辑回归中的 L1 惩罚和稀缺性 L1 Penalty and Sparsity in Logistic Regression

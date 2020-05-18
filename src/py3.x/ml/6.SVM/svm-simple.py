@@ -105,7 +105,7 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
 
             # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值)
             # 0<=alphas[i]<=C，但由于0和C是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。
-            # 表示发生错误的概率：labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。
+            # 表示发生错误的概率: labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。
             '''
             # 检验训练样本(xi, yi)是否满足KKT条件
             yi*f(i) >= 1 and alpha = 0 (outside the boundary)
@@ -154,7 +154,7 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
                 alphas[i] += labelMat[j]*labelMat[i]*(alphaJold - alphas[j])
                 # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
                 # w= Σ[1~n] ai*yi*xi => b = yj- Σ[1~n] ai*yi(xi*xj)
-                # 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
+                # 所以:   b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
                 # 为什么减2遍？ 因为是 减去Σ[1~n]，正好2个变量i和j，所以减2遍
                 b1 = b - Ei- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i, :]*dataMatrix[i, :].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[i, :]*dataMatrix[j, :].T
                 b2 = b - Ej- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i, :]*dataMatrix[j, :].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[j, :]*dataMatrix[j, :].T
@@ -198,7 +198,7 @@ def calcWs(alphas, dataArr, classLabels):
 
 def plotfig_SVM(xMat, yMat, ws, b, alphas):
     """
-    参考地址：
+    参考地址: 
        http://blog.csdn.net/maoersong/article/details/24315633
        http://www.cnblogs.com/JustForCS/p/5283489.html
        http://blog.csdn.net/kkxgx/article/details/6951959

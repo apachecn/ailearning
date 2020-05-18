@@ -12,7 +12,7 @@ nmf = NMF(n_components=2)  # 设有2个隐主题
 user_distribution = nmf.fit_transform(RATE_MATRIX)
 item_distribution = nmf.components_
 
-print('用户的主题分布：')
+print('用户的主题分布: ')
 print(user_distribution)
-print('物品的主题分布：')
+print('物品的主题分布: ')
 print(item_distribution)
