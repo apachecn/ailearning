@@ -61,16 +61,16 @@ def createInitSet(dataSet):
 
 # this version does not use recursion
 def updateHeader(nodeToTest, targetNode):
-    """updateHeader(更新头指针，建立相同元素之间的关系，例如： 左边的r指向右边的r值，就是后出现的相同元素 指向 已经出现的元素)
+    """updateHeader(更新头指针，建立相同元素之间的关系，例如:  左边的r指向右边的r值，就是后出现的相同元素 指向 已经出现的元素)
 
     从头指针的nodeLink开始，一直沿着nodeLink直到到达链表末尾。这就是链表。
-    性能：如果链表很长可能会遇到迭代调用的次数限制。
+    性能: 如果链表很长可能会遇到迭代调用的次数限制。
 
     Args:
         nodeToTest  满足minSup {所有的元素+(value, treeNode)}
         targetNode  Tree对象的子节点
     """
-    # 建立相同元素之间的关系，例如： 左边的r指向右边的r值
+    # 建立相同元素之间的关系，例如:  左边的r指向右边的r值
     while (nodeToTest.nodeLink is not None):
         nodeToTest = nodeToTest.nodeLink
     nodeToTest.nodeLink = targetNode
@@ -113,20 +113,20 @@ def createTree(dataSet, minSup=1):
     """createTree(生成FP-tree)
 
     Args:
-        dataSet  dist{行：出现次数}的样本数据
+        dataSet  dist{行: 出现次数}的样本数据
         minSup   最小的支持度
     Returns:
         retTree  FP-tree
         headerTable 满足minSup {所有的元素+(value, treeNode)}
     """
-    # 支持度>=minSup的dist{所有元素：出现的次数}
+    # 支持度>=minSup的dist{所有元素: 出现的次数}
     headerTable = {}
-    # 循环 dist{行：出现次数}的样本数据
+    # 循环 dist{行: 出现次数}的样本数据
     for trans in dataSet:
         # 对所有的行进行循环，得到行里面的所有元素
         # 统计每一行中，每个元素出现的总次数
         for item in trans:
-            # 例如： {'ababa': 3}  count(a)=3+3+3=9   count(b)=3+3=6
+            # 例如:  {'ababa': 3}  count(a)=3+3+3=9   count(b)=3+3=6
             headerTable[item] = headerTable.get(item, 0) + dataSet[trans]
     # 删除 headerTable中，元素次数<最小支持度的元素
     for k in list(headerTable.keys()):  # python3中.keys()返回的是迭代器不是list,不能在遍历时对其改变。
@@ -139,12 +139,12 @@ def createTree(dataSet, minSup=1):
     if len(freqItemSet) == 0:
         return None, None
     for k in headerTable:
-        # 格式化： dist{元素key: [元素次数, None]}
+        # 格式化:  dist{元素key: [元素次数, None]}
         headerTable[k] = [headerTable[k], None]
 
     # create tree
     retTree = treeNode('Null Set', 1, None)
-    # 循环 dist{行：出现次数}的样本数据
+    # 循环 dist{行: 出现次数}的样本数据
     for tranSet, count in dataSet.items():
         # print('tranSet, count=', tranSet, count)
         # localD = dist{元素key: 元素总出现次数}
@@ -305,13 +305,13 @@ if __name__ == "__main__":
     # load样本数据
     simpDat = loadSimpDat()
     # print(simpDat, '\n')
-    # frozen set 格式化 并 重新装载 样本数据，对所有的行进行统计求和，格式: {行：出现次数}
+    # frozen set 格式化 并 重新装载 样本数据，对所有的行进行统计求和，格式: {行: 出现次数}
     initSet = createInitSet(simpDat)
     print(initSet)
 
     # 创建FP树
-    # 输入：dist{行：出现次数}的样本数据  和  最小的支持度
-    # 输出：最终的PF-tree，通过循环获取第一层的节点，然后每一层的节点进行递归的获取每一行的字节点，也就是分支。然后所谓的指针，就是后来的指向已存在的
+    # 输入: dist{行: 出现次数}的样本数据  和  最小的支持度
+    # 输出: 最终的PF-tree，通过循环获取第一层的节点，然后每一层的节点进行递归的获取每一行的字节点，也就是分支。然后所谓的指针，就是后来的指向已存在的
     myFPtree, myHeaderTab = createTree(initSet, 3)
     myFPtree.disp()
 
@@ -335,7 +335,7 @@ if __name__ == "__main__":
     # for t in listOfTerms:
     #     print(t)
 
-    # # 2.新闻网站点击流中挖掘，例如：文章1阅读过的人，还阅读过什么？
+    # # 2.新闻网站点击流中挖掘，例如: 文章1阅读过的人，还阅读过什么？
     # parsedDat = [line.split() for line in open('data/12.FPGrowth/kosarak.dat').readlines()]
     # initSet = createInitSet(parsedDat)
     # myFPtree, myHeaderTab = createTree(initSet, 100000)

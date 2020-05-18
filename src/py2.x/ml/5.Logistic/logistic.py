@@ -49,7 +49,7 @@ def sigmoid(inX):
 
 
 # 正常的处理方案
-# 两个参数：第一个参数==> dataMatIn 是一个2维NumPy数组，每列分别代表每个不同的特征，每行则代表每个训练样本。
+# 两个参数: 第一个参数==> dataMatIn 是一个2维NumPy数组，每列分别代表每个不同的特征，每行则代表每个训练样本。
 # 第二个参数==> classLabels 是类别标签，它是一个 1*100 的行向量。为了便于矩阵计算，需要将该行向量转换为列向量，做法是将原向量转置，再将它赋值给labelMat。
 def gradAscent(dataMatIn, classLabels):
     '''
@@ -80,8 +80,8 @@ def gradAscent(dataMatIn, classLabels):
     weights = ones((n, 1))
     for k in range(maxCycles):  # heavy on matrix operations
         # m*3 的矩阵 * 3*1 的单位矩阵 ＝ m*1的矩阵
-        # 那么乘上单位矩阵的意义，就代表：通过公式得到的理论值
-        # 参考地址： 矩阵乘法的本质是什么？ https://www.zhihu.com/question/21351965/answer/31050145
+        # 那么乘上单位矩阵的意义，就代表: 通过公式得到的理论值
+        # 参考地址:  矩阵乘法的本质是什么？ https://www.zhihu.com/question/21351965/answer/31050145
         # print 'dataMatrix====', dataMatrix 
         # print 'weights====', weights
         # n*3   *  3*1  = n*1
@@ -195,7 +195,7 @@ def plotBestFit(dataArr, labelMat, weights):
     dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])
     w0*x0+w1*x1+w2*x2=f(x)
     x0最开始就设置为1叻， x2就是我们画图的y值，而f(x)被我们磨合误差给算到w0,w1,w2身上去了
-    所以： w0+w1*x+w2*y=0 => y = (-w0-w1*x)/w2   
+    所以:  w0+w1*x+w2*y=0 => y = (-w0-w1*x)/w2   
     """
     y = (-weights[0] - weights[1] * x) / weights[2]
     ax.plot(x, y)

@@ -1,0 +1,35 @@
+language: node_js # 构建所需的语言环境
+node_js:
+  - "v10.16.0"  # 对应的版本
+
+branches:
+  only:
+  - master    # 构建的分支
+
+cache:
+  directories:
+  - node_modules # 依赖缓存的目录
+
+install:
+ - npm install -g gitbook-cli # 安装编译工具
+ - gitbook fetch 3.2.3 # 安装 Gitbook 子版本
+
+script:
+  - sh run_website.sh
+
+after_script:
+  - cd _book
+  - git init
+  - git config user.name ${GH_UN}
+  - git config user.email ${GH_EMAIL}
+  - git add -A
+  - git commit -am "$(date "+%Y-%m-%d %H:%M:%S")"
+  - git push "https://${GH_TOKEN}@github.com/${GH_USER}/${GH_REPO}.git" master:${GH_BRANCH} -f
+
+env:
+  global:
+    - GH_UN=jiangzhonglian
+    - GH_EMAIL=jiang-s@163.com
+    - GH_USER=apachecn
+    - GH_REPO=AiLearning
+    - GH_BRANCH=gh-pages

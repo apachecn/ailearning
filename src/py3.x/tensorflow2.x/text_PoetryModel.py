@@ -23,7 +23,7 @@ def preprocess_file(Config):
     with open(Config.poetry_file, 'r', encoding='utf-8') as f:
         for line in f:
             # 每行的末尾加上"]"符号代表一首诗结束
-            line = re.sub(r"[\]\[（）(){}《》：]+", "", line.strip())
+            line = re.sub(r"[\]\[（）(){}《》: ]+", "", line.strip())
             files_content += line + "]"
     
     # 按照字存到字典中，字+频率
@@ -125,7 +125,7 @@ class PoetryModel(object):
             x = self.files_content[i: i + self.config.max_len]
             y = self.files_content[i + self.config.max_len]
 
-            puncs = [']', '[', '（', '）', '{', '}', '：', '《', '》', ':']
+            puncs = [']', '[', '（', '）', '{', '}', ': ', '《', '》', ':']
             if len([i for i in puncs if i in x]) != 0:
                 i += 1
                 continue

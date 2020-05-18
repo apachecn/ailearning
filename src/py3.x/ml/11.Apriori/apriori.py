@@ -151,7 +151,7 @@ def apriori(dataSet, minSupport=0.5):
 
 # 计算可信度（confidence）
 def calcConf(freqSet, H, supportData, brl, minConf=0.7):
-    """calcConf（对两个元素的频繁项，计算可信度，例如： {1,2}/{1} 或者 {1,2}/{2} 看是否满足条件）
+    """calcConf（对两个元素的频繁项，计算可信度，例如:  {1,2}/{1} 或者 {1,2}/{2} 看是否满足条件）
 
     Args:
         freqSet 频繁项集中的元素，例如: frozenset([1, 3])    
@@ -224,7 +224,7 @@ def generateRules(L, supportData, minConf=0.7):
     for i in range(1, len(L)):
         # 获取频繁项集中每个组合的所有元素
         for freqSet in L[i]:
-            # 假设：freqSet= frozenset([1, 3]), H1=[frozenset([1]), frozenset([3])]
+            # 假设: freqSet= frozenset([1, 3]), H1=[frozenset([1]), frozenset([3])]
             # 组合总的元素并遍历子元素，并转化为 frozenset 集合，再存放到 list 列表中
             H1 = [frozenset([item]) for item in freqSet]
             # 2 个的组合，走 else, 2 个以上的组合，走 if

@@ -41,9 +41,9 @@ def pca(dataMat, topNfeat=9999999):
 
     # cov协方差=[(x1-x均值)*(y1-y均值)+(x2-x均值)*(y2-y均值)+...+(xn-x均值)*(yn-y均值)+]/(n-1)
     '''
-    方差：（一维）度量两个随机变量关系的统计量
-    协方差： （二维）度量各个维度偏离其均值的程度
-    协方差矩阵：（多维）度量各个维度偏离其均值的程度
+    方差: （一维）度量两个随机变量关系的统计量
+    协方差:  （二维）度量各个维度偏离其均值的程度
+    协方差矩阵: （多维）度量各个维度偏离其均值的程度
 
     当 cov(X, Y)>0时，表明X与Y正相关；(X越大，Y也越大；X越小Y，也越小。这种情况，我们称为“正相关”。)
     当 cov(X, Y)<0时，表明X与Y负相关；
@@ -130,7 +130,7 @@ def analyse_data(dataMat):
 
         最后，我们可能会注意到有一些小的负值，他们主要源自数值误差应该四舍五入成0.
         '''
-        print('主成分：%s, 方差占比：%s%%, 累积方差占比：%s%%' % (format(i+1, '2.0f'), format(line_cov_score/cov_all_score*100, '4.2f'), format(sum_cov_score/cov_all_score*100, '4.1f')))
+        print('主成分: %s, 方差占比: %s%%, 累积方差占比: %s%%' % (format(i+1, '2.0f'), format(line_cov_score/cov_all_score*100, '4.2f'), format(sum_cov_score/cov_all_score*100, '4.1f')))
 
 
 if __name__ == "__main__":

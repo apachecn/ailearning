@@ -2,7 +2,7 @@
 
 # 长短期记忆网络（Long Short-Term Memory，LSTM）及其变体双向LSTM和GRU
 
-**LSTM**（Long Short-Term Memory）长短期记忆网络，是一种时间递归神经网络，**适合于处理和预测时间序列中间隔和延迟相对较长的重要事件**。LSTM是解决循环神经网络RNN结构中存在的“梯度消失”问题而提出的，是一种特殊的循环神经网络。最常见的一个例子就是：当我们要预测“the clouds are in the (...)"的时候, 这种情况下，相关的信息和预测的词位置之间的间隔很小，RNN会使用先前的信息预测出词是”sky“。但是如果想要预测”I grew up in France ... I speak fluent (...)”，语言模型推测下一个词可能是一种语言的名字，但是具体是什么语言，需要用到间隔很长的前文中France，在这种情况下，RNN因为“梯度消失”的问题，并不能利用间隔很长的信息，然而，LSTM在设计上明确避免了长期依赖的问题，这主要归功于LSTM精心设计的“门”结构(输入门、遗忘门和输出门)消除或者增加信息到细胞状态的能力，使得LSTM能够记住长期的信息。
+**LSTM**（Long Short-Term Memory）长短期记忆网络，是一种时间递归神经网络，**适合于处理和预测时间序列中间隔和延迟相对较长的重要事件**。LSTM是解决循环神经网络RNN结构中存在的“梯度消失”问题而提出的，是一种特殊的循环神经网络。最常见的一个例子就是: 当我们要预测“the clouds are in the (...)"的时候, 这种情况下，相关的信息和预测的词位置之间的间隔很小，RNN会使用先前的信息预测出词是”sky“。但是如果想要预测”I grew up in France ... I speak fluent (...)”，语言模型推测下一个词可能是一种语言的名字，但是具体是什么语言，需要用到间隔很长的前文中France，在这种情况下，RNN因为“梯度消失”的问题，并不能利用间隔很长的信息，然而，LSTM在设计上明确避免了长期依赖的问题，这主要归功于LSTM精心设计的“门”结构(输入门、遗忘门和输出门)消除或者增加信息到细胞状态的能力，使得LSTM能够记住长期的信息。
 
 ![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180704173253439.jpg)  vs   ![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180704173230785.jpg)  
 
@@ -15,12 +15,12 @@
 
 **在LSTM中，第一阶段是遗忘门，遗忘层决定哪些信息需要从细胞状态中被遗忘，下一阶段是输入门，输入门确定哪些新信息能够被存放到细胞状态中，最后一个阶段是输出门，输出门确定输出什么值**。下面我们把LSTM就着各个门的子结构和数学表达式进行分析。
 
-* 遗忘门：遗忘门是以上一层的输出![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705154943659.jpg)和本层要输入的序列数据![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705155022656.jpg)作为输入，通过一个激活函数sigmoid，得到输出为![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/201807051551130.jpg)。![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705155135748.jpg)的输出取值在[0,1]区间，表示上一层细胞状态被遗忘的概率，1是“完全保留”，0是“完全舍弃”
+* 遗忘门: 遗忘门是以上一层的输出![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705154943659.jpg)和本层要输入的序列数据![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705155022656.jpg)作为输入，通过一个激活函数sigmoid，得到输出为![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/201807051551130.jpg)。![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705155135748.jpg)的输出取值在[0,1]区间，表示上一层细胞状态被遗忘的概率，1是“完全保留”，0是“完全舍弃”
 
 ![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705154117297.jpg)
 
 
-* 输入门：输入门包含两个部分，第一部分使用sigmoid激活函数，输出为![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705160829424.jpg)，第二部分使用tanh激活函数，输出为![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705161911316.jpg)。**【个人通俗理解：![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705162106120.jpg)在RNN网络中就是本层的输出，![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705162239540.jpg)是在[0,1]区间取值，表示![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705162835994.jpg)中的信息被保留的程度，![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705162518689.jpg)表示该层被保留的新信息】**
+* 输入门: 输入门包含两个部分，第一部分使用sigmoid激活函数，输出为![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705160829424.jpg)，第二部分使用tanh激活函数，输出为![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705161911316.jpg)。**【个人通俗理解: ![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705162106120.jpg)在RNN网络中就是本层的输出，![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705162239540.jpg)是在[0,1]区间取值，表示![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705162835994.jpg)中的信息被保留的程度，![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705162518689.jpg)表示该层被保留的新信息】**
 
 ![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705154140100.jpg)
 
@@ -30,7 +30,7 @@
 ![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705154157781.jpg)
 
 
-* 输出门：输出门用来控制该层的细胞状态有多少被过滤。首先使用sigmoid激活函数得到一个[0,1]区间取值的![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705163549770.jpg)，接着将细胞状态![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705164009353.jpg)通过tanh激活函数处理后与![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705164029948.jpg)相乘，即是本层的输出![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705164102617.jpg)。
+* 输出门: 输出门用来控制该层的细胞状态有多少被过滤。首先使用sigmoid激活函数得到一个[0,1]区间取值的![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705163549770.jpg)，接着将细胞状态![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705164009353.jpg)通过tanh激活函数处理后与![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705164029948.jpg)相乘，即是本层的输出![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705164102617.jpg)。
 
 ![](http://data.apachecn.org/img/AiLearning/dl/LSTM原理/20180705154210768.jpg)
 

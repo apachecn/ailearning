@@ -5,8 +5,8 @@ Created on 2015-06-22
 Update  on 2017-05-16
 Author: Lockvictor/片刻
 《推荐系统实践》协同过滤算法源代码
-参考地址：https://github.com/Lockvictor/MovieLens-RecSys
-更新地址：https://github.com/apachecn/AiLearning
+参考地址: https://github.com/Lockvictor/MovieLens-RecSys
+更新地址: https://github.com/apachecn/AiLearning
 '''
 from __future__ import print_function
 import sys
@@ -14,7 +14,7 @@ import math
 import random
 from operator import itemgetter
 print(__doc__)
-# 作用：使得随机数据可预测
+# 作用: 使得随机数据可预测
 random.seed(0)
 
 
@@ -161,7 +161,7 @@ class UserBasedCF():
 
         # 计算top K 用户的相似度
         # v=similar user, wuv=不同用户同时出现的次数，根据wuv倒序从大到小选出K个用户进行排列
-        # 耗时分析：50.4%的时间在 line-160行
+        # 耗时分析: 50.4%的时间在 line-160行
         for v, wuv in sorted(
                 self.user_sim_mat[user].items(), key=itemgetter(1),
                 reverse=True)[0:K]:
@@ -198,7 +198,7 @@ class UserBasedCF():
         popular_sum = 0
 
         # enumerate将其组成一个索引序列，利用它可以同时获得索引和值
-        # 参考地址：http://blog.csdn.net/churximi/article/details/51648388
+        # 参考地址: http://blog.csdn.net/churximi/article/details/51648388
         for i, user in enumerate(self.trainset):
             if i > 0 and i % 500 == 0:
                 print('recommended for %d users' % i, file=sys.stderr)
@@ -230,7 +230,7 @@ if __name__ == '__main__':
 
     # 创建UserCF对象
     usercf = UserBasedCF()
-    # 将数据按照 7:3的比例，拆分成：训练集和测试集，存储在usercf的trainset和testset中
+    # 将数据按照 7:3的比例，拆分成: 训练集和测试集，存储在usercf的trainset和testset中
     usercf.generate_dataset(ratingfile, pivot=0.7)
     # 计算用户之间的相似度
     usercf.calc_user_sim()

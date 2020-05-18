@@ -8,8 +8,8 @@ Random Forest Algorithm on Sonar Dataset
 Author: Flying_sfeng/片刻
 GitHub: https://github.com/apachecn/AiLearning
 ---
-源代码网址：http://www.tuicool.com/articles/iiUfeim
-Flying_sfeng博客地址：http://blog.csdn.net/flying_sfeng/article/details/64133822 (感谢作者贡献)
+源代码网址: http://www.tuicool.com/articles/iiUfeim
+Flying_sfeng博客地址: http://blog.csdn.net/flying_sfeng/article/details/64133822 (感谢作者贡献)
 '''
 from __future__ import print_function
 from random import seed, randrange, random
@@ -46,7 +46,7 @@ def cross_validation_split(dataset, n_folds):
         dataset     原始数据集
         n_folds     数据集dataset分成n_flods份
     Returns:
-        dataset_split    list集合，存放的是：将数据集进行抽重抽样 n_folds 份，数据可以重复重复抽取，每一次list的元素是无重复的
+        dataset_split    list集合，存放的是: 将数据集进行抽重抽样 n_folds 份，数据可以重复重复抽取，每一次list的元素是无重复的
     """
     dataset_split = list()
     dataset_copy = list(dataset)       # 复制一份 dataset,防止 dataset 的内容改变
@@ -79,14 +79,14 @@ def test_split(index, value, dataset):
 '''
 Gini指数的计算问题，假如将原始数据集D切割两部分，分别为D1和D2，则
 Gini(D|切割) = (|D1|/|D| ) * Gini(D1) + (|D2|/|D|) * Gini(D2)
-学习地址：
+学习地址: 
     http://bbs.pinggu.org/thread-5986969-1-1.html
     http://www.cnblogs.com/pinard/p/6053344.html
-而原文中 计算方式为：
+而原文中 计算方式为: 
 Gini(D|切割) = Gini(D1) + Gini(D2)
 
 # Calculate the Gini index for a split dataset
-def gini_index(groups, class_values):    # 个人理解：计算代价，分类越准确，则 gini 越小
+def gini_index(groups, class_values):    # 个人理解: 计算代价，分类越准确，则 gini 越小
     gini = 0.0
     for class_value in class_values:     # class_values = [0, 1] 
         for group in groups:             # groups = (left, right)
@@ -94,12 +94,12 @@ def gini_index(groups, class_values):    # 个人理解：计算代价，分类�
             if size == 0:
                 continue
             proportion = [row[-1] for row in group].count(class_value) / float(size)
-            gini += (proportion * (1.0 - proportion))    # 个人理解：计算代价，分类越准确，则 gini 越小
+            gini += (proportion * (1.0 - proportion))    # 个人理解: 计算代价，分类越准确，则 gini 越小
     return gini
 '''
 
 
-def gini_index(groups, class_values):    # 个人理解：计算代价，分类越准确，则 gini 越小
+def gini_index(groups, class_values):    # 个人理解: 计算代价，分类越准确，则 gini 越小
     gini = 0.0
     D = len(groups[0]) + len(groups[1])
     for class_value in class_values:     # class_values = [0, 1]
@@ -108,7 +108,7 @@ def gini_index(groups, class_values):    # 个人理解：计算代价，分类�
             if size == 0:
                 continue
             proportion = [row[-1] for row in group].count(class_value) / float(size)
-            gini += float(size)/D * (proportion * (1.0 - proportion))    # 个人理解：计算代价，分类越准确，则 gini 越小
+            gini += float(size)/D * (proportion * (1.0 - proportion))    # 个人理解: 计算代价，分类越准确，则 gini 越小
     return gini
 
 
@@ -181,7 +181,7 @@ def build_tree(train, max_depth, min_size, n_features):
     root = get_split(train, n_features)
 
     # 对左右2边的数据 进行递归的调用，由于最优特征使用过，所以在后面进行使用的时候，就没有意义了
-    # 例如： 性别-男女，对男使用这一特征就没任何意义了
+    # 例如:  性别-男女，对男使用这一特征就没任何意义了
     split(root, max_depth, min_size, n_features, 1)
     return root
 

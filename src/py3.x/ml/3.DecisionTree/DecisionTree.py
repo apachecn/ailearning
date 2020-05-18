@@ -35,7 +35,7 @@ def createDataSet():
     #         ['no'],
     #         ['no'],
     #         ['no']]
-    # labels  露出水面   脚蹼，注意：这里的labels是写的 dataSet 中特征的含义，并不是对应的分类标签或者说目标变量
+    # labels  露出水面   脚蹼，注意: 这里的labels是写的 dataSet 中特征的含义，并不是对应的分类标签或者说目标变量
     labels = ['no surfacing', 'flippers']
     # 返回
     return dataSet, labels
@@ -43,7 +43,7 @@ def createDataSet():
 
 def calcShannonEnt(dataSet):
     """
-    Desc：
+    Desc: 
         calculate Shannon entropy -- 计算给定数据集的香农熵
     Args:
         dataSet -- 数据集
@@ -54,7 +54,7 @@ def calcShannonEnt(dataSet):
     # 求list的长度，表示计算参与训练的数据量
     numEntries = len(dataSet)
     # 下面输出我们测试的数据集的一些信息
-    # 例如：<type 'list'> numEntries:  5 是下面的代码的输出
+    # 例如: <type 'list'> numEntries:  5 是下面的代码的输出
     # print(type(dataSet), 'numEntries: ', numEntries)
 
     # 计算分类标签label出现的次数
@@ -93,7 +93,7 @@ def calcShannonEnt(dataSet):
 
 def splitDataSet(dataSet, index, value):
     """
-    Desc：
+    Desc: 
         划分数据集
         splitDataSet(通过遍历dataSet数据集，求出index对应的colnum列的值为value的行)
         就是依据index列进行分类，如果index列的数据等于 value的时候，就要将 index 划分到我们创建的新的数据集中
@@ -114,7 +114,7 @@ def splitDataSet(dataSet, index, value):
             # [:index]表示前index行，即若 index 为2，就是取 featVec 的前 index 行
             reducedFeatVec = featVec[:index]
             '''
-            请百度查询一下： extend和append的区别
+            请百度查询一下:  extend和append的区别
             list.append(object) 向列表中添加一个对象object
             list.extend(sequence) 把一个序列seq的内容添加到列表中
             1、使用append的时候，是将new_media看作一个对象，整体打包添加到music_media对象中。
@@ -126,7 +126,7 @@ def splitDataSet(dataSet, index, value):
             print(result)
             result.extend([7,8,9])
             print(result)
-            结果：
+            结果: 
             [1, 2, 3]
             [1, 2, 3, [4, 5, 6]]
             [1, 2, 3, [4, 5, 6], 7, 8, 9]
@@ -247,12 +247,12 @@ def createTree(dataSet, labels):
     """
     classList = [example[-1] for example in dataSet]
     # 如果数据集的最后一列的第一个值出现的次数=整个集合的数量，也就说只有一个类别，就只直接返回结果就行
-    # 第一个停止条件：所有的类标签完全相同，则直接返回该类标签。
+    # 第一个停止条件: 所有的类标签完全相同，则直接返回该类标签。
     # count() 函数是统计括号中的值在list中出现的次数
     if classList.count(classList[0]) == len(classList):
         return classList[0]
     # 如果数据集只有1列，那么最初出现label次数最多的一类，作为结果
-    # 第二个停止条件：使用完了所有特征，仍然不能将数据集划分成仅包含唯一类别的分组。
+    # 第二个停止条件: 使用完了所有特征，仍然不能将数据集划分成仅包含唯一类别的分组。
     if len(dataSet[0]) == 1:
         return majorityCnt(classList)
 
@@ -262,7 +262,7 @@ def createTree(dataSet, labels):
     bestFeatLabel = labels[bestFeat]
     # 初始化myTree
     myTree = {bestFeatLabel: {}}
-    # 注：labels列表是可变对象，在PYTHON函数中作为参数时传址引用，能够被全局修改
+    # 注: labels列表是可变对象，在PYTHON函数中作为参数时传址引用，能够被全局修改
     # 所以这行代码导致函数外的同名变量被删除了元素，造成例句无法执行，提示'no surfacing' is not in list
     del(labels[bestFeat])
     # 取出最优列，然后它的branch做分类

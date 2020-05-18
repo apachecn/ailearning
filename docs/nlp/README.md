@@ -5,20 +5,20 @@
 * Python 自然语言处理 第二版: <https://usyiyi.github.io/nlp-py-2e-zh>
 * 推荐一个[liuhuanyong大佬](https://github.com/liuhuanyong)整理的nlp全面知识体系: <https://liuhuanyong.github.io>
 
-## nlp 学习书籍和工具：
+## nlp 学习书籍和工具: 
 
-* 百度搜索：Python自然语言处理
-* 读书笔记：<https://wnma3mz.github.io/hexo_blog/2018/05/13/《Python自然语言处理》阅读笔记（一）>
+* 百度搜索: Python自然语言处理
+* 读书笔记: <https://wnma3mz.github.io/hexo_blog/2018/05/13/《Python自然语言处理》阅读笔记（一）>
 * Python自然语言处理工具汇总: <https://blog.csdn.net/sa14023053/article/details/51823122>
 
-## nlp 全局介绍视频：（简单做了解就行）
+## nlp 全局介绍视频: （简单做了解就行）
 
-地址链接： http://bit.baidu.com/Course/detail/id/56.html
+地址链接:  http://bit.baidu.com/Course/detail/id/56.html
  
 1. 自然语言处理知识入门
 2. 百度机器翻译
 3. 篇章分析
-4. UNIT：语言理解与交互技术
+4. UNIT: 语言理解与交互技术
 
 ## 中文 NLP
 
@@ -50,11 +50,11 @@
     训练需要正样本和负样本同时存在。
 
 优势:
-    负采样的本质：每次让一个训练样本只更新部分权重，其他权重全部固定；减少计算量；（一定程度上还可以增加随机性）
+    负采样的本质: 每次让一个训练样本只更新部分权重，其他权重全部固定；减少计算量；（一定程度上还可以增加随机性）
 
 ## nlp 操作流程
 
-[本项目](https://pytorch.apachecn.org/docs/1.0/#/char_rnn_classification_tutorial) 试图通过名字分类问题给大家描述一个基础的深度学习中自然语言处理模型，同时也向大家展示了Pytorch的基本玩法。 其实对于大部分基础的NLP工作，都是类似的套路：
+[本项目](https://pytorch.apachecn.org/docs/1.0/#/char_rnn_classification_tutorial) 试图通过名字分类问题给大家描述一个基础的深度学习中自然语言处理模型，同时也向大家展示了Pytorch的基本玩法。 其实对于大部分基础的NLP工作，都是类似的套路: 
 
 1. 收集数据 
 2. 清洗数据 
@@ -65,16 +65,16 @@
 7. 把输出的结果进行处理，得到最终想要的数据。常需要把向量化的结果根据字母表或者词表变回文本数据。 
 8. 评估模型。
 
-如果真的想要对自然语言处理或者序列模型有更加全面的了解，建议大家去网易云课堂看一看吴恩达深度学习微专业中的序列模型这一板块，可以说是讲的非常清楚了。 此外极力推荐两个blog： 
+如果真的想要对自然语言处理或者序列模型有更加全面的了解，建议大家去网易云课堂看一看吴恩达深度学习微专业中的序列模型这一板块，可以说是讲的非常清楚了。 此外极力推荐两个blog:  
 
 1. 讲述RNN循环神经网络在深度学习中的各种应用场景。http://karpathy.github.io/2015/05/21/rnn-effectiveness/ 
 2. 讲述LSTM的来龙去脉。http://colah.github.io/posts/2015-08-Understanding-LSTMs/
 
 最后，本文参考整合了:
 
-* Pytorch中文文档：https://pytorch.apachecn.org
-* Pytorch官方文档：http://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html 
-* Ngarneau小哥的博文：https://github.com/ngarneau/understanding-pytorch-batching-lstm
+* Pytorch中文文档: https://pytorch.apachecn.org
+* Pytorch官方文档: http://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html 
+* Ngarneau小哥的博文: https://github.com/ngarneau/understanding-pytorch-batching-lstm
 * 另外，本项目搭配Sung Kim的Pytorch Zero To All的第13讲rnn_classification会更加方便食用喔，视频可以在油管和b站中找到。
 
 ## nlp - 比赛链接

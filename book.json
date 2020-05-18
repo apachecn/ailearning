@@ -1,0 +1,176 @@
+{
+    "title" : "AiLearning 中文文档",
+    "author" : "ApacheCN",
+    "description" : "AiLearning 中文文档: 教程和文档",
+    "language" : "zh-hans",
+    "plugins": [
+        "github",
+        "github-buttons",
+        "-sharing", 
+        "insert-logo",
+        "sharing-plus",
+        "back-to-top-button",
+        "code",
+        "copy-code-button",
+        "katex",
+        "pageview-count",
+        "edit-link",
+        "emphasize",
+        "alerts",
+        "auto-scroll-table",
+        "popup",
+        "hide-element",
+        "page-toc-button",
+        "tbfed-pagefooter",
+        "sitemap",
+        "advanced-emoji",
+        "expandable-chapters",
+        "splitter",
+        "search-pro"
+    ],
+    "pluginsConfig": {
+        "github": {
+            "url": "https://github.com/apachecn/AiLearning"
+        },
+        "github-buttons": {
+            "buttons": [
+              {
+                "user": "apachecn",
+                "repo": "AiLearning", 
+                "type": "star",
+                "count": true,
+                "size": "small"
+              }
+            ]
+        },
+        "insert-logo": {
+            "url": "http://data.apachecn.org/img/logo.jpg",
+            "style": "background: none; max-height: 150px; min-height: 150px"
+        },
+        "hide-element": {
+            "elements": [".gitbook-link"]
+        },
+        "edit-link": {
+            "base": "https://github.com/apachecn/AiLearning/blob/master",
+            "label": "编辑本页"
+        },
+        "sharing": {
+            "qzone": true,
+            "weibo": true,
+            "twitter": false,
+            "facebook": false,
+            "google": false,
+            "qq": false,
+            "line": false,
+            "whatsapp": false,
+            "douban": false,
+            "all": [
+                "qq", "douban", "facebook", "google", "linkedin", "twitter", "weibo", "whatsapp"
+            ]
+        },
+        "page-toc-button": {
+            "maxTocDepth": 4,
+            "minTocSize": 4
+        },
+        "tbfed-pagefooter": {
+            "copyright":"Copyright &copy ibooker.org.cn 2019",
+            "modify_label": "该文件修订时间:  ",
+            "modify_format": "YYYY-MM-DD HH:mm:ss"
+        },
+        "sitemap": {
+            "hostname": "http://pytorch.apachecn.org"
+        }
+    },
+    "my_links" : {
+        "sidebar" : {
+            "Home" : "https://www.baidu.com"
+        }
+    },
+    "my_plugins": [
+        "donate",
+        "todo",
+        "-lunr",
+        "-search",
+        "expandable-chapters-small",
+        "chapter-fold",
+        "expandable-chapters",
+        "expandable-chapters-small",
+        "back-to-top-button",
+        "ga",
+        "baidu",
+        "sitemap",
+        "tbfed-pagefooter",
+        "advanced-emoji",
+        "sectionx",
+        "page-treeview",
+        "simple-page-toc",
+        "ancre-navigation",
+        "theme-apachecn@git+https://github.com/apachecn/theme-apachecn#HEAD",
+        "pagefooter-apachecn@git+https://github.com/apachecn/gitbook-plugin-pagefooter-apachecn#HEAD"
+    ],
+    "my_pluginsConfig": {
+        "github-buttons": {
+            "buttons": [
+              {
+                "user": "apachecn",
+                "repo": "AiLearning", 
+                "type": "star",
+                "count": true,
+                "size": "small"
+              }, 
+              {
+                "user": "apachecn",
+                "width": "160", 
+                "type": "follow", 
+                "count": true,
+                "size": "small"
+              }
+            ]
+        },
+        "ignores": ["node_modules"],
+        "simple-page-toc": {
+            "maxDepth": 3,
+            "skipFirstH1": true
+        },
+        "page-toc-button": {
+            "maxTocDepth": 2,
+            "minTocSize": 2
+        },
+        "page-treeview": {
+            "copyright": "Copyright &#169; aleen42",
+            "minHeaderCount": "2",
+            "minHeaderDeep": "2"
+        },
+        "donate": {
+        	"wechat": "微信收款的二维码URL",
+        	"alipay": "支付宝收款的二维码URL",
+        	"title": "",
+        	"button": "赏",
+        	"alipayText": "支付宝打赏",
+        	"wechatText": "微信打赏"
+    	},
+        "page-copyright": {
+            "description": "modified at",
+            "signature": "你的签名",
+            "wisdom": "Designer, Frontend Developer & overall web enthusiast",
+            "format": "YYYY-MM-dd hh:mm:ss",
+            "copyright": "Copyright &#169; 你的名字",
+            "timeColor": "#666",
+            "copyrightColor": "#666",
+            "utcOffset": "8",
+            "style": "normal",
+            "noPowered": false
+          },
+          "ga": {
+              "token": "UA-127082511-1"
+          },
+          "baidu": {
+              "token": "75439e2cbd22bdd813226000e9dcc12f"
+          },
+        "pagefooter-apachecn": {
+            "copyright":"Copyright &copy ibooker.org.cn 2019",
+            "modify_label": "该文件修订时间:  ",
+            "modify_format": "YYYY-MM-DD HH:mm:ss"
+        }
+    }
+}

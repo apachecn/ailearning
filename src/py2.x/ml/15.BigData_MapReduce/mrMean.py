@@ -46,7 +46,7 @@ class MRmean(MRJob):
         """
         step方法定义执行的步骤。
         执行顺序不必完全遵循map-reduce模式。
-        例如：
+        例如: 
             1. map-reduce-reduce-reduce
             2. map-reduce-map-reduce-map-reduce
         在step方法里，需要为mrjob指定mapper和reducer的名称。如果没有，它将默认调用mapper和reducer方法。

@@ -15,7 +15,7 @@ import sys
 '''
     mapper 接受原始的输入并产生中间值传递给 reducer。
     很多的mapper是并行执行的，所以需要将这些mapper的输出合并成一个值。
-    即：将中间的 key/value 对进行组合。
+    即: 将中间的 key/value 对进行组合。
 '''
 
 
@@ -43,5 +43,5 @@ for instance in mapperOut:
 mean_ = cumVal/cumN
 varSum = (cumSumSq - 2*mean_*cumVal + cumN*mean_*mean_)/cumN
 # 输出 数据总量，均值，平方的均值（方差）
-print("数据总量：%d\t均值：%f\t方差：%f" % (cumN, mean_, varSum))
+print("数据总量: %d\t均值: %f\t方差: %f" % (cumN, mean_, varSum))
 print("reduce report: still alive", file=sys.stderr)

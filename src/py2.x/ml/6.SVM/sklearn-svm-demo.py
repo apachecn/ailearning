@@ -4,7 +4,7 @@
 """
 Created on 2017-06-28
 Updated on 2017-06-28
-SVM：最大边距分离超平面
+SVM: 最大边距分离超平面
 Author: 片刻
 GitHub: https://github.com/apachecn/AiLearning
 sklearn-SVM译文链接: http://cwiki.apachecn.org/pages/viewpage.action?pageId=10031359
