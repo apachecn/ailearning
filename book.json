@@ -1,7 +1,7 @@
 {
-    "title" : "Pytorch 中文文档",
+    "title" : "AiLearning 中文文档",
     "author" : "ApacheCN",
-    "description" : "Pytorch 中文文档: 教程和文档",
+    "description" : "AiLearning 中文文档: 教程和文档",
     "language" : "zh-hans",
     "plugins": [
         "github",
