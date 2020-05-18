@@ -31,5 +31,5 @@ env:
     - GH_UN=jiangzhonglian
     - GH_EMAIL=jiang-s@163.com
     - GH_USER=apachecn
-    - GH_REPO=pytorch-doc-zh
+    - GH_REPO=AiLearning
     - GH_BRANCH=gh-pages

@@ -30,13 +30,13 @@
     ],
     "pluginsConfig": {
         "github": {
-            "url": "https://github.com/apachecn/pytorch-doc-zh"
+            "url": "https://github.com/apachecn/AiLearning"
         },
         "github-buttons": {
             "buttons": [
               {
                 "user": "apachecn",
-                "repo": "pytorch-doc-zh", 
+                "repo": "AiLearning", 
                 "type": "star",
                 "count": true,
                 "size": "small"
@@ -51,7 +51,7 @@
             "elements": [".gitbook-link"]
         },
         "edit-link": {
-            "base": "https://github.com/apachecn/pytorch-doc-zh/blob/master",
+            "base": "https://github.com/apachecn/AiLearning/blob/master",
             "label": "编辑本页"
         },
         "sharing": {
@@ -113,7 +113,7 @@
             "buttons": [
               {
                 "user": "apachecn",
-                "repo": "pytorch-doc-zh", 
+                "repo": "AiLearning", 
                 "type": "star",
                 "count": true,
                 "size": "small"
@@ -162,7 +162,7 @@
             "noPowered": false
           },
           "ga": {
-              "token": "UA-102475051-10"
+              "token": "UA-127082511-1"
           },
           "baidu": {
               "token": "75439e2cbd22bdd813226000e9dcc12f"

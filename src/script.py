@@ -53,8 +53,8 @@ if __name__ == "__main__":
             tag = False
         else:
             filename = "docs/%s/book.json" % version
-            str1 = "https://github.com/apachecn/pytorch-doc-zh/blob/master"
-            str2 = "https://github.com/apachecn/pytorch-doc-zh/blob/master/docs/%s" % version
+            str1 = "https://github.com/apachecn/AiLearning/blob/master"
+            str2 = "https://github.com/apachecn/AiLearning/blob/master/docs/%s" % version
 
     elif u_type == "powered":
         if version == "home":
@@ -80,10 +80,10 @@ if __name__ == "__main__":
       '\\n<hr/>'+
       '\\n<div align="center">'+
       '\\n    <p><a href="http://www.apachecn.org" target="_blank"><font face="KaiTi" size="6" color="red">我们一直在努力</font></a></p>'+
-      '\\n    <p><a href="https://github.com/apachecn/pytorch-doc-zh/" target="_blank">apachecn/pytorch-doc-zh</a></p>'+
-      '\\n    <p><iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=pytorch-doc-zh&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>'+
-      '\\n    <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=pytorch-doc-zh&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>'+
-      '\\n    <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=pytorch-doc-zh&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>'+
+      '\\n    <p><a href="https://github.com/apachecn/AiLearning/" target="_blank">apachecn/AiLearning</a></p>'+
+      '\\n    <p><iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>'+
+      '\\n    <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>'+
+      '\\n    <iframe align="middle" src="https://ghbtns.com/github-btn.html?user=apachecn&repo=AiLearning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="25px"></iframe>'+
       '\\n    <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bcee938030cc9e1552deb3bd9617bbbf62d3ec1647e4b60d9cd6b6e8f78ddc03"><img border="0" src="http://data.apachecn.org/img/logo/ApacheCN-group.png" alt="ML | ApacheCN" title="ML | ApacheCN"></a></p>'+
       '\\n</div>'+
       '\\n <div style="text-align:center;margin:0 0 10.5px;">'+
@@ -99,19 +99,19 @@ if __name__ == "__main__":
       '\\n      var _hmt = _hmt || [];'+
       '\\n      (function() {'+
       '\\n        var hm = document.createElement("script");'+
-      '\\n        hm.src = "https://hm.baidu.com/hm.js?38525fdac4b5d4403900b943d4e7dd91";'+
+      '\\n        hm.src = "https://hm.baidu.com/hm.js?33149aa6702022b1203201da06e23d81";'+
       '\\n        var s = document.getElementsByTagName("script")[0]; '+
       '\\n        s.parentNode.insertBefore(hm, s);'+
       '\\n      })();'+
       '\\n    </script>'+
       '\\n'+
-      '\\n    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-102475051-10"></script>'+
+      '\\n    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-127082511-1"></script>'+
       '\\n    <script>'+
       '\\n      window.dataLayer = window.dataLayer || [];'+
       '\\n      function gtag(){dataLayer.push(arguments);}'+
       '\\n      gtag(\\'js\\', new Date());'+
       '\\n'+
-      '\\n      gtag(\\'config\\', \\'UA-102475051-10\\');'+
+      '\\n      gtag(\\'config\\', \\'UA-127082511-1\\');'+
       '\\n    </script>'+
      '\\n</div>'+
       '\\n'+
@@ -129,7 +129,7 @@ if __name__ == "__main__":
       '\\n        const gitalk = new Gitalk({'+
       '\\n        clientID: \\'2e62dee5b9896e2eede6\\','+
       '\\n        clientSecret: \\'ca6819a54656af0d87960af15315320f8a628a53\\','+
-      '\\n        repo: \\'pytorch-doc-zh\\','+
+      '\\n        repo: \\'AiLearning\\','+
       '\\n        owner: \\'apachecn\\','+
       '\\n        admin: [\\'jiangzhonglian\\', \\'wizardforcel\\'],'+
       '\\n        id: md5(location.pathname),'+
