@@ -23,6 +23,14 @@
 * 入门只看: 步骤 1 => 2 => 3，你可以当大牛！
 * 中级补充 - 资料库: <https://github.com/apachecn/ai-roadmap>
 
+> 补充
+
+* 头条视频汇总: <https://www.ixigua.com/home/85684906755>
+* 算法刷题: <https://www.ixigua.com/pseries/6822642486343631363/>
+* 面试求职: <https://www.ixigua.com/pseries/6822563009391493636/>
+* 机器学习实战: <https://www.ixigua.com/pseries/6822816341615968772/>
+* NLP教学视频: <https://www.ixigua.com/pseries/6828241431295951373/>
+
 ## 1.机器学习 - 基础
 
 ### 基本介绍
