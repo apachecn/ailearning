@@ -53,6 +53,7 @@
 
 * 资料来源: Machine Learning in Action(机器学习实战-个人笔记)
 * 统一数据地址: <https://github.com/apachecn/data>
+  * 百度云打包地址: <https://github.com/apachecn/data/issues/3>
 * 书籍下载地址: <https://github.com/apachecn/data/tree/master/book>
 * 机器学习下载地址: <https://github.com/apachecn/data/tree/master/机器学习>
 * 深度学习数据地址: <https://github.com/apachecn/data/tree/master/深度学习>
