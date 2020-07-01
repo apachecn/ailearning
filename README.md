@@ -18,22 +18,6 @@
 
 > **欢迎任何人参与和完善: 一个人可以走的很快，但是一群人却可以走的更远**
 
----
-
-> 免费活动 - AI 峰会 (插一句 - 请关注)
-
-<tbody>
-  <tr>
-    <td align="center" valign="middle">
-      <a href="https://2020.baai.ac.cn/?code=LFVpLJBM" target="_blank">
-        <img width="1080" src="http://apachecn.org/wp-content/uploads/2020/06/2020北京智源大会.png">
-      </a>
-    </td>
-  <tr>
-</tbody>
-
----
-
 # 路线图
 
 * 入门只看: 步骤 1 => 2 => 3，你可以当大牛！
