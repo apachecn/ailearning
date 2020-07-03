@@ -266,6 +266,8 @@ WordNet可以被看作是一个同义词词典
 
 * https://www.biaodianfu.com/nltk.html/amp
 
+TensorFlow 2.0学习网址
+* https://github.com/lyhue1991/eat_tensorflow2_in_30_days
 
 ## 3.自然语言处理
 
