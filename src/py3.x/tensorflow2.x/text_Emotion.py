@@ -21,8 +21,8 @@ from keras.models import load_model
 from keras.layers.normalization import BatchNormalization
 from keras.layers import Dropout, Dense, Flatten, Bidirectional, Embedding, GRU, Input, multiply
 """
-# padding: pre 向前补充0  post 向后补充0
-# truncating: 文本超过 pad_num,  pre 删除前面  post 删除后面
+# padding: pre(默认) 向前补充0  post 向后补充0
+# truncating: 文本超过 pad_num,  pre(默认) 删除前面  post 删除后面
 # x_train = pad_sequences(x, maxlen=pad_num, value=0, padding='post', truncating="post")
 # print("--- ", x_train[0][:20])
 """
