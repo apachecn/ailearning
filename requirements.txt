@@ -1,0 +1,6 @@
+numpy
+pandas
+sklearn
+keras
+tensorflow
+git+https://www.github.com/keras-team/keras-contrib.git
