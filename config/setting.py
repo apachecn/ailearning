@@ -6,9 +6,9 @@
 
 class TextNER(object):
     DEBUG = False
-    path_root = "/home/wac/jiangzhonglian"
+    path_root = "/home/apachecn/jiangzhonglian"
     if DEBUG:
-        path_root = "/Users/jiangzl/work/data/深度学习/nlp/命名实体识别/data"
+        path_root = "/Users/jiangzhonglian/data/nlp/命名实体识别/data"
 
     path_train  = '%s/train_data.data'  % path_root
     path_test   = '%s/test_data.data'   % path_root
