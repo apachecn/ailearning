@@ -14,7 +14,7 @@
 
 > 组织构建
 
-* GitHub Pages(国外): http://ailearning.apachecn.org
+* GitHub Pages(国外): https://ailearning.apachecn.org
 * Gitee  Pages(国内): https://apachecn.gitee.io/ailearning
 
 > 第三方站长
