@@ -10,6 +10,17 @@
 
 <h1 align="center"><a href="https://github.com/apachecn/AiLearning">AI learning</a></h1>
 
+## 网站地址
+
+> 组织构建
+
+* GitHub Pages(国外): https://ailearning.apachecn.org
+* Gitee  Pages(国内): https://apachecn.gitee.io/ailearning
+
+> 第三方站长
+
+地址A: xxx (欢迎留言，我们完善补充)
+
 ## 组织介绍
 
 * 合作or侵权，请联系: `apachecn@163.com`
