@@ -1,6 +1,6 @@
 numpy
 pandas
 sklearn
-keras
-tensorflow
+keras==2.3.1
+tensorflow==2.0.0
 git+https://www.github.com/keras-team/keras-contrib.git

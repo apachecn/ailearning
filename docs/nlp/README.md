@@ -1,5 +1,9 @@
 # 【入门须知】必须了解
 
+实体： 抽取
+关系： 图谱
+意图： 分类
+
 * **【入门须知】必须了解**: <https://github.com/apachecn/AiLearning/tree/master/docs/nlp>
 * **【入门教程】强烈推荐: PyTorch 自然语言处理**: <https://github.com/apachecn/NLP-with-PyTorch>
 * Python 自然语言处理 第二版: <https://usyiyi.github.io/nlp-py-2e-zh>
