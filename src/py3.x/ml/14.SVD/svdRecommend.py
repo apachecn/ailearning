@@ -13,17 +13,30 @@ from numpy import *
 
 def loadExData3():
     # 利用SVD提高推荐效果，菜肴矩阵
+    # 可以修改原数据集合，用对对比
+    # return[[2, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0],
+    #        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5],
+    #        [0, 0, 0, 0, 0, 0, 0, 1, 0, 4, 0],
+    #        [3, 3, 4, 0, 3, 0, 0, 2, 2, 0, 0],
+    #        [5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0],
+    #        [0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0],
+    #        [4, 0, 4, 0, 0, 0, 0, 0, 0, 0, 5],
+    #        [0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4],
+    #        [0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0],
+    #        [0, 0, 0, 3, 0, 0, 0, 0, 4, 5, 0],
+    #        [1, 1, 2, 1, 1, 2, 1, 0, 4, 5, 0]]
+    # 修改后的数据（增加了第1道菜和最后1到菜，同时有3个人吃，从而计算基于物品的协同过滤效果，原来才一个人）
     return[[2, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0],
            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5],
            [0, 0, 0, 0, 0, 0, 0, 1, 0, 4, 0],
-           [3, 3, 4, 0, 3, 0, 0, 2, 2, 0, 0],
+           [3, 3, 4, 0, 3, 0, 0, 2, 2, 0, 8],
            [5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0],
            [0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0],
            [4, 0, 4, 0, 0, 0, 0, 0, 0, 0, 5],
            [0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4],
            [0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0],
            [0, 0, 0, 3, 0, 0, 0, 0, 4, 5, 0],
-           [1, 1, 2, 1, 1, 2, 1, 0, 4, 5, 0]]
+           [1, 1, 2, 1, 1, 2, 1, 0, 4, 5, 6]]
 
 
 def loadExData2():
@@ -114,15 +127,28 @@ def standEst(dataMat, user, simMeas, item):
             continue
         # 寻找两个用户都评级的物品
         # 变量 overLap 给出的是两个物品当中已经被评分的那个元素的索引ID
-        # logical_and 计算x1和x2元素的真值。
+        # logical_and 计算x1和x2元素的为True就为True(也就是列的值同时>0), 否则就为False
+        # item(0): [[ True] [False] [False] [ True] [ True] [False] [ True] [False] [False] [False] [ True]] 
+        # j(10):   [[False] [ True] [False] [False] [False] [False] [ True] [ True] [False] [False] [False]]
+        # +1--     [[False] [False] [False] [False] [False] [False] [ True] [False] [False] [False] [False]]
+        # +2--                                                      [6]
+        # print("+++ item(%s): %s --- j(%s): %s" % (item, dataMat[:, item].A > 0, j, dataMat[:, j].A > 0))
+        # print("+1-- %s" % logical_and(dataMat[:, item].A > 0, dataMat[:, j].A > 0) )
+        # print("+2-- %s" % overLap)
+
         overLap = nonzero(logical_and(dataMat[:, item].A > 0, dataMat[:, j].A > 0))[0]
         # 如果相似度为0，则两着没有任何重合元素，终止本次循环
         if len(overLap) == 0:
             similarity = 0
         # 如果存在重合的物品，则基于这些重合物重新计算相似度。
         else:
+            # print("-%s-  %s:%s -- %s:%s" % (overLap, item, dataMat[overLap, item], j, dataMat[overLap, j]) )
+            # 如果 overLap 长度是为3，说明3个人同时吃了 菜A并且也同时吃了菜B
+            # 那么就要找对 这3个人对应 菜评分的矩阵
+            # -[ 3  6 10](人)-  0(菜):[[3] [4] [1]] -- 10(菜):[[8] [5] [6]]
+            # 然后就可以计算出来两个菜之间的相似度
             similarity = simMeas(dataMat[overLap, item], dataMat[overLap, j])
-        # print('the %d and %d similarity is : %f'(iten,j,similarity))
+        print('the %d and %d similarity is : %f' % (item, j, similarity))
         # 相似度会不断累加，每次计算时还考虑相似度和当前用户评分的乘积
         # similarity  用户相似度，   userRating 用户评分
         simTotal += similarity
@@ -161,13 +187,17 @@ def svdEst(dataMat, user, simMeas, item):
     # 如果要进行矩阵运算，就必须要用这些奇异值构建出一个对角矩阵
     Sig4 = mat(eye(4) * Sigma[: 4])
 
-    # 利用U矩阵将物品转换到低维空间中，构建转换后的物品(物品+4个主要的特征)
+    # 利用U矩阵将物品转换到低维空间中，构建转换后的物品(物品+4个主要的“隐形”特征)
+    # 公式1(目的是: 降维-改变形状，也改变大小)  xformedItems = dataMat.T * U[:, :4] * Sig4.I
+    # 公式2(目的是: 压缩-不改变形状，改变大小)      reconMat = U[:, :4] * Sig4.I * VT[:4, :]
+        # 其中: imgCompress() 是详细的案例
+    # 最近看到一篇文章描述，感觉挺有道理的，我就顺便补充一下注释: https://blog.csdn.net/qq_36523839/article/details/82347332
     xformedItems = dataMat.T * U[:, :4] * Sig4.I
-    print('dataMat', shape(dataMat))
-    print('U[:, :4]', shape(U[:, :4]))
-    print('Sig4.I', shape(Sig4.I))
-    print('VT[:4, :]', shape(VT[:4, :]))
-    print('xformedItems', shape(xformedItems))
+    # print('dataMat', shape(dataMat))
+    # print('U[:, :4]', shape(U[:, :4]))
+    # print('Sig4.I', shape(Sig4.I))
+    # print('VT[:4, :]', shape(VT[:4, :]))
+    # print('xformedItems', shape(xformedItems))
 
     # 对于给定的用户，for循环在用户对应行的元素上进行遍历
     # 这和standEst()函数中的for循环的目的一样，只不过这里的相似度计算时在低维空间下进行的。
@@ -203,6 +233,11 @@ def recommend(dataMat, user, N=3, simMeas=cosSim, estMethod=standEst):
         返回最终 N 个推荐结果
     """
     # 寻找未评级的物品
+    #    nonzero（a）函数一般返回两行array（）。如果mat（）一下，就是个2*N 的矩阵
+    #    其中 (array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), 
+    #         array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]))
+    #    例如:  上下取出来的数据(0, 0) 表示在矩阵的横纵坐标(行、列)的位置
+    #    由于是2为矩阵，所以 [1] 就是矩阵列，也就是商品ID的为主
     # 对给定的用户建立一个未评分的物品列表
     unratedItems = nonzero(dataMat[user, :].A == 0)[1]
     # 如果不存在未评分物品，那么就退出函数
@@ -328,25 +363,28 @@ if __name__ == "__main__":
     # 计算相似度的方法
     myMat = mat(loadExData3())
     # print(myMat)
-    # 计算相似度的第一种方式
+
+    # 方式1: 基于物品的协同过滤，通过余弦相似度计算相似度
+    # print(recommend(myMat, 1))
+    # 方式2: 基于SVD，通过余弦相似度计算相似度
     print(recommend(myMat, 1, estMethod=svdEst))
-    # 计算相似度的第二种方式
-    print(recommend(myMat, 1, estMethod=svdEst, simMeas=pearsSim))
+    # 方式3: 
+    # print(recommend(myMat, 1, estMethod=svdEst, simMeas=pearsSim))
 
-    # 默认推荐（菜馆菜肴推荐示例）
-    print(recommend(myMat, 2))
+    # # 默认推荐（菜馆菜肴推荐示例）
+    # print(recommend(myMat, 2))
 
-    """
-    # 利用SVD提高推荐效果
-    U, Sigma, VT = la.svd(mat(loadExData2()))
-    print(Sigma)                 # 计算矩阵的SVD来了解其需要多少维的特征
-    Sig2 = Sigma**2              # 计算需要多少个奇异值能达到总能量的90%
-    print(sum(Sig2))             # 计算总能量
-    print(sum(Sig2) * 0.9)       # 计算总能量的90%
-    print(sum(Sig2[: 2]))        # 计算前两个元素所包含的能量
-    print(sum(Sig2[: 3]))        # 两个元素的能量值小于总能量的90%，于是计算前三个元素所包含的能量
-    # 该值高于总能量的90%，这就可以了
-    """
+    # """
+    # # 利用SVD提高推荐效果
+    # U, Sigma, VT = la.svd(mat(loadExData2()))
+    # print(Sigma)                 # 计算矩阵的SVD来了解其需要多少维的特征
+    # Sig2 = Sigma**2              # 计算需要多少个奇异值能达到总能量的90%
+    # print(sum(Sig2))             # 计算总能量
+    # print(sum(Sig2) * 0.9)       # 计算总能量的90%
+    # print(sum(Sig2[: 2]))        # 计算前两个元素所包含的能量
+    # print(sum(Sig2[: 3]))        # 两个元素的能量值小于总能量的90%，于是计算前三个元素所包含的能量
+    # # 该值高于总能量的90%，这就可以了
+    # """
 
-    # 压缩图片
-    # imgCompress(2)
+    # # 压缩图片
+    # # imgCompress(2)
