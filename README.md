@@ -41,6 +41,7 @@
 * 面试求职: <https://www.ixigua.com/pseries/6822563009391493636/>
 * 机器学习实战: <https://www.ixigua.com/pseries/6822816341615968772/>
 * NLP教学视频: <https://www.ixigua.com/pseries/6828241431295951373/>
+* **AI常用函数说明**: <https://github.com/apachecn/AiLearning/tree/master/AI常用函数说明.md>
 
 ## 1.机器学习 - 基础
 
