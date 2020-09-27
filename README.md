@@ -21,6 +21,24 @@
 
 地址A: xxx (欢迎留言，我们完善补充)
 
+## 下载
+
+### PYPI
+
+```
+pip install apachecn-ds-zh
+apachecn-ds-zh <port>
+# 访问 http://localhost:{port} 查看文档
+```
+
+### NPM
+
+```
+npm install -g apachecn-ds-zh
+apachecn-ds-zh <port>
+# 访问 http://localhost:{port} 查看文档
+```
+
 ## 组织介绍
 
 * 合作or侵权，请联系: `apachecn@163.com`
