@@ -26,16 +26,16 @@
 ### PYPI
 
 ```
-pip install apachecn-ds-zh
-apachecn-ds-zh <port>
+pip install apachecn-ailearning
+apachecn-ailearning <port>
 # 访问 http://localhost:{port} 查看文档
 ```
 
 ### NPM
 
 ```
-npm install -g apachecn-ds-zh
-apachecn-ds-zh <port>
+npm install -g ailearning
+ailearning <port>
 # 访问 http://localhost:{port} 查看文档
 ```
 
