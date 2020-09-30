@@ -23,6 +23,14 @@
 
 ## 下载
 
+### Docker
+
+```
+docker pull apachecn0/ailearning
+docker run -tid -p <port>:80 apachecn0/ailearning
+# 访问 http://localhost:{port} 查看文档
+```
+
 ### PYPI
 
 ```
