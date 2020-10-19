@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://www.apachecn.org">
-        <img width="200" src="http://data.apachecn.org/img/logo.jpg">
+        <img width="200" src="docs/img/logo.jpg">
     </a>
     <br >
     <a href="https://www.apachecn.org/"><img src="https://img.shields.io/badge/%3E-HOME-green.svg"></a>
@@ -234,7 +234,7 @@ ailearning <port>
 
 > 视频怎么看？
 
-![](http://data.apachecn.org/img/AiLearning/MainPage/ApacheCN-ML-bilibili-compare.jpg)
+![](docs/img/ApacheCN-ML-bilibili-compare.jpg)
 
 1. 理论科班出身-建议去学习 Andrew Ng 的视频（Ng 的视频绝对是权威，这个毋庸置疑）
 2. 编码能力强 - 建议看我们的[《机器学习实战-教学版》](https://space.bilibili.com/97678687/#!/channel/detail?cid=22486)
@@ -328,7 +328,7 @@ TensorFlow 2.0学习网址
 当然谢谢国内很多博客大佬，特别是一些入门的Demo和基本概念。【深入的水平有限，没看懂】
 ```
 
-![](http://data.apachecn.org/img/AiLearning/nlp/F94581F64C21A1094A473397DFA42F9C.jpg)
+![](docs/nlp/img/F94581F64C21A1094A473397DFA42F9C.jpg)
 
 * **【入门须知】必须了解**: <https://github.com/apachecn/AiLearning/tree/master/docs/nlp>
 * **【入门教程】强烈推荐: PyTorch 自然语言处理**: <https://github.com/apachecn/NLP-with-PyTorch>
