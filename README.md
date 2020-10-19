@@ -51,7 +51,7 @@ ailearning <port>
 
 * 合作or侵权，请联系: `apachecn@163.com`
 * **我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！**
-* **ApacheCN - 学习群【724187166】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=51040bbd0bf7d0efbfa7256a0331d912a2055a906c324d52b02371d06f3c9878"><img border="0" src="http://data.apachecn.org/img/logo/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[724187166]" title="ApacheCN - 学习机器学习群[724187166]"></a>**
+* **ApacheCN - 学习群【724187166】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=51040bbd0bf7d0efbfa7256a0331d912a2055a906c324d52b02371d06f3c9878"><img border="0" src="docs/img/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[724187166]" title="ApacheCN - 学习机器学习群[724187166]"></a>**
 
 > **欢迎任何人参与和完善: 一个人可以走的很快，但是一群人却可以走的更远**
 
@@ -253,9 +253,9 @@ ailearning <port>
 |||
 | - | - |
 | AcFun | B站 |
-| <a title="AcFun（机器学习视频）" href="http://www.acfun.cn/u/12540256.aspx#page=1" target="_blank"><img width="290" src="http://data.apachecn.org/img/AiLearning/MainPage/ApacheCN-ML-AcFun.jpg"></a> | <a title="bilibili（机器学习视频）" href="https://space.bilibili.com/97678687/#!/channel/index" target="_blank"><img width="290" src="http://data.apachecn.org/img/AiLearning/MainPage/ApacheCN-ML-bilibili.jpg"></a> |
+| <a title="AcFun（机器学习视频）" href="http://www.acfun.cn/u/12540256.aspx#page=1" target="_blank"><img width="290" src="docs/img/ApacheCN-ML-AcFun.jpg"></a> | <a title="bilibili（机器学习视频）" href="https://space.bilibili.com/97678687/#!/channel/index" target="_blank"><img width="290" src="docs/img/ApacheCN-ML-bilibili.jpg"></a> |
 | 优酷 | 网易云课堂 |
-| <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="http://data.apachecn.org/img/AiLearning/MainPage/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="http://data.apachecn.org/img/AiLearning/MainPage/ApacheCM-ML-WangYiYunKeTang.png"></a> |
+| <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="docs/img/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="docs/img/ApacheCM-ML-WangYiYunKeTang.png"></a> |
 
 > 【免费】机器/深度学习视频 - 吴恩达
 
