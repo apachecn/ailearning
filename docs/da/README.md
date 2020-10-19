@@ -23,7 +23,7 @@
 
 安装好 `Python` 和相应的包之后，可以在命令行下输入：
 
-```
+```py
 $ ipython notebook
 ```
 
@@ -37,7 +37,7 @@ $ ipython notebook
 
 *   更新环境
 
-    ```
+    ```py
     conda update conda
     conda update anaconda
     ```
