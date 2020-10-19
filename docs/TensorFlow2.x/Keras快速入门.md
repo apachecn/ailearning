@@ -28,7 +28,7 @@ model.evaluate(dataset)
 
 ## Keras Sequential 顺序模型
 
-顺序模型是多个网络层的线性堆叠，目前支持2中方式
+顺序模型是多个网络层的线性堆叠，目前支持2种方式
 
 ### 构造模型
 
