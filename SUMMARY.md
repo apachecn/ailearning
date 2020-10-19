@@ -1,5 +1,5 @@
 
-+ [入门须知](README.md)
++   [入门须知](README.md)
 +   [数据分析](docs/da/README.md)
     +   [01\. Python 工具](docs/da/001.md)
         +   [Python 简介](docs/da/002.md)
@@ -154,7 +154,7 @@
         +   [十分钟上手 Pandas](docs/da/151.md)
         +   [一维数据结构：Series](docs/da/152.md)
         +   [二维数据结构：DataFrame](docs/da/153.md)
-+ 机器学习
++   机器学习
     + [第1章_基础知识](docs/ml/1.md)
     + [第2章_K近邻算法](docs/ml/2.md)
     + [第3章_决策树算法](docs/ml/3.md)
@@ -173,12 +173,39 @@
     + [第16章_推荐系统](docs/ml/16.md)
     + [为何录制教学版视频](docs/why-to-record-study-ml-video.md)
     + [2017-04-08_第一期的总结](docs/report/2017-04-08.md)
-+ 深度学习入门
++   [莫烦 PyTorch 系列教程](docs/pytorch/README.md)
+    +   [PyTorch 简介](docs/pytorch/01.md)
+        +   [[莫烦 PyTorch 系列教程] 1.1 – Why PyTorch?](docs/pytorch/02.md)
+        +   [[莫烦 PyTorch 系列教程] 1.2 – 安装 PyTorch](docs/pytorch/03.md)
+    +   [PyTorch 神经网络基础](docs/pytorch/04.md)
+        +   [[莫烦 PyTorch 系列教程] 2.1 – Torch vs Numpy](docs/pytorch/05.md)
+        +   [[莫烦 PyTorch 系列教程] 2.2 – 变量 (Variable)](docs/pytorch/06.md)
+        +   [[莫烦 PyTorch 系列教程] 2.3 – 激励函数 (Activation)](docs/pytorch/07.md)
+    +   [建造第一个神经网络](docs/pytorch/08.md)
+        +   [[莫烦 PyTorch 系列教程] 3.1 – 关系拟合 (回归 Regression)](docs/pytorch/09.md)
+        +   [[莫烦 PyTorch 系列教程] 3.2 – 区分类型 (分类 Classification)](docs/pytorch/10.md)
+        +   [[莫烦 PyTorch 系列教程] 3.3 – 快速搭建回归神经网络](docs/pytorch/11.md)
+        +   [[莫烦 PyTorch 系列教程] 3.4 – 保存和恢复模型](docs/pytorch/12.md)
+        +   [[莫烦 PyTorch 系列教程] 3.5 – 数据读取 (Data Loader)](docs/pytorch/13.md)
+        +   [[莫烦 PyTorch 系列教程] 3.6 – 优化器 (Optimizer)](docs/pytorch/14.md)
+    +   [高级神经网络结构](docs/pytorch/15.md)
+        +   [[莫烦 PyTorch 系列教程] 4.1 – CNN 卷积神经网络](docs/pytorch/16.md)
+        +   [[莫烦 PyTorch 系列教程] 4.2 – RNN 循环神经网络 (分类 Classification)](docs/pytorch/17.md)
+        +   [[莫烦 PyTorch 系列教程] 4.3 – RNN 循环神经网络 (回归 Regression)](docs/pytorch/18.md)
+        +   [[莫烦 PyTorch 系列教程] 4.4 – AutoEncoder (自编码/非监督学习)](docs/pytorch/19.md)
+        +   [[莫烦 PyTorch 系列教程] 4.5 – DQN 强化学习 (Reinforcement Learning)](docs/pytorch/20.md)
+        +   [[莫烦 PyTorch 系列教程] 4.6 – GAN (Generative Adversarial Nets 生成对抗网络)](docs/pytorch/21.md)
+    +   [高阶内容](docs/pytorch/22.md)
+        +   [[莫烦 PyTorch 系列教程] 5.1 – 为什么 Torch 是动态的](docs/pytorch/23.md)
+        +   [[莫烦 PyTorch 系列教程] 5.2 – GPU 加速运算](docs/pytorch/24.md)
+        +   [[莫烦 PyTorch 系列教程] 5.3 – Dropout 防止过拟合](docs/pytorch/25.md)
+        +   [[莫烦 PyTorch 系列教程] 5.4 – Batch Normalization 批标准化](docs/pytorch/26.md)
++   深度学习入门
     + [反向传递](docs/dl/反向传递.md)
     + [CNN原理](docs/dl/CNN原理.md)
     + [RNN原理](docs/dl/RNN原理.md)
     + [LSTM原理](docs/dl/LSTM原理.md)
-+ 自然语言处理
++   自然语言处理
     + [第1章_入门介绍](docs/nlp/1.入门介绍.md)
     + [第2章_分词](docs/nlp/2.分词.md)
     + [第3章_命名实体识别](docs/nlp/3.命名实体识别.md)
@@ -186,7 +213,7 @@
     + [第10章_篇章分析-内容标签](docs/nlp/3.2.篇章分析-内容标签.md)
     + [第10章_篇章分析-情感分析](docs/nlp/3.3.篇章分析-情感分析.md)
     + [第10章_篇章分析-自动摘要](docs/nlp/3.4.篇章分析-自动摘要.md)
-+ TensorFlow 2.0 - 教程
++   TensorFlow 2.0 - 教程
     + [安装指南](docs/TensorFlow2.x/安装指南.md)
     + [Kears 快速入门](docs/TensorFlow2.x/Keras快速入门.md)
     + [实战项目 1 电影情感分类](docs/TensorFlow2.x/实战项目_1_电影情感分类.md)
