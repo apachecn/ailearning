@@ -96,14 +96,14 @@ ailearning <port>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/1.机器学习基础.md"> 第 1 章: 机器学习基础</a></td>
+    <td><a href="docs/ml/1.md"> 第 1 章: 机器学习基础</a></td>
     <td>介绍</td>
     <td><a href="https://github.com/ElmaDavies">@毛红动</a></td>
     <td>1306014226</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/2.k-近邻算法.md">第 2 章: KNN 近邻算法</a></td>
+    <td><a href="docs/ml/2.md">第 2 章: KNN 近邻算法</a></td>
     <td>分类</td>
     <td><a href="https://github.com/youyj521">@尤永江</a></td>
     <td>279393323</td>
@@ -117,91 +117,91 @@ ailearning <port>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/4.朴素贝叶斯.md">第 4 章: 朴素贝叶斯</a></td>
+    <td><a href="docs/ml/4.md">第 4 章: 朴素贝叶斯</a></td>
     <td>分类</td>
     <td><a href="https://github.com/wnma3mz">@wnma3mz</a><br/><a href="https://github.com/kailian">@分析</a></td>
     <td>1003324213<br/>244970749</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/5.Logistic回归.md">第 5 章: Logistic回归</a></td>
+    <td><a href="docs/ml/5.md">第 5 章: Logistic回归</a></td>
     <td>分类</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/6.支持向量机.md">第 6 章: SVM 支持向量机</a></td>
+    <td><a href="docs/ml/6.md">第 6 章: SVM 支持向量机</a></td>
     <td>分类</td>
     <td><a href="https://github.com/VPrincekin">@王德红</a></td>
     <td>934969547</td>
   </tr>
   <tr>
     <td>网上组合内容</td>
-    <td><a href="docs/ml/7.集成方法-随机森林和AdaBoost.md">第 7 章: 集成方法（随机森林和 AdaBoost）</a></td>
+    <td><a href="docs/ml/7.md">第 7 章: 集成方法（随机森林和 AdaBoost）</a></td>
     <td>分类</td>
     <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
     <td>529815144</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/8.回归.md">第 8 章: 回归</a></td>
+    <td><a href="docs/ml/8.md">第 8 章: 回归</a></td>
     <td>回归</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/9.树回归.md">第 9 章: 树回归</a></td>
+    <td><a href="docs/ml/9.md">第 9 章: 树回归</a></td>
     <td>回归</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/10.k-means聚类.md">第 10 章: K-Means 聚类</a></td>
+    <td><a href="docs/ml/10.md">第 10 章: K-Means 聚类</a></td>
     <td>聚类</td>
     <td><a href="https://github.com/xuzhaoqing">@徐昭清</a></td>
     <td>827106588</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/11.使用Apriori算法进行关联分析.md">第 11 章: 利用 Apriori 算法进行关联分析</a></td>
+    <td><a href="docs/ml/11.md">第 11 章: 利用 Apriori 算法进行关联分析</a></td>
     <td>频繁项集</td>
     <td><a href="https://github.com/WindZQ">@刘海飞</a></td>
     <td>1049498972</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/12.使用FP-growth算法来高效发现频繁项集.md">第 12 章: FP-growth 高效发现频繁项集</a></td>
+    <td><a href="docs/ml/12.md">第 12 章: FP-growth 高效发现频繁项集</a></td>
     <td>频繁项集</td>
     <td><a href="https://github.com/mikechengwei">@程威</a></td>
     <td>842725815</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/13.利用PCA来简化数据.md">第 13 章: 利用 PCA 来简化数据</a></td>
+    <td><a href="docs/ml/13.md">第 13 章: 利用 PCA 来简化数据</a></td>
     <td>工具</td>
     <td><a href="https://github.com/lljuan330">@廖立娟</a></td>
     <td>835670618</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/14.利用SVD简化数据.md">第 14 章: 利用 SVD 来简化数据</a></td>
+    <td><a href="docs/ml/14.md">第 14 章: 利用 SVD 来简化数据</a></td>
     <td>工具</td>
     <td><a href="https://github.com/marsjhao">@张俊皓</a></td>
     <td>714974242</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/15.大数据与MapReduce.md">第 15 章: 大数据与 MapReduce</a></td>
+    <td><a href="docs/ml/15.md">第 15 章: 大数据与 MapReduce</a></td>
     <td>工具</td>
     <td><a href="https://github.com/wnma3mz">@wnma3mz</a></td>
     <td>1003324213</td>
   </tr>
   <tr>
     <td>Ml项目实战</td>
-    <td><a href="docs/ml/16.推荐系统.md">第 16 章: 推荐系统（已迁移）</a></td>
+    <td><a href="docs/ml/16.md">第 16 章: 推荐系统（已迁移）</a></td>
     <td>项目</td>
     <td><a href="https://github.com/apachecn/RecommenderSystems">推荐系统（迁移后地址）</a></td>
     <td></td>
