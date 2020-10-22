@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://www.apachecn.org">
-        <img width="200" src="http://data.apachecn.org/img/logo.jpg">
+        <img width="200" src="docs/img/logo.jpg">
     </a>
     <br >
     <a href="https://www.apachecn.org/"><img src="https://img.shields.io/badge/%3E-HOME-green.svg"></a>
@@ -21,11 +21,37 @@
 
 地址A: xxx (欢迎留言，我们完善补充)
 
+## 下载
+
+### Docker
+
+```
+docker pull apachecn0/ailearning
+docker run -tid -p <port>:80 apachecn0/ailearning
+# 访问 http://localhost:{port} 查看文档
+```
+
+### PYPI
+
+```
+pip install apachecn-ailearning
+apachecn-ailearning <port>
+# 访问 http://localhost:{port} 查看文档
+```
+
+### NPM
+
+```
+npm install -g ailearning
+ailearning <port>
+# 访问 http://localhost:{port} 查看文档
+```
+
 ## 组织介绍
 
 * 合作or侵权，请联系: `apachecn@163.com`
 * **我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！**
-* **ApacheCN - 学习群【724187166】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=51040bbd0bf7d0efbfa7256a0331d912a2055a906c324d52b02371d06f3c9878"><img border="0" src="http://data.apachecn.org/img/logo/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[724187166]" title="ApacheCN - 学习机器学习群[724187166]"></a>**
+* **ApacheCN - 学习群【724187166】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=51040bbd0bf7d0efbfa7256a0331d912a2055a906c324d52b02371d06f3c9878"><img border="0" src="docs/img/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[724187166]" title="ApacheCN - 学习机器学习群[724187166]"></a>**
 
 > **欢迎任何人参与和完善: 一个人可以走的很快，但是一群人却可以走的更远**
 
@@ -208,7 +234,7 @@
 
 > 视频怎么看？
 
-![](http://data.apachecn.org/img/AiLearning/MainPage/ApacheCN-ML-bilibili-compare.jpg)
+![](docs/img/ApacheCN-ML-bilibili-compare.jpg)
 
 1. 理论科班出身-建议去学习 Andrew Ng 的视频（Ng 的视频绝对是权威，这个毋庸置疑）
 2. 编码能力强 - 建议看我们的[《机器学习实战-教学版》](https://space.bilibili.com/97678687/#!/channel/detail?cid=22486)
@@ -227,9 +253,9 @@
 |||
 | - | - |
 | AcFun | B站 |
-| <a title="AcFun（机器学习视频）" href="http://www.acfun.cn/u/12540256.aspx#page=1" target="_blank"><img width="290" src="http://data.apachecn.org/img/AiLearning/MainPage/ApacheCN-ML-AcFun.jpg"></a> | <a title="bilibili（机器学习视频）" href="https://space.bilibili.com/97678687/#!/channel/index" target="_blank"><img width="290" src="http://data.apachecn.org/img/AiLearning/MainPage/ApacheCN-ML-bilibili.jpg"></a> |
+| <a title="AcFun（机器学习视频）" href="http://www.acfun.cn/u/12540256.aspx#page=1" target="_blank"><img width="290" src="docs/img/ApacheCN-ML-AcFun.jpg"></a> | <a title="bilibili（机器学习视频）" href="https://space.bilibili.com/97678687/#!/channel/index" target="_blank"><img width="290" src="docs/img/ApacheCN-ML-bilibili.jpg"></a> |
 | 优酷 | 网易云课堂 |
-| <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="http://data.apachecn.org/img/AiLearning/MainPage/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="http://data.apachecn.org/img/AiLearning/MainPage/ApacheCM-ML-WangYiYunKeTang.png"></a> |
+| <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="docs/img/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="docs/img/ApacheCM-ML-WangYiYunKeTang.png"></a> |
 
 > 【免费】机器/深度学习视频 - 吴恩达
 
@@ -258,7 +284,7 @@
 > 目录结构:
 
 * [安装指南](docs/TensorFlow2.x/安装指南.md)
-* [Kears 快速入门](docs/TensorFlow2.x/Keras快速入门.md)
+* [Keras 快速入门](docs/TensorFlow2.x/Keras快速入门.md)
 * [实战项目 1 电影情感分类](docs/TensorFlow2.x/实战项目_1_电影情感分类.md)
 * [实战项目 2 汽车燃油效率](docs/TensorFlow2.x/实战项目_2_汽车燃油效率.md)
 * [实战项目 3 优化 过拟合和欠拟合](docs/TensorFlow2.x/实战项目_3_优化_过拟合和欠拟合.md)
@@ -302,7 +328,7 @@ TensorFlow 2.0学习网址
 当然谢谢国内很多博客大佬，特别是一些入门的Demo和基本概念。【深入的水平有限，没看懂】
 ```
 
-![](http://data.apachecn.org/img/AiLearning/nlp/F94581F64C21A1094A473397DFA42F9C.jpg)
+![](docs/nlp/img/F94581F64C21A1094A473397DFA42F9C.jpg)
 
 * **【入门须知】必须了解**: <https://github.com/apachecn/AiLearning/tree/master/docs/nlp>
 * **【入门教程】强烈推荐: PyTorch 自然语言处理**: <https://github.com/apachecn/NLP-with-PyTorch>
