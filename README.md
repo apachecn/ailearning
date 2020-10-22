@@ -110,7 +110,7 @@ ailearning <port>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/3.决策树.md">第 3 章: 决策树</a></td>
+    <td><a href="docs/ml/3.md">第 3 章: 决策树</a></td>
     <td>分类</td>
     <td><a href="https://github.com/jingwangfei">@景涛</a></td>
     <td>844300439</td>
