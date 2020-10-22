@@ -96,119 +96,119 @@ ailearning <port>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/1.机器学习基础.md"> 第 1 章: 机器学习基础</a></td>
+    <td><a href="docs/ml/1.md"> 第 1 章: 机器学习基础</a></td>
     <td>介绍</td>
     <td><a href="https://github.com/ElmaDavies">@毛红动</a></td>
     <td>1306014226</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/2.k-近邻算法.md">第 2 章: KNN 近邻算法</a></td>
+    <td><a href="docs/ml/2.md">第 2 章: KNN 近邻算法</a></td>
     <td>分类</td>
     <td><a href="https://github.com/youyj521">@尤永江</a></td>
     <td>279393323</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/3.决策树.md">第 3 章: 决策树</a></td>
+    <td><a href="docs/ml/3.md">第 3 章: 决策树</a></td>
     <td>分类</td>
     <td><a href="https://github.com/jingwangfei">@景涛</a></td>
     <td>844300439</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/4.朴素贝叶斯.md">第 4 章: 朴素贝叶斯</a></td>
+    <td><a href="docs/ml/4.md">第 4 章: 朴素贝叶斯</a></td>
     <td>分类</td>
     <td><a href="https://github.com/wnma3mz">@wnma3mz</a><br/><a href="https://github.com/kailian">@分析</a></td>
     <td>1003324213<br/>244970749</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/5.Logistic回归.md">第 5 章: Logistic回归</a></td>
+    <td><a href="docs/ml/5.md">第 5 章: Logistic回归</a></td>
     <td>分类</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/6.支持向量机.md">第 6 章: SVM 支持向量机</a></td>
+    <td><a href="docs/ml/6.md">第 6 章: SVM 支持向量机</a></td>
     <td>分类</td>
     <td><a href="https://github.com/VPrincekin">@王德红</a></td>
     <td>934969547</td>
   </tr>
   <tr>
     <td>网上组合内容</td>
-    <td><a href="docs/ml/7.集成方法-随机森林和AdaBoost.md">第 7 章: 集成方法（随机森林和 AdaBoost）</a></td>
+    <td><a href="docs/ml/7.md">第 7 章: 集成方法（随机森林和 AdaBoost）</a></td>
     <td>分类</td>
     <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
     <td>529815144</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/8.回归.md">第 8 章: 回归</a></td>
+    <td><a href="docs/ml/8.md">第 8 章: 回归</a></td>
     <td>回归</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/9.树回归.md">第 9 章: 树回归</a></td>
+    <td><a href="docs/ml/9.md">第 9 章: 树回归</a></td>
     <td>回归</td>
     <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
     <td>529925688</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/10.k-means聚类.md">第 10 章: K-Means 聚类</a></td>
+    <td><a href="docs/ml/10.md">第 10 章: K-Means 聚类</a></td>
     <td>聚类</td>
     <td><a href="https://github.com/xuzhaoqing">@徐昭清</a></td>
     <td>827106588</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/11.使用Apriori算法进行关联分析.md">第 11 章: 利用 Apriori 算法进行关联分析</a></td>
+    <td><a href="docs/ml/11.md">第 11 章: 利用 Apriori 算法进行关联分析</a></td>
     <td>频繁项集</td>
     <td><a href="https://github.com/WindZQ">@刘海飞</a></td>
     <td>1049498972</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/12.使用FP-growth算法来高效发现频繁项集.md">第 12 章: FP-growth 高效发现频繁项集</a></td>
+    <td><a href="docs/ml/12.md">第 12 章: FP-growth 高效发现频繁项集</a></td>
     <td>频繁项集</td>
     <td><a href="https://github.com/mikechengwei">@程威</a></td>
     <td>842725815</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/13.利用PCA来简化数据.md">第 13 章: 利用 PCA 来简化数据</a></td>
+    <td><a href="docs/ml/13.md">第 13 章: 利用 PCA 来简化数据</a></td>
     <td>工具</td>
     <td><a href="https://github.com/lljuan330">@廖立娟</a></td>
     <td>835670618</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/14.利用SVD简化数据.md">第 14 章: 利用 SVD 来简化数据</a></td>
+    <td><a href="docs/ml/14.md">第 14 章: 利用 SVD 来简化数据</a></td>
     <td>工具</td>
     <td><a href="https://github.com/marsjhao">@张俊皓</a></td>
     <td>714974242</td>
   </tr>
   <tr>
     <td>机器学习实战</td>
-    <td><a href="docs/ml/15.大数据与MapReduce.md">第 15 章: 大数据与 MapReduce</a></td>
+    <td><a href="docs/ml/15.md">第 15 章: 大数据与 MapReduce</a></td>
     <td>工具</td>
     <td><a href="https://github.com/wnma3mz">@wnma3mz</a></td>
     <td>1003324213</td>
   </tr>
   <tr>
     <td>Ml项目实战</td>
-    <td><a href="docs/ml/16.推荐系统.md">第 16 章: 推荐系统（已迁移）</a></td>
+    <td><a href="docs/ml/16.md">第 16 章: 推荐系统（已迁移）</a></td>
     <td>项目</td>
     <td><a href="https://github.com/apachecn/RecommenderSystems">推荐系统（迁移后地址）</a></td>
     <td></td>
   </tr>
   <tr>
     <td>第一期的总结</td>
-    <td><a href="report/2017-04-08_第一期的总结.md">2017-04-08: 第一期的总结</a></td>
+    <td><a href="docs/report/2017-04-08.md">2017-04-08: 第一期的总结</a></td>
     <td>总结</td>
     <td>总结</td>
     <td>529815144</td>
@@ -268,10 +268,10 @@ ailearning <port>
 
 ### 入门基础
 
-1. [反向传递](/docs/dl/反向传递.md): https://www.cnblogs.com/charlotte77/p/5629865.html
-2. [CNN原理](/docs/dl/CNN原理.md): http://www.cnblogs.com/charlotte77/p/7759802.html
-3. [RNN原理](/docs/dl/RNN原理.md): https://blog.csdn.net/qq_39422642/article/details/78676567
-4. [LSTM原理](/docs/dl/LSTM原理.md): https://blog.csdn.net/weixin_42111770/article/details/80900575
+1.md): https://www.cnblogs.com/charlotte77/p/5629865.html
+2.md): http://www.cnblogs.com/charlotte77/p/7759802.html
+3.md): https://blog.csdn.net/qq_39422642/article/details/78676567
+4.md): https://blog.csdn.net/weixin_42111770/article/details/80900575
 
 ### Pytorch - 教程
 
@@ -283,12 +283,12 @@ ailearning <port>
 
 > 目录结构:
 
-* [安装指南](docs/TensorFlow2.x/安装指南.md)
-* [Keras 快速入门](docs/TensorFlow2.x/Keras快速入门.md)
-* [实战项目 1 电影情感分类](docs/TensorFlow2.x/实战项目_1_电影情感分类.md)
-* [实战项目 2 汽车燃油效率](docs/TensorFlow2.x/实战项目_2_汽车燃油效率.md)
-* [实战项目 3 优化 过拟合和欠拟合](docs/TensorFlow2.x/实战项目_3_优化_过拟合和欠拟合.md)
-* [实战项目 4 古诗词自动生成](docs/TensorFlow2.x/实战项目_4_古诗词自动生成.md)
+* [安装指南](docs/TensorFlow2.md)
+* [Keras 快速入门](docs/TensorFlow2.md)
+* [实战项目 1 电影情感分类](docs/TensorFlow2.md)
+* [实战项目 2 汽车燃油效率](docs/TensorFlow2.md)
+* [实战项目 3 优化 过拟合和欠拟合](docs/TensorFlow2.md)
+* [实战项目 4 古诗词自动生成](docs/TensorFlow2.md)
 
 切分（分词）
 
@@ -348,22 +348,22 @@ TensorFlow 2.0学习网址
 
 > 第一部分 入门介绍
 
-* 1.) [自然语言处理入门介绍](/docs/nlp/1.自然语言处理入门介绍.md)
+* 1.md)
 
 > 第二部分 机器翻译
 
-* 2.) [机器翻译](/docs/nlp/2.机器翻译.md)
+* 2.md)
 
 > 第三部分 篇章分析
 
-* 3.1.) [篇章分析-内容概述](/docs/nlp/3.1.篇章分析-内容概述.md)
-* 3.2.) [篇章分析-内容标签](/docs/nlp/3.2.篇章分析-内容标签.md)
-* 3.3.) [篇章分析-情感分析](/docs/nlp/3.3.篇章分析-情感分析.md)
-* 3.4.) [篇章分析-自动摘要](/docs/nlp/3.4.篇章分析-自动摘要.md)
+* 3.md)
+* 3.md)
+* 3.md)
+* 3.md)
 
 > 第四部分 UNIT-语言理解与交互技术
 
-* 4.) [UNIT-语言理解与交互技术](/docs/nlp/4.UNIT-语言理解与交互技术.md)
+* 4.md)
 
 ### 应用领域
 
