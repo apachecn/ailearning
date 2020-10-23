@@ -158,10 +158,10 @@ ailearning <port>
 
 ### 入门基础
 
-1.md): https://www.cnblogs.com/charlotte77/p/5629865.html
-2.md): http://www.cnblogs.com/charlotte77/p/7759802.html
-3.md): https://blog.csdn.net/qq_39422642/article/details/78676567
-4.md): https://blog.csdn.net/weixin_42111770/article/details/80900575
+1. [反向传递](/docs/dl/反向传递.md): https://www.cnblogs.com/charlotte77/p/5629865.html
+2. [CNN原理](/docs/dl/CNN原理.md): http://www.cnblogs.com/charlotte77/p/7759802.html
+3. [RNN原理](/docs/dl/RNN原理.md): https://blog.csdn.net/qq_39422642/article/details/78676567
+4. [LSTM原理](/docs/dl/LSTM原理.md): https://blog.csdn.net/weixin_42111770/article/details/80900575
 
 ### Pytorch - 教程
 
@@ -173,12 +173,12 @@ ailearning <port>
 
 > 目录结构:
 
-* [安装指南](docs/TensorFlow2.md)
-* [Keras 快速入门](docs/TensorFlow2.md)
-* [实战项目 1 电影情感分类](docs/TensorFlow2.md)
-* [实战项目 2 汽车燃油效率](docs/TensorFlow2.md)
-* [实战项目 3 优化 过拟合和欠拟合](docs/TensorFlow2.md)
-* [实战项目 4 古诗词自动生成](docs/TensorFlow2.md)
+* [安装指南](docs/TensorFlow2.x/安装指南.md)
+* [Keras 快速入门](docs/TensorFlow2.x/Keras快速入门.md)
+* [实战项目 1 电影情感分类](docs/TensorFlow2.x/实战项目_1_电影情感分类.md)
+* [实战项目 2 汽车燃油效率](docs/TensorFlow2.x/实战项目_2_汽车燃油效率.md)
+* [实战项目 3 优化 过拟合和欠拟合](docs/TensorFlow2.x/实战项目_3_优化_过拟合和欠拟合.md)
+* [实战项目 4 古诗词自动生成](docs/TensorFlow2.x/实战项目_4_古诗词自动生成.md)
 
 切分（分词）
 
@@ -238,22 +238,22 @@ TensorFlow 2.0学习网址
 
 > 第一部分 入门介绍
 
-* 1.md)
+* 1.) [自然语言处理入门介绍](/docs/nlp/1.自然语言处理入门介绍.md)
 
 > 第二部分 机器翻译
 
-* 2.md)
+* 2.) [机器翻译](/docs/nlp/2.机器翻译.md)
 
 > 第三部分 篇章分析
 
-* 3.md)
-* 3.md)
-* 3.md)
-* 3.md)
+* 3.1.) [篇章分析-内容概述](/docs/nlp/3.1.篇章分析-内容概述.md)
+* 3.2.) [篇章分析-内容标签](/docs/nlp/3.2.篇章分析-内容标签.md)
+* 3.3.) [篇章分析-情感分析](/docs/nlp/3.3.篇章分析-情感分析.md)
+* 3.4.) [篇章分析-自动摘要](/docs/nlp/3.4.篇章分析-自动摘要.md)
 
 > 第四部分 UNIT-语言理解与交互技术
 
-* 4.md)
+* 4.) [UNIT-语言理解与交互技术](/docs/nlp/4.UNIT-语言理解与交互技术.md)
 
 ### 应用领域
 
@@ -298,7 +298,7 @@ TensorFlow 2.0学习网址
 下面是一些很好的初学者语言建模数据集。
 
 1. [古腾堡项目](https://www.gutenberg.org/)，一系列免费书籍，可以用纯文本检索各种语言。
-2. 还有更多正式的语料库得到了很好的研究; 例如: 
+2. 还有更多正式的语料库得到了很好的研究; 例如: 
     [布朗大学现代美国英语标准语料库](https://en.wikipedia.org/wiki/Brown_Corpus)。大量英语单词样本。
     [谷歌10亿字语料库](https://github.com/ciprian-chelba/1-billion-word-language-modeling-benchmark)。
 
@@ -338,7 +338,7 @@ mage字幕是为给定图像生成文本描述的任务。
 
 1. [加拿大第36届议会的协调国会议员](https://www.isi.edu/natural-language/download/hansard/)。成对的英语和法语句子。
 2. [欧洲议会诉讼平行语料库1996-2011](http://www.statmt.org/europarl/)。句子对一套欧洲语言。
-    有大量标准数据集用于年度机器翻译挑战; 看到: 
+    有大量标准数据集用于年度机器翻译挑战; 看到: 
 
 [统计机器翻译](http://www.statmt.org/)
 
