@@ -71,6 +71,17 @@ ailearning <port>
 
 ## 1.机器学习 - 基础
 
+> 支持版本 
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 3.6.x   | :x:                |
+| 2.7.x   | :white_check_mark: |
+
+注意事项: 
+
+- 机器学习实战: 仅仅只是学习，请使用 python 2.7.x 版本 （3.6.x 只是修改了部分）
+
 ### 基本介绍
 
 * 资料来源: Machine Learning in Action(机器学习实战-个人笔记)
@@ -156,6 +167,13 @@ ailearning <port>
 
 ## 2.深度学习
 
+> 支持版本 
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 3.6.x   | :white_check_mark: |
+| 2.7.x   | :x:                |
+
 ### 入门基础
 
 1. [反向传递](/docs/dl/反向传递.md): https://www.cnblogs.com/charlotte77/p/5629865.html
@@ -198,6 +216,13 @@ TensorFlow 2.0学习网址
 * https://github.com/lyhue1991/eat_tensorflow2_in_30_days
 
 ## 3.自然语言处理
+
+> 支持版本 
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 3.6.x   | :white_check_mark: |
+| 2.7.x   | :x:                |
 
 学习过程中-内心复杂的变化！！！
 
