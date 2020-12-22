@@ -1,18 +1,21 @@
-# Security Policy
+# 安全政策 Security Policy
 
-## Supported Versions
+## 支持版本 Supported Versions
 
 Use this section to tell people about which versions of your project are
 currently being supported with security updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| 3.6.x   | :x:                |
+| 2.7.x   | :white_check_mark: |
 
-## Reporting a Vulnerability
+注意事项: 
+
+- 机器学习实战: 仅仅只是学习，请使用 python 2.7.x 版本 （3.6.x 只是修改了部分）
+- 深度学习/自然语言处理: 请使用 python 3.6.x 版本
+
+## 报告漏洞 Reporting a Vulnerability
 
 Use this section to tell people how to report a vulnerability.
 
