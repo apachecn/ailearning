@@ -220,7 +220,7 @@
 	+   [11 语言学数据管理](docs/nlp/11.md)
 	+   [后记：语言的挑战](docs/nlp/12.md)
 	+   [索引](docs/nlp/14.md)
-+   [TensorFlow 2.4 官方教程](docs/tf2/README.md)
++   [TensorFlow 2.x](docs/tf2/README.md)
 	+   [初学者的 TensorFlow 2.0 教程](docs/tf2/002.md)
 	+   [针对专业人员的 TensorFlow 2.0 入门](docs/tf2/003.md)
 	+   [初级](docs/tf2/004.md)
