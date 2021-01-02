@@ -53,7 +53,7 @@ ailearning <port>
 * **我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！**
 * **ApacheCN - 学习群【724187166】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=51040bbd0bf7d0efbfa7256a0331d912a2055a906c324d52b02371d06f3c9878"><img border="0" src="docs/img/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[724187166]" title="ApacheCN - 学习机器学习群[724187166]"></a>**
 
-> **欢迎任何人参与和完善: 一个人可以走的很快，但是一群人却可以走的更远**
+> 一种新技术一旦开始流行，你要么坐上压路机，要么成为铺路石。——Stewart Brand
 
 # 路线图
 
