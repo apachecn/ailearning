@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://www.apachecn.org">
-        <img width="200" src="http://data.apachecn.org/img/logo.jpg">
+        <img width="200" src="docs/img/logo.jpg">
     </a>
     <br >
     <a href="https://www.apachecn.org/"><img src="https://img.shields.io/badge/%3E-HOME-green.svg"></a>
@@ -21,13 +21,39 @@
 
 地址A: xxx (欢迎留言，我们完善补充)
 
+## 下载
+
+### Docker
+
+```
+docker pull apachecn0/ailearning
+docker run -tid -p <port>:80 apachecn0/ailearning
+# 访问 http://localhost:{port} 查看文档
+```
+
+### PYPI
+
+```
+pip install apachecn-ailearning
+apachecn-ailearning <port>
+# 访问 http://localhost:{port} 查看文档
+```
+
+### NPM
+
+```
+npm install -g ailearning
+ailearning <port>
+# 访问 http://localhost:{port} 查看文档
+```
+
 ## 组织介绍
 
 * 合作or侵权，请联系: `apachecn@163.com`
 * **我们不是 Apache 的官方组织/机构/团体，只是 Apache 技术栈（以及 AI）的爱好者！**
-* **ApacheCN - 学习群【724187166】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=51040bbd0bf7d0efbfa7256a0331d912a2055a906c324d52b02371d06f3c9878"><img border="0" src="http://data.apachecn.org/img/logo/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[724187166]" title="ApacheCN - 学习机器学习群[724187166]"></a>**
+* **ApacheCN - 学习群【724187166】<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=51040bbd0bf7d0efbfa7256a0331d912a2055a906c324d52b02371d06f3c9878"><img border="0" src="docs/img/ApacheCN-group.png" alt="ApacheCN - 学习机器学习群[724187166]" title="ApacheCN - 学习机器学习群[724187166]"></a>**
 
-> **欢迎任何人参与和完善: 一个人可以走的很快，但是一群人却可以走的更远**
+> 一种新技术一旦开始流行，你要么坐上压路机，要么成为铺路石。——Stewart Brand
 
 # 路线图
 
@@ -45,6 +71,17 @@
 
 ## 1.机器学习 - 基础
 
+> 支持版本 
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 3.6.x   | :x:                |
+| 2.7.x   | :white_check_mark: |
+
+注意事项: 
+
+- 机器学习实战: 仅仅只是学习，请使用 python 2.7.x 版本 （3.6.x 只是修改了部分）
+
 ### 基本介绍
 
 * 资料来源: Machine Learning in Action(机器学习实战-个人笔记)
@@ -60,135 +97,25 @@
 
 ### 学习文档
 
-<table>
-  <tr>
-    <th>模块</th>
-    <th>章节</th>
-    <th>类型</th>
-    <th>负责人(GitHub)</th>
-    <th>QQ</th>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/1.机器学习基础.md"> 第 1 章: 机器学习基础</a></td>
-    <td>介绍</td>
-    <td><a href="https://github.com/ElmaDavies">@毛红动</a></td>
-    <td>1306014226</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/2.k-近邻算法.md">第 2 章: KNN 近邻算法</a></td>
-    <td>分类</td>
-    <td><a href="https://github.com/youyj521">@尤永江</a></td>
-    <td>279393323</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/3.决策树.md">第 3 章: 决策树</a></td>
-    <td>分类</td>
-    <td><a href="https://github.com/jingwangfei">@景涛</a></td>
-    <td>844300439</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/4.朴素贝叶斯.md">第 4 章: 朴素贝叶斯</a></td>
-    <td>分类</td>
-    <td><a href="https://github.com/wnma3mz">@wnma3mz</a><br/><a href="https://github.com/kailian">@分析</a></td>
-    <td>1003324213<br/>244970749</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/5.Logistic回归.md">第 5 章: Logistic回归</a></td>
-    <td>分类</td>
-    <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
-    <td>529925688</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/6.支持向量机.md">第 6 章: SVM 支持向量机</a></td>
-    <td>分类</td>
-    <td><a href="https://github.com/VPrincekin">@王德红</a></td>
-    <td>934969547</td>
-  </tr>
-  <tr>
-    <td>网上组合内容</td>
-    <td><a href="docs/ml/7.集成方法-随机森林和AdaBoost.md">第 7 章: 集成方法（随机森林和 AdaBoost）</a></td>
-    <td>分类</td>
-    <td><a href="https://github.com/jiangzhonglian">@片刻</a></td>
-    <td>529815144</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/8.回归.md">第 8 章: 回归</a></td>
-    <td>回归</td>
-    <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
-    <td>529925688</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/9.树回归.md">第 9 章: 树回归</a></td>
-    <td>回归</td>
-    <td><a href="https://github.com/DataMonk2017">@微光同尘</a></td>
-    <td>529925688</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/10.k-means聚类.md">第 10 章: K-Means 聚类</a></td>
-    <td>聚类</td>
-    <td><a href="https://github.com/xuzhaoqing">@徐昭清</a></td>
-    <td>827106588</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/11.使用Apriori算法进行关联分析.md">第 11 章: 利用 Apriori 算法进行关联分析</a></td>
-    <td>频繁项集</td>
-    <td><a href="https://github.com/WindZQ">@刘海飞</a></td>
-    <td>1049498972</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/12.使用FP-growth算法来高效发现频繁项集.md">第 12 章: FP-growth 高效发现频繁项集</a></td>
-    <td>频繁项集</td>
-    <td><a href="https://github.com/mikechengwei">@程威</a></td>
-    <td>842725815</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/13.利用PCA来简化数据.md">第 13 章: 利用 PCA 来简化数据</a></td>
-    <td>工具</td>
-    <td><a href="https://github.com/lljuan330">@廖立娟</a></td>
-    <td>835670618</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/14.利用SVD简化数据.md">第 14 章: 利用 SVD 来简化数据</a></td>
-    <td>工具</td>
-    <td><a href="https://github.com/marsjhao">@张俊皓</a></td>
-    <td>714974242</td>
-  </tr>
-  <tr>
-    <td>机器学习实战</td>
-    <td><a href="docs/ml/15.大数据与MapReduce.md">第 15 章: 大数据与 MapReduce</a></td>
-    <td>工具</td>
-    <td><a href="https://github.com/wnma3mz">@wnma3mz</a></td>
-    <td>1003324213</td>
-  </tr>
-  <tr>
-    <td>Ml项目实战</td>
-    <td><a href="docs/ml/16.推荐系统.md">第 16 章: 推荐系统（已迁移）</a></td>
-    <td>项目</td>
-    <td><a href="https://github.com/apachecn/RecommenderSystems">推荐系统（迁移后地址）</a></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>第一期的总结</td>
-    <td><a href="report/2017-04-08_第一期的总结.md">2017-04-08: 第一期的总结</a></td>
-    <td>总结</td>
-    <td>总结</td>
-    <td>529815144</td>
-  </tr>
-</table>
-
+| 模块 | 章节 | 类型 | 负责人(GitHub) | QQ |
+| --- | --- | --- | --- | --- |
+| 机器学习实战 | [第 1 章: 机器学习基础](docs/ml/1.md) | 介绍 | [@毛红动](https://github.com/ElmaDavies) | 1306014226 |
+| 机器学习实战 | [第 2 章: KNN 近邻算法](docs/ml/2.md) | 分类 | [@尤永江](https://github.com/youyj521) | 279393323 |
+| 机器学习实战 | [第 3 章: 决策树](docs/ml/3.md) | 分类 | [@景涛](https://github.com/jingwangfei) | 844300439 |
+| 机器学习实战 | [第 4 章: 朴素贝叶斯](docs/ml/4.md) | 分类 | [@wnma3mz](https://github.com/wnma3mz)<br/>[@分析](https://github.com/kailian) | 1003324213<br/>244970749 |
+| 机器学习实战 | [第 5 章: Logistic回归](docs/ml/5.md) | 分类 | [@微光同尘](https://github.com/DataMonk2017) | 529925688 |
+| 机器学习实战 | [第 6 章: SVM 支持向量机](docs/ml/6.md) | 分类 | [@王德红](https://github.com/VPrincekin) | 934969547 |
+| 网上组合内容 | [第 7 章: 集成方法（随机森林和 AdaBoost）](docs/ml/7.md) | 分类 | [@片刻](https://github.com/jiangzhonglian) | 529815144 |
+| 机器学习实战 | [第 8 章: 回归](docs/ml/8.md) | 回归 | [@微光同尘](https://github.com/DataMonk2017) | 529925688 |
+| 机器学习实战 | [第 9 章: 树回归](docs/ml/9.md) | 回归 | [@微光同尘](https://github.com/DataMonk2017) | 529925688 |
+| 机器学习实战 | [第 10 章: K-Means 聚类](docs/ml/10.md) | 聚类 | [@徐昭清](https://github.com/xuzhaoqing) | 827106588 |
+| 机器学习实战 | [第 11 章: 利用 Apriori 算法进行关联分析](docs/ml/11.md) | 频繁项集 | [@刘海飞](https://github.com/WindZQ) | 1049498972 |
+| 机器学习实战 | [第 12 章: FP-growth 高效发现频繁项集](docs/ml/12.md) | 频繁项集 | [@程威](https://github.com/mikechengwei) | 842725815 |
+| 机器学习实战 | [第 13 章: 利用 PCA 来简化数据](docs/ml/13.md) | 工具 | [@廖立娟](https://github.com/lljuan330) | 835670618 |
+| 机器学习实战 | [第 14 章: 利用 SVD 来简化数据](docs/ml/14.md) | 工具 | [@张俊皓](https://github.com/marsjhao) | 714974242 |
+| 机器学习实战 | [第 15 章: 大数据与 MapReduce](docs/ml/15.md) | 工具 | [@wnma3mz](https://github.com/wnma3mz) | 1003324213 |
+| Ml项目实战 | [第 16 章: 推荐系统（已迁移）](docs/ml/16.md) | 项目 | [推荐系统（迁移后地址）](https://github.com/apachecn/RecommenderSystems)  |  |
+| 第一期的总结 | [2017-04-08: 第一期的总结](docs/report/2017-04-08.md) | 总结 | 总结 | 529815144 |
 
 ### 网站视频
 
@@ -208,7 +135,7 @@
 
 > 视频怎么看？
 
-![](http://data.apachecn.org/img/AiLearning/MainPage/ApacheCN-ML-bilibili-compare.jpg)
+![](docs/img/ApacheCN-ML-bilibili-compare.jpg)
 
 1. 理论科班出身-建议去学习 Andrew Ng 的视频（Ng 的视频绝对是权威，这个毋庸置疑）
 2. 编码能力强 - 建议看我们的[《机器学习实战-教学版》](https://space.bilibili.com/97678687/#!/channel/detail?cid=22486)
@@ -227,9 +154,9 @@
 |||
 | - | - |
 | AcFun | B站 |
-| <a title="AcFun（机器学习视频）" href="http://www.acfun.cn/u/12540256.aspx#page=1" target="_blank"><img width="290" src="http://data.apachecn.org/img/AiLearning/MainPage/ApacheCN-ML-AcFun.jpg"></a> | <a title="bilibili（机器学习视频）" href="https://space.bilibili.com/97678687/#!/channel/index" target="_blank"><img width="290" src="http://data.apachecn.org/img/AiLearning/MainPage/ApacheCN-ML-bilibili.jpg"></a> |
+| <a title="AcFun（机器学习视频）" href="http://www.acfun.cn/u/12540256.aspx#page=1" target="_blank"><img width="290" src="docs/img/ApacheCN-ML-AcFun.jpg"></a> | <a title="bilibili（机器学习视频）" href="https://space.bilibili.com/97678687/#!/channel/index" target="_blank"><img width="290" src="docs/img/ApacheCN-ML-bilibili.jpg"></a> |
 | 优酷 | 网易云课堂 |
-| <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="http://data.apachecn.org/img/AiLearning/MainPage/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="http://data.apachecn.org/img/AiLearning/MainPage/ApacheCM-ML-WangYiYunKeTang.png"></a> |
+| <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="docs/img/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="docs/img/ApacheCM-ML-WangYiYunKeTang.png"></a> |
 
 > 【免费】机器/深度学习视频 - 吴恩达
 
@@ -239,6 +166,13 @@
 
 
 ## 2.深度学习
+
+> 支持版本 
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 3.6.x   | :white_check_mark: |
+| 2.7.x   | :x:                |
 
 ### 入门基础
 
@@ -258,7 +192,7 @@
 > 目录结构:
 
 * [安装指南](docs/TensorFlow2.x/安装指南.md)
-* [Kears 快速入门](docs/TensorFlow2.x/Keras快速入门.md)
+* [Keras 快速入门](docs/TensorFlow2.x/Keras快速入门.md)
 * [实战项目 1 电影情感分类](docs/TensorFlow2.x/实战项目_1_电影情感分类.md)
 * [实战项目 2 汽车燃油效率](docs/TensorFlow2.x/实战项目_2_汽车燃油效率.md)
 * [实战项目 3 优化 过拟合和欠拟合](docs/TensorFlow2.x/实战项目_3_优化_过拟合和欠拟合.md)
@@ -283,6 +217,13 @@ TensorFlow 2.0学习网址
 
 ## 3.自然语言处理
 
+> 支持版本 
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 3.6.x   | :white_check_mark: |
+| 2.7.x   | :x:                |
+
 学习过程中-内心复杂的变化！！！
 
 ```python
@@ -302,7 +243,7 @@ TensorFlow 2.0学习网址
 当然谢谢国内很多博客大佬，特别是一些入门的Demo和基本概念。【深入的水平有限，没看懂】
 ```
 
-![](http://data.apachecn.org/img/AiLearning/nlp/F94581F64C21A1094A473397DFA42F9C.jpg)
+![](docs/nlp/img/F94581F64C21A1094A473397DFA42F9C.jpg)
 
 * **【入门须知】必须了解**: <https://github.com/apachecn/AiLearning/tree/master/docs/nlp>
 * **【入门教程】强烈推荐: PyTorch 自然语言处理**: <https://github.com/apachecn/NLP-with-PyTorch>
@@ -382,7 +323,7 @@ TensorFlow 2.0学习网址
 下面是一些很好的初学者语言建模数据集。
 
 1. [古腾堡项目](https://www.gutenberg.org/)，一系列免费书籍，可以用纯文本检索各种语言。
-2. 还有更多正式的语料库得到了很好的研究; 例如: 
+2. 还有更多正式的语料库得到了很好的研究; 例如: 
     [布朗大学现代美国英语标准语料库](https://en.wikipedia.org/wiki/Brown_Corpus)。大量英语单词样本。
     [谷歌10亿字语料库](https://github.com/ciprian-chelba/1-billion-word-language-modeling-benchmark)。
 
@@ -422,7 +363,7 @@ mage字幕是为给定图像生成文本描述的任务。
 
 1. [加拿大第36届议会的协调国会议员](https://www.isi.edu/natural-language/download/hansard/)。成对的英语和法语句子。
 2. [欧洲议会诉讼平行语料库1996-2011](http://www.statmt.org/europarl/)。句子对一套欧洲语言。
-    有大量标准数据集用于年度机器翻译挑战; 看到: 
+    有大量标准数据集用于年度机器翻译挑战; 看到: 
 
 [统计机器翻译](http://www.statmt.org/)
 
