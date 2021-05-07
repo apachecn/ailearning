@@ -1,10 +1,16 @@
 #!/usr/bin/python
-# coding:utf8
+# coding:utf-8
+# -------------------------------------------------------------------------------
+# Name:    推荐系统
+# Purpose: 推荐系统: Item CF/User CF/SVD 对比
+# Author:  jiangzhonglian
+# Create_time:  2020年9月21日
+# Update_time:  2020年9月21日
+# -------------------------------------------------------------------------------
 from __future__ import print_function
 import sys
 import math
 from operator import itemgetter
-
 import numpy as np
 import pandas as pd
 from scipy.sparse.linalg import svds
@@ -12,9 +18,6 @@ from sklearn import model_selection as cv
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics.pairwise import pairwise_distances
 from middleware.utils import TimeStat, Chart
-"""
-推荐系统: Item CF/User CF/SVD 对比
-"""
 
 
 def splitData(dataFile, test_size):
