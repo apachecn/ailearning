@@ -1,9 +1,9 @@
 #dark-mode-btn {
 	position: fixed;
-	right: 20px;
+	right: 15px;
 	top: 100px;
-	width: 25px;
-	height: 25px;
+	width: 35px;
+	height: 35px;
 	background-repeat: no-repeat;
 	background-size: cover;
 	cursor: pointer;
