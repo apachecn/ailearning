@@ -1,0 +1,39 @@
+#prev-page-button {
+	position:fixed;
+	top:140px;
+	width: 35px;
+	height: 35px;
+	right: 15px;
+	background-color: transparent;
+	background-image: url(emoji-up.svg);
+	background-repeat: no-repeat;
+    background-size: cover;
+	border:0;
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	outline:none;
+	cursor: pointer;
+	transform: rotate(-90deg);
+}
+
+#next-page-button {
+	position:fixed;
+	top:180px;
+	width:35px;
+	height:35px;
+	right:15px;
+	background-color: transparent;
+	background-image: url(emoji-down.svg);
+	background-repeat: no-repeat;
+    background-size: cover;
+	border:0;
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	outline:none;
+	cursor: pointer;
+	transform: rotate(-90deg);
+}
