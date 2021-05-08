@@ -1,0 +1,23 @@
+#dark-mode-btn {
+	position: fixed;
+	right: 20px;
+	top: 100px;
+	width: 25px;
+	height: 25px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	transition: background-image .15s ease-in-out .15s;
+}
+
+.dark-logo {	
+	background-image: url('sun.svg');	
+}
+
+.light-logo {
+	background-image: url('moon.svg');
+}
