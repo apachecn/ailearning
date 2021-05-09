@@ -5,7 +5,7 @@
 	height: 35px;
 	right: 15px;
 	background-color: transparent;
-	background-image: url(emoji-up.svg);
+	background-image: url(left.svg);
 	background-repeat: no-repeat;
     background-size: cover;
 	border:0;
@@ -15,7 +15,6 @@
     user-select: none;
 	outline:none;
 	cursor: pointer;
-	transform: rotate(-90deg);
 }
 
 #next-page-button {
@@ -25,7 +24,7 @@
 	height:35px;
 	right:15px;
 	background-color: transparent;
-	background-image: url(emoji-down.svg);
+	background-image: url(right.svg);
 	background-repeat: no-repeat;
     background-size: cover;
 	border:0;
@@ -35,5 +34,4 @@
     user-select: none;
 	outline:none;
 	cursor: pointer;
-	transform: rotate(-90deg);
 }
