@@ -1,0 +1,15 @@
+#edit-btn {
+	position: fixed;
+    right: 15px;
+    top: 260px;
+    width: 35px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: url(edit.svg);
+}
