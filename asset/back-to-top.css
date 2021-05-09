@@ -1,0 +1,19 @@
+#scroll-btn {
+    position: fixed;
+    right: 15px;
+    bottom: 10px;
+    width: 35px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: url(up.svg);
+	background-position-y: -1px;
+	display: none;
+	border: 2px solid;
+	border-radius: 4px;	
+}
