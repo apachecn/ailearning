@@ -236,11 +236,6 @@
         +   [5.2 – GPU 加速运算](docs/pytorch/24.md)
         +   [5.3 – Dropout 防止过拟合](docs/pytorch/25.md)
         +   [5.4 – Batch Normalization 批标准化](docs/pytorch/26.md)
-+   深度学习入门
-    +   [反向传递](docs/dl/反向传递.md)
-    +   [CNN原理](docs/dl/CNN原理.md)
-    +   [RNN原理](docs/dl/RNN原理.md)
-    +   [LSTM原理](docs/dl/LSTM原理.md)
 +   [自然语言处理](docs/nlp/README.md)
 	+   [前言](docs/nlp/0.md)
 	+   [1 语言处理与 Python](docs/nlp/1.md)
