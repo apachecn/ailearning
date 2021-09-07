@@ -1,6 +1,6 @@
 # TensorFlow 机器学习实用指南第二版
 
-![](cover.jpg)
+![](img/cover.jpg)
 
 > 协议：[CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 >
