@@ -23,7 +23,11 @@
 
 ⚠⚠⚠此项目已正式封板⚠⚠⚠
 
-ApacheCN 的 AI 相关项目告一段落，请大家关注我们的其他计划，谢谢。
+ApacheCN 的 AI 相关项目告一段落，请大家关注我们的其他计划，例如：
+
++   [QuantLearning](https://github.com/apachecn/quant-learning)
++   [Quant 译文集](https://github.com/apachecn/apachecn-quant-zh)
++   [Quant WIKI](https://github.com/apachecn/quant-wiki)
 
 ## 下载
 
