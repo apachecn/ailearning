@@ -19,6 +19,12 @@
 * [ApacheCN 面试求职交流群 724187166](https://jq.qq.com/?_wv=1027&k=54ujcL3)
 * [ApacheCN 学习资源](http://www.apachecn.org/)
 
+## 公告
+
+⚠⚠⚠此项目已正式封板⚠⚠⚠
+
+ApacheCN 的 AI 相关项目告一段落，请大家关注我们的其他计划，谢谢。
+
 ## 下载
 
 ### Docker
