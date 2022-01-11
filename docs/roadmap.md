@@ -42,23 +42,23 @@
 
 | 模块 | 章节 | 类型 | 负责人(GitHub) | QQ |
 | --- | --- | --- | --- | --- |
-| 机器学习实战 | [第 1 章: 机器学习基础](ml/1.md) | 介绍 | [@毛红动](https://github.com/ElmaDavies) | 1306014226 |
-| 机器学习实战 | [第 2 章: KNN 近邻算法](ml/2.md) | 分类 | [@尤永江](https://github.com/youyj521) | 279393323 |
-| 机器学习实战 | [第 3 章: 决策树](ml/3.md) | 分类 | [@景涛](https://github.com/jingwangfei) | 844300439 |
-| 机器学习实战 | [第 4 章: 朴素贝叶斯](ml/4.md) | 分类 | [@wnma3mz](https://github.com/wnma3mz)<br/>[@分析](https://github.com/kailian) | 1003324213<br/>244970749 |
-| 机器学习实战 | [第 5 章: Logistic回归](ml/5.md) | 分类 | [@微光同尘](https://github.com/DataMonk2017) | 529925688 |
-| 机器学习实战 | [第 6 章: SVM 支持向量机](ml/6.md) | 分类 | [@王德红](https://github.com/VPrincekin) | 934969547 |
-| 网上组合内容 | [第 7 章: 集成方法（随机森林和 AdaBoost）](ml/7.md) | 分类 | [@片刻](https://github.com/jiangzhonglian) | 529815144 |
-| 机器学习实战 | [第 8 章: 回归](ml/8.md) | 回归 | [@微光同尘](https://github.com/DataMonk2017) | 529925688 |
-| 机器学习实战 | [第 9 章: 树回归](ml/9.md) | 回归 | [@微光同尘](https://github.com/DataMonk2017) | 529925688 |
-| 机器学习实战 | [第 10 章: K-Means 聚类](ml/10.md) | 聚类 | [@徐昭清](https://github.com/xuzhaoqing) | 827106588 |
-| 机器学习实战 | [第 11 章: 利用 Apriori 算法进行关联分析](ml/11.md) | 频繁项集 | [@刘海飞](https://github.com/WindZQ) | 1049498972 |
-| 机器学习实战 | [第 12 章: FP-growth 高效发现频繁项集](ml/12.md) | 频繁项集 | [@程威](https://github.com/mikechengwei) | 842725815 |
-| 机器学习实战 | [第 13 章: 利用 PCA 来简化数据](ml/13.md) | 工具 | [@廖立娟](https://github.com/lljuan330) | 835670618 |
-| 机器学习实战 | [第 14 章: 利用 SVD 来简化数据](ml/14.md) | 工具 | [@张俊皓](https://github.com/marsjhao) | 714974242 |
-| 机器学习实战 | [第 15 章: 大数据与 MapReduce](ml/15.md) | 工具 | [@wnma3mz](https://github.com/wnma3mz) | 1003324213 |
-| Ml项目实战 | [第 16 章: 推荐系统（已迁移）](ml/16.md) | 项目 | [推荐系统（迁移后地址）](https://github.com/apachecn/RecommenderSystems)  |  |
-| 第一期的总结 | [2017-04-08: 第一期的总结](report/2017-04-08.md) | 总结 | 总结 | 529815144 |
+| 机器学习实战 | [第 1 章: 机器学习基础](/docs/ml/1.md) | 介绍 | [@毛红动](https://github.com/ElmaDavies) | 1306014226 |
+| 机器学习实战 | [第 2 章: KNN 近邻算法](/docs/ml/2.md) | 分类 | [@尤永江](https://github.com/youyj521) | 279393323 |
+| 机器学习实战 | [第 3 章: 决策树](/docs/ml/3.md) | 分类 | [@景涛](https://github.com/jingwangfei) | 844300439 |
+| 机器学习实战 | [第 4 章: 朴素贝叶斯](/docs/ml/4.md) | 分类 | [@wnma3mz](https://github.com/wnma3mz)<br/>[@分析](https://github.com/kailian) | 1003324213<br/>244970749 |
+| 机器学习实战 | [第 5 章: Logistic回归](/docs/ml/5.md) | 分类 | [@微光同尘](https://github.com/DataMonk2017) | 529925688 |
+| 机器学习实战 | [第 6 章: SVM 支持向量机](/docs/ml/6.md) | 分类 | [@王德红](https://github.com/VPrincekin) | 934969547 |
+| 网上组合内容 | [第 7 章: 集成方法（随机森林和 AdaBoost）](/docs/ml/7.md) | 分类 | [@片刻](https://github.com/jiangzhonglian) | 529815144 |
+| 机器学习实战 | [第 8 章: 回归](/docs/ml/8.md) | 回归 | [@微光同尘](https://github.com/DataMonk2017) | 529925688 |
+| 机器学习实战 | [第 9 章: 树回归](/docs/ml/9.md) | 回归 | [@微光同尘](https://github.com/DataMonk2017) | 529925688 |
+| 机器学习实战 | [第 10 章: K-Means 聚类](/docs/ml/10.md) | 聚类 | [@徐昭清](https://github.com/xuzhaoqing) | 827106588 |
+| 机器学习实战 | [第 11 章: 利用 Apriori 算法进行关联分析](/docs/ml/11.md) | 频繁项集 | [@刘海飞](https://github.com/WindZQ) | 1049498972 |
+| 机器学习实战 | [第 12 章: FP-growth 高效发现频繁项集](/docs/ml/12.md) | 频繁项集 | [@程威](https://github.com/mikechengwei) | 842725815 |
+| 机器学习实战 | [第 13 章: 利用 PCA 来简化数据](/docs/ml/13.md) | 工具 | [@廖立娟](https://github.com/lljuan330) | 835670618 |
+| 机器学习实战 | [第 14 章: 利用 SVD 来简化数据](/docs/ml/14.md) | 工具 | [@张俊皓](https://github.com/marsjhao) | 714974242 |
+| 机器学习实战 | [第 15 章: 大数据与 MapReduce](/docs/ml/15.md) | 工具 | [@wnma3mz](https://github.com/wnma3mz) | 1003324213 |
+| Ml项目实战 | [第 16 章: 推荐系统（已迁移）](/docs/ml/16.md) | 项目 | [推荐系统（迁移后地址）](https://github.com/apachecn/RecommenderSystems)  |  |
+| 第一期的总结 | [2017-04-08: 第一期的总结](/docs/report/2017-04-08.md) | 总结 | 总结 | 529815144 |
 
 ### 网站视频
 
@@ -74,7 +74,7 @@
 
 最近几天，GitHub 涨了 300颗 star，加群的200人， 现在还在不断的增加++，我想大家可能都是感同身受吧！
 
-很多想入门新手就是被忽悠着收藏收藏再收藏，但是最后还是什么都没有学到，也就是"资源收藏家"，也许新手要的就是 [MachineLearning(机器学习) 学习路线图](https://docs.apachecn.org/map)。没错，我可以给你们的一份，因为我们还通过视频记录下来我们的学习过程。水平当然也有限，不过对于新手入门，绝对没问题，如果你还不会，那算我输！！
+很多想入门新手就是被忽悠着收藏收藏再收藏，但是最后还是什么都没有学到，也就是"资源收藏家"，也许新手要的就是 [MachineLearning(机器学习) 学习路线图](https:/docs.apachecn.org/map)。没错，我可以给你们的一份，因为我们还通过视频记录下来我们的学习过程。水平当然也有限，不过对于新手入门，绝对没问题，如果你还不会，那算我输！！
 
 > 视频怎么看？
 
@@ -97,9 +97,9 @@
 |||
 | - | - |
 | AcFun | B站 |
-| <a title="AcFun（机器学习视频）" href="http://www.acfun.cn/u/12540256.aspx#page=1" target="_blank"><img width="290" src="img/ApacheCN-ML-AcFun.jpg"></a> | <a title="bilibili（机器学习视频）" href="https://space.bilibili.com/97678687/#!/channel/index" target="_blank"><img width="290" src="img/ApacheCN-ML-bilibili.jpg"></a> |
+| <a title="AcFun（机器学习视频）" href="http://www.acfun.cn/u/12540256.aspx#page=1" target="_blank"><img width="290" src="/docs/img/ApacheCN-ML-AcFun.jpg"></a> | <a title="bilibili（机器学习视频）" href="https://space.bilibili.com/97678687/#!/channel/index" target="_blank"><img width="290" src="/docs/img/ApacheCN-ML-bilibili.jpg"></a> |
 | 优酷 | 网易云课堂 |
-| <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="img/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="img/ApacheCM-ML-WangYiYunKeTang.png"></a> |
+| <a title="YouKu（机器学习视频）" href="http://i.youku.com/apachecn" target="_blank"><img width="290" src="/docs/img/ApacheCM-ML-youku.jpg"></a> | <a title="WangYiYunKeTang（机器学习视频）" href="http://study.163.com/course/courseMain.htm?courseId=1004582003" target="_blank"><img width="290" src="/docs/img/ApacheCM-ML-WangYiYunKeTang.png"></a> |
 
 > 【免费】机器/深度学习视频 - 吴恩达
 
@@ -119,10 +119,10 @@
 
 ### 入门基础
 
-1. [反向传递](/dl/反向传递.md): https://www.cnblogs.com/charlotte77/p/5629865.html
-2. [CNN原理](/dl/CNN原理.md): http://www.cnblogs.com/charlotte77/p/7759802.html
-3. [RNN原理](/dl/RNN原理.md): https://blog.csdn.net/qq_39422642/article/details/78676567
-4. [LSTM原理](/dl/LSTM原理.md): https://blog.csdn.net/weixin_42111770/article/details/80900575
+1. [反向传递](/docs/dl/反向传递.md): https://www.cnblogs.com/charlotte77/p/5629865.html
+2. [CNN原理](/docs/dl/CNN原理.md): http://www.cnblogs.com/charlotte77/p/7759802.html
+3. [RNN原理](/docs/dl/RNN原理.md): https://blog.csdn.net/qq_39422642/article/details/78676567
+4. [LSTM原理](/docs/dl/LSTM原理.md): https://blog.csdn.net/weixin_42111770/article/details/80900575
 
 ### Pytorch - 教程
 
@@ -134,12 +134,12 @@
 
 > 目录结构:
 
-* [安装指南](TensorFlow2.x/安装指南.md)
-* [Keras 快速入门](TensorFlow2.x/Keras快速入门.md)
-* [实战项目 1 电影情感分类](TensorFlow2.x/实战项目_1_电影情感分类.md)
-* [实战项目 2 汽车燃油效率](TensorFlow2.x/实战项目_2_汽车燃油效率.md)
-* [实战项目 3 优化 过拟合和欠拟合](TensorFlow2.x/实战项目_3_优化_过拟合和欠拟合.md)
-* [实战项目 4 古诗词自动生成](TensorFlow2.x/实战项目_4_古诗词自动生成.md)
+* [安装指南](/docs/TensorFlow2.x/安装指南.md)
+* [Keras 快速入门](/docs/TensorFlow2.x/Keras快速入门.md)
+* [实战项目 1 电影情感分类](/docs/TensorFlow2.x/实战项目_1_电影情感分类.md)
+* [实战项目 2 汽车燃油效率](/docs/TensorFlow2.x/实战项目_2_汽车燃油效率.md)
+* [实战项目 3 优化 过拟合和欠拟合](/docs/TensorFlow2.x/实战项目_3_优化_过拟合和欠拟合.md)
+* [实战项目 4 古诗词自动生成](/docs/TensorFlow2.x/实战项目_4_古诗词自动生成.md)
 
 切分（分词）
 
@@ -206,7 +206,7 @@ TensorFlow 2.0学习网址
 
 > 第一部分 入门介绍
 
-* 1.) [自然语言处理入门介绍](/nlp/1.自然语言处理入门介绍.md)
+* 1.) [自然语言处理入门介绍](/docs/nlp/1.自然语言处理入门介绍.md)
 
 > 第二部分 机器翻译
 
@@ -214,14 +214,14 @@ TensorFlow 2.0学习网址
 
 > 第三部分 篇章分析
 
-* 3.1.) [篇章分析-内容概述](/nlp/3.1.篇章分析-内容概述.md)
-* 3.2.) [篇章分析-内容标签](/nlp/3.2.篇章分析-内容标签.md)
-* 3.3.) [篇章分析-情感分析](/nlp/3.3.篇章分析-情感分析.md)
-* 3.4.) [篇章分析-自动摘要](/nlp/3.4.篇章分析-自动摘要.md)
+* 3.1.) [篇章分析-内容概述](/docs/nlp/3.1.篇章分析-内容概述.md)
+* 3.2.) [篇章分析-内容标签](/docs/nlp/3.2.篇章分析-内容标签.md)
+* 3.3.) [篇章分析-情感分析](/docs/nlp/3.3.篇章分析-情感分析.md)
+* 3.4.) [篇章分析-自动摘要](/docs/nlp/3.4.篇章分析-自动摘要.md)
 
 > 第四部分 UNIT-语言理解与交互技术
 
-* 4.) [UNIT-语言理解与交互技术](/nlp/4.UNIT-语言理解与交互技术.md)
+* 4.) [UNIT-语言理解与交互技术](/docs/nlp/4.UNIT-语言理解与交互技术.md)
 
 ### 应用领域
 
@@ -368,7 +368,7 @@ mage字幕是为给定图像生成文本描述的任务。
 
 ## Graph图计算【慢慢更新】
 
-* 数据集: [data/nlp/graph](data/nlp/graph)
+* 数据集: [https://github.com/apachecn/data/tree/master/graph](https://github.com/apachecn/data/tree/master/graph)
 * 学习资料: spark graphX实战.pdf 【文件太大不方便提供，自己百度】
 
 ## 知识图谱
