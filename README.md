@@ -29,6 +29,10 @@ ApacheCN 的 AI 相关项目告一段落，请大家关注我们的其他计划�
 +   [Quant 译文集](https://github.com/apachecn/apachecn-quant-zh)
 +   [Quant WIKI](https://github.com/apachecn/quant-wiki)
 
+## 贡献指南
+
+为了不断改进翻译质量，我们特此启动了【翻译、校对、笔记整理活动】，开设了多个校对项目。贡献者校对一章之后可以领取千字2\~4元的奖励。进行中的校对活动请见[活动列表](https://home.apachecn.org/#/docs/activity/docs-activity)。更多详情请联系飞龙（Q562826179，V:wizardforcel）。
+
 ## DOCX：开放共享科研记录行动倡议
 
 我们积极响应[科研开源计划（DOCX）](https://mmcheng.net/docx/)。如今开源不仅仅是开放源码，还包括数据集、模型、教程和实验记录。我们也在探讨其它类别的开源方案和协议。
