@@ -16,7 +16,7 @@
 
 * [在线阅读](https://ailearning.apachecn.org)
 * [在线阅读（Gitee）](https://apachecn.gitee.io/ailearning)
-* [ApacheCN 面试求职交流群 724187166](https://jq.qq.com/?_wv=1027&k=54ujcL3)
+* [ApacheCN 面试求职交流群 979932878](https://qm.qq.com/cgi-bin/qm/qr?k=2oFEp1KHbDCP0Te4Wt-I6FOK4hvg4iBk&jump_from=webapi&authKey=dw08LmD1w9km55TSmcW2J4gjeaiyn7KTff+8bnqiIeDweqrzQF2ccsE/hQswWQk7)
 * [ApacheCN 学习资源](http://www.apachecn.org/)
 
 ## 公告
