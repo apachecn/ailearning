@@ -13,6 +13,9 @@ import sys
 import math
 import random
 from operator import itemgetter
+from collections import defaultdict
+# 这是我的自定义库，可以注释掉，代码也可以注释 TimeStat
+from middleware.utils import TimeStat
 print(__doc__)
 # 作用: 使得随机数据可预测
 random.seed(0)
@@ -117,13 +120,20 @@ class UserBasedCF():
         # 统计在相同电影时，不同用户同时出现的次数
         print('building user co-rated movies matrix...', file=sys.stderr)
 
+        # for movie, users in movie2users.items():
+        #     for u in users:
+        #         for v in users:
+        #             if u == v:
+        #                 continue
+        #             usersim_mat.setdefault(u, {})
+        #             usersim_mat[u].setdefault(v, 0)
+        #             usersim_mat[u][v] += 1
         for movie, users in movie2users.items():
             for u in users:
+                usersim_mat.setdefault(u, defaultdict(int))
                 for v in users:
                     if u == v:
                         continue
-                    usersim_mat.setdefault(u, {})
-                    usersim_mat[u].setdefault(v, 0)
                     usersim_mat[u][v] += 1
         print('build user co-rated movies matrix success', file=sys.stderr)
 
@@ -132,10 +142,13 @@ class UserBasedCF():
         simfactor_count = 0
         PRINT_STEP = 2000000
         for u, related_users in usersim_mat.items():
-            for v, count in related_users.iteritems():
-                # 余弦相似度
+            for v, count in related_users.items():
+                # 余弦相似度(有问题)
                 usersim_mat[u][v] = count / math.sqrt(
                     len(self.trainset[u]) * len(self.trainset[v]))
+                # 杰卡德（Jaccard）相似性
+                # usersim_mat[u][v] = count / (len(set(self.trainset[u] + self.trainset[v]))
+
                 simfactor_count += 1
                 # 打印进度条
                 if simfactor_count % PRINT_STEP == 0:
@@ -165,7 +178,7 @@ class UserBasedCF():
         for v, wuv in sorted(
                 self.user_sim_mat[user].items(), key=itemgetter(1),
                 reverse=True)[0:K]:
-            for movie, rating in self.trainset[v].iteritems():
+            for movie, rating in self.trainset[v].items():
                 if movie in watched_movies:
                     continue
                 # predict the user's "interest" for each movie
@@ -224,15 +237,22 @@ class UserBasedCF():
             precision, recall, coverage, popularity), file=sys.stderr)
 
 
-if __name__ == '__main__':
+@TimeStat
+def main():
+    path_root = "/Users/jiangzl/work/data/机器学习"
     # ratingfile = 'data/16.RecommenderSystems/ml-1m/ratings.dat'
-    ratingfile = 'data/16.RecommenderSystems/ml-100k/u.data'
+    ratingfile = '%s/16.RecommenderSystems/ml-100k/u.data' % path_root
 
     # 创建UserCF对象
     usercf = UserBasedCF()
     # 将数据按照 7:3的比例，拆分成: 训练集和测试集，存储在usercf的trainset和testset中
     usercf.generate_dataset(ratingfile, pivot=0.7)
-    # 计算用户之间的相似度
-    usercf.calc_user_sim()
-    # 评估推荐效果
-    usercf.evaluate()
+    print(usercf.testset)
+    # # 计算用户之间的相似度
+    # usercf.calc_user_sim()
+    # # 评估推荐效果
+    # usercf.evaluate()
+
+
+if __name__ == '__main__':
+    main()
