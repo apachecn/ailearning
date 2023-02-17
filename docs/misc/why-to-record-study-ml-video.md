@@ -1,14 +1,14 @@
-![ApacheCN](http://www.apachecn.org/wp-content/uploads/2017/10/apachecn-logo.png)
+![ApacheCN](https://www.apachecn.org/wp-content/uploads/2017/10/apachecn-logo.png)
 
 ## 前言
 无意间，2017 年马上又要结束了，时间过得真快啊，又要老一岁了 。。。
 
-![](http://www.apachecn.org/wp-content/uploads/2017/11/apachecn_zhuangbirufeng.jpg)
+![](https://www.apachecn.org/wp-content/uploads/2017/11/apachecn_zhuangbirufeng.jpg)
 
 在 2016 年 4 月份的时候，有一个想法，就是一个人想翻译下官方文档，感觉这样做的话，学习东西的话也会快很多，对自己也是一个提升，同时还可以帮助到其他的朋友，何乐而不为呢？？？  
 有了这个想法之后，就跟一些朋友聊了一下，看一下可行性怎么样，大家都觉得有搞头，可以操作一波。（好可惜呀，跟好多人说了这个想法，真正想做并能坚持的朋友，貌似没有几个了，坚持着不该坚持的坚持，执着着不该执着的执着 。。。）
 
-在 2016 年 7 月份的时候，才真正的打算做这件事情，那时候年少轻狂，写了一篇文章 [伟大的航道，前往新世界](http://www.apachecn.org/newworld/11.html)（**注: 了解 ApacheCN 必读**） 文章，简单的说了下自己的经历和想法，一些想做的事情，想找更多的朋友一起来翻译下官方文档。
+在 2016 年 7 月份的时候，才真正的打算做这件事情，那时候年少轻狂，写了一篇文章 [伟大的航道，前往新世界](https://www.apachecn.org/newworld/11.html)（**注: 了解 ApacheCN 必读**） 文章，简单的说了下自己的经历和想法，一些想做的事情，想找更多的朋友一起来翻译下官方文档。
 
 由于当时做的是大数据方面的，所以更多的是翻译 Spark，Storm，Kudu，Zeepelin，Kibana，Elasticsearch 。。。等等和大数据相关的官方文档了，中间有很多故事由于篇幅原因，就先不细说了。至今为止，以上技术相关的文档，基本上都算是翻译好了，算是能看了，虽然还需要更进一步的完善，至少聊胜于无啊！~
 
@@ -29,7 +29,7 @@
 
 就这样，在 2017 年 6 月底，踏上了装逼不归路，再不疯狂一把，我们就真的老了。。。
 
-![好好读书，不要再装逼了](http://www.apachecn.org/wp-content/uploads/2017/09/apachecn-zhuangbi-1.jpg)
+![好好读书，不要再装逼了](https://www.apachecn.org/wp-content/uploads/2017/09/apachecn-zhuangbi-1.jpg)
 
 ## 装逼的不归路
 自从走上了装逼的不归路之后，腰不酸了，腿不疼了，一口气装完逼脸不红，心也不跳了。。。
@@ -56,7 +56,7 @@
 ## 组织目标
 第一目标: 国内第一装逼组织，大家去哪里装逼的时候，都能遇到组织成员就刺激了。  
 第二目标: 等你来定义 。。。
-![让我看看是谁在装逼](http://www.apachecn.org/wp-content/uploads/2017/11/apachecn_shishuizaizhuangbi.jpg)
+![让我看看是谁在装逼](https://www.apachecn.org/wp-content/uploads/2017/11/apachecn_shishuizaizhuangbi.jpg)
 
 ## 组织是做什么的
 请看 [apachecn.org](http://www.apachecn.org) 组织首页的介绍，专注于优秀项目维护的开源组织，不止于权威的文档视频技术支持。  
@@ -80,7 +80,7 @@
 
 特喵的，技术没学到什么，图片倒是收藏了很多张 。。。
 
-![发图就躲起来](http://www.apachecn.org/wp-content/uploads/2017/11/apachecn_fatujiuduoqilai.jpg)
+![发图就躲起来](https://www.apachecn.org/wp-content/uploads/2017/11/apachecn_fatujiuduoqilai.jpg)
 
 ## 组织架构
 为何要完善组织架构？？？
@@ -91,7 +91,7 @@
 5. 。。。等等。
 6. 竟然还有小伙伴问，能不能兑换翔 。。。我也是无话可说。
 
-![这B装的可以](http://www.apachecn.org/wp-content/uploads/2017/11/apachecn_zhebizhuangdekeyi.jpg)
+![这B装的可以](https://www.apachecn.org/wp-content/uploads/2017/11/apachecn_zhebizhuangdekeyi.jpg)
 
 ## 组织积分制
 正在完善组织积分制，简单来说就是参与组织的一些活动，比如参与翻译，参与反馈，参与宣传活动等等啥的，都会获得相应的积分。
@@ -121,11 +121,11 @@
 2. 如果你是大佬: 非常欢迎大佬们，来一起装逼。
 3. 如果你单纯的只是想找大佬来带你，怕是你又来错地方了 。。。- - 、
 
-![一起走的更远](http://www.apachecn.org/wp-content/uploads/2017/08/apachecn-go-far-go-together-768x576.jpg)
+![一起走的更远](https://www.apachecn.org/wp-content/uploads/2017/08/apachecn-go-far-go-together-768x576.jpg)
 
 ## 了解我们
 以前写的一些文章，如果想了解我们更多一点的话，必看的哟！~
-1. [伟大的航道，前往新世界](http://www.apachecn.org/newworld/11.html)
+1. [伟大的航道，前往新世界](https://www.apachecn.org/newworld/11.html)
 2. [关于我们](http://cwiki.apachecn.org/pages/viewpage.action?pageId=2887240)
 
 ## 支持我们

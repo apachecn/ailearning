@@ -10,7 +10,7 @@
 
 * [在线阅读](https://hands1ml.apachecn.org/)
 * [ApacheCN 面试求职交流群 724187166](https://jq.qq.com/?_wv=1027&k=54ujcL3)
-* [ApacheCN 学习资源](http://www.apachecn.org/)
+* [ApacheCN 学习资源](https://www.apachecn.org/)
 * [利用 Python 进行数据分析 第二版](https://github.com/apachecn/pyda-2e-zh)
 
 ## 编译
