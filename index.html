@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="asset/style.css">
   <link rel="stylesheet" href="asset/prism-darcula.css">
   <link rel="stylesheet" href="asset/sidebar.min.css">
-  <link rel="stylesheet" href="asset/gitalk.css">
   <style>
     .cover-main {margin: 0 !important}
   </style>
@@ -68,20 +67,9 @@
         errorText: 'Error',
         successText: 'OK!',
       },
-      gitalk: {
-        clientID: 'f27b87eb424ba43df978',
-        clientSecret: 'a3e082be288c2bbe6cd67f483348c4dab570903a',
-        repo: 'ailearning',
-        owner: 'apachecn',
-        admin: ['jiangzhonglian', 'wizardforcel'],
-        id: md5('/'),
-        distractionFreeMode: false,
-        container: 'gitalk-container',
-      },
     }
   </script>
   <script src="asset/ga.min.js"></script>
-  <script src="asset/gitalk.min.js"></script>
   <script src="asset/docsify-katex.js"></script>
   <link rel="stylesheet" href="asset/katex.min.css"/>
   <script src="asset/docsify.min.js"></script>
@@ -97,5 +85,23 @@
   <link rel="stylesheet" href="asset/docsify-quick-page.css">
   <script src="asset/docsify-quick-page.js"></script>
   <script src="asset/docsify-sidebar-collapse.min.js"></script>
+  <!-- 来必力City版安装代码 -->
+  <div id="lv-container" data-id="city" data-uid="MTAyMC81ODA2NC8zNDUyNw==">
+    <script type="text/javascript">
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+
+        if (typeof LivereTower === 'function') { return; }
+
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+    </script>
+  <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+  </div>
+  <!-- City版安装代码已完成 -->
 </body>
 </html>
