@@ -10,24 +10,24 @@
   <link rel="stylesheet" href="asset/style.css">
   <link rel="stylesheet" href="asset/prism-darcula.css">
   <link rel="stylesheet" href="asset/sidebar.min.css">
+  <link rel="stylesheet" href="asset/gitalk.css">
+  <style>
+    .cover-main {margin: 0 !important}
+  </style>
 
-    <!-- wwads-cn union -->
-    <meta name="wwads-cn-verify" content="03c6b06952c750899bb03d998e631860" />
-    <script type="text/javascript" charset="UTF-8" src="https://cdn.wwads.cn/js/makemoney.js" async></script>
-  
+  <!-- wwads-cn union -->
+  <meta name="wwads-cn-verify" content="03c6b06952c750899bb03d998e631860" />
+  <script type="text/javascript" charset="UTF-8" src="https://cdn.wwads.cn/js/makemoney.js" async></script>
   <!-- google ads -->
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  
   <!-- google webmaster -->
   <meta name="google-site-verification" content="pyo9N70ZWyh8JB43bIu633mhxesJ1IcwWCZlM3jUfFo" />
-  
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-8DP4GX97XY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-8DP4GX97XY');
   </script>
 
@@ -39,6 +39,7 @@
   <script src="asset/edit.js"></script>
   <link rel="stylesheet" href="asset/back-to-top.css">
   <script src="asset/back-to-top.js"></script>
+  <script src="asset/md5.min.js"></script>
 </head>
 <body>
   <div id="app">now loading...</div>
@@ -56,6 +57,7 @@
       },
       bdStatId: '38525fdac4b5d4403900b943d4e7dd91',
       cnzzId: '1275211409',
+      ga: 'UA-127082511-1',
       search: {
         paths: 'auto',
         placeholder: '搜索',
@@ -66,9 +68,20 @@
         errorText: 'Error',
         successText: 'OK!',
       },
+      gitalk: {
+        clientID: 'f27b87eb424ba43df978',
+        clientSecret: 'a3e082be288c2bbe6cd67f483348c4dab570903a',
+        repo: 'ailearning',
+        owner: 'apachecn',
+        admin: ['jiangzhonglian', 'wizardforcel'],
+        id: md5('/'),
+        distractionFreeMode: false,
+        container: 'gitalk-container',
+      },
     }
   </script>
-  
+  <script src="asset/ga.min.js"></script>
+  <script src="asset/gitalk.min.js"></script>
   <script src="asset/docsify-katex.js"></script>
   <link rel="stylesheet" href="asset/katex.min.css"/>
   <script src="asset/docsify.min.js"></script>
@@ -76,7 +89,6 @@
   <script src="asset/prism-python.min.js"></script>
   <script>Prism.languages.py = Prism.languages.python</script>
   <script src="asset/docsify-copy-code.min.js"></script>
-  <script src="asset/docsify-baidu-push.js"></script>
   <script src="asset/docsify-baidu-push.js"></script>
   <script src="asset/docsify-baidu-stat.js"></script>
   <script src="asset/docsify-cnzz.js"></script>
