@@ -1,5 +1,4 @@
-+   [简介](README.md)
-+   [路线图](docs/roadmap.md)
++   [快速入门](docs/README.md)
 +   [数据分析](docs/da/README.md)
     +   [01\. Python 工具](docs/da/001.md)
         +   [Python 简介](docs/da/002.md)

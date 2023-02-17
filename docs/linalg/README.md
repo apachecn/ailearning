@@ -9,7 +9,7 @@
 * [在线阅读](https://linalg.apachecn.org)
 * [在线阅读（Gitee）](https://apachecn.gitee.io/mit-18.06-linalg-notes/)
 * [ApacheCN 机器学习交流群 629470233](http://shang.qq.com/wpa/qunwpa?idkey=30e5f1123a79867570f665aa3a483ca404b1c3f77737bc01ec520ed5f078ddef)
-* [ApacheCN 学习资源](http://www.apachecn.org/)
+* [ApacheCN 学习资源](https://www.apachecn.org/)
 
 ## 联系方式
 
@@ -21,7 +21,7 @@
 
 *   在我们的 [apachecn/mit-18.06-linalg-notes](https://github.com/apachecn/mit-18.06-linalg-notes) github 上提 issue.
 *   发邮件到 Email: `apachecn@163.com`.
-*   在我们的 [组织学习交流群](http://www.apachecn.org/organization/348.html) 中联系群主/管理员即可.
+*   在我们的 [组织学习交流群](https://www.apachecn.org/organization/348.html) 中联系群主/管理员即可.
 
 
 ## 下载

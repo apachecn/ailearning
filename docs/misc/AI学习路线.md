@@ -652,7 +652,7 @@ AI有道: 红色石头
 * **黄博（机器学习初学者）**: 机器学习课程在国内还不够普及，大部分初学者还是很迷茫，走了很多弯路，黄海广博士希望能尽自己的微薄之力，为机器学习初学者提供一个学习交流的平台。
 
 ![图片](https://uploader.shimo.im/f/FUax8CI2ZTYyvYcF.png!thumbnail)
-* **ApacheCN**: 一个致力于提供优质开源项目的开源组织，致力于AI文档翻译，Kaggle比赛交流、LeetCode算法刷题、大数据交流等项目。我们希望做出广大 AI 爱好者真正需要的东西，打造真正有价值的长尾作品。官方网址: [http://www.apachecn.org/](http://www.apachecn.org/)，点击阅读原文即可查看。
+* **ApacheCN**: 一个致力于提供优质开源项目的开源组织，致力于AI文档翻译，Kaggle比赛交流、LeetCode算法刷题、大数据交流等项目。我们希望做出广大 AI 爱好者真正需要的东西，打造真正有价值的长尾作品。官方网址: [https://www.apachecn.org/](https://www.apachecn.org/)，点击阅读原文即可查看。
 
 ## 
 
