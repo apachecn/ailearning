@@ -541,6 +541,7 @@ Netflix的个性化和推荐系统架构
           * [精通正则表达式](https://book.douban.com/subject/2154713/)
           * regexper 可视化:  [例 [a-z]*(\d{4}(\D+))](https://regexper.com/#%5Ba-z%5D*(%5Cd%7B4%7D(%5CD%2B)))
           * pythex 在线测试正则表达式 [http://pythex.org/](http://pythex.org/)
+          * pyrexp 正则表达式的测试和可视化 [https://pythonium.net/regex](https://pythonium.net/regex)
 
 推荐资料进阶: 
           * re2 一个更快的Cython实现 [https://pypi.python.org/pypi/re2/](https://pypi.python.org/pypi/re2/)
